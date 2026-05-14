@@ -1,0 +1,22 @@
+{
+  "name": "xbert-review",
+  "version": "0.1.0",
+  "description": "Run month-end exception review with XBert AI agents.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-review",
+  "license": "MIT",
+  "keywords": ["bookkeeping", "review", "exceptions", "month-end"],
+  "x-xbert": {
+    "displayName": "XBert Month-End Review",
+    "tagline": "One command to run a full exception review with audit workpapers.",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["review", "compliance"],
+    "prerequisites": [
+      "XBert account (Growth tier or above)",
+      "Connected ledger (Xero, QBO, or MYOB)"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 }
+  }
+}

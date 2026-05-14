@@ -1,0 +1,22 @@
+{
+  "name": "xbert-reconcile",
+  "version": "0.1.0",
+  "description": "Reconcile bank lines against ledger entries using XBert matching.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-reconcile",
+  "license": "MIT",
+  "keywords": ["bookkeeping", "reconciliation", "bank", "matching"],
+  "x-xbert": {
+    "displayName": "XBert Bank Reconciliation",
+    "tagline": "Auto-match bank lines to ledger entries with explanations you can audit.",
+    "audience": ["bookkeepers"],
+    "categories": ["reconciliation", "daily"],
+    "prerequisites": [
+      "XBert account",
+      "Connected bank feed (any major Australian or NZ bank)"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 }
+  }
+}
