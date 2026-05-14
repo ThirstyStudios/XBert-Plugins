@@ -3,27 +3,19 @@
   "name": "xbert",
   "description": "XBert plugins for accounting firms and bookkeepers — review, reconciliation, client comms.",
   "owner": {
-    "name": "XBert Intelligence",
+    "name": "XBert Intelligence Plugins",
     "email": "hello@xbert.io"
   },
   "plugins": [
     {
       "name": "xbert-review",
-      "source": {
-        "type": "github",
-        "repo": "xbert-intelligence/plugins",
-        "path": "plugins/xbert-review"
-      },
+      "source": "./plugins/xbert-review",
       "description": "Run month-end exception review with XBert AI agents.",
       "version": "0.1.0"
     },
     {
       "name": "xbert-reconcile",
-      "source": {
-        "type": "github",
-        "repo": "xbert-intelligence/plugins",
-        "path": "plugins/xbert-reconcile"
-      },
+      "source": "./plugins/xbert-reconcile",
       "description": "Reconcile bank lines against ledger entries using XBert matching.",
       "version": "0.1.0"
     }
