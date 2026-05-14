@@ -1,0 +1,11 @@
+{
+  "bundles": [
+    {
+      "id": "bookkeeping-essentials",
+      "name": "Bookkeeping Essentials",
+      "tagline": "Daily and monthly workflows for bookkeeping practices.",
+      "audience": "bookkeepers",
+      "plugins": ["xbert-review", "xbert-reconcile"]
+    }
+  ]
+}

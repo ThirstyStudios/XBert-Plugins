@@ -13,11 +13,11 @@ Run a full month-end exception review on a connected ledger with one command.
 - A connected ledger: Xero, QBO, or MYOB
 
 ## Usage
-After installing the plugin, run:
+After installing, type:
 
     /review
 
-in any Claude Code session.
+in any Claude chat (Desktop or Code).
 
 ## Support
 hello@xbert.io

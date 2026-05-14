@@ -1,0 +1,70 @@
+import { Link } from "react-router";
+import { motion } from "motion/react";
+import { ArrowUpRight } from "lucide-react";
+import type { Plugin } from "../lib/catalog";
+
+type Props = {
+  plugin: Plugin;
+  index?: number;
+};
+
+export function PluginCard({ plugin, index = 0 }: Props) {
+  const x = plugin["x-xbert"];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.04 * index, ease: "easeOut" }}
+      whileHover={{ y: -3 }}
+      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-6 transition-colors hover:border-white/20"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 0%, rgba(59,130,246,0.10), transparent 50%)",
+        }}
+      />
+      <Link to={`/plugins/${plugin.slug}`} className="relative block">
+        <div className="flex items-start justify-between">
+          <div className="flex-1 pr-3">
+            <h3 className="text-lg font-semibold tracking-tight text-white">
+              {x.displayName}
+            </h3>
+            <p className="mt-1.5 text-sm text-neutral-400 line-clamp-2">
+              {x.tagline}
+            </p>
+          </div>
+          <ArrowUpRight
+            size={18}
+            className="mt-1 text-neutral-500 transition-all group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          />
+        </div>
+
+        <div className="mt-5 flex flex-wrap gap-1.5">
+          {x.categories.map((c) => (
+            <span
+              key={c}
+              className="text-[10.5px] uppercase tracking-wider px-2 py-1 rounded-full bg-white/[0.06] text-neutral-300 border border-white/5"
+            >
+              {c}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-5 flex items-center gap-3 text-[11px] text-neutral-500 font-mono">
+          <span>v{plugin.version}</span>
+          <span className="opacity-30">·</span>
+          <span>
+            {x.includes.skills} skill{x.includes.skills === 1 ? "" : "s"}
+          </span>
+          <span className="opacity-30">·</span>
+          <span>
+            {x.includes.commands} cmd{x.includes.commands === 1 ? "" : "s"}
+          </span>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}

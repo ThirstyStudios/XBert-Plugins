@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #07090d;
+  --color-bg-soft: #0b0d12;
+  --color-fg: #f5f6f7;
+  --color-muted: #9aa0a6;
+  --color-accent: #3b82f6;
+  --color-accent-2: #06b6d4;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Inter", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59, 130, 246, 0.18), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 0%, rgba(6, 182, 212, 0.10), transparent 55%),
+    var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+a { text-decoration: none; }
+/* Don't let body color leak into anchors — Tailwind text-* utilities win */
+
+::selection { background: rgba(59, 130, 246, 0.35); }
+
+.scroll-shadow {
+  background:
+    linear-gradient(var(--color-bg) 33%, rgba(11, 13, 18, 0)),
+    linear-gradient(rgba(11, 13, 18, 0), var(--color-bg) 66%) 0 100%,
+    radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 0.35), transparent),
+    radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.35), transparent) 0 100%;
+  background-color: var(--color-bg);
+  background-repeat: no-repeat;
+  background-attachment: local, local, scroll, scroll;
+  background-size: 100% 24px, 100% 24px, 100% 8px, 100% 8px;
+}
+
+/* Subtle animated grid background for hero */
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 65% 50% at 50% 30%, black 40%, transparent 80%);
+}
