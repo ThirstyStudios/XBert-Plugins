@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import HomePage from "./pages/Home";
+import ConnectPage from "./pages/Connect";
 import PluginsPage from "./pages/Plugins";
 import PluginDetailPage from "./pages/PluginDetail";
 import InstallPage from "./pages/Install";
@@ -21,6 +22,7 @@ function AnimatedRoutes() {
       >
         <Routes location={location}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/connect" element={<ConnectPage />} />
           <Route path="/plugins" element={<PluginsPage />} />
           <Route path="/plugins/:slug" element={<PluginDetailPage />} />
           <Route path="/install" element={<InstallPage />} />

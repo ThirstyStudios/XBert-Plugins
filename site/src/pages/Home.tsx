@@ -19,10 +19,10 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-neutral-300 mb-8"
+            className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/5 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-300 mb-8"
           >
-            <Sparkles size={12} className="text-blue-400" />
-            New: official Claude Code marketplace for accounting practices
+            <Sparkles size={12} className="text-blue-500 dark:text-blue-400" />
+            New: bring an accounting practice into Claude
           </motion.div>
 
           <motion.h1
@@ -31,28 +31,29 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.05 }}
             className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.05] max-w-4xl"
           >
-            Claude Code plugins that{" "}
+            XBert is the MCP that{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage:
-                  "linear-gradient(135deg, #60a5fa 0%, #22d3ee 60%, #a78bfa 100%)",
+                  "linear-gradient(135deg, #2563eb 0%, #0891b2 60%, #7c3aed 100%)",
               }}
             >
-              close the books
+              turns Claude
             </span>{" "}
-            faster.
+            into your firm's analyst.
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-7 text-lg md:text-xl text-neutral-300 max-w-2xl leading-relaxed"
+            className="mt-7 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed"
           >
-            Drop XBert's exception review, reconciliation and client-comms
-            agents into Claude Code. One command per workflow, a full audit
-            trail, no surprises.
+            XBert exposes 70+ accounting tools — exception review,
+            reconciliation, client comms, BI — through the Model Context
+            Protocol. Add it to Claude or Claude Code in a minute, and your
+            books become something Claude can actually work on.
           </motion.p>
 
           <motion.div
@@ -62,20 +63,25 @@ export default function HomePage() {
             className="mt-10 flex flex-wrap items-center gap-3"
           >
             <Link
-              to="/plugins"
-              style={{ color: "#0a0a0a" }}
-              className="group inline-flex items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-semibold shadow-lg shadow-blue-500/10 ring-1 ring-white/40 hover:bg-neutral-100 transition"
+              to="/connect"
+              className="group inline-flex items-center gap-2 rounded-md bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-5 py-2.5 text-sm font-semibold shadow-lg shadow-blue-500/10 ring-1 ring-black/10 dark:ring-white/40 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition"
             >
-              Browse plugins
+              Add XBert to Claude
               <ArrowRight
                 size={16}
                 strokeWidth={2.5}
                 className="transition-transform group-hover:translate-x-0.5"
               />
             </Link>
+            <Link
+              to="/plugins"
+              className="inline-flex items-center gap-2 rounded-md border border-black/15 bg-black/[0.03] text-neutral-900 hover:bg-black/[0.06] dark:border-white/15 dark:bg-white/[0.04] dark:text-white dark:hover:bg-white/[0.08] dark:hover:border-white/25 px-5 py-2.5 text-sm font-medium transition"
+            >
+              Browse plugins
+            </Link>
             <a
               href="#install"
-              className="inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/[0.04] text-white px-5 py-2.5 text-sm font-medium hover:bg-white/[0.08] hover:border-white/25 transition"
+              className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition px-2 py-2.5"
             >
               How to install
             </a>
@@ -90,7 +96,7 @@ export default function HomePage() {
             className="mt-14 max-w-2xl scroll-mt-24"
           >
             <div className="text-xs uppercase tracking-wider text-neutral-500 mb-3">
-              Install the full set
+              Connect XBert
             </div>
             <InstallSteps
               slugs={plugins.map((p) => p.slug)}
@@ -109,19 +115,19 @@ export default function HomePage() {
         <div className="mt-10 grid md:grid-cols-3 gap-4">
           {[
             {
-              icon: <Zap size={18} className="text-blue-400" />,
-              title: "One command per workflow",
-              body: "Slash commands wrap the whole job: exception review, reconciliation, client comms. No prompt-engineering.",
+              icon: <Zap size={18} className="text-blue-500 dark:text-blue-400" />,
+              title: "70+ tools, one connector",
+              body: "The XBert MCP gives Claude direct access to your ledgers, notifications, and BI — no glue code, no copy-paste between apps.",
             },
             {
-              icon: <ShieldCheck size={18} className="text-emerald-400" />,
+              icon: <ShieldCheck size={18} className="text-emerald-500 dark:text-emerald-400" />,
               title: "Audit-trail first",
-              body: "Every action is proposed, never auto-applied. Markdown workpapers fall out the end, ready for review.",
+              body: "Every action is proposed, never auto-applied. OAuth 2.1 with PKCE — credentials stay with XBert. Markdown workpapers fall out the end.",
             },
             {
-              icon: <FileSearch size={18} className="text-violet-400" />,
+              icon: <FileSearch size={18} className="text-violet-500 dark:text-violet-400" />,
               title: "Skills, not prompts",
-              body: "Each plugin ships skills with calibrated methodology. Claude follows your firm's rules, not a generic LLM blob.",
+              body: "The Claude Code plugins layer slash commands and calibrated skills on top of the same MCP. Claude follows your firm's rules, not a generic LLM blob.",
             },
           ].map((f, i) => (
             <motion.div
@@ -130,13 +136,13 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: 0.05 * i }}
-              className="rounded-2xl border border-white/10 bg-white/[0.02] p-6"
+              className="rounded-2xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] p-6"
             >
-              <div className="inline-flex items-center justify-center size-9 rounded-lg bg-white/[0.06] border border-white/10 mb-4">
+              <div className="inline-flex items-center justify-center size-9 rounded-lg border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/[0.06] mb-4">
                 {f.icon}
               </div>
               <h3 className="text-base font-semibold">{f.title}</h3>
-              <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 {f.body}
               </p>
             </motion.div>
@@ -149,15 +155,15 @@ export default function HomePage() {
         <div className="flex items-end justify-between mb-8">
           <div>
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              Latest plugins
+              Claude Code plugins powered by XBert
             </h2>
-            <p className="mt-1 text-sm text-neutral-400">
-              {plugins.length} plugin{plugins.length === 1 ? "" : "s"} available.
+            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+              {plugins.length} XBert-powered plugin{plugins.length === 1 ? "" : "s"} for Claude Code.
             </p>
           </div>
           <Link
             to="/plugins"
-            className="text-sm text-neutral-300 hover:text-white inline-flex items-center gap-1 group"
+            className="text-sm text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white inline-flex items-center gap-1 group"
           >
             See all{" "}
             <ArrowRight
@@ -182,18 +188,22 @@ export default function HomePage() {
           {[
             {
               n: "01",
-              title: "Open Claude Desktop",
-              body: "Head into the Cowork tab, then Customize. The plugin marketplace lives there.",
+              title: "Add XBert to Claude",
+              body: (
+                <>
+                  In Claude, open <span className="font-mono text-neutral-900 dark:text-neutral-100">Settings → Integrations</span> and add a custom MCP connector pointing at <span className="font-mono text-neutral-900 dark:text-neutral-100">https://mcp-gateway.xbert.io/mcp</span>. Sign in with XBert.
+                </>
+              ),
             },
             {
               n: "02",
-              title: "Install the plugins you want",
-              body: "Search for XBert (or paste the GitHub repo) and click Install on each plugin. Authorize the permissions prompt.",
+              title: "Ask Claude to do practice work",
+              body: "Claude gets 70+ XBert tools — exception review, reconciliation, BI queries — and runs them with full auth and an audit trail.",
             },
             {
               n: "03",
-              title: "Use the commands",
-              body: "Type /review, /reconcile, or whichever slash command the plugin ships. Workflows fire end-to-end.",
+              title: "Bring your firm's rules to Claude Code",
+              body: "Want slash commands and skills built on the MCP? Install the XBert plugins for Claude Code. Same data, packaged into preset workflows.",
             },
           ].map((s, i) => (
             <motion.li
@@ -202,11 +212,11 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: 0.05 * i }}
-              className="rounded-2xl border border-white/10 bg-white/[0.02] p-6"
+              className="rounded-2xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] p-6"
             >
-              <div className="text-xs font-mono text-blue-400">{s.n}</div>
+              <div className="text-xs font-mono text-blue-500 dark:text-blue-400">{s.n}</div>
               <h3 className="mt-2 text-base font-semibold">{s.title}</h3>
-              <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
+              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 {s.body}
               </p>
             </motion.li>

@@ -1,9 +1,9 @@
 # XBert Plugins
 
-The public plugin marketplace for **XBert** — Claude Code plugins for accounting practices and bookkeepers.
+**XBert** is the MCP for accounting practices. This repo holds the public storefront at https://plugins.xbert.io and the Claude Code plugins built on top of the XBert MCP.
 
-- **Live storefront:** https://plugins.xbert.io
-- **Add this marketplace in Claude Code:** `/plugin marketplace add ThirstyStudios/XBert-Plugins`
+- **Connect XBert to Claude (claude.ai / Desktop):** add a custom MCP connector pointing at `https://mcp-gateway.xbert.io/mcp` — full guide at https://support.xbert.io/en/articles/14492922-how-to-add-xbert-as-a-custom-mcp-connector-in-claude
+- **Add the plugin marketplace in Claude Code:** `/plugin marketplace add ThirstyStudios/XBert-Plugins`
 
 ## What's inside
 

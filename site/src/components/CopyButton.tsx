@@ -19,7 +19,8 @@ export function CopyButton({ text, label = "Copy" }: Props) {
           // ignore
         }
       }}
-      className="relative inline-flex items-center gap-2 rounded-md bg-white/10 hover:bg-white/20 px-3 py-1.5 text-xs font-medium tracking-wide transition border border-white/10"
+      type="button"
+      className="relative inline-flex items-center gap-2 rounded-md bg-black/[0.05] hover:bg-black/[0.10] border-black/10 dark:bg-white/10 dark:hover:bg-white/20 dark:border-white/10 px-3 py-1.5 text-xs font-medium tracking-wide transition border"
     >
       <AnimatePresence mode="wait" initial={false}>
         {copied ? (

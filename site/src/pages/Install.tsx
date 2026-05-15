@@ -54,27 +54,26 @@ export default function InstallPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-neutral-300 mb-6">
-          <Terminal size={12} className="text-blue-400" />
-          For Claude Code (CLI)
+        <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/5 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-300 mb-6">
+          <Terminal size={12} className="text-blue-500 dark:text-blue-400" />
+          For Claude Code
         </div>
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
           Build a multi-plugin install snippet.
         </h1>
-        <p className="mt-3 text-neutral-400 max-w-2xl">
-          Tick the plugins you want. The install snippet on the left updates
-          live, and the URL stays in sync so you can share or bookmark a bundle.
-          Paste the result into Claude Code.
+        <p className="mt-3 text-neutral-600 dark:text-neutral-400 max-w-2xl">
+          Tick the XBert plugins you want. The install snippet on the left
+          updates live, and the URL stays in sync so you can share or bookmark a
+          bundle. Paste the result into Claude Code.
         </p>
 
-        <div className="mt-6 flex items-start gap-3 rounded-xl border border-blue-400/15 bg-blue-400/[0.04] px-4 py-3 text-sm text-neutral-300 max-w-2xl">
-          <Info size={16} className="mt-0.5 text-blue-400 flex-shrink-0" />
+        <div className="mt-6 flex items-start gap-3 rounded-xl border border-blue-400/20 bg-blue-400/[0.06] dark:border-blue-400/15 dark:bg-blue-400/[0.04] px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 max-w-2xl">
+          <Info size={16} className="mt-0.5 text-blue-500 dark:text-blue-400 flex-shrink-0" />
           <div>
-            On <span className="font-medium text-white">Claude Desktop</span>,
-            you don&apos;t need this — install plugins directly from the Cowork
-            marketplace UI.{" "}
-            <Link to="/" className="text-blue-400 hover:underline">
-              See the Desktop install steps →
+            On <span className="font-medium text-neutral-900 dark:text-white">Claude (claude.ai or Desktop)</span>,
+            use the custom MCP connector instead of this CLI bundle.{" "}
+            <Link to="/connect" className="text-blue-500 dark:text-blue-400 hover:underline">
+              See connect steps →
             </Link>
           </div>
         </div>
@@ -91,7 +90,8 @@ export default function InstallPage() {
             {selected.size} plugin{selected.size === 1 ? "" : "s"} selected
             {selected.size > 0 && (
               <button
-                className="ml-3 text-neutral-300 hover:text-white underline"
+                type="button"
+                className="ml-3 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white underline"
                 onClick={() => setSelected(new Set())}
               >
                 Clear
@@ -116,29 +116,29 @@ export default function InstallPage() {
                   onClick={() => toggle(p.slug)}
                   className={`w-full text-left rounded-xl border p-4 transition flex items-start gap-3 ${
                     isSel
-                      ? "border-blue-400/40 bg-blue-400/[0.06]"
-                      : "border-white/10 bg-white/[0.02] hover:bg-white/[0.04]"
+                      ? "border-blue-400/40 bg-blue-400/[0.08] dark:bg-blue-400/[0.06]"
+                      : "border-black/10 bg-black/[0.02] hover:bg-black/[0.04] dark:border-white/10 dark:bg-white/[0.02] dark:hover:bg-white/[0.04]"
                   }`}
                 >
                   <span
                     className={`mt-0.5 inline-flex items-center justify-center size-5 rounded border transition ${
                       isSel
-                        ? "bg-blue-400 border-blue-400 text-black"
-                        : "border-white/20"
+                        ? "bg-blue-500 border-blue-500 text-white dark:bg-blue-400 dark:border-blue-400 dark:text-black"
+                        : "border-black/20 dark:border-white/20"
                     }`}
                   >
                     {isSel && <Check size={12} strokeWidth={3} />}
                   </span>
                   <div className="flex-1">
                     <div className="font-medium">{x.displayName}</div>
-                    <div className="text-sm text-neutral-400 mt-0.5">
+                    <div className="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">
                       {x.tagline}
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {x.categories.map((c) => (
                         <span
                           key={c}
-                          className="text-[10.5px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-white/[0.06] text-neutral-300 border border-white/5"
+                          className="text-[10.5px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-black/[0.05] text-neutral-700 border border-black/5 dark:bg-white/[0.06] dark:text-neutral-300 dark:border-white/5"
                         >
                           {c}
                         </span>
