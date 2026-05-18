@@ -1,5 +1,8 @@
 import data from "../generated/catalog.json";
 
+export type UseCase = { title: string; description: string };
+export type Benefit = { icon: string; title: string; description: string };
+
 export type XbertExt = {
   displayName: string;
   tagline: string;
@@ -9,6 +12,10 @@ export type XbertExt = {
   screenshots: string[];
   demoVideo: string | null;
   includes: { skills: number; commands: number; mcpTools: number };
+  longDescription?: string;
+  useCases?: UseCase[];
+  benefits?: Benefit[];
+  workflow?: string[];
 };
 
 export type Plugin = {
