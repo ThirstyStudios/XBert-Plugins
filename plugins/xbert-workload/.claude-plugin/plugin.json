@@ -1,0 +1,65 @@
+{
+  "name": "xbert-workload",
+  "version": "0.1.0",
+  "description": "Review team workload, estimate variance, and propose rebalances using XBert data.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-workload",
+  "license": "MIT",
+  "keywords": ["practice-management", "workload", "team", "capacity"],
+  "x-xbert": {
+    "displayName": "XBert Team Workload",
+    "tagline": "See who's overloaded, who's running over estimate, and how to rebalance.",
+    "audience": ["practice-managers", "principals"],
+    "categories": ["team", "workload", "weekly"],
+    "prerequisites": [
+      "XBert account with team tracking enabled",
+      "Tasks assigned to team members in XBert"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Senior bookkeepers and accountants are expensive — and in most practices, the same handful of people are quietly over-stretched while others sit idle. The signals are buried in timesheets, task lists, and a gut feel you can't quite act on without data.\n\nXBert Team Workload pulls the team's live assignments, time logged, and estimate-vs-actual numbers from XBert into one weekly view. It shows who's over capacity, who's consistently running over estimate (training gap or unrealistic estimates), and who has room to take on more — with concrete rebalance suggestions you can act on in the Monday huddle.",
+    "useCases": [
+      {
+        "title": "Monday-morning huddle",
+        "description": "Walk into the weekly stand-up with a clear view of where the team actually is, not opinions."
+      },
+      {
+        "title": "Catch the silent over-runner",
+        "description": "Spot a team member running 25%+ over estimate before they burn out or you find it on a client invoice."
+      },
+      {
+        "title": "Rebalance during a crunch",
+        "description": "Mid-quarter, work out who can take a Smith BAS off Sarah without overloading Tom."
+      },
+      {
+        "title": "Client-overdue triage",
+        "description": "See overdues grouped by client so you can call ahead before clients notice."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Users",
+        "title": "End opinion-led rostering",
+        "description": "Decisions about who picks up what get made on data, not whoever shouts loudest in the meeting."
+      },
+      {
+        "icon": "Clock",
+        "title": "Catch overruns early",
+        "description": "Estimate-vs-actual variance flags tasks running long before they hit a client invoice or a deadline."
+      },
+      {
+        "icon": "Scale",
+        "title": "Concrete rebalance suggestions",
+        "description": "Not just 'Sarah is busy' — the plugin proposes specific moves: 'shift Smith BAS from Sarah to Tom, frees ~6h.'"
+      }
+    ],
+    "workflow": [
+      "Type /workload (or /workload <team-member> for a deep dive on one person)",
+      "Plugin pulls active assignments, time entries, and task estimates from XBert",
+      "Computes per-person workload, overdue counts, and estimate variance",
+      "Suggests specific rebalances based on capacity and recent performance",
+      "Outputs a chat summary, with a markdown report on request for the practice meeting"
+    ]
+  }
+}

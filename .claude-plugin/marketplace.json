@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "xbert",
-  "description": "XBert plugins for accounting firms and bookkeepers — review, reconciliation, client comms.",
+  "description": "XBert plugins for accounting firms and bookkeepers — review, reconciliation, workload, client pulse, and capacity.",
   "owner": {
     "name": "XBert Intelligence Plugins",
     "email": "hello@xbert.io"
@@ -17,6 +17,24 @@
       "name": "xbert-reconcile",
       "source": "./plugins/xbert-reconcile",
       "description": "Reconcile bank lines against ledger entries using XBert matching.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-workload",
+      "source": "./plugins/xbert-workload",
+      "description": "Review team workload, estimate variance, and propose rebalances using XBert data.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-pulse",
+      "source": "./plugins/xbert-pulse",
+      "description": "Detect material changes in client transactional tempo and propose actions using XBert.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-capacity",
+      "source": "./plugins/xbert-capacity",
+      "description": "Billable utilisation and WIP variance reporting at practice and client level, using XBert data.",
       "version": "0.1.0"
     }
   ]

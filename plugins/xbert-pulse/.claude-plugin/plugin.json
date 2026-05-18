@@ -1,0 +1,65 @@
+{
+  "name": "xbert-pulse",
+  "version": "0.1.0",
+  "description": "Detect material changes in client transactional tempo and propose actions using XBert.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-pulse",
+  "license": "MIT",
+  "keywords": ["practice-management", "clients", "churn", "growth", "commercial"],
+  "x-xbert": {
+    "displayName": "XBert Client Pulse",
+    "tagline": "Spot clients trending up, down, or off — before you notice on the next invoice.",
+    "audience": ["principals", "practice-managers", "accountants"],
+    "categories": ["clients", "metrics", "commercial"],
+    "prerequisites": [
+      "XBert account with transactional volume tracking",
+      "At least 3 months of historical data for a usable baseline"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "The clients you most need to call are usually the ones you're least aware of. The ones whose volume quietly dropped 50% last month aren't ringing your bell — they're already half-gone. The ones whose volume tripled aren't telling you either — until you under-invoice them and the fixed-fee conversation gets ugly.\n\nXBert Client Pulse compares each client's rolling 1-month transactional volume against their 2-3 month baseline and surfaces material changes — both directions. Up means scaling, service-tier change, more billable work coming. Down means churn risk, seasonal dip, or trouble worth a phone call. Either way, you find out before your competitor does.",
+    "useCases": [
+      {
+        "title": "Fortnightly commercial review",
+        "description": "15 minutes every other Friday gives the practice owner a complete picture of which clients need attention this fortnight."
+      },
+      {
+        "title": "Pricing conversations",
+        "description": "Spot the +85% client and have a service-tier conversation now, while it's still framed as growth-aligned."
+      },
+      {
+        "title": "Churn-risk surfacing",
+        "description": "Catch the client whose volume halved and call them this week — before they tell you they've moved on."
+      },
+      {
+        "title": "Onboarding sanity check",
+        "description": "New clients should ramp; if a six-month-old client's volume is still trending down, something is off."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "TrendingUp",
+        "title": "Find the upgrades before they leave",
+        "description": "Clients scaling out of your service tier surface immediately — you reprice on the way up, not after you've under-served them."
+      },
+      {
+        "icon": "PhoneCall",
+        "title": "Call before they ghost",
+        "description": "Material downward trends turn into a suggested call list so churn risks get a conversation while there's still a relationship."
+      },
+      {
+        "icon": "BarChart3",
+        "title": "Practice-level early warning",
+        "description": "Aggregate pulse across the book tells you whether the practice itself is growing, flat, or shrinking — beyond any one client's noise."
+      }
+    ],
+    "workflow": [
+      "Type /pulse (or /pulse <client> for a single-client deep dive)",
+      "Plugin pulls each client's rolling 1-month and 2-3 month transactional volume from XBert",
+      "Computes percent change, ranks by materiality, applies the practice's thresholds",
+      "Surfaces clients trending up, trending down, and a ranked call list",
+      "Offers to draft outreach for the top one or two priority calls"
+    ]
+  }
+}

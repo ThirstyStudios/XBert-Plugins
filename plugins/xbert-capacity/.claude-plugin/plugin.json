@@ -1,0 +1,65 @@
+{
+  "name": "xbert-capacity",
+  "version": "0.1.0",
+  "description": "Billable utilisation and WIP variance reporting at practice and client level, using XBert data.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-capacity",
+  "license": "MIT",
+  "keywords": ["practice-management", "billable", "wip", "capacity", "monthly"],
+  "x-xbert": {
+    "displayName": "XBert Capacity & Utilisation",
+    "tagline": "Billable, non-billable, WIP variance — and a clean report for your internal accountant.",
+    "audience": ["principals", "practice-managers"],
+    "categories": ["capacity", "billing", "monthly"],
+    "prerequisites": [
+      "XBert account with time tracking and billable flags",
+      "WIP plans (planned hours per engagement) entered in XBert"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Every practice owner asks the same two questions on the last day of the month: how much of our time was billable, and how much did we run over budget on the jobs we said we'd do? The answers usually live across three reports nobody enjoys opening, and the numbers don't always agree.\n\nXBert Capacity & Utilisation answers both in one command. It surfaces the practice-level billable-vs-non-billable split, the WIP variance broken down by client, the engagements running materially over scope, and produces a clean markdown report ready to hand to your own internal accountant — or drop straight into the monthly principals' meeting.",
+    "useCases": [
+      {
+        "title": "Month-end practice review",
+        "description": "On the 1st, see exactly where the practice landed on utilisation and overrun without spending an hour collating."
+      },
+      {
+        "title": "Client over-scope conversations",
+        "description": "Surface the three clients running materially over WIP so the 'expand scope or change fee' conversation starts from evidence."
+      },
+      {
+        "title": "Internal accountant reporting",
+        "description": "Hand the practice's own accountant a structured markdown file every month — same format every time, no more screenshots."
+      },
+      {
+        "title": "Hiring decisions",
+        "description": "Watch utilisation trend over three months; if billable % is consistently >75% and overruns are climbing, it's a hiring signal."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Wallet",
+        "title": "Catch overruns before invoicing",
+        "description": "WIP variance per client surfaces scope creep before you ship the invoice and the conversation gets adversarial."
+      },
+      {
+        "icon": "FileText",
+        "title": "Report ready in seconds",
+        "description": "Markdown report for the internal accountant, formatted consistently month over month. No more pivot tables on the 1st."
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "Trend-aware decisions",
+        "description": "Practice utilisation trended over three months tells you whether to hire, drop a client, or reprice — beyond a single noisy month."
+      }
+    ],
+    "workflow": [
+      "Type /capacity (or /capacity --client <name> for a single client, --export for a markdown report)",
+      "Plugin pulls time entries with billable flags and WIP planned-vs-actual from XBert",
+      "Computes practice-level utilisation, per-client variance, top over-runners",
+      "Highlights clients exceeding the practice's overrun threshold for a scope conversation",
+      "Optionally exports a markdown report to your file system, ready to share"
+    ]
+  }
+}
