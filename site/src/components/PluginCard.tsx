@@ -16,7 +16,7 @@ export function PluginCard({ plugin, index = 0 }: Props) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.04 * index, ease: "easeOut" }}
       whileHover={{ y: -3 }}
-      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-6 transition-colors hover:border-white/20"
+      className="group relative overflow-hidden rounded-2xl border border-black/10 bg-gradient-to-b from-black/[0.03] to-black/[0.01] hover:border-black/20 dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.01] dark:hover:border-white/20 p-6 transition-colors"
     >
       <div
         aria-hidden
@@ -29,16 +29,16 @@ export function PluginCard({ plugin, index = 0 }: Props) {
       <Link to={`/plugins/${plugin.slug}`} className="relative block">
         <div className="flex items-start justify-between">
           <div className="flex-1 pr-3">
-            <h3 className="text-lg font-semibold tracking-tight text-white">
+            <h3 className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-white">
               {x.displayName}
             </h3>
-            <p className="mt-1.5 text-sm text-neutral-400 line-clamp-2">
+            <p className="mt-1.5 text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2">
               {x.tagline}
             </p>
           </div>
           <ArrowUpRight
             size={18}
-            className="mt-1 text-neutral-500 transition-all group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            className="mt-1 text-neutral-500 transition-all group-hover:text-neutral-900 dark:group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           />
         </div>
 
@@ -46,7 +46,7 @@ export function PluginCard({ plugin, index = 0 }: Props) {
           {x.categories.map((c) => (
             <span
               key={c}
-              className="text-[10.5px] uppercase tracking-wider px-2 py-1 rounded-full bg-white/[0.06] text-neutral-300 border border-white/5"
+              className="text-[10.5px] uppercase tracking-wider px-2 py-1 rounded-full bg-black/[0.05] text-neutral-700 border border-black/5 dark:bg-white/[0.06] dark:text-neutral-300 dark:border-white/5"
             >
               {c}
             </span>

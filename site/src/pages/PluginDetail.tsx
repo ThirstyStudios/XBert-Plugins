@@ -49,8 +49,8 @@ export default function PluginDetailPage() {
   if (!p) {
     return (
       <div className="max-w-3xl mx-auto px-6 py-24">
-        <p className="text-neutral-300">Plugin not found.</p>
-        <Link to="/plugins" className="text-blue-400 hover:underline">
+        <p className="text-neutral-700 dark:text-neutral-300">Plugin not found.</p>
+        <Link to="/plugins" className="text-blue-500 dark:text-blue-400 hover:underline">
           ← Back to browse
         </Link>
       </div>
@@ -74,7 +74,7 @@ export default function PluginDetailPage() {
       >
         <Link
           to="/plugins"
-          className="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-white transition"
+          className="inline-flex items-center gap-1 text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition"
         >
           <ArrowLeft size={14} /> All plugins
         </Link>
@@ -85,7 +85,7 @@ export default function PluginDetailPage() {
             {x.categories.map((c) => (
               <span
                 key={c}
-                className="text-[10.5px] uppercase tracking-wider px-2 py-1 rounded-full bg-white/[0.06] text-neutral-300 border border-white/5"
+                className="text-[10.5px] uppercase tracking-wider px-2 py-1 rounded-full bg-black/[0.05] text-neutral-700 border border-black/5 dark:bg-white/[0.06] dark:text-neutral-300 dark:border-white/5"
               >
                 {c}
               </span>
@@ -93,7 +93,7 @@ export default function PluginDetailPage() {
             {x.audience.map((a) => (
               <span
                 key={a}
-                className="text-[10.5px] uppercase tracking-wider px-2 py-1 rounded-full bg-blue-400/[0.08] text-blue-300 border border-blue-400/15"
+                className="text-[10.5px] uppercase tracking-wider px-2 py-1 rounded-full bg-blue-400/[0.10] text-blue-700 border border-blue-400/20 dark:bg-blue-400/[0.08] dark:text-blue-300 dark:border-blue-400/15"
               >
                 {a}
               </span>
@@ -102,9 +102,13 @@ export default function PluginDetailPage() {
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
             {x.displayName}
           </h1>
+<<<<<<< HEAD
           <p className="mt-3 text-lg md:text-xl text-neutral-300 max-w-2xl">
             {x.tagline}
           </p>
+=======
+          <p className="mt-3 text-lg text-neutral-700 dark:text-neutral-300">{x.tagline}</p>
+>>>>>>> 51776bc7f2d180cd943cccdeaae92514fbd81ee6
           <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-neutral-500 font-mono">
             <span>v{p.version}</span>
             <span>
@@ -138,6 +142,7 @@ export default function PluginDetailPage() {
           ))}
         </section>
 
+<<<<<<< HEAD
         {/* USE CASES */}
         {x.useCases && x.useCases.length > 0 && (
           <section className="mt-20">
@@ -178,6 +183,17 @@ export default function PluginDetailPage() {
             </div>
           </section>
         )}
+=======
+        {/* Description */}
+        <section className="mt-12">
+          <h2 className="text-xs uppercase tracking-wider text-neutral-500 mb-3">
+            What it does
+          </h2>
+          <p className="text-neutral-800 dark:text-neutral-200 leading-relaxed whitespace-pre-line">
+            {p.description}
+          </p>
+        </section>
+>>>>>>> 51776bc7f2d180cd943cccdeaae92514fbd81ee6
 
         {/* BENEFITS */}
         {x.benefits && x.benefits.length > 0 && (
@@ -273,15 +289,19 @@ export default function PluginDetailPage() {
               {x.prerequisites.map((pr) => (
                 <motion.li
                   key={pr}
+<<<<<<< HEAD
                   initial={{ opacity: 0, x: -4 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-30px" }}
                   transition={{ duration: 0.3 }}
                   className="flex items-start gap-3 text-neutral-200"
+=======
+                  className="flex items-start gap-2 text-neutral-800 dark:text-neutral-200"
+>>>>>>> 51776bc7f2d180cd943cccdeaae92514fbd81ee6
                 >
                   <Check
                     size={16}
-                    className="mt-1 text-emerald-400 flex-shrink-0"
+                    className="mt-1 text-emerald-500 dark:text-emerald-400 flex-shrink-0"
                   />
                   <span>{pr}</span>
                 </motion.li>
@@ -290,6 +310,7 @@ export default function PluginDetailPage() {
           </section>
         )}
 
+<<<<<<< HEAD
         {/* COMPACT INSTALL CTA */}
         <section className="mt-20 rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-8 md:p-10 max-w-3xl">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
@@ -306,6 +327,26 @@ export default function PluginDetailPage() {
               to="/#install"
               style={{ color: "#0a0a0a" }}
               className="group inline-flex items-center gap-2 self-start md:self-auto rounded-md bg-white px-5 py-2.5 text-sm font-semibold shadow-lg shadow-blue-500/10 ring-1 ring-white/40 hover:bg-neutral-100 transition flex-shrink-0"
+=======
+        {/* README */}
+        {p.readme && (
+          <section className="mt-10">
+            <h2 className="text-xs uppercase tracking-wider text-neutral-500 mb-3">
+              Documentation
+            </h2>
+            <pre className="rounded-2xl border border-black/10 bg-neutral-50 dark:border-white/10 dark:bg-black/40 p-6 text-sm text-neutral-800 dark:text-neutral-200 whitespace-pre-wrap font-sans leading-relaxed overflow-x-auto">
+              {p.readme}
+            </pre>
+          </section>
+        )}
+
+        {/* Links */}
+        <section className="mt-10 flex flex-wrap gap-4 text-sm">
+          {p.homepage && (
+            <a
+              href={p.homepage}
+              className="inline-flex items-center gap-1 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
+>>>>>>> 51776bc7f2d180cd943cccdeaae92514fbd81ee6
             >
               See install steps
               <ArrowRight
@@ -321,7 +362,11 @@ export default function PluginDetailPage() {
         <section className="mt-12 flex flex-wrap gap-5 text-sm">
           <a
             href={`https://github.com/ThirstyStudios/XBert-Plugins/tree/main/plugins/${p.slug}`}
+<<<<<<< HEAD
             className="inline-flex items-center gap-1 text-neutral-300 hover:text-white transition"
+=======
+            className="inline-flex items-center gap-1 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
+>>>>>>> 51776bc7f2d180cd943cccdeaae92514fbd81ee6
           >
             View source on GitHub <ExternalLink size={13} />
           </a>
