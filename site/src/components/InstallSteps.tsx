@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
-  Globe,
-  KeyRound,
-  Plug,
+  MousePointerClick,
+  Search,
   ShieldCheck,
   Sparkles,
   Terminal,
@@ -31,6 +30,7 @@ export function InstallSteps({
   cliSnippet,
   showSkipHint = true,
   hideBundleLink = false,
+  slugs,
 }: Props) {
   const [mode, setMode] = useState<Mode>("claude");
 
@@ -53,7 +53,7 @@ export function InstallSteps({
           onClick={() => setMode("claude-code")}
           icon={<Terminal size={13} />}
           label="Claude Code"
-          sublabel="CLI / Cowork"
+          sublabel="CLI / developers"
         />
       </div>
 
@@ -67,7 +67,7 @@ export function InstallSteps({
             transition={{ duration: 0.18 }}
             className="p-6"
           >
-            <ClaudeWalkthrough />
+            <DesktopPluginWalkthrough slugCount={slugs.length} />
           </motion.div>
         ) : (
           <motion.div
@@ -132,55 +132,68 @@ function TabButton({
   );
 }
 
-function ClaudeWalkthrough() {
+function DesktopPluginWalkthrough({ slugCount }: { slugCount: number }) {
   const steps = [
     {
-      icon: <Globe size={14} />,
-      title: "Enable network egress",
+      icon: <MousePointerClick size={14} />,
+      title: "Open Customize in Claude Desktop",
       body: (
         <>
-          In Claude, open <span className="font-mono text-neutral-900 dark:text-neutral-100">Settings → Capabilities</span>, scroll to <span className="font-mono text-neutral-900 dark:text-neutral-100">Code execution and file creation</span>, and turn on <span className="font-mono text-neutral-900 dark:text-neutral-100">Allow network egress</span>. Under <span className="font-mono text-neutral-900 dark:text-neutral-100">Domain allowlist</span>, allow all domains, or specifically allow{" "}
-          <span className="font-mono text-neutral-900 dark:text-neutral-100">mcp-gateway.xbert.io</span> and{" "}
-          <span className="font-mono text-neutral-900 dark:text-neutral-100">auth.xbert.io</span>.
+          In Claude Desktop, open the{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Customize</span>{" "}
+          panel. In the sidebar you&apos;ll see{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Skills</span>,{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Connectors</span>, and{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Personal plugins</span>.
         </>
       ),
     },
     {
-      icon: <Plug size={14} />,
-      title: "Add the XBert custom connector",
+      icon: <Search size={14} />,
+      title: "Add the XBert marketplace",
       body: (
         <>
-          Open <span className="font-mono text-neutral-900 dark:text-neutral-100">Settings → Integrations</span> (or <span className="font-mono text-neutral-900 dark:text-neutral-100">Connectors</span>) and click <span className="font-mono text-neutral-900 dark:text-neutral-100">Add Custom Connector</span>. Use the values below.
+          Next to{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Personal plugins</span>{" "}
+          click <span className="font-mono text-neutral-900 dark:text-neutral-100">+</span> →{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Create plugin</span> →{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Add marketplace</span>.
+          Paste the repo and click{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Sync</span>.
         </>
       ),
       action: (
-        <CopyButton text="https://mcp-gateway.xbert.io/mcp" label="Copy URL" />
-      ),
-      detail: (
-        <div className="mt-3 rounded-lg border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.03] px-3 py-2 text-xs font-mono text-neutral-700 dark:text-neutral-300">
-          <div><span className="text-neutral-500">Name:</span> XBert</div>
-          <div><span className="text-neutral-500">Server URL:</span> https://mcp-gateway.xbert.io/mcp</div>
-        </div>
+        <CopyButton text="ThirstyStudios/XBert-Plugins" label="Copy repo" />
       ),
     },
     {
-      icon: <KeyRound size={14} />,
-      title: "Sign in with XBert",
+      icon: <ShieldCheck size={14} />,
+      title:
+        slugCount > 1
+          ? "Install only the plugins you want"
+          : "Install the plugin",
       body: (
         <>
-          Save the connector. Claude handles OAuth automatically — sign in with your XBert account and select the business or Connect Portal you want to work with. Credentials never leave XBert (OAuth 2.1 with PKCE).
+          The XBert marketplace appears under{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Personal plugins</span>
+          {slugCount > 1 ? ` with all ${slugCount} plugins listed.` : "."} Click{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">+</span> on each one
+          you want — skip the rest. Authorize the permissions prompt.
         </>
       ),
     },
     {
       icon: <Sparkles size={14} />,
-      title: "Ask Claude to do practice work",
+      title: "Use the slash commands",
       body: (
         <>
-          Try{" "}
-          <span className="font-mono text-neutral-900 dark:text-neutral-100">Show me aged receivables for this client</span>,{" "}
-          <span className="font-mono text-neutral-900 dark:text-neutral-100">Review the latest XBert notifications</span>, or{" "}
-          <span className="font-mono text-neutral-900 dark:text-neutral-100">Check bank reconciliation status</span>. Claude has 70+ XBert tools.
+          Skills and slash commands auto-load. Type{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">/review</span>,{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">/reconcile</span>,{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">/workload</span>,{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">/pulse</span>, or{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">/capacity</span> in any
+          Claude chat.
         </>
       ),
     },
@@ -203,7 +216,7 @@ function ClaudeWalkthrough() {
             transition={{ duration: 0.3, delay: 0.05 * i }}
             className="relative"
           >
-            {/* Numbered badge */}
+            {/* Icon badge */}
             <span
               aria-hidden
               className="absolute -left-9 top-0 inline-flex items-center justify-center size-7 rounded-full border border-black/15 bg-black/[0.04] text-neutral-700 dark:border-white/15 dark:bg-white/[0.06] dark:text-neutral-300"
@@ -216,11 +229,12 @@ function ClaudeWalkthrough() {
                 <div className="text-[11px] font-mono text-blue-500 dark:text-blue-400 mb-0.5">
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <div className="text-sm font-semibold text-neutral-900 dark:text-white">{s.title}</div>
+                <div className="text-sm font-semibold text-neutral-900 dark:text-white">
+                  {s.title}
+                </div>
                 <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                   {s.body}
                 </div>
-                {"detail" in s && s.detail ? s.detail : null}
               </div>
               {"action" in s && s.action ? (
                 <div className="flex-shrink-0 mt-1">{s.action}</div>
@@ -230,21 +244,20 @@ function ClaudeWalkthrough() {
         ))}
       </ol>
 
-      {/* Verification / "what you can do" note */}
+      {/* Distribution note */}
       <div className="mt-6 rounded-xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] p-4 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
         <span className="text-neutral-900 dark:text-neutral-200 font-medium">
-          <ShieldCheck size={12} className="inline mr-1 -mt-0.5 text-emerald-500 dark:text-emerald-400" />
-          You must have an active XBert account with access to at least one business.
+          Rolling out to a whole firm?
         </span>{" "}
-        Need more detail?{" "}
-        <a
-          href="https://support.xbert.io/en/articles/14492922-how-to-add-xbert-as-a-custom-mcp-connector-in-claude"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 dark:text-blue-400 hover:underline"
-        >
-          Read the full guide →
-        </a>
+        Each user adds the marketplace once on their own Desktop. On{" "}
+        <span className="text-neutral-900 dark:text-neutral-200">
+          Claude Team or Enterprise
+        </span>
+        , an admin can sync it once in{" "}
+        <span className="font-mono text-neutral-700 dark:text-neutral-300">
+          Settings → Organization → Plugins
+        </span>{" "}
+        and every member gets it automatically.
       </div>
     </div>
   );
@@ -284,7 +297,9 @@ function CliPanel({
         {showSkipHint ? (
           <span>
             Already added the XBert marketplace? Skip line 1. Each{" "}
-            <span className="font-mono text-neutral-700 dark:text-neutral-400">/plugin install</span>{" "}
+            <span className="font-mono text-neutral-700 dark:text-neutral-400">
+              /plugin install
+            </span>{" "}
             runs as a separate command.
           </span>
         ) : (

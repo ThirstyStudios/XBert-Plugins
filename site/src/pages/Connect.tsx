@@ -4,6 +4,7 @@ import { Plug, ArrowRight, MessageSquare, FileText, Receipt, Wallet } from "luci
 import { plugins } from "../lib/catalog";
 import { installSnippet } from "../lib/install-snippet";
 import { InstallSteps } from "../components/InstallSteps";
+import { MCPConnectorBox } from "../components/MCPConnectorBox";
 
 export default function ConnectPage() {
   const examplePrompts = [
@@ -34,20 +35,20 @@ export default function ConnectPage() {
       >
         <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/5 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-300 mb-6">
           <Plug size={12} className="text-blue-500 dark:text-blue-400" />
-          XBert MCP
+          Get XBert running in Claude
         </div>
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
-          Connect XBert to Claude.
+          Install the XBert plugins.
         </h1>
         <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl leading-relaxed">
-          XBert exposes 70+ accounting tools — exception review, reconciliation,
-          BI, client comms — through the Model Context Protocol. Add the connector
-          in Claude and your books become something Claude can actually work on.
-          Already in Claude Code? Install the XBert plugins for slash commands
-          and skills built on the same MCP.
+          Add the XBert marketplace to Claude Desktop and you get the full set
+          of slash commands — review, reconcile, workload, pulse, capacity —
+          ready to run. Each one wraps an XBert workflow into a single command
+          with an audit-friendly output.
         </p>
       </motion.div>
 
+      {/* PRIMARY: plugin install */}
       <motion.div
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
@@ -61,14 +62,24 @@ export default function ConnectPage() {
         />
       </motion.div>
 
+      {/* SECONDARY: MCP connector setup */}
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="mt-6 max-w-3xl"
+      >
+        <MCPConnectorBox />
+      </motion.div>
+
       {/* What you can do */}
       <section className="mt-20 max-w-4xl">
         <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-          What you can ask Claude once you're connected
+          What you can ask Claude once you're set up
         </h2>
         <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-          A handful of starter prompts. Claude picks the right XBert tools, runs
-          them, and explains the result.
+          Beyond the slash commands, Claude can pick the right XBert tools and
+          answer questions like these directly.
         </p>
         <div className="mt-8 grid sm:grid-cols-2 gap-3">
           {examplePrompts.map((p, i) => (
@@ -96,12 +107,11 @@ export default function ConnectPage() {
         <div className="rounded-2xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h3 className="text-lg font-semibold tracking-tight">
-              Working in Claude Code?
+              Want to see what each plugin does first?
             </h3>
             <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 max-w-xl leading-relaxed">
-              The XBert plugins ship slash commands and skills on top of the
-              MCP — preset prompts, calibrated methodology, and audit-friendly
-              workpapers for end-to-end practice workflows.
+              Each plugin page lists its use cases, workflow, and the practice
+              problem it actually solves. Browse before you install.
             </p>
           </div>
           <Link

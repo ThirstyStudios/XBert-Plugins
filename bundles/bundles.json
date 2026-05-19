@@ -1,18 +1,3 @@
 {
-  "bundles": [
-    {
-      "id": "bookkeeping-essentials",
-      "name": "Bookkeeping Essentials",
-      "tagline": "Daily and monthly bookkeeping workflows — review and reconciliation.",
-      "audience": "bookkeepers",
-      "plugins": ["xbert-review", "xbert-reconcile"]
-    },
-    {
-      "id": "practice-management",
-      "name": "Practice Management",
-      "tagline": "Team workload, client tempo, and capacity reporting for practice owners.",
-      "audience": "principals",
-      "plugins": ["xbert-workload", "xbert-pulse", "xbert-capacity"]
-    }
-  ]
+  "bundles": []
 }
