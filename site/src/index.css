@@ -37,18 +37,29 @@
   --selection-bg: rgba(59, 130, 246, 0.25);
 }
 
-html, body, #root { height: 100%; }
+html, body, #root { min-height: 100%; }
 
 body {
-  background:
-    radial-gradient(ellipse 80% 60% at 50% -10%, var(--hero-glow-1), transparent 60%),
-    radial-gradient(ellipse 60% 50% at 100% 0%, var(--hero-glow-2), transparent 55%),
-    var(--color-bg);
+  background-color: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-sans);
   margin: 0;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Ambient glow rendered as a fixed layer behind all content.
+   Fixed positioning means it covers the viewport once and never tiles,
+   so it can't create a seam on pages taller than one screen. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, var(--hero-glow-1), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 0%, var(--hero-glow-2), transparent 55%);
 }
 
 * { box-sizing: border-box; }
