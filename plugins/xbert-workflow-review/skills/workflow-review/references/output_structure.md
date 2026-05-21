@@ -1,6 +1,6 @@
 # Output structure
 
-The canonical structure of the Workflow Review document. Refer here when extending or refining `scripts/write_document.js` — the order and required elements are spec-driven (v01, Section 6).
+The canonical structure of the Workflow Review document. Use this reference when generating the Word document via the `GenerateWord` MCP tool.
 
 ## Document order
 
@@ -17,36 +17,36 @@ The canonical structure of the Workflow Review document. Refer here when extendi
 
 ## First-page benefits summary — required content
 
-Per spec Section 6.2. Must include:
+Must include:
 - Template library reduction available (current count, proposed count, reduction %, named largest opportunity)
 - Capacity plan correction available (total annualised hours of variance, single highest-impact correction)
 - Setup hygiene findings (counts of orphaned, dormant, duplicate, unassigned — explicitly say "zero" if zero)
-- Workload balance signal (one sentence — v01)
-- Completion quality signal (one sentence — v01)
+- Workload balance signal (one sentence)
+- Completion quality signal (one sentence)
 - What's healthy — short statement of what's in good shape
 
 The numbers on this page must reconcile to the body of the document — these are summaries, not approximations.
 
 ## Data-sparsity summary — content
 
-Per spec Section 6.4. Three modes:
+Three modes:
 
 - **All sections full data**: one sentence — "This review is running on a fully populated data set across all sections."
 - **Some sections sparse**: list them with a one-line reason each.
 - **Early-stage tenancy** (low total notification volume across many clients): explicit early-stage note plus an XBert-team escalation hook.
 
-The escalation hook text (paraphrased from the spec):
+The escalation hook text:
 > *Note: this tenancy shows minimal workflow usage across [N] clients, which suggests either an early-stage setup or a partially-rolled-out configuration. Sections 2 and 4 may not yet have enough history to be conclusive. If you're unsure whether to act on the findings below, the XBert team can help interpret the results in context.*
 
 Match the supportive-not-promotional tone.
 
-## Section 2 — six sub-analyses (v01)
+## Section 2 — six sub-analyses
 
 1. Live / dormant / zombie classification
 2. Zero-notification templates
 3. Orphaned assignments
-4. **Completion quality** (v01 addition — needs notification status breakdown)
-5. **Per-user load** (v01 addition — needs per-user time data)
+4. Completion quality (needs notification status breakdown)
+5. Per-user load (needs per-user time data)
 6. Locked-client schedules
 
 Each must degrade gracefully if its required data is sparse.
@@ -72,12 +72,12 @@ Below 5 found: do not pad. Above 10: surface as "and N further smaller opportuni
 
 ## Closing summary
 
-Mirrors the first-page summary for readers who scroll to the bottom. Includes the XBert-team support hook (the spec calls this "supportive, not promotional"):
+Mirrors the first-page summary for readers who scroll to the bottom. Includes the XBert-team support hook (supportive, not promotional):
 
 > *If you'd like help acting on these recommendations, the XBert team can work through them with you.*
 
 ## Format
 
-`.docx` is the default and what `write_document.js` produces. PDF and markdown are reasonable secondary options if asked for. Use the docx skill's conversion path for PDF.
+`.docx` is the default output via the `GenerateWord` MCP tool. PDF and markdown are reasonable secondary options if asked for.
 
-Page size is A4 (Australian customer base default). Switch to US Letter if the customer's `ClientCountry` field strongly indicates US — though for v01, A4 is the only output.
+Page size is A4 (Australian customer base default).

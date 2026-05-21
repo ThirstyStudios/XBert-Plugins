@@ -1,13 +1,11 @@
 ---
 name: workflow-review
-description: "Run the XBert Workflow Review against the customer's own Connect tenant — produces a structured audit document covering template consolidation, budget accuracy, workload balance, completion quality, and setup hygiene. Use this skill whenever the user asks to review, audit, or sanity-check their XBert workflow setup, asks how to clean up or rationalise their templates, asks whether their time budgets match reality, asks who is actually doing the work in their team, or runs the /workflow-review slash command. Also use when the user expresses any of: 'our setup has gotten messy', 'we set this up and never came back to it', 'something is off with our templates', or any other request that implies a structural audit of their workflow configuration in XBert. The skill handles the full flow — pulling data from MCP, computing findings deterministically, and producing a Word document that can be circulated inside the firm without editing."
+description: "Run the XBert Workflow Review against the customer's own Connect tenant — produces a structured audit document covering template consolidation, budget accuracy, workload balance, completion quality, and setup hygiene. Use this skill whenever the user asks to review, audit, or sanity-check their XBert workflow setup, asks how to clean up or rationalise their templates, asks whether their time budgets match reality, asks who is actually doing the work in their team, or runs the /workflow-review slash command. Also triggers on: 'our setup has gotten messy', 'we set this up and never came back to it', 'something is off with our templates', or any request implying a structural audit of workflow configuration."
 ---
 
 # Workflow Review
 
-A structured audit of a customer's XBert workflow setup, run by the customer against their own Connect tenant. Produces a Word document with six analytical sections plus a first-page summary, designed to be read by anyone from a workflow setup specialist through to a practice owner.
-
-This skill is the implementation of the v01 plugin spec. The spec lives alongside this skill (`cowork_plugin_1_workflow_review_spec_v01.md` in the project) and is the source of truth for what the review covers and why.
+A structural audit of a customer's XBert workflow setup, run against their own Connect tenant. Produces a Word document with six analytical sections plus a first-page summary, designed to be read by anyone from a workflow setup specialist through to a practice owner.
 
 ## When to use
 
@@ -19,116 +17,142 @@ Trigger on any of:
 
 If the user is asking about a single template or schedule, that's *not* this skill — the workflow review is a structural audit across the entire tenant. Stay deliberate about scope.
 
-## How it works
+## Data sources (MCP tools)
 
-The skill is structured as **compute findings, then format findings** (per spec Section 8.3 — this keeps the option open to feed an in-app screen later). Two layers:
+Pull data via the XBert MCP gateway. All tools are tenant-scoped automatically via the authenticated session:
 
-1. **Analysis (Python).** Loads the MCP extract, runs six section analyses, writes `findings.json`. Deterministic — no LLM judgment in the numbers.
-2. **Document writer (Node.js).** Reads `findings.json`, produces the Word document. Also deterministic — the document structure and tone are fixed, only the numbers and named items vary by run.
+1. **Capacity data** — `Features_Review` (connectTenantId, no userProfileId = all users). Returns workload distribution, outstanding work, available hours, utilisation per user.
+2. **Activity data** — `Features_ReviewActivity` (connectTenantId, startDate = 12 months ago, endDate = today). Returns activity metrics by user, time period, and type.
+3. **Notification summary** — `Data_XBertNotificationSummary` (per clientTenantId). Returns outstanding notifications grouped by analytics category and risk level, plus 30-day completion rate.
+4. **Template & schedule configuration** — Try `xbert.workflow.templates_and_schedules` or use `tools_search` to discover the available tool. Returns template definitions, schedule configuration, and assignment details.
 
-Claude's role is to orchestrate (call MCP, invoke the scripts, present the result) and to handle any follow-up questions the user asks *after* the document is produced. Follow-up questions can use the data more flexibly — they don't have to follow the fixed six-section structure.
+If a tool name differs from what's listed, use `tools_search` to discover the actual available tool. If a data source is unavailable, note it in the sparsity summary and degrade the relevant section gracefully.
 
-## Workflow
+## Analysis framework
 
-### Step 1 — Confirm the user wants to run the review
+### Section 1 — Snapshot
+At-a-glance counts:
+- Total clients, clients with active workflow, coverage %
+- Total templates, priority templates, templates with subtasks
+- Total schedules, active vs inactive
+- Distinct base processes in use
+- Estimated annual notification volume
 
-If the trigger is the slash command or a clear direct request, skip ahead. Otherwise, briefly confirm: "I can run a Workflow Review against your tenant — this produces a Word document covering template consolidation, budget accuracy, workload balance, and setup hygiene. Go ahead?"
+### Section 2 — What's actually being used (six sub-analyses)
 
-Don't run the review without a positive signal. The MCP call may be non-trivial for large tenants.
+**2.1 Live / dormant / zombie classification**
+- Live: produced a notification within 90 days
+- Dormant: configured to fire but no notification in 180+ days
+- Zombie: fired notifications within 90 days but zero completions all-time
 
-### Step 2 — Pull the extract
+**2.2 Zero-notification templates**
+Templates that have never produced a notification across any client/schedule.
 
-Call the MCP tool `get_workflow_extract`. The tool is tenant-scoped automatically via the authenticated MCP layer — the user does not specify a tenant ID, and you should not ask for one.
+**2.3 Orphaned assignments**
+Active schedules assigned to inactive users.
 
-Save the response to a working directory:
+**2.4 Completion quality**
+Templates where notifications fire but resolve via cancellation, snooze, or dismissal rather than completion.
+- Gate 1: ≥10 notifications in the last 12 months
+- Gate 2: non-completion rate ≥30%
 
-```
-workdir/
-├── extract.json       # raw MCP response
-├── findings.json      # written by run_analysis.py
-├── analysis.log       # brief log of what ran
-└── workflow_review.docx   # final output
-```
+**2.5 Per-user load**
+Distribution of logged time across users.
+- Concentration risk: top user holds >30% of total team time
+- Floor: total team time ≥600 minutes before assessing
+- Zero-load assigned users: assigned to schedules but no logged time
 
-A reasonable working directory is `/tmp/workflow-review-<timestamp>/` — create it fresh each run.
+**2.6 Locked-client schedules**
+Active schedules on clients flagged as locked or deletion-pending.
 
-If the MCP call fails or returns an empty result, surface that to the user — don't try to proceed with no data. If it's empty because the tenant has no clients configured at all, say so.
+### Section 3 — Consolidation opportunities (three sub-analyses)
 
-### Step 3 — Run the analysis
+**3.1 Base-process variant groups**
+Templates sharing a BaseProcessTagId. Any group with 2+ distinct templates is a consolidation candidate.
 
-```bash
-python scripts/run_analysis.py <workdir>/extract.json <workdir>
-```
+**3.2 Role-only variants**
+Templates within a base-process group that differ solely by role assignment — collapse onto a single template with role-aware scheduling.
 
-This produces `findings.json` and `analysis.log`. If `analysis.log` reports many sparse sections or "looks early-stage: True", that's fine — the document will surface this in its data-sparsity summary. Don't editorialise about it before producing the document.
+**3.3 Override vs duplicate pattern**
+Quantify: how many schedules use per-schedule time overrides (clean) vs how many distinct templates exist solely as budget variants (costly duplication).
 
-### Step 4 — Generate the document
+### Section 4 — Budget accuracy
+Templates whose budgeted time is materially out of step with actual time logged.
+- Threshold: ≥50% variance in either direction
+- Minimum: ≥5 completions per schedule before assessing
+- Ranked by annualised hours of variance (variance × annual volume)
+- Direction: "over" (budgeted exceeds actual = phantom hours) or "under" (actual exceeds budget = real squeeze)
 
-```bash
-node scripts/write_document.js <workdir>/findings.json <workdir>/workflow_review.docx
-```
+### Section 5 — Workflow health flags (five sub-analyses)
+1. Unassigned schedules (no user or role)
+2. Stale templates (no modification or activity in 365+ days)
+3. Templates with no subtasks (process steps undocumented)
+4. Inconsistent assignment patterns (mixing user-based and role-based within a process)
+5. Duplicate template names (including whitespace-only collisions)
 
-The output is an `.docx` ready to circulate. The document already contains everything — first-page summary, data-sparsity summary, the six sections, and a closing paragraph.
+### Section 6 — Prioritised recommendations
+5-10 actions ranked by impact. Each has:
+- Title (short, specific — named templates/processes/users)
+- Body (1-3 sentences)
+- Confidence label: **Direct** (data unambiguous), **Likely** (one minor judgment call), **Needs review** (context the data doesn't carry)
+- Expected outcome (concrete: hours saved, templates retired)
+- Affected items (named)
 
-Default deliverable is `.docx`. If the user explicitly asked for PDF or markdown earlier in the conversation, generate the docx first and then convert (use the `docx` skill's PDF conversion path for PDF). Don't ask the user to choose a format up-front — most want the default.
+Below 5: do not pad. Above 10: surface as "and N further smaller opportunities."
 
-### Step 5 — Present to the user
+## Materiality thresholds (defaults)
 
-Make the document available via `present_files`. Keep the surrounding message brief — the document speaks for itself:
+| Threshold | Value | Used in |
+|-----------|-------|---------|
+| Budget variance | 50% either direction | Section 4 |
+| Budget min completions | 5 per schedule | Section 4 |
+| Non-completion rate | 30% | Section 2.4 |
+| Non-completion min volume | 10 notifications (12m) | Section 2.4 |
+| Top-user concentration | 30% of team time | Section 2.5 |
+| Per-user min team minutes | 600 (10 hours) | Section 2.5 |
+| Live window | 90 days | Section 2.1 |
+| Dormant window | 180 days | Section 2.1 |
+| Stale template | 365 days | Section 5.2 |
+| Early-stage max notifications | 200 all-time | Sparsity |
 
-> Here's the Workflow Review for [customer name]. Top findings:
->   - [headline from the first-page summary]
->   - [second headline]
->   - [third headline]
->
-> Open the document for the full detail. Happy to discuss any of the findings in more depth.
+## Document output
 
-Pull the headlines from `findings.section_6_recommendations.recommendations` (the top 2-3 by impact). Don't reproduce the full first-page summary in chat — that's what the document is for.
+Generate a Word document (using the `GenerateWord` MCP tool or equivalent) containing:
+1. Cover page — title, customer name, generated date
+2. First-page benefits summary — highest-impact findings
+3. Data-sparsity summary — what ran on full vs sparse data
+4. Section 1-6 as detailed above
+5. Closing summary with XBert-team support hook
 
-### Step 6 — Follow-up questions
-
-After the document is produced, the user may ask follow-up questions: "tell me more about [template name]", "why is this template flagged as needs-review", "show me which clients are missing workflow coverage". These can be answered directly from `findings.json` and the original `extract.json` without re-running the pipeline.
-
-For genuinely new questions the structured findings don't answer (e.g. "what's the most common assignment role"), you can read the extract directly and answer ad-hoc.
-
-## Tone and language
-
-**Structural observation, not blame.** The person reading the review is often the person who built the setup being reviewed. Lines like "this looks messy" or "this is wrong" are out. Lines like "11 templates share a common base process and could be collapsed" are in.
-
-**Specific, not generic.** Named templates, named processes, named users. "Collapse the 11 variants of Bank Reconciliation" beats "consolidate where possible."
-
-**Confidence labels matter.** The document labels each recommendation as Direct, Likely, or Needs review. When discussing recommendations with the user, preserve those distinctions — they signal where the data is unambiguous vs where human judgment is genuinely required.
-
-## Materiality thresholds
-
-All thresholds live in `scripts/constants.py` — one place to adjust. Defaults:
-- Budget variance: 50% in either direction
-- Completion quality non-completion rate: 30% (with 10+ notification floor)
-- Per-user concentration: 30% of team time held by one user
-- Stale template: 365 days
-- Live schedule window: 90 days
-
-If the user wants the thresholds tuned for their context, they can edit `constants.py` and re-run. v01 does not expose them as slash command arguments.
+Page size: A4 (Australian customer base). Default deliverable is `.docx`.
 
 ## Sparsity handling
 
-The analysis detects sparsity per section (see `load_extract.py:summarise_sparsity`) and the document writer renders thin sections with an explicit "can't be assessed yet" note rather than padding. Do not try to fill in missing sections with speculation — the spec's principle is "if a section has nothing to report, say so explicitly, don't pad."
+If a data source is unavailable or a section has insufficient data:
+- Explicitly state "this section can't be assessed yet — [reason]"
+- Do not pad with speculation
+- If the whole tenancy looks early-stage (<200 total notifications), flag it and suggest the customer qualify the review with the XBert team
 
-Two specific sparsity cases the user may ask about:
-- **Early-stage tenancy** (low total notification volume): the document's data-sparsity summary flags this and suggests the customer qualify the review with the XBert team. If the user is in this state, support that — don't push them to act on thin findings.
-- **No per-user time data**: the per-user load sub-analysis is gracefully skipped. This is normal for firms that don't track time at the user level.
+## Tone and language
+
+**Structural observation, not blame.** The person reading the review is often the person who built the setup being reviewed. "11 templates share a common base process and could be collapsed" — not "this looks messy."
+
+**Specific, not generic.** Named templates, named processes, named users. "Collapse the 11 variants of Bank Reconciliation" beats "consolidate where possible."
+
+**Confidence labels matter.** Preserve Direct / Likely / Needs review distinctions — they signal where the data is unambiguous vs where human judgment is genuinely required.
 
 ## What this skill does NOT do
 
-- **Write operations.** This is read-only analysis. The plugin suggests consolidations and corrections; it never makes them.
-- **Per-instance notification analysis.** Use the aggregated counts in the extract; don't try to query individual notifications.
-- **Multi-tenant reviews.** One tenant per run. The user's tenant is determined automatically.
+- **Write operations.** This is read-only analysis. Suggest consolidations and corrections; never make them.
+- **Per-instance notification analysis.** Use aggregated counts; don't query individual notifications.
+- **Multi-tenant reviews.** One tenant per run.
 - **Auto-scheduling.** The review runs on demand. Don't offer to schedule recurring runs.
 
-## Reference files
+## Always
 
-- `references/output_structure.md` — the canonical document structure, used when extending or refining the writer
-- `references/extract_schema.md` — the exact shape of what `get_workflow_extract` returns, used when extending the analysis
-- `scripts/constants.py` — all tunable thresholds in one place
-- `scripts/run_analysis.py` — orchestrator entry point
-- `scripts/write_document.js` — document writer
+- Never apply changes without user approval — this is a read-only audit
+- Show the data that supports each recommendation
+- Distinguish noise from signal — don't flag a 5% variance as a story
+- If a section has nothing to report, say so explicitly, don't pad
+- The document must be circulatable inside the firm without further editing
+- Frame every recommendation as structural observation, never blame
