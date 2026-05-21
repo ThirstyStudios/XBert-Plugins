@@ -14,6 +14,24 @@
       "version": "0.1.0"
     },
     {
+      "name": "xbert-review",
+      "source": "./plugins/xbert-review",
+      "description": "Run month-end exception review with XBert AI agents.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-capacity",
+      "source": "./plugins/xbert-capacity",
+      "description": "Billable utilisation and WIP variance reporting at practice and client level, using XBert data.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-pulse",
+      "source": "./plugins/xbert-pulse",
+      "description": "Detect material changes in client transactional tempo and propose actions using XBert.",
+      "version": "0.1.0"
+    },
+    {
       "name": "xbert-workflow-review",
       "source": "./plugins/xbert-workflow-review",
       "description": "Run a structural audit of your XBert workflow setup — template consolidation, budget accuracy, workload balance, and setup hygiene.",
