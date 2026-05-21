@@ -1,0 +1,65 @@
+{
+  "name": "xbert-workflow-review",
+  "version": "0.1.0",
+  "description": "Run a structural audit of your XBert workflow setup — template consolidation, budget accuracy, workload balance, and setup hygiene.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-workflow-review",
+  "license": "MIT",
+  "keywords": ["workflow", "audit", "templates", "budgets", "consolidation", "hygiene"],
+  "x-xbert": {
+    "displayName": "XBert Workflow Review",
+    "tagline": "One command to audit your entire workflow setup — template consolidation, budget accuracy, and team workload in a Word document.",
+    "audience": ["principals", "practice-managers", "accountants"],
+    "categories": ["workflow", "audit", "monthly"],
+    "prerequisites": [
+      "XBert account with workflow configured",
+      "At least one active client with schedules"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "As firms grow, their XBert workflow setup accumulates debt — duplicate templates created for slight budget variations, orphaned schedules assigned to staff who've left, zombie notifications that fire but never complete. The mess is invisible until someone audits it, and nobody has time to audit it manually.\n\nXBert Workflow Review runs the entire structural audit in under a minute. It pulls a point-in-time extract of your workflow configuration via MCP, runs six deterministic analyses (no LLM judgment in the numbers), and produces a Word document you can circulate inside the firm without editing. The document names specific templates, specific users, and specific processes — not generic advice.",
+    "useCases": [
+      {
+        "title": "Template library cleanup",
+        "description": "Identify which templates are variants of the same base process and can be collapsed — often reducing library size by 30-50%."
+      },
+      {
+        "title": "Budget vs reality check",
+        "description": "Surface templates where budgeted time is materially out of step with actual time logged, ranked by annualised hours of impact on your capacity plan."
+      },
+      {
+        "title": "Workload balance review",
+        "description": "See who is actually doing the work — flag concentration risk where one person holds a disproportionate share of team time."
+      },
+      {
+        "title": "Setup hygiene sweep",
+        "description": "Catch orphaned assignments, zombie schedules, stale templates, and duplicate names before they cause real problems."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "FileSearch",
+        "title": "Full structural audit",
+        "description": "Six analytical sections covering snapshot, usage reality, consolidation, budget accuracy, health flags, and prioritised recommendations."
+      },
+      {
+        "icon": "FileText",
+        "title": "Ready-to-circulate document",
+        "description": "Produces a Word document with cover page, first-page summary, and named findings — designed to be read by anyone from a workflow specialist to a practice owner."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Deterministic, not opinionated",
+        "description": "Every number is computed from your data. Confidence labels (Direct, Likely, Needs review) signal where the data speaks for itself vs where human judgment is required."
+      }
+    ],
+    "workflow": [
+      "Type /workflow-review in any Claude chat",
+      "Plugin pulls the workflow extract from your connected XBert tenant via MCP",
+      "Six section analyses run deterministically — snapshot, usage, consolidation, budget, health, recommendations",
+      "A Word document is generated with named findings and a prioritised action list",
+      "Ask follow-up questions about any finding directly in chat"
+    ]
+  }
+}

@@ -12,6 +12,12 @@
       "source": "./plugins/xbert-reconcile",
       "description": "Reconcile bank lines against ledger entries using XBert matching.",
       "version": "0.1.0"
+    },
+    {
+      "name": "xbert-workflow-review",
+      "source": "./plugins/xbert-workflow-review",
+      "description": "Run a structural audit of your XBert workflow setup — template consolidation, budget accuracy, workload balance, and setup hygiene.",
+      "version": "0.1.0"
     }
   ]
 }
