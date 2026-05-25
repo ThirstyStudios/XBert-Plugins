@@ -1,0 +1,66 @@
+{
+  "name": "xbert-stp-finalisation",
+  "version": "0.1.0",
+  "description": "Annual STP Phase 2 finalisation check for Australian clients — verify YTD wages, PAYG-W and super are accurate per employee before the 14 July ATO deadline.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-stp-finalisation",
+  "license": "MIT",
+  "keywords": ["stp", "stp-phase-2", "australian", "ato", "payroll", "annual", "finalisation", "income-statement"],
+  "x-xbert": {
+    "displayName": "XBert STP Finalisation (AU)",
+    "tagline": "Annual STP Phase 2 finalisation check for Australian clients — verify every employee's YTD figures are right before the 14 July ATO deadline.",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["compliance", "stp", "payroll", "annual", "australian"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to an Australian-domiciled ledger with STP Phase 2 reporting enabled",
+      "Full financial year payrun history posted"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "STP finalisation is the once-a-year moment where every employee's income statement is locked in for tax-return purposes. The 14 July deadline is firm and the data is unforgiving — wrong gross, wrong tax, wrong RFB and the client and the employee both wear the correction. The problem is rarely the latest payrun; it is the YTD-aggregated picture across 26 payruns and a year of changes to allowance categories, termination payments, and Working Holiday Maker classifications under STP Phase 2's expanded income type taxonomy.\n\nXBert STP Finalisation runs the YTD reconciliation per employee. It verifies gross wages, PAYG withholding, super, allowances (correctly disaggregated under Phase 2), Reportable Fringe Benefits, lump sum payments, and termination payments are accurate and STP-ready. The output is a Word working paper with each employee's YTD summary, the income-type classification, RFB amounts, and any items that need correction before the FINAL event is sent. Files into the client folder as evidence the finalisation was reviewed before lodgement.",
+    "useCases": [
+      {
+        "title": "Pre-14-July finalisation review",
+        "description": "Before sending the FINAL STP event, run the per-employee reconciliation and surface anything that won't reconcile to the YTD payroll reports."
+      },
+      {
+        "title": "STP Phase 2 income-type check",
+        "description": "Confirm every employee is mapped to the right income type — Salary/Wages, Closely Held Payees, Working Holiday Makers, Foreign Employment — under Phase 2's expanded taxonomy."
+      },
+      {
+        "title": "RFB and termination payment audit",
+        "description": "Identify employees with Reportable Fringe Benefits over the $2,000 grossed-up threshold and verify termination payments are correctly typed (ETP, lump sum A/B/D/E)."
+      },
+      {
+        "title": "Annual working paper",
+        "description": "File a Word document showing every employee's YTD figures, the classification logic, and the items reviewed before FINAL — defence on demand."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Users",
+        "title": "Per-employee YTD reconciliation",
+        "description": "Every employee's gross, PAYG-W, super and allowances reconciled against the payroll reports — discrepancies named, not hidden in totals."
+      },
+      {
+        "icon": "FileSearch",
+        "title": "STP Phase 2 classification check",
+        "description": "Income type, allowance disaggregation, country code (WHM), and tax treatment code all verified against Phase 2 schema."
+      },
+      {
+        "icon": "FileText",
+        "title": "Working paper for the file",
+        "description": "Word document with per-employee YTD summary, classification, RFB and termination treatment, and the items that need correction before FINAL is sent."
+      }
+    ],
+    "workflow": [
+      "Type /stp-finalisation in any Claude chat",
+      "Confirm the client and the financial year (defaults to year ending 30 June just past)",
+      "Plugin pulls payrun history, employee classifications and STP submission references via MCP",
+      "Per-employee YTD reconciliation runs against payroll reports; Phase 2 classification verified",
+      "A Word working paper is generated and the chat summarises any items needing correction before FINAL is sent"
+    ]
+  }
+}

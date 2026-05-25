@@ -1,0 +1,66 @@
+{
+  "name": "xbert-bas-prep",
+  "version": "0.1.0",
+  "description": "Pre-lodgement BAS readiness check for Australian clients — bank rec, GST, PAYG-W, payroll, super, outstanding XBerts and prior-period comparison, with an audit document for the file.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-bas-prep",
+  "license": "MIT",
+  "keywords": ["bas", "australian", "ato", "lodgement", "gst", "payg", "compliance", "quarterly"],
+  "x-xbert": {
+    "displayName": "XBert BAS Prep (AU)",
+    "tagline": "One command to verify an Australian client is ready to lodge their BAS — and produce the audit document that proves it.",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["compliance", "bas", "lodgement", "australian"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to an Australian-domiciled ledger",
+      "GST registration and BAS reporting period configured"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "BAS preparation is the same checklist every quarter — bank reconciled, GST labels tie back to sales and purchases, payroll posted, super paid, every XBert resolved, prior-period comparison sane. Done well it is a half-day per client. Done badly it surfaces a problem on lodgement morning that should have been caught a week earlier.\n\nXBert BAS Prep runs the full readiness sweep against the client's data in XBert. It pulls bank reconciliation status, GST labels (G1, G2, G3, G10, G11, 1A, 1B), PAYG withholding (W1-W5), payroll and super posting, fixed assets, AR/AP, outstanding XBerts, and a prior-period variance comparison. Every blocking issue is named with the specific account or transaction, not generic advice. The output is a Word document with a check reference ID, firm-level QMS certification, and the supporting evidence — circulatable to a reviewer or filed as the working paper.",
+    "useCases": [
+      {
+        "title": "Pre-lodgement readiness sweep",
+        "description": "Before sitting down to lodge, run the check and see every blocking issue — bank rec gaps, unposted payroll, outstanding XBerts, suspect GST balances — in one pass."
+      },
+      {
+        "title": "Variance vs prior quarter",
+        "description": "GST collected jumped 40% from last quarter? The variance is named in the document so the reviewer knows what to ask about before signing off."
+      },
+      {
+        "title": "Audit-trail working paper",
+        "description": "Produce a Word document with the check reference ID, preparer details, and supporting figures — files straight into the client folder as evidence."
+      },
+      {
+        "title": "Reviewer handoff",
+        "description": "Junior bookkeeper runs the check, partner reads the one-page summary, asks targeted questions instead of re-checking everything."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "ShieldCheck",
+        "title": "Every blocking issue named",
+        "description": "All outstanding XBerts block lodgement. Unreconciled accounts, unposted super, missing payruns — each surfaced with the specific account or transaction reference."
+      },
+      {
+        "icon": "FileSearch",
+        "title": "Prior-period comparison built in",
+        "description": "GST and PAYG labels compared to the prior BAS period. Variances over threshold are flagged and explained — not just numbers on a page."
+      },
+      {
+        "icon": "FileText",
+        "title": "Audit document for the file",
+        "description": "Outputs a Word document with check reference ID, QMS certification, and the supporting evidence behind every readiness decision."
+      }
+    ],
+    "workflow": [
+      "Type /bas-prep in any Claude chat",
+      "Confirm the client and the BAS period (or accept the current open quarter)",
+      "Plugin pulls reconciliation, GST, PAYG-W, payroll, super, fixed assets, AR/AP and outstanding XBerts via MCP",
+      "Readiness checks run and produce a blocking-issues list plus prior-period variance review",
+      "A Word audit document is generated and the chat summarises the top items to action before lodgement"
+    ]
+  }
+}

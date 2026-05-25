@@ -1,0 +1,66 @@
+{
+  "name": "xbert-fbt-prep",
+  "version": "0.1.0",
+  "description": "Annual FBT exposure review for Australian clients — scan motor vehicles, entertainment, employee benefits and salary packaging arrangements before the 21 May return deadline.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-fbt-prep",
+  "license": "MIT",
+  "keywords": ["fbt", "australian", "ato", "fringe-benefits", "annual", "compliance", "vehicles", "entertainment"],
+  "x-xbert": {
+    "displayName": "XBert FBT Prep (AU)",
+    "tagline": "Annual FBT exposure scan for Australian clients — vehicles, entertainment, employee benefits — with estimated liability and audit working paper.",
+    "audience": ["accountants"],
+    "categories": ["compliance", "fbt", "annual", "australian"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to an Australian-domiciled ledger",
+      "Full FBT year P&L and balance sheet posted"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "FBT is the annual question nobody loves but every firm has to ask: does this client have a fringe benefit exposure, and is the return going to defend itself? Company cars used on weekends, the Christmas party invoices, the staff health-fund subsidy on the BAS account that everyone forgot about — each one is a potential FBT trigger and a potential adviser-failure risk.\n\nXBert FBT Prep runs the annual scan against the client's ledger. It scans expense accounts for FBT-trigger patterns (motor vehicles, entertainment and meals, staff amenities, employee benefits, low-interest loans), applies the Australian gross-up factors (Type 1 at 2.0802, Type 2 at 1.8868), estimates the FBT liability at the 47% top-marginal rate, and identifies which benefits qualify for the minor benefits exemption (<$300 infrequent and irregular). The output is a Word working paper that documents what was found, the estimated liability, the assumptions, and the recommended actions before the 21 May return deadline.",
+    "useCases": [
+      {
+        "title": "Annual FBT exposure scan",
+        "description": "Before the 21 May return deadline, scan the FBT year (1 April to 31 March) for benefits that may trigger FBT — vehicles, entertainment, staff amenities, loans."
+      },
+      {
+        "title": "Motor vehicle benefit review",
+        "description": "Identify company-owned vehicles and flag missing logbooks; estimate FBT under the statutory formula method (20% of base value)."
+      },
+      {
+        "title": "Entertainment expense classification",
+        "description": "Flag entertainment and meal expenses that may attract FBT; surface the minor benefits exemption opportunity for staff-only events under $300."
+      },
+      {
+        "title": "Reportable Fringe Benefits check",
+        "description": "Estimate which employees will need RFB reporting on their payment summary or via STP (grossed-up value over $2,000)."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Search",
+        "title": "Whole-of-ledger trigger scan",
+        "description": "Every expense and asset account scanned against the FBT trigger taxonomy — vehicles, entertainment, staff benefits, loans, packaging."
+      },
+      {
+        "icon": "Scale",
+        "title": "Liability estimated, not just identified",
+        "description": "Type 1 / Type 2 gross-up applied per benefit; FBT estimated at the 47% top-marginal rate. The number is in the working paper, not just the question."
+      },
+      {
+        "icon": "FileText",
+        "title": "Audit-defence Word working paper",
+        "description": "Documents what was found, how the estimate was reached, what assumptions were made, and what to do before 21 May. Files straight into the client folder."
+      }
+    ],
+    "workflow": [
+      "Type /fbt-prep in any Claude chat",
+      "Confirm the client and the FBT year (1 April to 31 March, defaults to most recently completed)",
+      "Plugin pulls P&L, balance sheet, fixed asset register and trial balance via MCP",
+      "Trigger scan runs across expense accounts; liability estimated with gross-up applied",
+      "A Word working paper is generated and the chat summarises the top exposures and recommended actions"
+    ]
+  }
+}

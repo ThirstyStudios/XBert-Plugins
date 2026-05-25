@@ -1,0 +1,66 @@
+{
+  "name": "xbert-tpar",
+  "version": "0.1.0",
+  "description": "Annual Taxable Payments Annual Report (TPAR) preparation for Australian clients in building, cleaning, courier, IT, road-freight and security industries — due 28 August.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-tpar",
+  "license": "MIT",
+  "keywords": ["tpar", "taxable-payments", "australian", "ato", "contractors", "annual", "compliance", "building", "cleaning", "courier"],
+  "x-xbert": {
+    "displayName": "XBert TPAR (AU)",
+    "tagline": "Annual Taxable Payments Annual Report prep for Australian clients in TPAR industries — every contractor identified, totalled, validated, ready for 28 August lodgement.",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["compliance", "tpar", "annual", "australian"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to an Australian-domiciled ledger",
+      "Client operates in a TPAR-reportable industry (building, cleaning, courier, IT, road-freight, security)"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "TPAR is the contractor-payments report that lives in its own ATO-deadline backwater every year. Building, cleaning, courier, IT, road-freight and security industries must report every contractor payment to the ATO by 28 August. The work is rarely thinking — it is identifying which suppliers are contractors (not employees, not landlords, not utilities), totalling their year, validating the ABN, and making sure GST is correctly stripped out of the gross.\n\nXBert TPAR runs the end-to-end report prep. It pulls every supplier payment for the financial year, applies the TPAR industry filter, validates ABNs against the supplier register, separates GST from the gross paid, identifies common errors (employees paid as contractors, missing ABNs, ABN format issues, duplicate suppliers), and produces the TPAR-ready summary plus a Word working paper for the file. Output is a contractor-by-contractor breakdown ready to be entered into the ledger's TPAR module or lodged directly via tax agent software.",
+    "useCases": [
+      {
+        "title": "Annual TPAR contractor extract",
+        "description": "Pull every supplier payment for the financial year, filter to reportable contractors, validate ABNs and total per contractor."
+      },
+      {
+        "title": "Industry-filter review",
+        "description": "If the client operates in mixed industries (some TPAR, some not), separate the contractor payments by industry so only the reportable ones are included."
+      },
+      {
+        "title": "Pre-lodgement error sweep",
+        "description": "Catch employees paid through accounts payable, missing ABNs, format errors, and duplicate suppliers — before the report is lodged with the ATO."
+      },
+      {
+        "title": "Working paper for the file",
+        "description": "Produces a Word document with the contractor list, totals, GST treatment and error log — files into the client folder as evidence of the TPAR preparation."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Search",
+        "title": "Contractor identification done for you",
+        "description": "Every supplier payment scanned against the TPAR industry rules — contractors separated from employees, landlords, utilities and other non-reportables."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "ABN validation and error sweep",
+        "description": "ABN format and registration validated; common errors (employees in AP, missing ABNs, duplicates) flagged before lodgement, not after the ATO query."
+      },
+      {
+        "icon": "FileText",
+        "title": "TPAR-ready report and working paper",
+        "description": "Contractor-by-contractor breakdown ready to enter into the ledger's TPAR module, plus a Word working paper documenting the preparation."
+      }
+    ],
+    "workflow": [
+      "Type /tpar in any Claude chat",
+      "Confirm the client and the financial year (defaults to year ending 30 June just past) and the reportable industry",
+      "Plugin pulls supplier register, bills paid and bank transactions via MCP for the year",
+      "Industry filter applied, contractors identified, ABNs validated, GST separated; error log produced",
+      "A TPAR-ready summary and Word working paper are generated; chat summarises any items needing correction before lodgement"
+    ]
+  }
+}

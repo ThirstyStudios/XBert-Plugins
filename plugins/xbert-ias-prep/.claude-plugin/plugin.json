@@ -1,0 +1,66 @@
+{
+  "name": "xbert-ias-prep",
+  "version": "0.1.0",
+  "description": "Pre-lodgement IAS readiness check for Australian clients — verify PAYG withholding and instalment data before lodging the Instalment Activity Statement.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-ias-prep",
+  "license": "MIT",
+  "keywords": ["ias", "australian", "ato", "lodgement", "paygw", "instalment", "compliance", "monthly"],
+  "x-xbert": {
+    "displayName": "XBert IAS Prep (AU)",
+    "tagline": "One command to verify an Australian client is ready to lodge their IAS — and produce the audit document that proves it.",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["compliance", "ias", "lodgement", "australian"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to an Australian-domiciled ledger",
+      "Client has PAYG withholding obligations or pays PAYG instalments"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "IAS (Instalment Activity Statement) is the monthly form for businesses with PAYG withholding obligations but not GST registration, and for medium withholders who report monthly. It is smaller than a BAS but the discipline is the same — payroll posted, tax withheld balanced, super paid, every XBert resolved before lodgement.\n\nXBert IAS Prep runs the readiness sweep for an IAS lodgement. It pulls bank reconciliation, payroll data, W1-W5 PAYG withholding, T7 / T11 PAYG instalment data, and outstanding XBerts for the period. Every blocking issue is named with the specific account or transaction. The output is a Word audit document with the check reference ID, preparer details and firm-level QMS certification — filable straight to the client folder as the working paper.",
+    "useCases": [
+      {
+        "title": "Monthly IAS readiness sweep",
+        "description": "Before lodging the monthly IAS, run the check and see every blocking issue — bank rec gaps, missing payruns, outstanding XBerts — in one pass."
+      },
+      {
+        "title": "PAYG-W reconciliation",
+        "description": "Verify W1 (gross wages) and W2 (tax withheld) tie back to the payrun totals and the PAYGW liability account — before the lodgement, not after."
+      },
+      {
+        "title": "Audit working paper",
+        "description": "Produces a Word document with the check reference ID, supporting figures, and QMS block — files into the client folder as the audit record."
+      },
+      {
+        "title": "Reviewer handoff",
+        "description": "Junior bookkeeper runs the check, reviewer reads the summary and asks targeted questions — instead of re-checking every account from scratch."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "ShieldCheck",
+        "title": "Every blocking issue named",
+        "description": "All outstanding XBerts block lodgement. Unreconciled accounts, unposted payruns, missing super — each surfaced with the specific account or transaction reference."
+      },
+      {
+        "icon": "FileSearch",
+        "title": "PAYG-W tied to payroll",
+        "description": "W1, W2, W3, W4 and W5 reconciled against payrun totals and the PAYGW liability account — discrepancies named, not hidden in averages."
+      },
+      {
+        "icon": "FileText",
+        "title": "Audit document for the file",
+        "description": "Outputs a Word document with check reference ID, QMS certification and supporting evidence behind every readiness decision."
+      }
+    ],
+    "workflow": [
+      "Type /ias-prep in any Claude chat",
+      "Confirm the client and the IAS period (or accept the current open month)",
+      "Plugin pulls reconciliation, payroll, PAYG-W, super and outstanding XBerts via MCP",
+      "Readiness checks run and produce a blocking-issues list with W1-W5 verification",
+      "A Word audit document is generated and the chat summarises the top items to action before lodgement"
+    ]
+  }
+}

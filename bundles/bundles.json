@@ -17,9 +17,16 @@
     {
       "id": "au-compliance-pack",
       "name": "AU Compliance Pack",
-      "tagline": "Australian lodgement compliance — BAS, IAS, super, FBT, STP finalisation, TPAR, instalment variation, Div 7A.",
+      "tagline": "Australian lodgement compliance — BAS, IAS, FBT, super, STP finalisation, TPAR, instalment variation, Div 7A.",
       "audience": "accountants",
-      "plugins": ["xbert-au-compliance-calendar", "xbert-instalment-variation", "xbert-div7a-schedule", "xbert-payroll-close"]
+      "plugins": ["xbert-bas-prep", "xbert-ias-prep", "xbert-fbt-prep", "xbert-super-check", "xbert-stp-finalisation", "xbert-tpar", "xbert-instalment-variation", "xbert-div7a-schedule", "xbert-payroll-close"]
+    },
+    {
+      "id": "country-compliance-pack",
+      "name": "Country Compliance Pack",
+      "tagline": "Country-specific compliance lodgement workflows — UK and NZ.",
+      "audience": "accountants",
+      "plugins": ["xbert-vat-prep", "xbert-mtd-prep", "xbert-paye-prep", "xbert-gst-prep-nz"]
     },
     {
       "id": "principal-practice-pack",

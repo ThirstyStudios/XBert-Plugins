@@ -1,0 +1,66 @@
+{
+  "name": "xbert-paye-prep",
+  "version": "0.1.0",
+  "description": "PAYE, payroll and pension control account review for UK clients — reconcile to HMRC RTI submissions, verify auto-enrolment compliance, audit document for the file.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-paye-prep",
+  "license": "MIT",
+  "keywords": ["paye", "uk", "hmrc", "rti", "payroll", "pension", "auto-enrolment", "fps", "eps"],
+  "x-xbert": {
+    "displayName": "XBert PAYE Prep (UK)",
+    "tagline": "PAYE, payroll and pension control account review for UK clients — reconciled to HMRC RTI, auto-enrolment verified, audit document for the file.",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["compliance", "paye", "payroll", "uk"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to a UK-domiciled ledger",
+      "Payroll posted for the period with RTI submissions made via PAYE-compatible software"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "PAYE compliance for UK clients is a monthly rhythm — RTI submission on time, control accounts reconciled, HMRC payment by the 22nd, pension auto-enrolment contributions correct. The risk isn't usually the headline numbers; it's the aged balance on the PAYE control account that has been carrying for three months because something didn't post, or the auto-enrolment percentages that drifted when an employee changed scheme.\n\nXBert PAYE Prep runs the control-account review. It verifies the PAYE control account reconciles to RTI submissions, the payroll control matches gross pay from the payroll reports, and the pension liability matches employer plus employee contributions at the correct auto-enrolment rates (minimum 3% employer, 8% total on qualifying earnings). Aged balances are surfaced with the period they relate to. The output is a Word audit document with the supporting evidence — filable to the client folder as the working paper.",
+    "useCases": [
+      {
+        "title": "Monthly PAYE control review",
+        "description": "After each pay run, verify the PAYE control account agrees to the RTI submission and the HMRC payment that's about to go out by the 22nd."
+      },
+      {
+        "title": "Aged-balance investigation",
+        "description": "Surface balances over three months old on PAYE, payroll or pension control accounts — name the period they relate to so the bookkeeper can investigate."
+      },
+      {
+        "title": "Auto-enrolment compliance check",
+        "description": "Verify employer contributions are at least 3% and total contributions at least 8% on qualifying earnings — flag any drift below the thresholds."
+      },
+      {
+        "title": "Audit working paper",
+        "description": "Produces a Word document with the control account reconciliations, RTI cross-check and pension compliance summary for the file."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "ShieldCheck",
+        "title": "Control accounts reconciled",
+        "description": "PAYE, payroll and pension liability accounts each reconciled to source — RTI submission, payroll reports, pension scheme statement."
+      },
+      {
+        "icon": "Clock",
+        "title": "Aged balances surfaced",
+        "description": "Balances over three months old flagged with the period they relate to — not buried in a single total."
+      },
+      {
+        "icon": "FileText",
+        "title": "Audit document for the file",
+        "description": "Word document with control reconciliations, RTI cross-check, auto-enrolment verification and the supporting evidence."
+      }
+    ],
+    "workflow": [
+      "Type /paye-prep in any Claude chat",
+      "Confirm the client and the period (most recent pay month or the period under review)",
+      "Plugin pulls payroll, PAYE control, payroll control, pension liability and RTI submissions via MCP",
+      "Reconciliation, aged-balance and auto-enrolment checks run",
+      "A Word audit document is generated and the chat summarises any aged balances or compliance gaps"
+    ]
+  }
+}

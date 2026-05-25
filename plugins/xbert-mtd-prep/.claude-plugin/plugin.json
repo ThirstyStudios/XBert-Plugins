@@ -1,0 +1,66 @@
+{
+  "name": "xbert-mtd-prep",
+  "version": "0.1.0",
+  "description": "Making Tax Digital for Income Tax readiness assessment for UK clients — chart of accounts mapped to HMRC categories, income threshold, simplified vs full reporting eligibility, quarterly reporting readiness.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-mtd-prep",
+  "license": "MIT",
+  "keywords": ["mtd", "uk", "hmrc", "itsa", "income-tax", "self-assessment", "self-employment", "property", "quarterly"],
+  "x-xbert": {
+    "displayName": "XBert MTD Prep (UK)",
+    "tagline": "Making Tax Digital for Income Tax readiness for UK clients — chart mapped to HMRC categories, threshold confirmed, quarterly reporting ready.",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["compliance", "mtd", "itsa", "uk"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to a UK-domiciled ledger",
+      "Client has self-employment or property income (the qualifying income for MTD ITSA)"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "MTD for Income Tax Self Assessment lands in April 2026 for sole traders and landlords over £50,000 qualifying income, with the threshold dropping to £30,000 a year later and £20,000 proposed for 2028. The work to be ready is not the quarterly submission itself — it is mapping the client's chart of accounts to HMRC's self-employment (SA103) or property (SA105) expense categories, splitting business from personal where it sneaks in, and confirming the client falls under simplified two-line reporting (under £90,000) versus full disaggregated reporting.\n\nXBert MTD Prep runs the readiness assessment. It pulls the client's chart, income figures and prior-year tax position, then checks the chart-to-HMRC mapping is complete, splits self-employment from property income, separates residential from commercial mortgage costs, confirms the income threshold and applicable mandatory date, and identifies which custom accounts need mapping before the first quarterly submission. The output is a Word working paper documenting the readiness assessment, the gaps, and the actions needed to be ready for the next quarterly deadline.",
+    "useCases": [
+      {
+        "title": "Pre-mandate readiness check",
+        "description": "Before the client's MTD mandate date, assess whether the chart of accounts maps cleanly to HMRC categories — fix the gaps once instead of every quarter."
+      },
+      {
+        "title": "Income threshold confirmation",
+        "description": "Determine which threshold tier the client falls into (£50K, £30K, £20K) and when MTD becomes mandatory — only qualifying income counts."
+      },
+      {
+        "title": "Simplified vs full reporting decision",
+        "description": "Under £90,000 turnover: two-line / three-line reporting. Over: full HMRC category breakdown required. Confirm which applies."
+      },
+      {
+        "title": "Quarterly submission rehearsal",
+        "description": "Run the readiness check before the first quarterly deadline so the bookkeeper knows exactly what gets reported and where the data comes from."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "GitBranch",
+        "title": "Chart-to-HMRC mapping audit",
+        "description": "Every custom account assessed against the SA103 self-employment and SA105 property category lists — unmapped accounts surfaced with severity."
+      },
+      {
+        "icon": "Scale",
+        "title": "Threshold and mandate date",
+        "description": "Qualifying income computed (excluding PAYE, dividends and pensions) and matched to the correct threshold tier and mandatory MTD start date."
+      },
+      {
+        "icon": "FileText",
+        "title": "Readiness working paper",
+        "description": "Word document with the mapping audit, threshold determination, simplified-reporting eligibility, and the actions required before the first quarterly submission."
+      }
+    ],
+    "workflow": [
+      "Type /mtd-prep in any Claude chat",
+      "Confirm the client (sole trader or landlord) and whether self-employment, property or both",
+      "Plugin pulls chart of accounts, income figures and prior-year position via MCP",
+      "Mapping audit runs against HMRC categories; threshold and mandate date determined",
+      "A Word readiness working paper is generated and the chat summarises the actions needed before the next quarterly deadline"
+    ]
+  }
+}

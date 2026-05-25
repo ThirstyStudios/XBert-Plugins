@@ -1,0 +1,66 @@
+{
+  "name": "xbert-super-check",
+  "version": "0.1.0",
+  "description": "Quarterly Superannuation Guarantee check for Australian clients — verify SG calculated, posted, and paid through the clearing house by the 28th, with SGC-risk audit trail.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-super-check",
+  "license": "MIT",
+  "keywords": ["superannuation", "sg", "australian", "ato", "payroll", "quarterly", "clearing-house", "sgc"],
+  "x-xbert": {
+    "displayName": "XBert Super Check (AU)",
+    "tagline": "Quarterly SG verification for Australian clients — calculated, posted, paid through the clearing house by the 28th, with SGC-risk audit trail.",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["compliance", "superannuation", "payroll", "quarterly", "australian"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to an Australian-domiciled ledger",
+      "Payroll posted for the quarter with super calculated against eligible employees"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Superannuation Guarantee in Australia has a single hard deadline — the 28th of the month after the quarter ends. Miss it by a day and the client owes Superannuation Guarantee Charge (SGC) plus interest plus admin fees, none of which is deductible. The risk is rarely calculation — it is the clearing-house gap, the casual employee whose ordinary time earnings were never updated when their hours grew, or the quarter's SG that posted to the liability account but never made it out the bank account.\n\nXBert Super Check runs the full SG check for the quarter. It verifies SG is calculated at the current 12% rate against ordinary time earnings, posted to the super liability account, and paid through the clearing house with the bank movement matching the liability clearance. Late-payment risk is quantified — if super clears the bank after the 28th, the SGC exposure is named. The output is a Word working paper with each employee's contribution, the clearing house lodgement reference, the bank payment date, and the SGC-risk note for the file.",
+    "useCases": [
+      {
+        "title": "Pre-deadline SG sweep",
+        "description": "A week before the 28th, run the check to see super calculated, super posted, super queued at the clearing house, and money actually moving."
+      },
+      {
+        "title": "Post-deadline SGC exposure",
+        "description": "If super was paid late, the working paper names the late employees, late amount, late days, and estimated SGC liability."
+      },
+      {
+        "title": "Clearing house reconciliation",
+        "description": "Match the super liability account to clearing house lodgements and the bank payment — surface gaps where money was budgeted but never sent."
+      },
+      {
+        "title": "Quarterly working paper",
+        "description": "File a Word document for the quarter that shows the SG was paid on time, to the right funds, for the right employees — audit-defence on demand."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Clock",
+        "title": "28th-of-month enforcement",
+        "description": "Hard SG deadline tracked. Late-payment days quantified per employee with the SGC exposure note attached — not just a missed-deadline flag."
+      },
+      {
+        "icon": "GitBranch",
+        "title": "Payroll → liability → bank trace",
+        "description": "Super calculated in payroll, posted to the liability account, lodged with the clearing house, paid out of the bank — each leg verified, gaps named."
+      },
+      {
+        "icon": "FileText",
+        "title": "Quarterly working paper",
+        "description": "Word document with per-employee contribution, clearing house lodgement reference, bank payment date, and SGC-risk audit trail."
+      }
+    ],
+    "workflow": [
+      "Type /super-check in any Claude chat",
+      "Confirm the client and the SG quarter (or accept the current quarter ending)",
+      "Plugin pulls payroll, super liability, bank transactions and clearing house references via MCP",
+      "SG calculation, posting and payment-status checks run and produce blocking issues plus SGC-risk notes",
+      "A Word working paper is generated and the chat summarises the top items to action before the 28th"
+    ]
+  }
+}

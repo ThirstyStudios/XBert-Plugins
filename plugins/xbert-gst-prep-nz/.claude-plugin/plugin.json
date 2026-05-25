@@ -1,0 +1,66 @@
+{
+  "name": "xbert-gst-prep-nz",
+  "version": "0.1.0",
+  "description": "Pre-lodgement GST readiness check for New Zealand clients — boxes 5-15 validated against bank rec, payroll and outstanding XBerts, audit document for IRD filing.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-gst-prep-nz",
+  "license": "MIT",
+  "keywords": ["gst", "new-zealand", "nz", "ird", "gst101a", "lodgement", "compliance", "two-monthly", "monthly"],
+  "x-xbert": {
+    "displayName": "XBert GST Prep (NZ)",
+    "tagline": "One command to verify a New Zealand client is ready to file their GST return with the IRD — boxes 5-15 validated, audit document for the file.",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["compliance", "gst", "lodgement", "new-zealand"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to a New Zealand-domiciled ledger",
+      "GST registration and filing frequency (monthly / two-monthly / six-monthly) configured"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "GST in New Zealand is the same checklist every two months for most clients, every month for the big ones, every six months for the small ones — bank reconciled, GST boxes computed from sales and purchases, KiwiSaver and PAYE liabilities sane, outstanding XBerts cleared, prior period comparison sane. The 28th of the month after the period is the standard deadline; March period due 7 May, November period due 15 January. Miss them and the IRD takes its interest plus its penalties.\n\nXBert GST Prep (NZ) runs the full readiness sweep against the client's data. It pulls bank reconciliation, GST boxes 5-15 (sales, zero-rated, taxable, GST collected, credit adjustments, purchases, GST on purchases, credit adjustments on purchases, net GST), KiwiSaver / PAYE liability balances, outstanding XBerts, and a prior-period variance comparison. Every blocking issue is named with the specific account or transaction. The output is a Word document with the check reference ID, preparer details and firm-level QMS certification — filable straight to the client folder.",
+    "useCases": [
+      {
+        "title": "Pre-IRD filing sweep",
+        "description": "Before filing the GST101A through your tax software, run the check and see every blocking issue — bank rec gaps, suspect GST balances, outstanding XBerts — in one pass."
+      },
+      {
+        "title": "Boxes 5-15 validation",
+        "description": "Sales (Box 5), zero-rated (Box 6), GST on sales (Box 8), purchases (Box 11), GST on purchases (Box 12), net GST (Box 15) — all cross-checked against P&L and control accounts."
+      },
+      {
+        "title": "Variance vs prior period",
+        "description": "GST collected jumped 40% from last period? The variance is named in the document so the reviewer knows what to ask about before signing off."
+      },
+      {
+        "title": "Audit working paper",
+        "description": "Produces a Word document with the check reference ID, supporting figures, and QMS block — files into the client folder as the audit record."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "ShieldCheck",
+        "title": "Every blocking issue named",
+        "description": "All outstanding XBerts block lodgement. Unreconciled accounts, suspense balances, missing KiwiSaver postings — each surfaced with the specific account or transaction reference."
+      },
+      {
+        "icon": "FileSearch",
+        "title": "Prior-period comparison built in",
+        "description": "GST boxes compared to the prior GST period. Variances over threshold are flagged and explained — not just numbers on a page."
+      },
+      {
+        "icon": "FileText",
+        "title": "Audit document for the file",
+        "description": "Outputs a Word document with check reference ID, QMS certification and supporting evidence behind every readiness decision."
+      }
+    ],
+    "workflow": [
+      "Type /gst-prep-nz in any Claude chat",
+      "Confirm the client and the GST period (or accept auto-detection of the most recent completed period)",
+      "Plugin pulls reconciliation, GST boxes, payroll, KiwiSaver / PAYE liabilities, AP, AR and outstanding XBerts via MCP",
+      "Readiness checks run and produce a blocking-issues list plus prior-period variance review",
+      "A Word audit document is generated and the chat summarises the top items to action before filing"
+    ]
+  }
+}
