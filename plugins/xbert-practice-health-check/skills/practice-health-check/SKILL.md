@@ -11,8 +11,8 @@ A portfolio-level diagnostic that rolls up data-quality and notification signals
 Move beyond descriptive scores. For every flagged client, answer "what this means" and "what's likely causing it" so the principal can act, not just observe.
 
 ## Metrics
-- **DQ score** — `Data_DataQualityScore` per client (0-100)
-- **Outstanding notification load** — count and risk-weight from `Data_XBertNotificationSummary`
+- **DQ score** — per-client data-quality score (0-100)
+- **Outstanding notification load** — count and risk-weight from the notification summary
 - **30-day completion rate** — from notification summary
 - **Coverage** — connections per client, ledger type (Xero / QuickBooks / XPM / none)
 - **Cohort age** — months since first connection

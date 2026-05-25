@@ -7,13 +7,13 @@ You are running the Payroll Close workflow for a bookkeeping practice.
 Steps:
 1. Confirm scope: (a) client tenant, (b) the pay period (week ending date), (c) whether this is a **pre-run** check (before posting) or **post-run** check (after posting, before bank file uploads). If unclear, ask.
 2. Pull from XBert via the connected MCP:
-   - Pay-run summary for the period (try `Data_PayRuns_Summary` and `Data_PayRuns_Get` or `tools_search` if names differ)
-   - Payslip detail for the current pay (try `Data_Payslips_Summary`)
-   - Active employees with their settings (try `Data_Employees_Summary`)
-   - Leave applications hitting this period (try `Data_LeaveApplications_Summary`)
-   - Payroll configuration including super rates and STP setup (try `Data_PayrollSettings`)
-   - Bank reconciliation status of the payroll clearing account (try `Validation_BankReconciliation` for the bank-out check)
-   - Prior pay-run totals for variance comparison (re-use `Data_PayRuns_Summary` with date range covering the previous 1-3 pays)
+   - Pay-run summary and pay-run detail for the period
+   - Payslip detail for the current pay
+   - Active employees with their settings
+   - Leave applications hitting this period
+   - Payroll configuration including super rates and STP setup
+   - Bank reconciliation status of the payroll clearing account for the bank-out check
+   - Prior pay-run totals for variance comparison (covering the previous 1-3 pays)
 3. Analyse using the `payroll-close` skill methodology:
    - **Pre-run path**: new-starter check, termination check, leave-hit check, super-rate drift, STP P2 hygiene, address changes, hours-vs-expected check
    - **Post-run path**: net-pay variance vs prior pay (banded), PAYG and super variance, STP submission status, ABA/bank-file total vs sum(net pay) reconciliation

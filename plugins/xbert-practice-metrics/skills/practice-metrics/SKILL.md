@@ -11,9 +11,9 @@ A monthly partner-meeting one-pager. Same shape every month. Designed for consis
 Produce a repeatable artefact partners can compare month-on-month without questioning whether definitions changed.
 
 ## Metrics
-- **Revenue** — invoiced in month (from `Data_Invoices_Summary`)
+- **Revenue** — invoiced in month
 - **WIP** — logged time × billing rate not yet invoiced
-- **Debtors** — open AR balance (from `Data_AgedReceivables`)
+- **Debtors** — open AR balance (from aged receivables)
 - **Lockup days** — (WIP + debtors) / annualised revenue × 365
 - **Write-offs** — billed minus invoiced for completed work in month
 - **Service-line P&L** — revenue and direct cost by bookkeeping / tax / advisory

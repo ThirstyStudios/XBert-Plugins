@@ -7,14 +7,14 @@ You are running an annual STP Phase 2 finalisation check for an Australian clien
 Steps:
 1. Ask the user which client and which financial year (default to the year ending 30 June just past). If the trigger is the slash command and the user has named a client, proceed.
 2. Pull from XBert via the connected MCP:
-   - Organisation context (try `Data_GetOrganisation` — confirm country code is AU, STP Phase 2 enabled — or `tools_search`)
-   - Full year payrun history (try `Data_GetPayRunData` and `Data_GetEmployeePayData`)
-   - Payroll reconciliation against general ledger (try `Data_GetPayrollReconciliation`)
-   - Super reconciliation for YTD super contributions per employee (try `Data_GetSuperReconciliation`)
-   - Employee STP classifications — income type, tax treatment code, country code (try `Data_GetPayrollSettings`)
-   - Outstanding XBerts touching payroll for the year (try `Data_XBertNotificationSummary`)
+   - Organisation context — confirm country code is AU, STP Phase 2 enabled
+   - Full year payrun history and employee pay data
+   - Payroll reconciliation against general ledger
+   - Super reconciliation for YTD super contributions per employee
+   - Employee STP classifications — income type, tax treatment code, country code
+   - Outstanding XBerts touching payroll for the year
 3. Run the finalisation checks per the `stp-finalisation` skill — per-employee YTD reconciliation, income-type mapping, allowance disaggregation, RFB threshold check, termination payment classification, missing TFN flags, year-end leave balance sanity check.
-4. Generate a Word document (try `GenerateWord` or `tools_search`) containing:
+4. Generate a Word document containing:
    - Cover page with client name, ABN, financial year, generation date
    - First-page summary — total employees, items needing correction, FINAL status
    - Per-employee YTD table — gross, PAYG-W, super, allowances by type, RFB, ETP / lump sums

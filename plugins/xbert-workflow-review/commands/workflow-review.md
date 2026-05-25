@@ -7,10 +7,10 @@ You are running a structural workflow review for the user's XBert Connect tenant
 Steps:
 1. Confirm the user wants to run the review. If the trigger is the slash command or a clear direct request, skip ahead. Otherwise, briefly confirm scope.
 2. Pull from XBert via the connected MCP:
-   - Capacity and workload data for all users (try `Features_Review` with connectTenantId, no userProfileId for all users — or `tools_search` if the name differs)
-   - Activity data for the last 12 months (try `Features_ReviewActivity` with connectTenantId, startDate 12 months ago, endDate today — or `tools_search` if the name differs)
-   - Notification summary per client to assess completion patterns (try `Data_XBertNotificationSummary` per client — or `tools_search` if the name differs)
-   - Template and schedule configuration (try `xbert.workflow.templates_and_schedules(connectTenantId)` or `tools_search` if the name differs)
+   - Capacity and workload data for all users on the Connect tenant
+   - Activity data for the last 12 months on the Connect tenant
+   - Notification summary per client to assess completion patterns
+   - Template and schedule configuration for the Connect tenant
 3. Analyse using the `workflow-review` skill methodology:
    - Section 1: Snapshot (client counts, template counts, coverage)
    - Section 2: Usage reality (live/dormant/zombie schedules, orphaned assignments, completion quality, per-user load)
@@ -18,7 +18,7 @@ Steps:
    - Section 4: Budget accuracy (templates where budgeted time diverges from actuals, ranked by annualised impact)
    - Section 5: Health flags (unassigned schedules, stale templates, duplicate names, inconsistent assignments)
    - Section 6: Prioritised recommendations (5-10 actions ranked by impact with confidence labels)
-4. Generate a Word document using the document generation tool (try `GenerateWord` or `tools_search` if the name differs) containing:
+4. Generate a Word document containing:
    - Cover page with customer name and generation date
    - First-page benefits summary with highest-impact findings
    - Data-sparsity summary (what ran on full vs sparse data)

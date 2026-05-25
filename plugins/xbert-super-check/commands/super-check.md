@@ -7,13 +7,13 @@ You are running a quarterly Superannuation Guarantee (SG) check for an Australia
 Steps:
 1. Ask the user which client and which SG quarter (Q1 Jul-Sep, Q2 Oct-Dec, Q3 Jan-Mar, Q4 Apr-Jun) to check. If the trigger is the slash command and the user has named a client, default to the most recently completed quarter.
 2. Pull from XBert via the connected MCP:
-   - Organisation context (try `Data_GetOrganisation` — confirm country code is AU — or `tools_search`)
-   - Payrun data for every payrun in the quarter (try `Data_GetPayRunData` and `Data_GetEmployeePayData`)
-   - Super reconciliation (try `Data_GetSuperReconciliation`)
-   - Super liability account movement and bank transactions tied to clearing house payments (try `Data_GetBalanceSheet` and `Data_GetBankAccounts`)
-   - Outstanding XBerts touching super or payroll for the quarter (try `Data_XBertNotificationSummary`)
+   - Organisation context — confirm country code is AU
+   - Payrun data and employee pay data for every payrun in the quarter
+   - Super reconciliation
+   - Super liability account movement and bank transactions tied to clearing house payments
+   - Outstanding XBerts touching super or payroll for the quarter
 3. Run the SG checks per the `super-check` skill — eligibility per employee, SG calculated at 12% on ordinary time earnings, super liability posted, clearing house lodgement reference exists, bank payment matches liability clearance, paid on or before the 28th. Quantify SGC exposure for any late or missed payment.
-4. Generate a Word document (try `GenerateWord` or `tools_search`) containing:
+4. Generate a Word document containing:
    - Cover page with client name, ABN, SG quarter, generation date
    - First-page summary of SG paid, deadline status, and any SGC exposure
    - Per-employee contribution table — gross pay, OTE, SG calculated, SG paid, fund, clearing house reference

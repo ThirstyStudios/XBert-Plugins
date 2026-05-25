@@ -7,14 +7,14 @@ You are running a PAYE compliance review for a UK client. The goal is to reconci
 Steps:
 1. Ask the user which client and which period to review (month or pay period). If the trigger is the slash command and the user has named a client, default to the most recently completed pay period.
 2. Pull from XBert via the connected MCP:
-   - Organisation context (try `Data_GetOrganisation` — confirm country code is GB — or `tools_search`)
-   - Payrun data and RTI submission references (try `Data_GetPayRunData` and `Data_GetEmployeePayData`)
-   - Payroll reconciliation (try `Data_GetPayrollReconciliation`)
-   - PAYE control account (PAYGLIABILITY classification) movements (try `Data_GetBalanceSheet`)
+   - Organisation context — confirm country code is GB
+   - Payrun data and RTI submission references
+   - Payroll reconciliation
+   - PAYE control account (PAYGLIABILITY classification) movements
    - Pension liability account (SUPERANNUATIONLIABILITY classification) movements
    - Outstanding XBerts touching payroll for the period
 3. Run the checks per the `paye-prep` skill — PAYE control reconciles to RTI submissions (FPS / EPS), payroll control matches gross pay, pension liability matches employer plus employee contributions, auto-enrolment rates verified (3% employer, 8% total minimum), HMRC payment deadlines (22nd electronic / 19th cheque), aged balances over three months flagged.
-4. Generate a Word document (try `GenerateWord` or `tools_search`) containing:
+4. Generate a Word document containing:
    - Cover page with client name, PAYE reference, period, generation date
    - First-page summary of readiness status and compliance gaps
    - PAYE control reconciliation — opening, payrun postings, HMRC payment, closing

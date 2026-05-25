@@ -7,8 +7,8 @@ You are running the client tempo review for a bookkeeping or accounting practice
 Steps:
 1. Ask whether the user wants the whole client book or a specific client. Default to whole book.
 2. Pull from XBert via the connected MCP:
-   - Rolling 1-month transactional volume per client (try `xbert.metrics.client_volume(rolling=1m)`)
-   - Trailing 2-3 month baseline per client (try `xbert.metrics.client_volume(rolling=3m)` excluding the current month)
+   - Rolling 1-month transactional volume per client
+   - Trailing 2-3 month baseline per client (excluding the current month)
 3. Compute `delta = (recent - baseline) / baseline` for each client.
 4. Apply thresholds: >+30% = trending up materially; <-30% = trending down materially.
 5. Sort by absolute materiality. Surface:

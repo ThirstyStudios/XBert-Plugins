@@ -6,21 +6,21 @@ You are running the intercompany reconciliation workflow for an accountant in pu
 
 Steps:
 1. Confirm scope — which group of entities. Use the connected MCP to discover the related entities:
-   - List accessible clients (try `Data_GetAllAccessibleClients` or `tools_search` if the name differs)
-   - Pull explicit client connections / group structure (try `Data_GetClientConnections` or `tools_search`)
+   - List accessible clients
+   - Pull explicit client connections / group structure
    - Confirm the entity set with the user before proceeding
 2. For each entity in the group, pull from XBert via the connected MCP:
-   - Closing balance sheet (try `Data_BalanceSheet` or `tools_search`)
-   - Closing trial balance (try `Data_TrialBalance` or `tools_search`)
-   - Contacts list, focusing on related-party contacts (try `Data_Contacts_Search` or `tools_search`)
-   - Journal master for inter-entity activity in the period (try `Data_JournalMaster_Search` or `tools_search`)
+   - Closing balance sheet
+   - Closing trial balance
+   - Contacts list, focusing on related-party contacts
+   - Journal master for inter-entity activity in the period
 3. Run the intercompany matching from the `intercompany-recon` skill:
    - Identify related-party account types per entity (Loan To / Loan From / Recharge / Trade with related party)
    - Pair every Loan To on one side with a Loan From on the other
    - Reconcile recharge accounts both directions
    - Flag every mismatch (one side recorded, other didn't; different amounts; different GST treatment)
    - For each mismatch, propose the missing-side journal entry
-4. Generate the deliverable Excel workbook (try `Utility_GenerateExcel` or `tools_search`):
+4. Generate the deliverable Excel workbook:
    - One tab per entity with the related-party section of its balance sheet
    - Pairing tab showing every Loan To ↔ Loan From match
    - Mismatch tab listing every flagged item with proposed correcting journal

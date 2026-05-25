@@ -7,13 +7,13 @@ You are running a Making Tax Digital for Income Tax Self Assessment (MTD ITSA) r
 Steps:
 1. Ask the user which client and what type of income the client receives (self-employment, property, or both). If the trigger is the slash command and the user has named a client, proceed.
 2. Pull from XBert via the connected MCP:
-   - Organisation context (try `Data_GetOrganisation` — confirm country code is GB — or `tools_search`)
-   - MTD readiness data (try `Data_MTDReadiness` per the agent guidance — or `tools_search`)
-   - Chart of accounts (try `Data_GetChartOfAccounts`)
-   - Profit & loss for the year (try `Data_GetProfitAndLoss`)
+   - Organisation context — confirm country code is GB
+   - MTD readiness data per the agent guidance
+   - Chart of accounts
+   - Profit & loss for the year
    - Prior year income totals for threshold determination
 3. Run the assessment per the `mtd-prep` skill — unmapped accounts (custom accounts not mapped to HMRC categories), split coding (expenses needing business / personal allocation), missing categories (expected HMRC categories with no transactions), income threshold (over £50K / £30K / £20K), simplified eligibility (under £90K for two-line reporting), property separation, residential vs commercial finance cost separation.
-4. Generate a Word document (try `GenerateWord` or `tools_search`) containing:
+4. Generate a Word document containing:
    - Cover page with client name, UTR, income types covered, generation date
    - Readiness status (MTD Ready / MTD Not Ready) and mandate date
    - Income summary — self-employment and property separated, qualifying income totalled

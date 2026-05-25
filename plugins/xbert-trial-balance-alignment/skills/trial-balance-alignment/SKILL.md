@@ -25,8 +25,8 @@ Reconcile every account on the ledger trial balance against the accountant's sig
 ## Process / rules
 
 ### v1 scope
-- **Ledger source**: Xero trial balance export (via XBert MCP `Data_TrialBalance`)
-- **FS source**: signed financial statements PDF supplied by the user; extracted via `SemanticExtraction_ExtractText`
+- **Ledger source**: Xero trial balance export pulled via the XBert MCP
+- **FS source**: signed financial statements PDF supplied by the user; extracted via the XBert MCP text-extraction tool
 - **MYOB / QuickBooks Online / FreeAgent**: deferred to v2
 
 ### Four-case matching engine
@@ -54,7 +54,7 @@ Apply in this order — first match wins:
 - The workbook fails the balance check if total debits ≠ total credits OR if the matched + unmatched totals do not reconcile to both source totals — abort and tell the user before producing the Word document
 
 ### PDF extraction uncertainty
-- If `SemanticExtraction_ExtractText` returns any cell below the confidence floor, surface that cell to the user before running matching
+- If text extraction returns any cell below the confidence floor, surface that cell to the user before running matching
 - Do not fall back to "best guess" silently — the audit trail must reflect the source
 
 ## Always

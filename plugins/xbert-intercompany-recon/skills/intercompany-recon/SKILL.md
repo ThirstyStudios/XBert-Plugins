@@ -25,7 +25,7 @@ For every group entity, identify the related-party accounts, match every inter-e
 ## Process / rules
 
 ### Step 1 — Discover the group
-- Pull `Data_GetClientConnections` to get explicit group relationships
+- Pull the client connections to get explicit group relationships
 - If group structure is not explicit, ask the user to confirm the entity set
 - Refuse to proceed if user does not have multi-entity access on the account — this is the core unlock
 

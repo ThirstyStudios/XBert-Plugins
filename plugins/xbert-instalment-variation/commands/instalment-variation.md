@@ -7,18 +7,18 @@ You are running the instalment variation workflow for an accountant in public pr
 Steps:
 1. Confirm scope — which client, which instalment (PAYG-I or GST instalment), which quarter, and the current ATO notice headline rate. Ask the user for the notice details if not provided.
 2. Pull from XBert via the connected MCP:
-   - YTD profit and loss (try `Data_ProfitAndLoss` or `tools_search` if the name differs)
-   - Closing balance sheet (try `Data_BalanceSheet` or `tools_search`)
-   - Cashflow position (try `Data_Cashflow` or `tools_search`)
-   - Budget adherence YTD (try `Data_BudgetAdherence` or `tools_search`)
-   - Current tax rates (try `Data_TaxRates` or `tools_search`)
+   - YTD profit and loss
+   - Closing balance sheet
+   - Cashflow position
+   - Budget adherence YTD
+   - Current tax rates
 3. Run the analysis using the `instalment-variation` skill:
    - YTD profit trend vs prior-year same period
    - Cashflow run-rate — current liquidity vs upcoming obligations
    - Compare expected annual taxable income vs the ATO notice rate
    - Direction recommendation: vary up, vary down, or stay
    - Confidence label and GIC exposure note for any variation-down recommendation
-4. Generate a PDF audit-defence working paper (try `Utility_GeneratePDF` or `tools_search`) containing:
+4. Generate a PDF audit-defence working paper containing:
    - Client, quarter, instalment type, ATO notice rate
    - YTD figures with prior-year comparison
    - Cashflow snapshot

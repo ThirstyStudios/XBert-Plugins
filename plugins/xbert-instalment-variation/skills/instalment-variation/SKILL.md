@@ -52,7 +52,7 @@ Recommend a variation direction (up / down / stay) for a client's PAYG-I or GST 
 - For variation-down recommendations only
 - Hypothesis: if YTD projection turns out wrong by 15% on the final return, what is the GIC?
 - Calculate: shortfall × current GIC rate × average exposure period (estimated 9 months for a Q3 variation)
-- v1 uses manually-entered GIC rate (a `Tax_GetATOBenchmarkRate` MCP tool is not yet available; capability gap noted)
+- v1 uses manually-entered GIC rate (automated benchmark-rate lookup is not yet available; capability gap noted)
 
 ### Step 7 — Working paper
 - PDF with all inputs, the recommendation, and the confidence label
@@ -63,5 +63,5 @@ Recommend a variation direction (up / down / stay) for a client's PAYG-I or GST 
 - Be conservative on variation-down — surface GIC exposure explicitly
 - If YTD periods closed < 3, refuse to recommend variation-down — recommend stay
 - Cashflow position is a hard gate on variation-down — don't recommend "pay less" when cash is already squeezed
-- v1 capability gap: `Tax_GetATOBenchmarkRate` is not available — user supplies the GIC rate manually
+- v1 capability gap: automated benchmark-rate lookup is not available — user supplies the GIC rate manually
 - The working paper is the deliverable; the chat summary is the cover-note

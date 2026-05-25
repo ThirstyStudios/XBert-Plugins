@@ -7,15 +7,15 @@ You are preparing the annual TPAR (Taxable Payments Annual Report) for an Austra
 Steps:
 1. Ask the user which client, which financial year (default to year ending 30 June just past), and which TPAR-reportable industry the client operates in (building / cleaning / courier / IT / road-freight / security — or mixed). If the trigger is the slash command and the user has named a client, proceed.
 2. Pull from XBert via the connected MCP:
-   - Organisation context (try `Data_GetOrganisation` — confirm country code is AU — or `tools_search`)
-   - Supplier / contact register (try `Data_GetContacts` or `Data_GetSuppliers`)
-   - All bills paid in the financial year (try `Data_GetBills` filtered by paid date)
-   - Bank transactions for direct-pay contractors not run through accounts payable (try `Data_GetBankTransactions`)
+   - Organisation context — confirm country code is AU
+   - Supplier / contact register
+   - All bills paid in the financial year (filtered by paid date)
+   - Bank transactions for direct-pay contractors not run through accounts payable
    - Chart of accounts to identify TPAR-relevant expense accounts
 3. Run the TPAR preparation per the `tpar` skill — apply industry filter to identify reportable payments, group by contractor, validate ABNs, separate GST from gross, identify errors (employees in AP, missing ABNs, duplicate suppliers, sole traders without an ABN where withholding may apply).
 4. Generate:
    - A TPAR-ready summary table — per contractor: name, ABN, address, total gross paid, total GST, total net, payment count
-   - A Word working paper (try `GenerateWord` or `tools_search`) containing:
+   - A Word working paper containing:
      - Cover page with client name, ABN, financial year, industry, generation date
      - Summary — total contractors, total gross paid, total reportable
      - Per-contractor table with the values above

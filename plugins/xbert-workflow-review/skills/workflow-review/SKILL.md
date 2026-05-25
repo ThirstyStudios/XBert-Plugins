@@ -17,16 +17,16 @@ Trigger on any of:
 
 If the user is asking about a single template or schedule, that's *not* this skill — the workflow review is a structural audit across the entire tenant. Stay deliberate about scope.
 
-## Data sources (MCP tools)
+## Data sources
 
-Pull data via the XBert MCP gateway. All tools are tenant-scoped automatically via the authenticated session:
+Pull data via the XBert MCP gateway. All data is tenant-scoped automatically via the authenticated session:
 
-1. **Capacity data** — `Features_Review` (connectTenantId, no userProfileId = all users). Returns workload distribution, outstanding work, available hours, utilisation per user.
-2. **Activity data** — `Features_ReviewActivity` (connectTenantId, startDate = 12 months ago, endDate = today). Returns activity metrics by user, time period, and type.
-3. **Notification summary** — `Data_XBertNotificationSummary` (per clientTenantId). Returns outstanding notifications grouped by analytics category and risk level, plus 30-day completion rate.
-4. **Template & schedule configuration** — Try `xbert.workflow.templates_and_schedules` or use `tools_search` to discover the available tool. Returns template definitions, schedule configuration, and assignment details.
+1. **Capacity data** — for the Connect tenant, all users. Returns workload distribution, outstanding work, available hours, utilisation per user.
+2. **Activity data** — for the Connect tenant, the last 12 months. Returns activity metrics by user, time period, and type.
+3. **Notification summary** — per client tenant. Returns outstanding notifications grouped by analytics category and risk level, plus 30-day completion rate.
+4. **Template & schedule configuration** — for the Connect tenant. Returns template definitions, schedule configuration, and assignment details.
 
-If a tool name differs from what's listed, use `tools_search` to discover the actual available tool. If a data source is unavailable, note it in the sparsity summary and degrade the relevant section gracefully.
+If a data source is unavailable, note it in the sparsity summary and degrade the relevant section gracefully.
 
 ## Analysis framework
 
@@ -117,7 +117,7 @@ Below 5: do not pad. Above 10: surface as "and N further smaller opportunities."
 
 ## Document output
 
-Generate a Word document (using the `GenerateWord` MCP tool or equivalent) containing:
+Generate a Word document containing:
 1. Cover page — title, customer name, generated date
 2. First-page benefits summary — highest-impact findings
 3. Data-sparsity summary — what ran on full vs sparse data
