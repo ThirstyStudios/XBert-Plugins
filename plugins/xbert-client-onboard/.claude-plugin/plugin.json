@@ -1,0 +1,67 @@
+{
+  "name": "xbert-client-onboard",
+  "version": "0.1.0",
+  "description": "Structured new-client onboarding with checklist, practice-owner gate, and rules baseline. v1 orchestrates the workflow; COA + opening-balance steps are checklist items the bookkeeper completes in the ledger.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-client-onboard",
+  "license": "MIT",
+  "keywords": ["onboarding", "new-client", "engagement", "checklist", "rules"],
+  "x-xbert": {
+    "displayName": "XBert Client Onboard",
+    "tagline": "Structured new-client onboarding with checklist, scope gate, and rules baseline.",
+    "audience": ["bookkeepers", "practice-managers"],
+    "categories": ["onboarding", "new-client"],
+    "prerequisites": [
+      "XBert account",
+      "Practice with templates configured for new-client tasks (workflow templates, rule baselines)",
+      "Engagement letter signed off (gate-checked before configuration begins)",
+      "v1 scope note: this plugin orchestrates the onboarding checklist and creates the workflow tasks — COA creation and opening-balance load are checklist items the bookkeeper does manually in the ledger"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "New-client onboarding is the single biggest source of cleanup work downstream. Skip the engagement letter sign-off and you discover scope creep three months in. Skip the chart-of-accounts confirmation and the client's reports never reconcile to their old ones. Skip the rules baseline and every transaction needs manual coding. Each shortcut feels small at the moment; each one compounds into months of fix-up.\n\nXBert Client Onboard runs the four-phase onboarding lifecycle as a structured workflow — engagement, connection, configuration, go-live — with gate checks at each phase boundary that prevent skipping ahead. v1 orchestrates the checklist, creates the workflow tasks from your practice templates, and enforces the practice-owner gate. The COA-create and opening-balance-load steps remain checklist items the bookkeeper does manually in the ledger; v2 will automate those. The rules baseline (XBert rule pack the new client starts with) is assigned automatically once the bookkeeper confirms the client scope.",
+    "useCases": [
+      {
+        "title": "First-time client setup",
+        "description": "Drive the new client through the four-phase onboarding with gate checks — no shortcut-taking, no missed steps."
+      },
+      {
+        "title": "Mid-onboarding sanity check",
+        "description": "Run mid-onboarding to confirm where the client is in the four phases and which items are still outstanding."
+      },
+      {
+        "title": "Practice-wide onboarding consistency",
+        "description": "Every onboarding goes through the same gates and creates the same workflow tasks from the same templates — no per-bookkeeper improvisation."
+      },
+      {
+        "title": "Rules baseline assignment",
+        "description": "Once scope is confirmed, the new client's XBert rules baseline (which checks fire, which thresholds, which approvers) is assigned in one step."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "GitBranch",
+        "title": "Four-phase gated workflow",
+        "description": "Engagement → connection → configuration → go-live. Each phase has explicit gate checks — no skipping ahead, no half-onboarded clients."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Practice-owner gate enforced",
+        "description": "Engagement letter and scope confirmation are gate-checked before any configuration starts. The plugin won't proceed without sign-off."
+      },
+      {
+        "icon": "Zap",
+        "title": "Rules baseline in one step",
+        "description": "Once scope is confirmed, the practice's standard XBert rule baseline is assigned to the new client — no manual rule-by-rule setup."
+      }
+    ],
+    "workflow": [
+      "Type /client-onboard in any Claude chat",
+      "Confirm the new client name, the Connect tenant, and the engagement scope",
+      "Plugin checks current phase via the XBert MCP and presents the gated checklist",
+      "Walk through each phase's gate checks; the plugin creates workflow tasks from your practice templates as you progress",
+      "Final go-live step assigns the rules baseline. COA create + opening-balance load remain manual checklist items in the ledger (v1)"
+    ]
+  }
+}

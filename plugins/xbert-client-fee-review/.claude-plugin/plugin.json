@@ -1,0 +1,66 @@
+{
+  "name": "xbert-client-fee-review",
+  "version": "0.1.0",
+  "description": "Evidence-based annual fee review across the whole client book, with per-client drill-down.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-client-fee-review",
+  "license": "MIT",
+  "keywords": ["pricing", "fee-review", "annual", "advisory", "cost-to-serve"],
+  "x-xbert": {
+    "displayName": "XBert Client Fee Review",
+    "tagline": "Evidence-based annual fee review across the whole client book, with per-client drill-down.",
+    "audience": ["principals", "practice-managers"],
+    "categories": ["pricing", "fee-review", "annual", "advisory"],
+    "prerequisites": [
+      "XBert account",
+      "XPM connected (for timesheet and client data) — or equivalent practice management source",
+      "At least 12 months of completed work and time records for the cohort being reviewed"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Annual fee review is the single most-deferred conversation in a practice. It is deferred because the evidence to support it lives in five systems and assembling it for every client by hand takes a week. That assembly job is what this plugin does (cowork brief #6 — the 'hell yes, would use immediately' response from the practice-owner workshops).\n\nClient Fee Review pulls per-client time logged, transaction-volume signals from the ledger (bank transactions, AP and AR documents, payroll runs, expense claims, manual journals) and the current fee position, then produces three first-class outputs: clients where the evidence supports an increase, clients where the current fee is appropriate, and clients where a decrease is the right call. Confirmed-healthy evidence is as valuable as the change list — it lets you walk into the partner meeting knowing where the book stands.\n\nv1 produces the evidence pack. Cost-base modelling and the price-setting calculus are an integration hand-off to a dedicated pricing tool (Cass Scott Strategic Pricing is a common pairing).",
+    "useCases": [
+      {
+        "title": "Annual fee-review prep",
+        "description": "First step of the annual review: produce the per-client evidence pack and let the partners spend their time deciding, not assembling spreadsheets."
+      },
+      {
+        "title": "Pre-renewal pricing conversation",
+        "description": "Before a client engagement letter renews, walk in with the cost-to-serve evidence — time, volumes, and trend — instead of a feel-based number."
+      },
+      {
+        "title": "Cohort price-check",
+        "description": "Filter to a service-type cohort (e.g. bookkeeping-only clients) and see the dispersion of fee vs cost-to-serve to find outliers."
+      },
+      {
+        "title": "Pricing-tool integration",
+        "description": "Export the evidence pack as the input for Cass Scott Strategic Pricing (or your tool of choice) so the price-setting step starts from real data."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "TrendingUp",
+        "title": "Three first-class outputs",
+        "description": "Increase, stable-priced and decrease lists are all produced. Confirmed-healthy is evidence too — not just the change cases."
+      },
+      {
+        "icon": "BarChart3",
+        "title": "Per-client transaction evidence",
+        "description": "Six ledger volume categories — bank transactions, AP, AR, payroll runs, expense claims, manual journals — paired with logged time to build cost-to-serve."
+      },
+      {
+        "icon": "FileText",
+        "title": "Per-client drill-down output",
+        "description": "Word document with portfolio summary, three lists, and a one-page evidence sheet per client. Excel export for downstream pricing tools."
+      }
+    ],
+    "workflow": [
+      "Type /client-fee-review in any Claude chat",
+      "Confirm scope: Connect tenant, cohort filter, review period (default = last 12 months)",
+      "Plugin pulls timesheets, client config and ledger volume summaries via XBert MCP",
+      "Per-client evidence is assembled, clients are categorised into increase / stable / decrease / insufficient-data",
+      "Word and Excel outputs are produced with portfolio summary and per-client drill-down"
+    ]
+  }
+}

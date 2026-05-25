@@ -1,0 +1,66 @@
+{
+  "name": "xbert-fs-pack",
+  "version": "0.1.0",
+  "description": "Year-end financial statement pack ready for partner review — SPFS structure with comparative period, notes shell, and GPFS variant for audit clients.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-fs-pack",
+  "license": "MIT",
+  "keywords": ["year-end", "financial-statements", "spfs", "gpfs", "annual", "partner-review"],
+  "x-xbert": {
+    "displayName": "XBert FS Pack",
+    "tagline": "Year-end financial statement pack ready for partner review.",
+    "audience": ["accountants"],
+    "categories": ["year-end", "financial-statements", "annual"],
+    "prerequisites": [
+      "XBert account",
+      "Closed financial year with comparative period available",
+      "Organisation settings populated (entity name, ABN, registered address)"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Producing the year-end financial statement pack is a known sequence — pull the closing trial balance, format the balance sheet and profit and loss in the firm's preferred structure, derive cashflow from operations using the indirect method, add comparative-period columns, write the notes-to-accounts shell, attach the directors' declaration. Most firms still do this in Word templates that get copy-pasted between clients, with somebody manually updating the entity name and ABN on the cover page.\n\nXBert FS Pack composes the whole document. It pulls the balance sheet, profit and loss, cashflow, trial balance and organisation settings from XBert, builds an SPFS-structured pack (small proprietary company — the most common Australian shape) or a GPFS variant for audit clients, applies the comparative-period columns, populates the notes-to-accounts shell with the year-end provisions and accruals schedule, and produces both a Word version (for editing) and a PDF (for circulation). The document is partner-ready on the first pass.",
+    "useCases": [
+      {
+        "title": "Year-end pack assembly",
+        "description": "Pull the closing trial balance, derive cashflow, format the BS and P&L, and produce the SPFS-structured pack in one pass."
+      },
+      {
+        "title": "Audit client GPFS variant",
+        "description": "Switch the pack structure to the GPFS shape with the deeper notes-to-accounts shell when the client is audit-bound."
+      },
+      {
+        "title": "Comparative-period columns",
+        "description": "Every financial statement carries the prior-year column automatically — no copy-pasting from last year's file."
+      },
+      {
+        "title": "Provisions and accruals schedule",
+        "description": "Year-end provisions (annual leave, long service leave, doubtful debts) and accruals are listed in the notes as a working paper."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "FileText",
+        "title": "Partner-ready first pass",
+        "description": "Word + PDF output with entity name, ABN, registered address, comparative columns, and notes shell — all populated from the ledger, ready for partner review."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "SPFS or GPFS structure",
+        "description": "Default SPFS shape (small proprietary company) covers most clients. Switch to GPFS for audit clients with deeper note disclosures."
+      },
+      {
+        "icon": "GitBranch",
+        "title": "Cashflow derivation",
+        "description": "Cashflow from operations is derived from the indirect method using the BS comparative and P&L — no manual cashflow construction."
+      }
+    ],
+    "workflow": [
+      "Type /fs-pack in any Claude chat",
+      "Confirm the client, the year-end date, and SPFS vs GPFS structure",
+      "Plugin pulls BS, P&L, cashflow, TB, and organisation settings",
+      "Document is composed with comparative columns and notes shell",
+      "Word + PDF deliverables drop for partner review"
+    ]
+  }
+}

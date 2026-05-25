@@ -1,0 +1,66 @@
+{
+  "name": "xbert-end-of-period-dashboard",
+  "version": "0.1.0",
+  "description": "Period-close readiness dashboard fusing workflow, data quality and lodgement obligations across every client.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-end-of-period-dashboard",
+  "license": "MIT",
+  "keywords": ["period-close", "compliance", "lodgement", "month-end", "quarter-end", "year-end", "bas", "vat"],
+  "x-xbert": {
+    "displayName": "XBert End-of-Period Dashboard",
+    "tagline": "Period-close readiness dashboard fusing workflow, data quality and lodgement obligations across every client.",
+    "audience": ["accountants", "principals", "practice-managers"],
+    "categories": ["period-close", "compliance", "monthly", "quarterly", "annual"],
+    "prerequisites": [
+      "XBert account with workflow configured",
+      "Client ledgers connected (Xero, QuickBooks)",
+      "Practice operates in Australia (v1 is AU-only)"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Closing a period across a book of clients is a coordination problem. The lodgement calendar lives in one system, the workflow board lives in XBert, the data quality signals live in the ledger, and the practice manager holds it all together by intuition. That intuition is the gap this plugin fills (cowork brief #3).\n\nEnd-of-Period Dashboard fuses three streams — XBert work in flight, ledger data quality, and the upcoming lodgement calendar — into a single per-client readiness view. Pick the cadence (month, quarter or year), and the plugin loops every client and answers: are they ready, what is blocking them, and which deadlines are at risk. The first page tells you 'X of Y ready, Z lodgements due in the next N days, W items needing attention'. The rest of the document is the per-client detail your team needs to action.\n\nv1 is AU-first and runs one cadence at a time. Multi-jurisdiction support is on the v2 roadmap.",
+    "useCases": [
+      {
+        "title": "Month-end stand-up briefing",
+        "description": "Run the month-end view on the last working week — the readiness summary becomes your stand-up agenda, ordered by which clients need help today."
+      },
+      {
+        "title": "Pre-BAS quarter readiness",
+        "description": "Two weeks before a BAS quarter closes, run the quarter view to see which clients still have unreconciled banks, missing supplier docs, or open queries that will block lodgement."
+      },
+      {
+        "title": "Year-end planning",
+        "description": "Annual view shows which clients are on track for tax-time hand-off and which need a remediation plan before the books close."
+      },
+      {
+        "title": "New-client risk assessment",
+        "description": "When a client joins mid-period, the readiness view shows the catch-up scope concretely — work outstanding, DQ gaps, lodgement runway."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Scale",
+        "title": "Three streams, one decision view",
+        "description": "Fuses XBert work-in-flight, ledger data quality and lodgement obligations into a single per-client readiness band, ranked by deadline risk."
+      },
+      {
+        "icon": "Clock",
+        "title": "Cadence-aware",
+        "description": "One command, three views. Pick month, quarter or year and the plugin pulls only the obligations and signals relevant to that close cycle."
+      },
+      {
+        "icon": "FileText",
+        "title": "Action-ready Word output",
+        "description": "First page is the summary your partner reads. The rest is the per-client detail your team works through. No spreadsheet stitching required."
+      }
+    ],
+    "workflow": [
+      "Type /end-of-period-dashboard in any Claude chat",
+      "Choose the cadence (month, quarter or year) and the Connect tenant",
+      "Plugin pulls clients, workflow status, data quality, lock-dates, reconciliation status and validation results via XBert MCP",
+      "Per-client readiness is computed, deadlines are checked, blockers are named",
+      "Word document is produced with the readiness summary, deadline-risk list and per-client detail"
+    ]
+  }
+}

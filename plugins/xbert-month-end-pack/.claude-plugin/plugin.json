@@ -1,0 +1,66 @@
+{
+  "name": "xbert-month-end-pack",
+  "version": "0.1.0",
+  "description": "Month-end financial pack the partner can hand to the client — P&L vs budget, BS movement walk, cashflow vs forecast, and KPI roll-up in a single Word document.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-month-end-pack",
+  "license": "MIT",
+  "keywords": ["month-end", "reporting", "monthly", "financial-pack", "budget", "cashflow"],
+  "x-xbert": {
+    "displayName": "XBert Month-End Pack",
+    "tagline": "Month-end financial pack the partner can hand to the client.",
+    "audience": ["bookkeepers"],
+    "categories": ["month-end", "reporting", "monthly"],
+    "prerequisites": [
+      "XBert account",
+      "Client ledger with at least one closed accounting period",
+      "Budget loaded in the ledger (recommended; pack still runs without)"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Month-end is a composition problem, not a calculation problem. The numbers come straight out of the ledger; the work is in assembling them consistently — same sections every month, same commentary structure, same KPI roll-up — so the partner can review the pack in ten minutes and hand it to the client without rebuilding it.\n\nXBert Month-End Pack pulls P&L vs budget, balance sheet movement, cashflow vs forecast, and budget adherence in one shot, runs the balance sheet review for unexpected movements, and assembles a Word document the bookkeeper hands up to the partner. The format stays consistent month-to-month so the client gets the same shape of report every cycle — the only thing changing is the numbers and the commentary, not the layout.",
+    "useCases": [
+      {
+        "title": "Standard monthly client pack",
+        "description": "Generate the same-shape monthly pack every period — P&L, BS, cashflow, KPIs — so the client gets a predictable read every month."
+      },
+      {
+        "title": "Pre-partner-review handoff",
+        "description": "Bookkeeper produces the pack; partner reviews and adds judgment on top. The pack is the input to that conversation, not the end of it."
+      },
+      {
+        "title": "Budget variance investigation",
+        "description": "Surface every line where actual is materially off budget, with commentary scaffolded so the partner can write the why."
+      },
+      {
+        "title": "Balance sheet sanity check",
+        "description": "Walk the BS movement period-over-period, flagging accounts that moved unexpectedly — a check that's easy to skip and expensive to miss."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "FileText",
+        "title": "Same shape every month",
+        "description": "Consistent format means the client reads it faster and the partner reviews it faster. The bookkeeper isn't reinventing the layout each cycle."
+      },
+      {
+        "icon": "BarChart3",
+        "title": "P&L, BS, cashflow, KPIs in one pass",
+        "description": "Four reports assembled and cross-checked in a single workflow — no copy-pasting between tabs, no Excel formatting fiddle."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Balance sheet review built in",
+        "description": "Movement walk surfaces accounts that moved unexpectedly — the check most easily skipped and most expensive to miss."
+      }
+    ],
+    "workflow": [
+      "Type /month-end-pack in any Claude chat",
+      "Confirm the client tenant and the month being closed",
+      "Plugin pulls P&L, BS, cashflow, budget adherence, and runs balance sheet review via the XBert MCP",
+      "Word document is generated with consistent sections, named variances, and commentary scaffolding",
+      "Hand the pack up to the partner for review; commentary fields are placeholders the partner fills in"
+    ]
+  }
+}

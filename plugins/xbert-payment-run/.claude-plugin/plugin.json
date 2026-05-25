@@ -1,0 +1,67 @@
+{
+  "name": "xbert-payment-run",
+  "version": "0.1.0",
+  "description": "Weekly pay-run brief with remittance drafts ready for review. v1 produces the schedule + remittances; ABA payment file generation is v2.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-payment-run",
+  "license": "MIT",
+  "keywords": ["accounts-payable", "payments", "remittance", "weekly", "pay-run"],
+  "x-xbert": {
+    "displayName": "XBert Payment Run",
+    "tagline": "Weekly pay-run brief with remittance drafts ready for review.",
+    "audience": ["bookkeepers"],
+    "categories": ["accounts-payable", "weekly", "payments"],
+    "prerequisites": [
+      "XBert account",
+      "Client with AP ledger connected (Xero, MYOB, or QuickBooks Online)",
+      "Bank account configured for payment runs",
+      "v1 scope note: this plugin produces the pay schedule and draft remittances — it does NOT generate the ABA payment file (coming in v2)"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "The weekly payment run is mostly deciding what to pay this week, what to defer, and what to chase the supplier on — then drafting the remittance advice that goes out with each payment. The mechanical part (running the bank file) is straightforward; the cognitive part (which bills go on the run, in what order, with what message) is where the time goes.\n\nXBert Payment Run does the cognitive part: pulls aged payables, applies due-this-week and overdue inclusion logic, excludes anything on hold or in dispute, groups by supplier, and drafts a remittance advice per supplier ready for review. The bookkeeper reviews the pay schedule, approves the remittances, and posts the run in the ledger — v1 stops there. v2 will generate the ABA file directly; for v1, the bookkeeper still triggers the file generation in the ledger.",
+    "useCases": [
+      {
+        "title": "Weekly pay-run planning",
+        "description": "Generate the week's pay schedule with overdue + due-this-week inclusion, exclusions for held bills, grouped by supplier."
+      },
+      {
+        "title": "Remittance drafting",
+        "description": "Per-supplier remittance advice drafts, ready to email with the payment — no more copy-paste from the ledger."
+      },
+      {
+        "title": "Pay-run review with the client",
+        "description": "Show the client the proposed run before posting — including totals, supplier counts, and any excluded bills with reasons."
+      },
+      {
+        "title": "Cashflow-constrained scheduling",
+        "description": "When cash is tight, surface the prioritised pay schedule by supplier importance + bill age + early-payment discount window."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Clock",
+        "title": "Weekly run prepped in minutes",
+        "description": "Replace the Excel cut-and-paste with a single workflow that pulls, filters, groups, and drafts in one pass."
+      },
+      {
+        "icon": "FileText",
+        "title": "Remittances ready to send",
+        "description": "One PDF remittance per supplier, ready for review and email — the part of the run that's most often handwritten."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Held and disputed bills excluded by default",
+        "description": "Bills with hold flags, dispute markers, or unresolved approval status are excluded automatically — surfaced as exclusions, never silently dropped."
+      }
+    ],
+    "workflow": [
+      "Type /payment-run in any Claude chat",
+      "Confirm the client tenant, the pay window (default: due in next 7 days + all overdue), and the payment bank account",
+      "Plugin pulls aged payables, applies inclusion/exclusion logic, and groups by supplier via the XBert MCP",
+      "Pay schedule appears in chat with included/excluded bills, supplier groupings, and total amount",
+      "Approve remittance drafts per supplier; plugin generates the PDFs. You still post the run in the ledger (v1 does not generate the ABA file)"
+    ]
+  }
+}

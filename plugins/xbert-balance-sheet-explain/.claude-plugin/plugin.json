@@ -1,0 +1,66 @@
+{
+  "name": "xbert-balance-sheet-explain",
+  "version": "0.1.0",
+  "description": "Movement-by-movement balance sheet review with reconciliation status, manual journal trace, and FAR-to-GL accumulated depreciation check.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-balance-sheet-explain",
+  "license": "MIT",
+  "keywords": ["balance-sheet", "review", "quarterly", "year-end", "reconciliation", "fixed-assets", "journals"],
+  "x-xbert": {
+    "displayName": "XBert Balance Sheet Explain",
+    "tagline": "Movement-by-movement balance sheet review with journal trace and FAR reconciliation.",
+    "audience": ["accountants"],
+    "categories": ["balance-sheet", "review", "quarterly", "year-end"],
+    "prerequisites": [
+      "XBert account",
+      "Comparative period available on the ledger (opening + closing)",
+      "Fixed asset register where the client carries depreciable assets"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Every quarter or year-end, the accountant walks down the balance sheet line by line — opening balance, closing balance, what moved, why it moved, does the reconciliation status of the underlying account match the story. Cash should tie to the bank rec. Receivables should tie to the aged trial balance. The fixed asset register accumulated depreciation should agree with the GL. Manual journals on equity should be traceable to a board minute. It's a structured walk with a small number of recurring questions.\n\nXBert Balance Sheet Explain runs that walk for you. It pulls the comparative balance sheet, the reconciliation status of every account, the aged receivables and payables, the fixed asset register accumulated depreciation, and the manual journal trace — then produces a Word narrative review that flags unexpected movers, opens-and-closes account status, and the underlying evidence. It's a structural review, not an opinion — every observation has a number behind it and a confidence label.",
+    "useCases": [
+      {
+        "title": "Quarterly balance sheet review",
+        "description": "Walk the comparative balance sheet end-to-end and flag every line item with a material movement and the underlying reason."
+      },
+      {
+        "title": "Pre-year-end clean-up",
+        "description": "Identify accounts that don't reconcile, manual journals without supporting documentation, and FAR-to-GL accumulated depreciation drift before year-end."
+      },
+      {
+        "title": "Audit prep narrative",
+        "description": "Produce a Word document the auditor can read first, with movements explained, reconciliations stated, and manual journals listed by reason."
+      },
+      {
+        "title": "Onboarding a new client",
+        "description": "Use the explain workflow to understand the structure of a new client's balance sheet — what's reconciled, what isn't, what the journals look like."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "FileSearch",
+        "title": "Movement-by-movement walk",
+        "description": "Every balance sheet line gets an opening, closing, movement, percentage change, and a narrative explanation drawn from the underlying journals and reconciliations."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Reconciliation status surfaced",
+        "description": "Cash to bank rec, receivables to aged trial balance, payables to aged supplier list, FAR to GL — every reconciliation status is stated, not assumed."
+      },
+      {
+        "icon": "FileText",
+        "title": "Word narrative output",
+        "description": "Generates a Word document ready for partner review or audit handover, with named movements, named accounts, and the underlying evidence."
+      }
+    ],
+    "workflow": [
+      "Type /balance-sheet-explain in any Claude chat",
+      "Confirm the client and the comparative period (quarter end or year-end)",
+      "Plugin pulls balance sheet, reconciliation status, AR/AP ageing, and manual journals",
+      "Each line is walked opening-to-closing, reconciliation status flagged, FAR-to-GL checked",
+      "Word narrative review is produced — read, edit, hand to partner"
+    ]
+  }
+}

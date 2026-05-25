@@ -1,0 +1,66 @@
+{
+  "name": "xbert-aged-receivables",
+  "version": "0.1.0",
+  "description": "Prioritised debtor call-list with promise-tracking and escalation ladders — turn an aged receivables report into the week's chase plan.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-aged-receivables",
+  "license": "MIT",
+  "keywords": ["accounts-receivable", "debtors", "cashflow", "collections", "weekly", "ageing"],
+  "x-xbert": {
+    "displayName": "XBert Aged Receivables",
+    "tagline": "Prioritised debtor call-list with promise-tracking and escalation ladders.",
+    "audience": ["bookkeepers", "practice-managers"],
+    "categories": ["accounts-receivable", "weekly", "cashflow"],
+    "prerequisites": [
+      "XBert account",
+      "Client with sales/AR ledger connected (Xero, MYOB, or QuickBooks Online)",
+      "At least one overdue invoice for prioritisation"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Aged receivables reports tell you the total overdue but not who to call first. The result is bookkeepers chasing the loudest debtor or the most recent invoice instead of the one that's costing the client the most working capital. Worse, the promises debtors make — 'we'll pay Friday', 'payment is going out next week' — are tracked in someone's head or a sticky note, so the same conversation repeats four weeks later.\n\nXBert Aged Receivables turns the weekly chase into a structured plan. It pulls the aged report, scores each debtor by dollar amount × days overdue × payment-history reliability, then surfaces the top-N call list with every prior promise, every prior reminder, and the suggested escalation step (gentle nudge, formal reminder, stop-supply warning, debt-collection handover). Reminders get drafted in-chat and tasks get created to track each follow-up. The bookkeeper does the conversations; the plugin does the prep.",
+    "useCases": [
+      {
+        "title": "Monday morning chase plan",
+        "description": "Generate the week's prioritised call list ranked by working-capital impact, not by who shouted last."
+      },
+      {
+        "title": "Pre-payment-run review",
+        "description": "Before the client pays their own bills, surface which of their debtors should pay them first — and chase before money goes out."
+      },
+      {
+        "title": "Cashflow squeeze response",
+        "description": "When the client signals a cashflow tight week, get a one-shot list of the biggest collectible amounts with escalation suggestions."
+      },
+      {
+        "title": "Quarterly debtor cleanup",
+        "description": "Identify stale debt that needs a write-off discussion vs debt that's still genuinely collectible — with reasons from prior contact history."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "PhoneCall",
+        "title": "Call the right debtor first",
+        "description": "Prioritisation by dollar × days × payment-history reliability means the top of the list is always the highest-impact call — not the loudest, not the most recent."
+      },
+      {
+        "icon": "GitBranch",
+        "title": "Escalation ladder built in",
+        "description": "Each debtor gets a suggested next step — gentle nudge, formal reminder, stop-supply warning, debt-collection handover — based on age, prior promises, and contact history."
+      },
+      {
+        "icon": "Wallet",
+        "title": "Promise-tracking that survives the week",
+        "description": "Every prior promise (broken or kept), every prior reminder, every prior task lives on the debtor record. No more starting each call from a blank slate."
+      }
+    ],
+    "workflow": [
+      "Type /aged-receivables in any Claude chat",
+      "Confirm the client tenant and the ageing focus (top 10, top 20, all > $5k, etc.)",
+      "Plugin pulls the aged receivables report, contact history, and prior promise notes via the XBert MCP",
+      "Prioritised call list appears in chat with named debtors, amounts, days overdue, prior promises, and suggested escalation step",
+      "Approve reminder drafts and task creation per debtor; the plugin queues, you make the calls"
+    ]
+  }
+}

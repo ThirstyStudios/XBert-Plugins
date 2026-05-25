@@ -1,0 +1,66 @@
+{
+  "name": "xbert-config-audit",
+  "version": "0.1.0",
+  "description": "Is XBert configured consistently across your book? Spot inconsistencies, gaps, and drift in one pass.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-config-audit",
+  "license": "MIT",
+  "keywords": ["practice-config", "xbert-config", "audit", "quarterly", "consistency", "drift"],
+  "x-xbert": {
+    "displayName": "XBert Config Audit",
+    "tagline": "Is XBert configured consistently across your book? Spot inconsistencies, gaps, and drift in one pass.",
+    "audience": ["principals", "practice-managers"],
+    "categories": ["practice-config", "xbert-config", "audit", "quarterly"],
+    "prerequisites": [
+      "XBert account with multiple client tenants in a Connect",
+      "Workflow and XBert configurations active on at least some clients",
+      "Practice owner or manager-level access to the Connect"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Your XBert rule set should look the same across clients in the same segment. In practice it almost never does — different staff onboarded different clients, defaults drifted as the rule library grew, and 'always-on' rules ended up on most clients but not all. Config Audit is the quarterly pass that surfaces that drift before it costs you.\n\nThe plugin reads the per-client XBert configuration across your Connect, fingerprints each rule's enablement pattern, and reports three things: rules enabled inconsistently within a segment, rules that should be on everywhere but are missing on N clients, and rules that have been switched off (drift). Then it pairs each finding with a bulk-normalisation move so the cleanup is concrete, not abstract. This is distinct from XBert Workflow Review — that plugin looks at templates and schedules; this one looks at XBert rule configuration itself.",
+    "useCases": [
+      {
+        "title": "Quarterly config sweep",
+        "description": "Once a quarter, run the audit to catch drift before it becomes systemic — clients onboarded last quarter often miss rules added recently."
+      },
+      {
+        "title": "Post-onboarding consistency check",
+        "description": "After a batch of new clients comes on, confirm they all have the rule set the practice considers baseline."
+      },
+      {
+        "title": "Pre-audit / pre-review preparation",
+        "description": "Before an internal QA pass or external review, make sure the practice can demonstrate consistent XBert configuration across the book."
+      },
+      {
+        "title": "Standardisation campaign",
+        "description": "When the practice decides to standardise on a new ruleset, use the audit to drive the rollout — see who needs what enabled and what disabled."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "GitBranch",
+        "title": "Inconsistency, gap and drift in one pass",
+        "description": "Three distinct fingerprints — inconsistencies inside a segment, gaps where always-on rules are missing, and drift where rules have been switched off."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Bulk-normalisation moves named",
+        "description": "Every finding is paired with the specific bulk update that resolves it, so cleanup is a list of decisions, not a research project."
+      },
+      {
+        "icon": "FileText",
+        "title": "Quarterly-ready Word output",
+        "description": "Word document with executive summary, segment-by-segment breakdown and the normalisation backlog — ready to action with the team."
+      }
+    ],
+    "workflow": [
+      "Type /config-audit in any Claude chat",
+      "Confirm the Connect tenant and the client segmentation rule (default = by industry tag, fallback = whole book)",
+      "Plugin pulls the Connect account review, configuration assignments and rule list via XBert MCP",
+      "Per-segment fingerprints are computed, inconsistencies / gaps / drift are classified",
+      "Word document is produced with the audit findings and a named bulk-normalisation backlog"
+    ]
+  }
+}

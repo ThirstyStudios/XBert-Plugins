@@ -1,0 +1,66 @@
+{
+  "name": "xbert-cross-sell-opportunities",
+  "version": "0.1.0",
+  "description": "Find your highest-value cross-sell opportunities by matching client profile to service uptake patterns.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-cross-sell-opportunities",
+  "license": "MIT",
+  "keywords": ["advisory", "growth", "cross-sell", "lookalike", "quarterly", "client-development"],
+  "x-xbert": {
+    "displayName": "XBert Cross-Sell Opportunities",
+    "tagline": "Find your highest-value cross-sell opportunities by matching client profile to service uptake patterns.",
+    "audience": ["principals", "practice-managers"],
+    "categories": ["advisory", "growth", "quarterly", "client-development"],
+    "prerequisites": [
+      "XBert account",
+      "XPM connected (for service uptake and client data)",
+      "At least 20 clients in the Connect — lookalike matching needs a reasonable peer set"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Cross-sell conversations stall because the partner cannot remember which clients are obvious candidates for which service. This plugin makes that recall mechanical. Using XBert's similar-clients engine, it finds your existing book's lookalike pairs, looks at which services the lookalike has that the candidate does not, and ranks every cross-sell opportunity by inferred fit and revenue uplift potential.\n\nThe output is per-client: ranked cross-sell opportunities with the talking points already drafted. Quarterly cadence pairs naturally with the annual fee review — fee review tells you what to charge for what they have; cross-sell tells you what to offer next.",
+    "useCases": [
+      {
+        "title": "Quarterly client-development pass",
+        "description": "Once a quarter, generate the cross-sell shortlist for every client manager so client conversations start from data, not memory."
+      },
+      {
+        "title": "Pre-meeting brief",
+        "description": "Before a regular client review, run the lookalike check to surface what similar clients use that this one does not — talking points ready."
+      },
+      {
+        "title": "Service expansion planning",
+        "description": "See which services are systematically under-adopted across cohorts where the lookalike pattern suggests fit — input to a campaign."
+      },
+      {
+        "title": "Onboarding follow-up",
+        "description": "Three months after a new client joins, run the check to see what services their lookalike cohort uses that they have not yet adopted."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Users",
+        "title": "Lookalike-driven, not guess-driven",
+        "description": "Uses XBert's similar-clients engine to find peers inside your own book. Recommendations are grounded in what your own similar clients actually use."
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "Ranked by fit and uplift",
+        "description": "Every opportunity is ranked by inferred fit and revenue uplift potential, so the conversation list is naturally prioritised."
+      },
+      {
+        "icon": "FileText",
+        "title": "Talking points drafted",
+        "description": "Per-client output includes drafted talking points referencing the lookalike pattern, ready for the next client conversation."
+      }
+    ],
+    "workflow": [
+      "Type /cross-sell-opportunities in any Claude chat",
+      "Confirm Connect tenant and cohort scope (default = whole book)",
+      "Plugin pulls client profiles, lookalike pairs, and current service uptake via XBert MCP",
+      "Per-client opportunity matrix is built and ranked",
+      "Word document is produced with per-client opportunity sheets and talking points"
+    ]
+  }
+}

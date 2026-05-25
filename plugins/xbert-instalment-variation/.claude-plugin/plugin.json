@@ -1,0 +1,66 @@
+{
+  "name": "xbert-instalment-variation",
+  "version": "0.1.0",
+  "description": "PAYG-I and GST instalment variation recommendation with cashflow run-rate, YTD profit trend, and GIC-risk audit trail.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-instalment-variation",
+  "license": "MIT",
+  "keywords": ["payg-instalment", "gst-instalment", "tax", "quarterly", "ato", "variation", "gic"],
+  "x-xbert": {
+    "displayName": "XBert Instalment Variation",
+    "tagline": "PAYG-I / GST instalment variation recommendation with GIC-risk audit trail.",
+    "audience": ["accountants"],
+    "categories": ["tax", "payg", "quarterly", "ato"],
+    "prerequisites": [
+      "XBert account",
+      "Current-year P&L data on the ledger",
+      "Prior-year tax position available for trend comparison"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Every quarter the ATO issues PAYG and GST instalment notices that the client either pays at the headline rate or varies up or down based on the year's emerging performance. The decision is high-judgement: vary down too aggressively and the client gets hit with general interest charge when actual liability outpaces the variation; vary down too conservatively and cashflow gets crushed by overpayment that doesn't refund until the return is lodged. Most firms get dragged into this four times a year for half their book and most of it doesn't even count as a lodgement — it's just a phone call and a number on a notice.\n\nXBert Instalment Variation runs the analysis. It pulls YTD profit, prior-year comparison, cashflow run-rate, and budget adherence, then recommends a variation direction (up, down, or stay) with a confidence label and a GIC-risk note. The output is a PDF audit-defence note that lives in the client file — so when the variation is challenged in 18 months, the working paper says exactly what data the recommendation was based on. Triggered by the ATO notice arriving, not by a calendar date.",
+    "useCases": [
+      {
+        "title": "Quarterly variation decision",
+        "description": "Run the variation analysis when the ATO notice arrives — get a direction recommendation with the YTD evidence behind it."
+      },
+      {
+        "title": "GIC risk check",
+        "description": "Before varying down aggressively, see the GIC exposure if the variation turns out to be wrong by 15% on the final return."
+      },
+      {
+        "title": "Cashflow run-rate sanity",
+        "description": "Compare the instalment to the cashflow position — varying down because profit dropped is different from varying down because cash is squeezed."
+      },
+      {
+        "title": "Audit-defence working paper",
+        "description": "Produce a PDF that documents the data, the recommendation, and the assumptions — so the file carries the working paper if the variation is reviewed."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "TrendingUp",
+        "title": "YTD trend, not just last quarter",
+        "description": "Year-to-date profit trend vs prior-year same period, with cashflow run-rate, so the variation reflects the year emerging — not a one-quarter blip."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "GIC exposure stated explicitly",
+        "description": "Every variation-down recommendation comes with the GIC exposure note — what the penalty looks like if the variation is materially wrong."
+      },
+      {
+        "icon": "FileText",
+        "title": "Audit-defence PDF",
+        "description": "Output is a PDF working paper that documents the YTD figures, the prior-year comparison, the cashflow position, and the recommended variation rationale."
+      }
+    ],
+    "workflow": [
+      "Type /instalment-variation in any Claude chat",
+      "Confirm the client and which instalment (PAYG-I or GST instalment) and quarter",
+      "Plugin pulls YTD P&L, balance sheet, cashflow, budget adherence, and tax rates",
+      "Recommendation generated with direction, confidence, and GIC exposure note",
+      "PDF audit-defence working paper drops to your file system"
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "name": "xbert-practice-metrics",
+  "version": "0.1.0",
+  "description": "Monthly partner-meeting one-pager — revenue, lockup, write-offs, service-line P&L, client risk segmentation.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-practice-metrics",
+  "license": "MIT",
+  "keywords": ["practice-metrics", "kpis", "partner-meeting", "monthly", "lockup", "wip", "write-offs"],
+  "x-xbert": {
+    "displayName": "XBert Practice Metrics",
+    "tagline": "Monthly partner-meeting one-pager — revenue, lockup, write-offs, service-line P&L, client risk segmentation.",
+    "audience": ["principals"],
+    "categories": ["practice-metrics", "kpis", "monthly", "strategic"],
+    "prerequisites": [
+      "XBert account",
+      "XPM connected (for timesheet, WIP and invoicing data)",
+      "Aged receivables and invoice data available via ledger or XPM"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Most practices already have the data for a monthly partner-meeting one-pager — they just do not have time to assemble it the same way every month. Practice Metrics solves the consistency problem, not the data problem. One command, same format every month, same metrics in the same order, with commentary on what moved.\n\nThe one-pager covers the standard partner KPIs: revenue, WIP, debtors, lockup days, write-offs, service-line P&L (bookkeeping vs tax vs advisory), and a RAG-banded client risk view. Movers vs prior month are called out automatically, so the partners spend the meeting interpreting the changes rather than questioning the numbers.",
+    "useCases": [
+      {
+        "title": "Monthly partner meeting prep",
+        "description": "First week of the month: produce the one-pager and circulate. No more 'who is doing the metrics' before each meeting."
+      },
+      {
+        "title": "Quarterly board pack input",
+        "description": "Use the monthly outputs as the consistent feeder dataset for a quarterly board pack — same definitions, same shape, no reconciliation friction."
+      },
+      {
+        "title": "Service-line investment decisions",
+        "description": "Track how bookkeeping, tax and advisory P&L move month-on-month before deciding where to invest people or capacity."
+      },
+      {
+        "title": "Client risk surveillance",
+        "description": "Watch which clients move bands in the monthly RAG view — early warning that something needs attention."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "BarChart3",
+        "title": "Same shape every month",
+        "description": "Consistent layout, consistent metrics, consistent commentary structure — the value is repeatability, not novelty."
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "Movers called out automatically",
+        "description": "Variance vs prior month is computed and commentary is written for material movers — partners debate the cause, not the number."
+      },
+      {
+        "icon": "FileText",
+        "title": "Word and Excel outputs",
+        "description": "Word one-pager for the meeting plus an Excel companion for anyone who wants to slice the underlying numbers."
+      }
+    ],
+    "workflow": [
+      "Type /practice-metrics in any Claude chat",
+      "Confirm Connect tenant and reporting month (default = previous calendar month)",
+      "Plugin pulls timesheets, invoices, aged receivables and client data via XBert MCP",
+      "Metrics are computed, prior-month variance is calculated, RAG bands are assigned",
+      "Word one-pager plus Excel companion are produced"
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "name": "xbert-tax-reconciliation",
+  "version": "0.1.0",
+  "description": "Accounting-to-tax reconciliation worksheet — every Schedule M-style adjustment from accounting profit to taxable income, per-entity worksheet, with working papers.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-tax-reconciliation",
+  "license": "MIT",
+  "keywords": ["tax", "year-end", "company-tax", "schedule-m", "reconciliation", "working-papers"],
+  "x-xbert": {
+    "displayName": "XBert Tax Reconciliation",
+    "tagline": "Accounting-to-tax reconciliation worksheet — every Schedule M-style adjustment, every working paper.",
+    "audience": ["accountants"],
+    "categories": ["tax", "year-end", "company-tax"],
+    "prerequisites": [
+      "XBert account",
+      "Year-end trial balance and financial statements",
+      "Manual journals tagged or identifiable for accruals, provisions, and non-deductibles"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Every year-end the accountant walks from accounting profit to taxable income — adding back non-deductible expenses (entertainment, fines, private-use motor vehicle), backing out accounting depreciation and replacing it with tax depreciation, accounting for prior-year tax losses, dealing with the FBT base, and handling foreign-source income adjustments. It's the working paper the ATO wants to see if the return is reviewed and the working paper the partner wants to sign before the return is lodged.\n\nXBert Tax Reconciliation builds the worksheet. It pulls the year-end financial statements, the trial balance, the journal master, and manual journals — then runs the Schedule M-style walk in the structure your firm uses: starting accounting profit, add-backs, deductions, prior-year losses, taxable income. Each adjustment line carries the supporting evidence (which journal, which account, which schedule it ties to). The deliverable is an Excel worksheet for the return-prep team and a PDF for the file. Per-entity output — company / trust / partnership — because the structure of the reconciliation differs.\n\nv1 produces the working paper. Lodgement stays out — that's tax-agent platform territory.",
+    "useCases": [
+      {
+        "title": "Year-end tax reconciliation worksheet",
+        "description": "Walk from accounting profit to taxable income with every adjustment line documented and tied to its source."
+      },
+      {
+        "title": "Per-entity worksheet structures",
+        "description": "Company, trust, and partnership reconciliations each have their own structure — pick the entity type and the worksheet adapts."
+      },
+      {
+        "title": "Working papers for partner sign-off",
+        "description": "Excel worksheet plus PDF working paper, ready for the partner to review before the return is signed."
+      },
+      {
+        "title": "FBT-included / FBT-excluded handling",
+        "description": "Mark whether the entity has reportable fringe benefits in the period and have the worksheet treat the FBT adjustment correctly."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Scale",
+        "title": "Every adjustment tied to a source",
+        "description": "Each add-back, each deduction, each FBT line is tied to the journal, account, or schedule it came from — so the worksheet is reproducible and reviewable."
+      },
+      {
+        "icon": "FileSearch",
+        "title": "Schedule M-style structure",
+        "description": "The reconciliation follows the structured walk the ATO and partner expect — starting profit, add-backs, deductions, prior-year losses, taxable income."
+      },
+      {
+        "icon": "FileText",
+        "title": "Excel + PDF deliverables",
+        "description": "Excel for the return-prep team to adapt; PDF for the client file. Both produced in one pass."
+      }
+    ],
+    "workflow": [
+      "Type /tax-reconciliation in any Claude chat",
+      "Confirm the client, the entity type (company / trust / partnership), and the year-end date",
+      "Plugin pulls financial statements, TB, P&L, BS, and journal master",
+      "Reconciliation walks from accounting profit through adjustments to taxable income",
+      "Excel worksheet + PDF working paper drop for partner review"
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "name": "xbert-practice-health-check",
+  "version": "0.1.0",
+  "description": "Portfolio-wide data-quality and financial-health snapshot with diagnostic recommendations per client.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-practice-health-check",
+  "license": "MIT",
+  "keywords": ["practice-health", "data-quality", "diagnostic", "monthly", "portfolio"],
+  "x-xbert": {
+    "displayName": "XBert Practice Health Check",
+    "tagline": "Portfolio-wide data-quality and financial-health snapshot with diagnostic recommendations per client.",
+    "audience": ["principals", "practice-managers", "bookkeepers"],
+    "categories": ["practice-health", "data-quality", "monthly", "diagnostic"],
+    "prerequisites": [
+      "XBert account",
+      "At least one connected client ledger (Xero, QuickBooks or XPM)",
+      "Three or more months of operating history for the cohort being reviewed"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Today's client-level health check inside XBert tells you the score — it stops short of telling you what to do about it. That diagnostic and prescriptive layer is the gap this plugin fills. Born out of the practice-owner cowork sessions (cowork brief #2), Practice Health Check rolls up data quality and financial-health signals across every client in your book, ranks them by deterioration risk, and translates each finding into 'what this means' and 'what's likely causing it'.\n\nThe output is a portfolio summary plus a drill-down on the worst-performing clients (default 10, configurable), each with prescriptive recommendations ranked by impact. It is built for established customers with at least three months of operating history, and it degrades gracefully where individual clients have thin data. Snapshot today; trend across runs is the v2 roadmap.",
+    "useCases": [
+      {
+        "title": "Monthly portfolio review",
+        "description": "First Monday of the month: see clients by health band, who has deteriorated, and the top issues across the book — before the partner meeting."
+      },
+      {
+        "title": "New client manager onboarding",
+        "description": "Hand a new manager an instant diagnostic of the clients they have just inherited, not a list of scores they have to interpret on their own."
+      },
+      {
+        "title": "Pre-engagement-renewal check",
+        "description": "Before pricing or scope conversations, surface which clients are systematically harder to service and why — so you walk in with evidence."
+      },
+      {
+        "title": "Triage when something feels off",
+        "description": "When the partner senses things are slipping but cannot point to it, run the check and let the diagnostic layer name what is causing it."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "ShieldCheck",
+        "title": "Diagnostic, not just descriptive",
+        "description": "Every finding is paired with 'what this means' and 'what's likely causing it', so the score is actionable rather than another dashboard number."
+      },
+      {
+        "icon": "BarChart3",
+        "title": "Portfolio-first ranking",
+        "description": "Clients are banded and the worst N are drilled into automatically — focus lands on the cases that move the needle, not the long tail."
+      },
+      {
+        "icon": "FileText",
+        "title": "Circulatable Word output",
+        "description": "Produces a Word document with executive summary, banded portfolio view, and per-client diagnostics — ready for the partner meeting without editing."
+      }
+    ],
+    "workflow": [
+      "Type /practice-health-check in any Claude chat",
+      "Confirm the Connect tenant, cohort scope and drill-down count (default 10 worst)",
+      "Plugin pulls data-quality scores, notification summaries, client connections and Connect account review via XBert MCP",
+      "Portfolio is banded, diagnostic and prescriptive recommendations are generated per client",
+      "Word document is produced with the portfolio snapshot, deterioration list and per-client drill-downs"
+    ]
+  }
+}

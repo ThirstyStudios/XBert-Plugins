@@ -1,3 +1,32 @@
 {
-  "bundles": []
+  "bundles": [
+    {
+      "id": "bookkeeper-daily-pack",
+      "name": "Bookkeeper Daily Pack",
+      "tagline": "Daily and weekly bookkeeping workflows — reconciliation, AR chasing, bank statement onboarding, client pulse.",
+      "audience": "bookkeepers",
+      "plugins": ["xbert-reconcile", "xbert-pulse", "xbert-aged-receivables", "xbert-bank-statement-upload"]
+    },
+    {
+      "id": "period-end-pack",
+      "name": "Period-End Pack",
+      "tagline": "Month-end, quarter-end and year-end close — readiness dashboard, trial balance alignment, balance sheet explain, payroll close.",
+      "audience": "accountants",
+      "plugins": ["xbert-end-of-period-dashboard", "xbert-trial-balance-alignment", "xbert-balance-sheet-explain", "xbert-payroll-close", "xbert-month-end-pack"]
+    },
+    {
+      "id": "au-compliance-pack",
+      "name": "AU Compliance Pack",
+      "tagline": "Australian lodgement compliance — BAS, IAS, super, FBT, STP finalisation, TPAR, instalment variation, Div 7A.",
+      "audience": "accountants",
+      "plugins": ["xbert-au-compliance-calendar", "xbert-instalment-variation", "xbert-div7a-schedule", "xbert-payroll-close"]
+    },
+    {
+      "id": "principal-practice-pack",
+      "name": "Principal Practice Pack",
+      "tagline": "Practice oversight, growth, and advisory — workflow review, health check, capacity, fee review, KPI metrics, cross-sell.",
+      "audience": "principals",
+      "plugins": ["xbert-workflow-review", "xbert-practice-health-check", "xbert-capacity", "xbert-client-fee-review", "xbert-practice-metrics", "xbert-cross-sell-opportunities", "xbert-config-audit"]
+    }
+  ]
 }

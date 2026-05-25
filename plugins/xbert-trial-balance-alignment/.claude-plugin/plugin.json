@@ -1,0 +1,66 @@
+{
+  "name": "xbert-trial-balance-alignment",
+  "version": "0.1.0",
+  "description": "Reconcile your trial balance against the accountant's financials with a journal-ready Excel workbook and Word audit document.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-trial-balance-alignment",
+  "license": "MIT",
+  "keywords": ["trial-balance", "reconciliation", "year-end", "financial-statements", "alignment", "audit"],
+  "x-xbert": {
+    "displayName": "XBert Trial Balance Alignment",
+    "tagline": "Reconcile your trial balance against the accountant's financials with journal-ready output.",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["year-end", "reconciliation", "trial-balance"],
+    "prerequisites": [
+      "XBert account",
+      "Trial balance export from your ledger (Xero supported in v1)",
+      "Final signed-off financial statements PDF from the accountant"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Every year, the bookkeeper sends a trial balance to the accountant, the accountant produces final financial statements, and somebody has to reconcile the two so the ledger matches what was lodged. It is one of the highest-friction touchpoints in the practice-to-bookkeeper relationship — accounts get renamed, balances get consolidated into different parent accounts, year-end journals appear in the financials that never made it back to the ledger, and the bookkeeper is left manually walking line-by-line through two documents that almost — but not quite — agree.\n\nXBert Trial Balance Alignment runs that walk for you. It pulls the live trial balance from XBert, ingests the signed-off financial statements PDF, runs a deterministic four-case matching algorithm (one-to-one, consolidated, unmatched-TB, unmatched-FS), and produces an Excel comparative-review workbook plus a Word audit document. v1 supports Xero trial-balance exports and PDF financial statements. MYOB, QuickBooks Online and FreeAgent are planned for v2.",
+    "useCases": [
+      {
+        "title": "Year-end alignment after the accountant signs off",
+        "description": "Reconcile the closing trial balance against the final signed financial statements so the ledger carries the same balances the accountant lodged."
+      },
+      {
+        "title": "Consolidated-account walk",
+        "description": "Detect where the accountant has rolled several ledger accounts into a single FS line and produce the journal needed to mirror that structure."
+      },
+      {
+        "title": "Audit-ready evidence pack",
+        "description": "Generate an Excel workbook plus Word audit document that documents every difference, the matching case it falls under, and the proposed journal."
+      },
+      {
+        "title": "Catch missing year-end adjustments",
+        "description": "Flag FS line items that have no ledger counterpart — typically year-end accruals, provisions, or depreciation entries the bookkeeper hasn't posted yet."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Scale",
+        "title": "Zero-tolerance balance check",
+        "description": "Every account is matched, consolidated, or flagged — nothing is silently dropped. Debit and credit variances are tracked separately and the document fails fast if the workbook doesn't balance."
+      },
+      {
+        "icon": "FileSearch",
+        "title": "Four-case matching engine",
+        "description": "Deterministic classification into one-to-one, consolidated, unmatched-on-TB, or unmatched-on-FS — so you know exactly what each line needs (rename, journal, accrual, query the accountant)."
+      },
+      {
+        "icon": "Clock",
+        "title": "Hours back per alignment",
+        "description": "A mid-sized practice does 30-40 alignments a year — 2-3 hours each on simple files, 6-10+ on complex ones. Practices using this report 60-80% time saving on simple cases."
+      }
+    ],
+    "workflow": [
+      "Type /trial-balance-alignment in any Claude chat",
+      "Confirm the client and upload the financial statements PDF",
+      "Plugin pulls the trial balance from XBert and extracts the FS via semantic extraction",
+      "The four-case matching engine runs and surfaces all unmatched lines with proposed actions",
+      "Approve the output to generate the Excel comparative workbook plus Word audit document"
+    ]
+  }
+}
