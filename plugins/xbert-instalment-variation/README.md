@@ -23,7 +23,7 @@ After installing, type:
 in any Claude chat (Desktop or Code).
 
 ## Scope notes
-- v1 capability gap: a `Tax_GetATOBenchmarkRate` MCP tool is not yet available — the user supplies the GIC rate manually. The recommendation engine doesn't depend on this; only the GIC dollar projection does.
+- v1 capability gap: an ATO benchmark rate lookup capability is not yet available — the user supplies the GIC rate manually. The recommendation engine doesn't depend on this; only the GIC dollar projection does.
 - The plugin **never submits the variation** — it recommends and documents. The human enters the number into the ATO portal.
 - Be conservative on variation-down recommendations. The audit-defence story is the deliverable.
 

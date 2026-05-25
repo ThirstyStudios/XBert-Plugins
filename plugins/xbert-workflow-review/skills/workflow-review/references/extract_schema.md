@@ -4,11 +4,11 @@ The data fields used in the Workflow Review analysis, sourced from the XBert MCP
 
 ## Data sources → Section mapping
 
-| MCP Tool | Data returned | Feeds sections |
-|----------|---------------|----------------|
-| `Features_Review` | Capacity per user, outstanding work, available hours, utilisation | 1 (snapshot), 2.5 (per-user load), 4 (budget) |
-| `Features_ReviewActivity` | Activity by user, time period, activity type | 2.1 (live/dormant), 2.5 (per-user load), 4 (budget), 5.2 (stale) |
-| `Data_XBertNotificationSummary` | Outstanding notifications by category/risk, completion rate | 2.1 (live/dormant/zombie), 2.4 (completion quality) |
+| Data source | Data returned | Feeds sections |
+|-------------|---------------|----------------|
+| Review capacity snapshot | Capacity per user, outstanding work, available hours, utilisation | 1 (snapshot), 2.5 (per-user load), 4 (budget) |
+| Review activity history | Activity by user, time period, activity type | 2.1 (live/dormant), 2.5 (per-user load), 4 (budget), 5.2 (stale) |
+| Notification summary | Outstanding notifications by category/risk, completion rate | 2.1 (live/dormant/zombie), 2.4 (completion quality) |
 | Template & schedule config | Template definitions, schedules, assignments, base processes | All sections |
 
 ## Key data points needed per section

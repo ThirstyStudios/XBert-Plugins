@@ -24,7 +24,7 @@ After installing, type:
 in any Claude chat (Desktop or Code).
 
 ## Scope notes (v1 narrow)
-- **Benchmark rate is entered manually.** A `Tax_GetATOBenchmarkRate` MCP tool is on the capability roadmap; until it ships, you enter the rate when prompted.
+- **Benchmark rate is entered manually.** An ATO benchmark rate lookup capability is on the roadmap; until it ships, you enter the rate when prompted.
 - **Complying loan agreement is assumed.** The working paper notes this assumption explicitly. If you confirm the agreement is not in place, the underlying advance may already be a deemed dividend — that's flagged for partner review, not silently ignored.
 - Read-only on the ledger. The schedule is a working paper; no journals are posted.
 
