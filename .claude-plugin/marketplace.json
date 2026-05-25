@@ -128,12 +128,6 @@
       "version": "0.1.0"
     },
     {
-      "name": "xbert-paye-prep",
-      "source": "./plugins/xbert-paye-prep",
-      "description": "PAYE, payroll and pension control account review for UK clients — reconcile to HMRC RTI submissions, verify auto-enrolment compliance, audit document for the file.",
-      "version": "0.1.0"
-    },
-    {
       "name": "xbert-payment-run",
       "source": "./plugins/xbert-payment-run",
       "description": "Weekly pay-run brief with remittance drafts ready for review. v1 produces the schedule + remittances; ABA payment file generation is v2.",

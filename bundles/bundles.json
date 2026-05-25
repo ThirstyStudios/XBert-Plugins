@@ -26,7 +26,7 @@
       "name": "Country Compliance Pack",
       "tagline": "Country-specific compliance lodgement workflows — UK and NZ.",
       "audience": "accountants",
-      "plugins": ["xbert-vat-prep", "xbert-mtd-prep", "xbert-paye-prep", "xbert-gst-prep-nz"]
+      "plugins": ["xbert-vat-prep", "xbert-mtd-prep", "xbert-gst-prep-nz"]
     },
     {
       "id": "principal-practice-pack",
