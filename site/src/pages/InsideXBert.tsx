@@ -75,7 +75,7 @@ export default function InsideXBertPage() {
         },
         {
           label: "Lives in",
-          value: "app.xbert.io (browser), XBert Capture (mobile)",
+          value: "app.xbert.io (browser)",
         },
         {
           label: "Connects via",

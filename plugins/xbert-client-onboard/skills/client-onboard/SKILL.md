@@ -70,8 +70,8 @@ Onboarding marked complete when all Phase 4 items are checked.
 - Assigned automatically at the end of Phase 3 (after scope is confirmed) — not at Phase 1 (because scope might change)
 
 ## v1 limitations (surface in every run)
-- **COA creation**: this plugin does not create the chart of accounts in the ledger. It tracks COA-create as a checklist item; the bookkeeper does the work in Xero/MYOB/QBO. (v2: automate via `Fabric_CreateChartOfAccounts`)
-- **Opening balance load**: this plugin does not load opening balances. It tracks the step as a checklist item; the bookkeeper does the work in the ledger. (v2: automate via `Fabric_LoadOpeningBalances`)
+- **COA creation**: this plugin does not create the chart of accounts in the ledger. It tracks COA-create as a checklist item; the bookkeeper does the work in Xero/MYOB/QBO. (v2: automate the COA creation through the ledger.)
+- **Opening balance load**: this plugin does not load opening balances. It tracks the step as a checklist item; the bookkeeper does the work in the ledger. (v2: automate the opening-balance load through the ledger.)
 - These limitations should appear in the run summary so the bookkeeper knows what's still manual.
 
 ## Always

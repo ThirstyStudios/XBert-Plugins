@@ -7,17 +7,17 @@ You are producing a quarterly cross-sell opportunity pack for an accounting prac
 Steps:
 1. Confirm scope: Connect tenant, cohort scope (default = whole book), and target audience for the output (default = client managers). If invoked via slash command, default and proceed.
 2. Pull from XBert via the connected MCP:
-   - All accessible clients in the Connect (try `Data_GetAllAccessibleClients` or `tools_search` if the name differs)
-   - XPM client list with service uptake (try `Data_XPMClients`)
-   - Outstanding notification context for advisory triggers (try `Data_XBertNotificationSummary`)
-   - Lookalike pairs — for each client, fetch its similar clients (try `Data_FindSimilarClientTenants`)
+   - All accessible clients in the Connect
+   - XPM client list with service uptake
+   - Outstanding notification context for advisory triggers
+   - Lookalike pairs — for each client, fetch its similar clients
 3. Analyse using the `cross-sell-opportunities` skill methodology:
    - For each client, take its top N lookalikes (default 5)
    - Compare service uptake: identify services the lookalikes have that this client does not
    - Score each opportunity by (lookalike-prevalence × inferred revenue uplift × similarity-score)
    - Rank the opportunity list per client; cap at top 3 per client to keep the output actionable
    - Draft talking points referencing the lookalike pattern (e.g. "Three clients in the same industry segment of comparable size use management reporting; here's what they get from it")
-4. Generate a Word document (try `Utility_GenerateWord` or `tools_search`) containing:
+4. Generate a Word document containing:
    - Cover page with practice name and quarter
    - First-page summary (count of opportunities, top services by aggregate uplift potential, count of clients with no opportunities surfaced)
    - Per-client opportunity sheets (one page each) with ranked opportunities and talking points

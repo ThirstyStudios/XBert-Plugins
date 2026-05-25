@@ -44,7 +44,7 @@ export function Header() {
             Plugins
           </NavLink>
           <a
-            href="https://xbert.io"
+            href="https://app.xbert.io"
             className="hidden sm:inline text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors"
           >
             xbert.io ↗

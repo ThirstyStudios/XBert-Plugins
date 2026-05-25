@@ -7,15 +7,15 @@ You are running BAS (Business Activity Statement) preparation for an Australian 
 Steps:
 1. Ask the user which client and which BAS period to check (quarter end date, or month-end if monthly filer). If the trigger is the slash command and the user has named a client, proceed.
 2. Pull from XBert via the connected MCP:
-   - Organisation context (try `Data_GetOrganisation` — confirm country code is AU, financial method, GST registration — or `tools_search` if the name differs)
-   - Bank reconciliation status across every bank account (try `Data_GetBankReconciliation` and `Data_GetReconciliationStatus`)
-   - GST labels — sales (G1, G2, G3), purchases (G10, G11), and computed 1A / 1B (try `Data_GetGSTSummary` or `tools_search`)
-   - PAYG withholding labels W1-W5 against payrun totals (try `Data_GetPayrollReconciliation`)
-   - Superannuation posting and payment status (try `Data_GetSuperReconciliation`)
-   - Outstanding XBerts for the period (try `Data_XBertNotificationSummary` per client)
+   - Organisation context — confirm country code is AU, financial method, GST registration
+   - Bank reconciliation status across every bank account
+   - GST labels — sales (G1, G2, G3), purchases (G10, G11), and computed 1A / 1B
+   - PAYG withholding labels W1-W5 against payrun totals
+   - Superannuation posting and payment status
+   - Outstanding XBerts for the period
    - Prior-period BAS for variance comparison
 3. Run the readiness checks per the `bas-prep` skill — bank rec, GST data, PAYG-W, payroll, super, P&L review, balance sheet review, fixed assets, AP, AR, cash flow, outstanding XBerts, liability balances. ALL outstanding XBerts block lodgement.
-4. Generate a Word document (try `GenerateWord` or `tools_search`) containing:
+4. Generate a Word document containing:
    - Cover page with client name, ABN, BAS period, generation date
    - First-page summary of readiness status and blocking issues
    - Each readiness section with pass/fail and supporting evidence

@@ -22,7 +22,7 @@ export default function HomePage() {
             className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/5 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-300 mb-8"
           >
             <Sparkles size={12} className="text-blue-500 dark:text-blue-400" />
-            New: 25 plugins for your accounting practice
+            New: {plugins.length} plugins for your accounting practice
           </motion.div>
 
           <motion.h1
@@ -52,9 +52,9 @@ export default function HomePage() {
           >
             XBert exposes 200+ accounting tools — exception review,
             reconciliation, client comms, BI — through the Model Context
-            Protocol and 25 ready-made plugins. Connect it to any MCP-aware AI
-            assistant in a minute, and your books become something the
-            assistant can actually work on.
+            Protocol and a library of ready-made plugins. Connect it to any
+            MCP-aware AI assistant in a minute, and your books become
+            something the assistant can actually work on.
           </motion.p>
 
           <motion.div
@@ -128,7 +128,7 @@ export default function HomePage() {
             {
               icon: <FileSearch size={18} className="text-violet-500 dark:text-violet-400" />,
               title: "Skills, not prompts",
-              body: "The 25 plugins layer slash commands and calibrated skills on top of the same MCP. Your AI assistant follows your firm's rules, not a generic LLM blob.",
+              body: "Plugins layer slash commands and calibrated skills on top of the same MCP. Your AI assistant follows your firm's rules, not a generic LLM blob.",
             },
           ].map((f, i) => (
             <motion.div

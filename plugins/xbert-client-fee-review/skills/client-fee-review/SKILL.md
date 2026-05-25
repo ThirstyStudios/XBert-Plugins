@@ -11,8 +11,8 @@ Per-client cost-to-serve evidence pack. Produces three first-class outputs (Incr
 Replace 'feel' with evidence so that annual fee conversations start from data, not memory. Confirmed-healthy clients are an output, not an absence of output.
 
 ## Metrics
-- **Current fee** — from `Data_XPMClients`
-- **Logged time** — sum across `Data_XPMTimesheets_Summary` and `Features_GetActualTimeList`
+- **Current fee** — from the XPM client list
+- **Logged time** — sum across XPM timesheet totals and practice-internal actual time
 - **Six volume categories** — bank transactions, bills (AP), invoices (AR), payroll runs, payslips, manual journals
 - **Cost-to-serve indicator** — logged time × user-supplied blended cost (optional)
 - **Fee per hour indicator** — current fee / logged hours

@@ -60,7 +60,7 @@ Per Div 7A formula:
 - Next-year reminder cell
 
 ## Capability gap (v1)
-- `Tax_GetATOBenchmarkRate` is not yet a XBert MCP tool
+- Automated ATO benchmark-rate lookup is not yet available in XBert
 - v1 requires the user to enter the benchmark rate for the income year
 - This is documented explicitly in the workflow — not a hidden limitation
 

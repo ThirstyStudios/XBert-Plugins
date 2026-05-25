@@ -11,7 +11,7 @@ A quarterly per-client cross-sell pack driven by XBert's similar-clients engine.
 Replace memory-based cross-sell conversations with a ranked, evidence-backed list per client — so client managers walk into reviews with talking points already drafted.
 
 ## Metrics
-- **Lookalike set** — top N similar clients per candidate (from `Data_FindSimilarClientTenants`)
+- **Lookalike set** — top N similar clients per candidate (from XBert's similar-clients engine)
 - **Service gap** — services the lookalike has that this client does not
 - **Lookalike prevalence** — % of lookalikes using the service
 - **Similarity score** — average similarity score of the lookalikes that use the service
@@ -29,7 +29,7 @@ Replace memory-based cross-sell conversations with a ranked, evidence-backed lis
 If a client has fewer than 3 qualifying lookalikes, surface as "lookalike-thin — see general advisory checklist instead" and skip ranked opportunities.
 
 ## Process / rules
-1. **Build lookalike set per client.** Use `Data_FindSimilarClientTenants`. Filter to those above the minimum similarity score.
+1. **Build lookalike set per client.** Use XBert's similar-clients engine. Filter to those above the minimum similarity score.
 2. **Compute service uptake** for each candidate and each lookalike.
 3. **Service gap** — for each service the lookalike has that the candidate does not, score (lookalike prevalence × similarity score × inferred uplift).
 4. **Rank** per client. Cap at 3.

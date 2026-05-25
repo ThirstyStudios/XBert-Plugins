@@ -7,15 +7,15 @@ You are running GST (Goods and Services Tax) preparation for a New Zealand clien
 Steps:
 1. Ask the user which client, which GST period (e.g. "Jan-Feb 2026", "Nov-Dec 2025", or "current" for auto-detection), and the filing frequency (Monthly / TwoMonthly default / SixMonthly). If the trigger is the slash command and the user has named a client, proceed.
 2. Pull from XBert via the connected MCP:
-   - Organisation context (try `Data_GetOrganisation` — confirm country code is NZ, balance date, GST scheme — or `tools_search`)
-   - Bank reconciliation status (try `Data_GetBankReconciliation` and `Data_GetReconciliationStatus`)
-   - GST boxes 5-15 from sales and purchases (try `Data_GetGSTSummary` with `gstPeriod` and `periodType` parameters — or `tools_search`)
-   - P&L for the period for revenue cross-check (try `Data_GetProfitAndLoss`)
-   - Balance sheet for GST control accounts, KiwiSaver and PAYE liability (try `Data_GetBalanceSheet`)
-   - Outstanding XBerts for the period (try `Data_XBertNotificationSummary` per client)
+   - Organisation context — confirm country code is NZ, balance date, GST scheme
+   - Bank reconciliation status
+   - GST boxes 5-15 from sales and purchases for the nominated GST period and period type
+   - P&L for the period for revenue cross-check
+   - Balance sheet for GST control accounts, KiwiSaver and PAYE liability
+   - Outstanding XBerts for the period
    - Prior period GST for variance comparison
 3. Run the readiness checks per the `gst-prep-nz` skill — bank rec, GST data (boxes 5 through 15), P&L review, balance sheet, fixed assets, AP, AR, cash flow, outstanding XBerts, GST / PAYE / KiwiSaver liability balances. ALL outstanding XBerts block lodgement.
-4. Generate a Word document (try `GenerateWord` or `tools_search`) containing:
+4. Generate a Word document containing:
    - Cover page with client name, IRD number, GST period, generation date
    - First-page summary of readiness status and blocking issues
    - Each readiness section with pass/fail and supporting evidence

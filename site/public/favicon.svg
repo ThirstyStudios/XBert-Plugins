@@ -1,41 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 28.344 26.937">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: url(#linear-gradient);
-      }
-
-      .cls-2 {
-        fill: #fff;
-      }
-
-      .cls-3 {
-        fill: #70cddd;
-      }
-    </style>
-    <linearGradient id="linear-gradient" x1="-0.015" y1="1.317" x2="0.625" y2="0.696" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#70cddd"/>
-      <stop offset="0.522" stop-color="#f7fcfd"/>
-      <stop offset="0.88" stop-color="#fff"/>
-    </linearGradient>
-  </defs>
-  <g id="Group_133" data-name="Group 133" transform="translate(-17.932 -14.436)">
-    <path id="Path_37" data-name="Path 37" class="cls-1" d="M106.794,78.157,94.9,66.264,96.864,64.3l11.894,11.894Z" transform="translate(-63.87 -37.952)"/>
-    <rect id="Rectangle_27" data-name="Rectangle 27" class="cls-2" width="4.743" height="4.743" transform="translate(28.643 19.088) rotate(-45)"/>
-    <g id="Group_74" data-name="Group 74" transform="translate(17.932 14.436)">
-      <g id="Group_73" data-name="Group 73">
-        <g id="Group_70" data-name="Group 70" transform="translate(1.175 0.007)">
-          <rect id="Rectangle_28" data-name="Rectangle 28" class="cls-2" width="33.68" height="2.779" transform="translate(0 23.815) rotate(-45)"/>
-        </g>
-        <g id="Group_71" data-name="Group 71" transform="translate(1.167)">
-          <path id="Path_38" data-name="Path 38" class="cls-2" d="M39.93,11.375,30.5,1.945,32.464,0l9.43,9.411Z" transform="translate(-30.5)"/>
-        </g>
-        <g id="Group_72" data-name="Group 72" transform="translate(0 5.78)">
-          <path id="Path_39" data-name="Path 39" class="cls-3" d="M26.164,31.2,24.2,33.164,29.35,38.3l-5.15,5.15,1.964,1.964,7.1-7.114Z" transform="translate(-24.2 -31.2)"/>
-          <path id="Path_40" data-name="Path 40" class="cls-3" d="M137.359,33.164,135.4,31.2l-7.1,7.1,7.1,7.114,1.964-1.964-5.132-5.15Z" transform="translate(-109.015 -31.2)"/>
-          <path id="Path_41" data-name="Path 41" class="cls-3" d="M61.8,103.6l1.945,1.964,5.15-5.15,5.132,5.15,1.964-1.964-7.1-7.1Z" transform="translate(-54.834 -84.403)"/>
-        </g>
-      </g>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#665BFF;}
+	.st1{fill:#FFFFFF;}
+</style>
+<g>
+	<g>
+		<path class="st0" d="M193.3813,256H62.6187C28.0354,256,0,227.9646,0,193.3813V62.6187C0,28.0354,28.0354,0,62.6187,0h130.7626
+			C227.9646,0,256,28.0354,256,62.6187v130.7626C256,227.9646,227.9646,256,193.3813,256z"/>
+	</g>
+	<g>
+		<rect x="112.6812" y="56.5865" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -13.2538 111.3275)" class="st1" width="30.152" height="30.152"/>
+		<polygon class="st1" points="209.6176,54.5841 197.2504,42.217 45.7821,193.5675 58.2671,206.0524 127.7588,136.5607
+			197.2504,206.0524 209.6176,193.5675 140.2437,124.0758 		"/>
+		<polygon class="st1" points="118.1006,102.0505 58.2671,42.217 45.7821,54.5841 105.7334,114.5354 		"/>
+		<polygon class="st1" points="50.8468,169.1865 95.9575,124.0758 50.8468,78.9651 38.3619,91.4501 71.1054,124.0758
+			38.3619,156.8193 		"/>
+		<polygon class="st1" points="218.5691,91.4501 206.0841,78.9651 160.9734,124.0758 206.0841,169.1865 218.5691,156.8193
+			185.9433,124.0758 		"/>
+		<polygon class="st1" points="82.6481,200.9878 95.0152,213.4727 127.7588,180.7292 160.3845,213.4727 172.8695,200.9878
+			127.7588,155.8771 		"/>
+	</g>
+</g>
 </svg>

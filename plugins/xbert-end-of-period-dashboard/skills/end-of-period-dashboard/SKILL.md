@@ -12,10 +12,10 @@ Replace the practice manager's intuition with a deterministic per-client readine
 
 ## Metrics
 - **Readiness band** — Ready / Almost / Blocked / At Risk (computed, see thresholds)
-- **DQ score** — from `Data_DataQualityScore`
-- **Outstanding work** — count and priority from `Features_GetWork`
-- **Reconciliation status** — from `Data_ReconciliationStatus`
-- **Lock date** — from `Data_LockDates`
+- **DQ score** — per-client data-quality score
+- **Outstanding work** — count and priority from the outstanding work board
+- **Reconciliation status** — current reconciliation state per client
+- **Lock date** — current lock date per client
 - **Validation status** — BAS / VAT / Payroll reconciliation results
 - **Deadline runway** — days until next lodgement for the cadence
 

@@ -28,7 +28,7 @@ Segment minimum: 3 clients. Below 3, treat as ungrouped and report whole-book on
 
 ## Process / rules
 1. **Build per-client fingerprint** — for every rule, record enabled/disabled state.
-2. **Segment the book** — default by industry tag from `Data_GetClientConnections` / Connect account review; fallback = ledger type; final fallback = whole book.
+2. **Segment the book** — default by industry tag from the client connection list and the Connect account review; fallback = ledger type; final fallback = whole book.
 3. **Compute segment statistics** — for each rule × segment, the always-on rate.
 4. **Classify findings** — Always-on candidate / Outlier / Inconsistent / Drift.
 5. **Pair with bulk move** — for each finding, name the specific normalisation: "enable rule X on these 4 clients", "disable rule Y on these 2 clients", "surface for human decision because the split is even".

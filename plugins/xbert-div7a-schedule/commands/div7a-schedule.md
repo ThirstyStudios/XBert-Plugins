@@ -5,18 +5,18 @@ description: Build a Division 7A loan schedule per shareholder loan — opening 
 You are running the Div 7A loan schedule workflow for an accountant in public practice.
 
 Steps:
-1. Confirm scope — which client, which income year, and ask the user to enter the ATO benchmark interest rate for the income year. v1 is a manual input — a `Tax_GetATOBenchmarkRate` MCP tool is on the capability roadmap but not yet available.
+1. Confirm scope — which client, which income year, and ask the user to enter the ATO benchmark interest rate for the income year. v1 is a manual input — automated benchmark-rate lookup is on the capability roadmap but not yet available.
 2. Pull from XBert via the connected MCP:
-   - Closing balance sheet for the income year (try `Data_BalanceSheet` or `tools_search` if the name differs)
-   - Journal master detail for shareholder loan movements during the year (try `Data_JournalMaster_Search` or `tools_search`)
-   - Contacts list, focusing on shareholders and related-party individuals (try `Data_Contacts_Search` or `tools_search`)
+   - Closing balance sheet for the income year
+   - Journal master detail for shareholder loan movements during the year
+   - Contacts list, focusing on shareholders and related-party individuals
 3. Run the schedule build from the `div7a-schedule` skill:
    - Identify shareholder loan accounts on the balance sheet (account name pattern + contact link)
    - For each loan: opening balance, advances during the year, repayments during the year, interest accrual at the benchmark rate, closing balance
    - Calculate the minimum yearly repayment per loan (per Div 7A formula based on loan term and benchmark rate)
    - Compare actual repayments to minimum required — flag any shortfall
    - Note the assumption that a complying loan agreement is in place; if the user confirms it is not, flag the advance as a potential deemed dividend
-4. Generate the Excel schedule (try `Utility_GenerateExcel` or `tools_search`):
+4. Generate the Excel schedule:
    - One worksheet per loan
    - Opening / advances / repayments / interest / closing rows
    - Minimum repayment calc with pass / shortfall badge

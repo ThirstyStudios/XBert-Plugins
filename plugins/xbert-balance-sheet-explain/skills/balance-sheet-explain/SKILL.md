@@ -31,7 +31,7 @@ Walk every line of the balance sheet from opening to closing, state the reconcil
 
 ### Section 2 — Reconciliation status
 For each reconcilable account, state the status from the underlying data:
-- **Cash / bank**: result of `Validation_BankReconciliation`
+- **Cash / bank**: result of the bank reconciliation check
 - **Aged receivables**: GL receivables total vs aged debtors total
 - **Aged payables**: GL payables total vs aged creditors total
 - **Fixed asset register vs GL**: FAR accumulated depreciation total vs GL accumulated depreciation account

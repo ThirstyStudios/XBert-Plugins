@@ -8,8 +8,8 @@ Steps:
 1. Ask which period to review. Default to month-to-date.
 2. Ask whether to include a single-client deep dive (optional `--client` flag) and whether to export a markdown report (`--export`).
 3. Pull from XBert via the connected MCP:
-   - Time entries for the period with billable flags (try `xbert.time.entries(period=mtd, include_billable_flag=true)`)
-   - WIP planned vs actual at practice and per-client level (try `xbert.wip.planned_vs_actual`)
+   - Time entries for the period with billable flags
+   - WIP planned vs actual at practice and per-client level
 4. Compute:
    - Practice-level billable hours, non-billable hours, billable %
    - Practice-level WIP variance (actual vs planned, expressed as %)

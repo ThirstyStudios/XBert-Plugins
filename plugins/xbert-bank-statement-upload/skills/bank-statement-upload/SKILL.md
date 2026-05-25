@@ -29,7 +29,7 @@ Take any common bank statement format the client supplies (PDF, CSV, OFX, QIF, E
    - **MYOB import (.txt or .qif)**: tab-delimited. Date format `dd/mm/yyyy`. Separate debit + credit columns.
    - **QuickBooks Online CSV**: columns `Date, Description, Amount`. Single amount column with sign. Date format `dd/mm/yyyy`.
 2. **Extract by format**:
-   - PDF: `SemanticExtraction_ExtractText` then `SemanticExtraction_ProcessLineItems`. Capture confidence per row.
+   - PDF: run text extraction then line-item structuring. Capture confidence per row.
    - CSV/Excel: detect header row, map columns by name (date/desc/amount/balance) with fuzzy matching.
    - OFX/QIF: parse natively — these formats are deterministic, confidence = 1.0.
 3. **Reconcile**: opening balance + sum(rows) must equal closing balance to within $0.01. If not, stop and ask the user to confirm the source file isn't truncated.

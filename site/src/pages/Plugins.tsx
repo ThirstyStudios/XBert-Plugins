@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import MiniSearch from "minisearch";
 import { plugins, allCategories } from "../lib/catalog";
 import { PluginCard } from "../components/PluginCard";
@@ -21,23 +21,87 @@ ms.addAll(
 );
 
 export default function PluginsPage() {
-  const [q, setQ] = useState("");
-  const [category, setCategory] = useState<string | null>(null);
+  const [text, setText] = useState("");
+  const [selected, setSelected] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
+  const [highlight, setHighlight] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const cats = useMemo(allCategories, []);
+
+  const available = useMemo(
+    () => cats.filter((c) => !selected.includes(c)),
+    [cats, selected]
+  );
+
+  const suggestions = useMemo(() => {
+    const q = text.trim().toLowerCase();
+    const list = q
+      ? available.filter((c) => c.toLowerCase().includes(q))
+      : available;
+    return list.slice(0, 8);
+  }, [available, text]);
+
+  useEffect(() => {
+    setHighlight(0);
+  }, [text, open]);
+
+  useEffect(() => {
+    function onDocClick(e: MouseEvent) {
+      if (!wrapRef.current) return;
+      if (!wrapRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, []);
 
   const filtered = useMemo(() => {
     let list = plugins;
-    if (q.trim()) {
+    const q = text.trim();
+    if (q) {
       const hits = new Set(
         ms.search(q, { prefix: true, fuzzy: 0.2 }).map((h) => h.id as string)
       );
       list = list.filter((p) => hits.has(p.slug));
     }
-    if (category) {
-      list = list.filter((p) => p["x-xbert"].categories.includes(category));
+    if (selected.length) {
+      list = list.filter((p) =>
+        selected.every((c) => p["x-xbert"].categories.includes(c))
+      );
     }
     return list;
-  }, [q, category]);
+  }, [text, selected]);
+
+  function addCategory(cat: string) {
+    if (!selected.includes(cat)) setSelected([...selected, cat]);
+    setText("");
+    inputRef.current?.focus();
+  }
+
+  function removeCategory(cat: string) {
+    setSelected(selected.filter((c) => c !== cat));
+    inputRef.current?.focus();
+  }
+
+  function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "ArrowDown" && suggestions.length) {
+      e.preventDefault();
+      setOpen(true);
+      setHighlight((h) => Math.min(h + 1, suggestions.length - 1));
+    } else if (e.key === "ArrowUp" && suggestions.length) {
+      e.preventDefault();
+      setHighlight((h) => Math.max(h - 1, 0));
+    } else if (e.key === "Enter") {
+      if (open && suggestions[highlight]) {
+        e.preventDefault();
+        addCategory(suggestions[highlight]);
+      }
+    } else if (e.key === "Backspace" && !text && selected.length) {
+      removeCategory(selected[selected.length - 1]);
+    } else if (e.key === "Escape") {
+      setOpen(false);
+    }
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">
@@ -54,34 +118,87 @@ export default function PluginsPage() {
         </p>
       </motion.div>
 
-      {/* Controls */}
-      <div className="mt-10 flex flex-col md:flex-row md:items-center gap-4">
-        <div className="relative w-full md:max-w-sm">
-          <Search
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-600 dark:text-neutral-500 pointer-events-none"
-          />
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search plugins…"
-            className="w-full rounded-md bg-black/[0.03] border border-black/10 dark:bg-white/[0.04] dark:border-white/10 pl-9 pr-3 py-2 text-sm placeholder:text-neutral-600 dark:placeholder:text-neutral-500 focus:outline-none focus:border-black/25 focus:bg-black/[0.05] dark:focus:border-white/25 dark:focus:bg-white/[0.06] transition"
-          />
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <CategoryPill
-            label="All"
-            active={category === null}
-            onClick={() => setCategory(null)}
-          />
-          {cats.map((c) => (
-            <CategoryPill
-              key={c}
-              label={c}
-              active={category === c}
-              onClick={() => setCategory(category === c ? null : c)}
+      {/* Smart search */}
+      <div className="mt-10" ref={wrapRef}>
+        <div className="relative w-full md:max-w-2xl">
+          <div
+            className="flex flex-wrap items-center gap-1.5 rounded-md bg-black/[0.03] border border-black/10 dark:bg-white/[0.04] dark:border-white/10 pl-3 pr-3 py-2 focus-within:border-black/25 focus-within:bg-black/[0.05] dark:focus-within:border-white/25 dark:focus-within:bg-white/[0.06] transition cursor-text"
+            onClick={() => inputRef.current?.focus()}
+          >
+            <Search
+              size={16}
+              className="text-neutral-600 dark:text-neutral-500 shrink-0"
             />
-          ))}
+            {selected.map((c) => (
+              <span
+                key={c}
+                className="inline-flex items-center gap-1 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-black text-[11px] uppercase tracking-wider px-2 py-0.5"
+              >
+                {c}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeCategory(c);
+                  }}
+                  className="opacity-70 hover:opacity-100"
+                  aria-label={`Remove ${c}`}
+                >
+                  <X size={12} />
+                </button>
+              </span>
+            ))}
+            <input
+              ref={inputRef}
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value);
+                setOpen(true);
+              }}
+              onFocus={() => setOpen(true)}
+              onKeyDown={onKeyDown}
+              placeholder={
+                selected.length ? "Add filter or search…" : "Search plugins or filter by tag…"
+              }
+              className="flex-1 min-w-[8rem] bg-transparent text-sm placeholder:text-neutral-600 dark:placeholder:text-neutral-500 focus:outline-none py-0.5"
+            />
+            {(selected.length > 0 || text) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSelected([]);
+                  setText("");
+                  inputRef.current?.focus();
+                }}
+                className="text-[11px] uppercase tracking-wider text-neutral-600 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+
+          {open && suggestions.length > 0 && (
+            <div className="absolute z-20 mt-1 w-full rounded-md border border-black/10 dark:border-white/10 bg-white dark:bg-neutral-950 shadow-lg overflow-hidden">
+              <div className="px-3 py-1.5 text-[10px] uppercase tracking-wider text-neutral-500 border-b border-black/5 dark:border-white/5">
+                Filter by tag
+              </div>
+              {suggestions.map((c, i) => (
+                <button
+                  key={c}
+                  type="button"
+                  onMouseEnter={() => setHighlight(i)}
+                  onClick={() => addCategory(c)}
+                  className={`w-full text-left px-3 py-1.5 text-sm transition ${
+                    i === highlight
+                      ? "bg-black/[0.05] dark:bg-white/[0.06]"
+                      : ""
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -97,28 +214,5 @@ export default function PluginsPage() {
         )}
       </div>
     </div>
-  );
-}
-
-function CategoryPill({
-  label,
-  active,
-  onClick,
-}: {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border transition ${
-        active
-          ? "bg-neutral-900 text-white border-neutral-900 dark:bg-white dark:text-black dark:border-white"
-          : "bg-black/[0.03] text-neutral-700 border-black/10 hover:bg-black/[0.06] dark:bg-white/[0.04] dark:text-neutral-300 dark:border-white/10 dark:hover:bg-white/[0.08]"
-      }`}
-    >
-      {label}
-    </button>
   );
 }
