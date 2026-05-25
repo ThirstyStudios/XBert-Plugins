@@ -102,10 +102,10 @@ export default function PluginDetailPage() {
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
             {x.displayName}
           </h1>
-          <p className="mt-3 text-lg md:text-xl text-neutral-300 max-w-2xl">
+          <p className="mt-3 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl">
             {x.tagline}
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-neutral-500 font-mono">
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-neutral-600 dark:text-neutral-500 font-mono">
             <span>v{p.version}</span>
             <span>
               {x.includes.skills} skill{x.includes.skills === 1 ? "" : "s"}
@@ -131,7 +131,7 @@ export default function PluginDetailPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.4, delay: 0.05 * i }}
-              className={`text-${i === 0 ? "lg" : "base"} leading-relaxed text-neutral-200`}
+              className={`text-${i === 0 ? "lg" : "base"} leading-relaxed text-neutral-800 dark:text-neutral-200`}
             >
               {para}
             </motion.p>
@@ -145,7 +145,7 @@ export default function PluginDetailPage() {
               <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
                 What you can do with it
               </h2>
-              <span className="text-xs uppercase tracking-wider text-neutral-500">
+              <span className="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-500">
                 {x.useCases.length} use cases
               </span>
             </div>
@@ -157,7 +157,7 @@ export default function PluginDetailPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-30px" }}
                   transition={{ duration: 0.35, delay: 0.04 * i }}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-5 hover:border-white/20 transition"
+                  className="group relative overflow-hidden rounded-2xl border border-black/10 bg-black/[0.02] hover:border-black/20 dark:border-white/10 dark:bg-white/[0.02] dark:hover:border-white/20 p-5 transition"
                 >
                   <div
                     aria-hidden
@@ -167,10 +167,10 @@ export default function PluginDetailPage() {
                         "radial-gradient(circle at 0% 0%, rgba(59,130,246,0.06), transparent 50%)",
                     }}
                   />
-                  <h3 className="relative text-base font-semibold text-white">
+                  <h3 className="relative text-base font-semibold text-neutral-900 dark:text-white">
                     {u.title}
                   </h3>
-                  <p className="relative mt-2 text-sm text-neutral-400 leading-relaxed">
+                  <p className="relative mt-2 text-sm text-neutral-700 dark:text-neutral-400 leading-relaxed">
                     {u.description}
                   </p>
                 </motion.div>
@@ -185,7 +185,7 @@ export default function PluginDetailPage() {
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
               How it changes your work
             </h2>
-            <p className="mt-2 text-neutral-400 max-w-2xl">
+            <p className="mt-2 text-neutral-700 dark:text-neutral-400 max-w-2xl">
               What XBert users actually get back when they bring this into their
               practice.
             </p>
@@ -199,21 +199,21 @@ export default function PluginDetailPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-30px" }}
                     transition={{ duration: 0.4, delay: 0.06 * i }}
-                    className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-6"
+                    className="rounded-2xl border border-black/10 bg-gradient-to-b from-black/[0.03] to-black/[0.01] dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.01] p-6"
                   >
                     <div
-                      className="inline-flex items-center justify-center size-10 rounded-xl mb-4 border border-white/10"
+                      className="inline-flex items-center justify-center size-10 rounded-xl mb-4 border border-black/10 dark:border-white/10"
                       style={{
                         background:
                           "linear-gradient(135deg, rgba(59,130,246,0.16), rgba(6,182,212,0.10))",
                       }}
                     >
-                      <Icon size={18} className="text-blue-300" />
+                      <Icon size={18} className="text-blue-600 dark:text-blue-300" />
                     </div>
-                    <h3 className="text-base font-semibold text-white">
+                    <h3 className="text-base font-semibold text-neutral-900 dark:text-white">
                       {b.title}
                     </h3>
-                    <p className="mt-2 text-sm text-neutral-400 leading-relaxed">
+                    <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 leading-relaxed">
                       {b.description}
                     </p>
                   </motion.div>
@@ -229,7 +229,7 @@ export default function PluginDetailPage() {
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
               How it works
             </h2>
-            <p className="mt-2 text-neutral-400">
+            <p className="mt-2 text-neutral-700 dark:text-neutral-400">
               The flow when you run the command — under your control at every
               step.
             </p>
@@ -237,7 +237,7 @@ export default function PluginDetailPage() {
               {/* Vertical track */}
               <span
                 aria-hidden
-                className="absolute left-[18px] top-2 bottom-2 w-px bg-gradient-to-b from-white/15 via-white/8 to-transparent"
+                className="absolute left-[18px] top-2 bottom-2 w-px bg-gradient-to-b from-black/15 via-black/8 to-transparent dark:from-white/15 dark:via-white/8"
               />
               {x.workflow.map((step, i) => (
                 <motion.li
@@ -250,11 +250,11 @@ export default function PluginDetailPage() {
                 >
                   <span
                     aria-hidden
-                    className="absolute -left-12 top-0 inline-flex items-center justify-center size-9 rounded-full border border-white/15 bg-white/[0.04] text-[11px] font-mono text-blue-300 font-semibold"
+                    className="absolute -left-12 top-0 inline-flex items-center justify-center size-9 rounded-full border border-black/15 bg-black/[0.04] text-blue-600 dark:border-white/15 dark:bg-white/[0.04] dark:text-blue-300 text-[11px] font-mono font-semibold"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-neutral-200 leading-relaxed pt-1">
+                  <p className="text-neutral-800 dark:text-neutral-200 leading-relaxed pt-1">
                     {step}
                   </p>
                 </motion.li>
@@ -277,7 +277,7 @@ export default function PluginDetailPage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-30px" }}
                   transition={{ duration: 0.3 }}
-                  className="flex items-start gap-3 text-neutral-200"
+                  className="flex items-start gap-3 text-neutral-800 dark:text-neutral-200"
                 >
                   <Check
                     size={16}
@@ -291,21 +291,20 @@ export default function PluginDetailPage() {
         )}
 
         {/* COMPACT INSTALL CTA */}
-        <section className="mt-20 rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-8 md:p-10 max-w-3xl">
+        <section className="mt-20 rounded-2xl border border-black/10 bg-gradient-to-br from-black/[0.03] to-black/[0.01] dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.01] p-8 md:p-10 max-w-3xl">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
             <div>
               <h3 className="text-xl font-semibold tracking-tight">
-                Ready to add {x.displayName} to Claude?
+                Ready to install {x.displayName}?
               </h3>
-              <p className="mt-2 text-sm text-neutral-400 max-w-md">
+              <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 max-w-md">
                 Add the XBert marketplace once, then install just this plugin
                 from the Personal tab.
               </p>
             </div>
             <Link
               to="/#install"
-              style={{ color: "#0a0a0a" }}
-              className="group inline-flex items-center gap-2 self-start md:self-auto rounded-md bg-white px-5 py-2.5 text-sm font-semibold shadow-lg shadow-blue-500/10 ring-1 ring-white/40 hover:bg-neutral-100 transition flex-shrink-0"
+              className="group inline-flex items-center gap-2 self-start md:self-auto rounded-md bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-5 py-2.5 text-sm font-semibold shadow-lg shadow-blue-500/10 ring-1 ring-black/10 dark:ring-white/40 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition flex-shrink-0"
             >
               See install steps
               <ArrowRight
@@ -321,13 +320,13 @@ export default function PluginDetailPage() {
         <section className="mt-12 flex flex-wrap gap-5 text-sm">
           <a
             href={`https://github.com/ThirstyStudios/XBert-Plugins/tree/main/plugins/${p.slug}`}
-            className="inline-flex items-center gap-1 text-neutral-300 hover:text-white transition"
+            className="inline-flex items-center gap-1 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition"
           >
             View source on GitHub <ExternalLink size={13} />
           </a>
           <a
             href="mailto:hello@xbert.io"
-            className="inline-flex items-center gap-1 text-neutral-300 hover:text-white transition"
+            className="inline-flex items-center gap-1 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition"
           >
             Contact XBert <ExternalLink size={13} />
           </a>
@@ -336,7 +335,7 @@ export default function PluginDetailPage() {
         {/* RELATED */}
         {related.length > 0 && (
           <section className="mt-24">
-            <h2 className="text-xs uppercase tracking-wider text-neutral-500 mb-4">
+            <h2 className="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-500 mb-4">
               Other plugins
             </h2>
             <div className="grid md:grid-cols-2 gap-4">

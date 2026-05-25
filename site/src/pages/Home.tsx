@@ -22,7 +22,7 @@ export default function HomePage() {
             className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/5 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-300 mb-8"
           >
             <Sparkles size={12} className="text-blue-500 dark:text-blue-400" />
-            New: bring an accounting practice into Claude
+            New: 25 plugins for your accounting practice
           </motion.div>
 
           <motion.h1
@@ -31,7 +31,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.05 }}
             className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.05] max-w-4xl"
           >
-            XBert is the MCP that{" "}
+            XBert turns your accounting practice into an{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
@@ -39,9 +39,9 @@ export default function HomePage() {
                   "linear-gradient(135deg, #2563eb 0%, #0891b2 60%, #7c3aed 100%)",
               }}
             >
-              turns Claude
-            </span>{" "}
-            into your firm's analyst.
+              AI-ready workspace
+            </span>
+            .
           </motion.h1>
 
           <motion.p
@@ -50,10 +50,11 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="mt-7 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed"
           >
-            XBert exposes 70+ accounting tools — exception review,
+            XBert exposes 200+ accounting tools — exception review,
             reconciliation, client comms, BI — through the Model Context
-            Protocol. Add it to Claude or Claude Code in a minute, and your
-            books become something Claude can actually work on.
+            Protocol and 25 ready-made plugins. Connect it to any MCP-aware AI
+            assistant in a minute, and your books become something the
+            assistant can actually work on.
           </motion.p>
 
           <motion.div
@@ -66,7 +67,7 @@ export default function HomePage() {
               to="/connect"
               className="group inline-flex items-center gap-2 rounded-md bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-5 py-2.5 text-sm font-semibold shadow-lg shadow-blue-500/10 ring-1 ring-black/10 dark:ring-white/40 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition"
             >
-              Add XBert to Claude
+              Connect XBert to your AI
               <ArrowRight
                 size={16}
                 strokeWidth={2.5}
@@ -116,8 +117,8 @@ export default function HomePage() {
           {[
             {
               icon: <Zap size={18} className="text-blue-500 dark:text-blue-400" />,
-              title: "70+ tools, one connector",
-              body: "The XBert MCP gives Claude direct access to your ledgers, notifications, and BI — no glue code, no copy-paste between apps.",
+              title: "200+ tools, one MCP",
+              body: "XBert's MCP gives your AI assistant direct access to your ledgers, notifications, and BI — no glue code, no copy-paste between apps.",
             },
             {
               icon: <ShieldCheck size={18} className="text-emerald-500 dark:text-emerald-400" />,
@@ -127,7 +128,7 @@ export default function HomePage() {
             {
               icon: <FileSearch size={18} className="text-violet-500 dark:text-violet-400" />,
               title: "Skills, not prompts",
-              body: "The Claude Code plugins layer slash commands and calibrated skills on top of the same MCP. Claude follows your firm's rules, not a generic LLM blob.",
+              body: "The 25 plugins layer slash commands and calibrated skills on top of the same MCP. Your AI assistant follows your firm's rules, not a generic LLM blob.",
             },
           ].map((f, i) => (
             <motion.div
@@ -142,7 +143,7 @@ export default function HomePage() {
                 {f.icon}
               </div>
               <h3 className="text-base font-semibold">{f.title}</h3>
-              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 leading-relaxed">
                 {f.body}
               </p>
             </motion.div>
@@ -155,10 +156,10 @@ export default function HomePage() {
         <div className="flex items-end justify-between mb-8">
           <div>
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              Claude Code plugins powered by XBert
+              Plugins powered by XBert
             </h2>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-              {plugins.length} XBert-powered plugin{plugins.length === 1 ? "" : "s"} for Claude Code.
+            <p className="mt-1 text-sm text-neutral-700 dark:text-neutral-400">
+              {plugins.length} XBert-powered plugin{plugins.length === 1 ? "" : "s"} grouped by workflow.
             </p>
           </div>
           <Link
@@ -188,22 +189,22 @@ export default function HomePage() {
           {[
             {
               n: "01",
-              title: "Add XBert to Claude",
+              title: "Add the XBert MCP to your AI",
               body: (
                 <>
-                  In Claude, open <span className="font-mono text-neutral-900 dark:text-neutral-100">Settings → Integrations</span> and add a custom MCP connector pointing at <span className="font-mono text-neutral-900 dark:text-neutral-100">https://mcp-gateway.xbert.io/mcp</span>. Sign in with XBert.
+                  In your MCP-aware AI assistant, open <span className="font-mono text-neutral-900 dark:text-neutral-100">Settings → Integrations</span> and add a custom MCP connector pointing at <span className="font-mono text-neutral-900 dark:text-neutral-100">https://mcp-gateway.xbert.io/mcp</span>. Sign in with XBert.
                 </>
               ),
             },
             {
               n: "02",
-              title: "Ask Claude to do practice work",
-              body: "Claude gets 70+ XBert tools — exception review, reconciliation, BI queries — and runs them with full auth and an audit trail.",
+              title: "Ask the assistant to do practice work",
+              body: "The assistant gets 200+ XBert tools — exception review, reconciliation, BI queries — and runs them with full auth and an audit trail.",
             },
             {
               n: "03",
-              title: "Bring your firm's rules to Claude Code",
-              body: "Want slash commands and skills built on the MCP? Install the XBert plugins for Claude Code. Same data, packaged into preset workflows.",
+              title: "Install plugins for preset workflows",
+              body: "Want slash commands and skills built on the MCP? Install the XBert plugins (works in Claude Code and Claude Desktop). Same data, packaged into preset workflows.",
             },
           ].map((s, i) => (
             <motion.li
@@ -216,7 +217,7 @@ export default function HomePage() {
             >
               <div className="text-xs font-mono text-blue-500 dark:text-blue-400">{s.n}</div>
               <h3 className="mt-2 text-base font-semibold">{s.title}</h3>
-              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 leading-relaxed">
                 {s.body}
               </p>
             </motion.li>

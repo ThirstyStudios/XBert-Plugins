@@ -22,23 +22,23 @@ export function Header() {
     >
       <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span
-            aria-hidden
-            className="inline-block size-6 rounded-md"
-            style={{
-              background:
-                "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-              boxShadow:
-                "0 0 0 1px rgba(255,255,255,0.08), 0 8px 24px -8px rgba(59,130,246,0.6)",
-            }}
+          <img
+            src="/xbert-mark.svg"
+            alt="XBert"
+            width={24}
+            height={24}
+            className="size-6"
           />
           <span>
-            XBert <span className="text-neutral-500 dark:text-neutral-400 font-normal">MCP</span>
+            XBert <span className="text-neutral-500 dark:text-neutral-400 font-normal">Plugins</span>
           </span>
         </Link>
         <nav className="flex items-center gap-6 md:gap-7">
           <NavLink to="/connect" className={linkClass}>
             Connect
+          </NavLink>
+          <NavLink to="/inside-xbert" className={linkClass}>
+            Inside XBert
           </NavLink>
           <NavLink to="/plugins" className={linkClass}>
             Plugins

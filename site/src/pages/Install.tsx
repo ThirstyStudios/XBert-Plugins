@@ -61,7 +61,7 @@ export default function InstallPage() {
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
           Build a multi-plugin install snippet.
         </h1>
-        <p className="mt-3 text-neutral-600 dark:text-neutral-400 max-w-2xl">
+        <p className="mt-3 text-neutral-700 dark:text-neutral-400 max-w-2xl">
           Tick the XBert plugins you want. The install snippet on the left
           updates live, and the URL stays in sync so you can share or bookmark a
           bundle. Paste the result into Claude Code.
@@ -82,11 +82,11 @@ export default function InstallPage() {
       <div className="mt-12 grid md:grid-cols-2 gap-8">
         {/* Snippet column - sticky on desktop */}
         <div className="md:sticky md:top-24 self-start">
-          <div className="text-xs uppercase tracking-wider text-neutral-500 mb-3">
+          <div className="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-500 mb-3">
             Your install snippet
           </div>
           <InstallBlock snippet={snippet} />
-          <div className="mt-4 text-xs text-neutral-500">
+          <div className="mt-4 text-xs text-neutral-600 dark:text-neutral-500">
             {selected.size} plugin{selected.size === 1 ? "" : "s"} selected
             {selected.size > 0 && (
               <button
@@ -102,7 +102,7 @@ export default function InstallPage() {
 
         {/* Plugin checklist */}
         <div>
-          <div className="text-xs uppercase tracking-wider text-neutral-500 mb-3">
+          <div className="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-500 mb-3">
             Available plugins
           </div>
           <div className="space-y-2">
@@ -131,7 +131,7 @@ export default function InstallPage() {
                   </span>
                   <div className="flex-1">
                     <div className="font-medium">{x.displayName}</div>
-                    <div className="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">
+                    <div className="text-sm text-neutral-700 dark:text-neutral-400 mt-0.5">
                       {x.tagline}
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1.5">

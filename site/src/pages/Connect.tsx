@@ -35,12 +35,12 @@ export default function ConnectPage() {
       >
         <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/5 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-300 mb-6">
           <Plug size={12} className="text-blue-500 dark:text-blue-400" />
-          Get XBert running in Claude
+          Get XBert running in your AI assistant
         </div>
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
           Install the XBert plugins.
         </h1>
-        <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl leading-relaxed">
+        <p className="mt-4 text-lg text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed">
           Add the XBert marketplace to Claude Desktop and you get the full set
           of slash commands — review, reconcile, workload, pulse, capacity —
           ready to run. Each one wraps an XBert workflow into a single command
@@ -75,11 +75,11 @@ export default function ConnectPage() {
       {/* What you can do */}
       <section className="mt-20 max-w-4xl">
         <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-          What you can ask Claude once you're set up
+          What you can ask once you're set up
         </h2>
-        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-          Beyond the slash commands, Claude can pick the right XBert tools and
-          answer questions like these directly.
+        <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400">
+          Beyond the slash commands, your AI assistant can pick the right XBert
+          tools and answer questions like these directly.
         </p>
         <div className="mt-8 grid sm:grid-cols-2 gap-3">
           {examplePrompts.map((p, i) => (
@@ -109,7 +109,7 @@ export default function ConnectPage() {
             <h3 className="text-lg font-semibold tracking-tight">
               Want to see what each plugin does first?
             </h3>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 max-w-xl leading-relaxed">
+            <p className="mt-1 text-sm text-neutral-700 dark:text-neutral-400 max-w-xl leading-relaxed">
               Each plugin page lists its use cases, workflow, and the practice
               problem it actually solves. Browse before you install.
             </p>

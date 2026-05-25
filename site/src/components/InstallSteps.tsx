@@ -232,7 +232,7 @@ function DesktopPluginWalkthrough({ slugCount }: { slugCount: number }) {
                 <div className="text-sm font-semibold text-neutral-900 dark:text-white">
                   {s.title}
                 </div>
-                <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                <div className="mt-1 text-sm text-neutral-700 dark:text-neutral-400 leading-relaxed">
                   {s.body}
                 </div>
               </div>
@@ -245,7 +245,7 @@ function DesktopPluginWalkthrough({ slugCount }: { slugCount: number }) {
       </ol>
 
       {/* Distribution note */}
-      <div className="mt-6 rounded-xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] p-4 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+      <div className="mt-6 rounded-xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] p-4 text-xs text-neutral-700 dark:text-neutral-400 leading-relaxed">
         <span className="text-neutral-900 dark:text-neutral-200 font-medium">
           Rolling out to a whole firm?
         </span>{" "}
@@ -285,7 +285,7 @@ function CliPanel({
         <code className="text-neutral-900 dark:text-neutral-100">
           {snippet.split("\n").map((line, i) => (
             <span key={i} className="block">
-              <span className="text-neutral-400 dark:text-neutral-500 select-none mr-3">
+              <span className="text-neutral-500 dark:text-neutral-500 select-none mr-3">
                 {String(i + 1).padStart(2, " ")}
               </span>
               {line}
@@ -293,7 +293,7 @@ function CliPanel({
           ))}
         </code>
       </pre>
-      <div className="px-4 py-2.5 text-[11px] text-neutral-500 border-t border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] flex flex-wrap items-center justify-between gap-2">
+      <div className="px-4 py-2.5 text-[11px] text-neutral-600 dark:text-neutral-500 border-t border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] flex flex-wrap items-center justify-between gap-2">
         {showSkipHint ? (
           <span>
             Already added the XBert marketplace? Skip line 1. Each{" "}

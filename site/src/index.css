@@ -7,11 +7,23 @@
   --color-bg-soft: #0b0d12;
   --color-fg: #f5f6f7;
   --color-muted: #9aa0a6;
-  --color-accent: #3b82f6;
-  --color-accent-2: #06b6d4;
+  --color-accent: #4E53BD;
+  --color-accent-2: #02FFFF;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Inter", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+  /* XBert brand palette */
+  --color-xbert-ink: #1C1B41;
+  --color-xbert-ink-medium: #2E2C53;
+  --color-xbert-indigo: #4E53BD;
+  --color-xbert-cyan: #02FFFF;
+  --color-xbert-teal: #00FDBF;
+  --color-xbert-canvas: #FAF9FC;
+  --color-xbert-grey-30: #EAECF5;
+  --color-xbert-grey-50: #9CA3BA;
+  --color-xbert-grey-70: #616E91;
+  --color-xbert-grey-80: #3e3f69;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
 }
 
 /* Default (dark) — used when no data-theme attribute is set */
@@ -20,21 +32,21 @@
   --color-bg-soft: #0b0d12;
   --color-fg: #f5f6f7;
   --color-muted: #9aa0a6;
-  --hero-glow-1: rgba(59, 130, 246, 0.18);
-  --hero-glow-2: rgba(6, 182, 212, 0.10);
+  --hero-glow-1: rgba(78, 83, 189, 0.22);
+  --hero-glow-2: rgba(2, 255, 255, 0.10);
   --hero-grid-line: rgba(255, 255, 255, 0.04);
-  --selection-bg: rgba(59, 130, 246, 0.35);
+  --selection-bg: rgba(78, 83, 189, 0.40);
 }
 
 [data-theme="light"] {
   --color-bg: #ffffff;
-  --color-bg-soft: #f7f8fa;
+  --color-bg-soft: var(--color-xbert-canvas);
   --color-fg: #0a0a0a;
-  --color-muted: #525860;
-  --hero-glow-1: rgba(59, 130, 246, 0.08);
-  --hero-glow-2: rgba(6, 182, 212, 0.06);
-  --hero-grid-line: rgba(10, 10, 10, 0.06);
-  --selection-bg: rgba(59, 130, 246, 0.25);
+  --color-muted: var(--color-xbert-grey-70);
+  --hero-glow-1: rgba(78, 83, 189, 0.10);
+  --hero-glow-2: rgba(2, 255, 255, 0.07);
+  --hero-grid-line: rgba(28, 27, 65, 0.06);
+  --selection-bg: rgba(78, 83, 189, 0.25);
 }
 
 html, body, #root { min-height: 100%; }
@@ -88,4 +100,22 @@ a { text-decoration: none; }
     linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 65% 50% at 50% 30%, black 40%, transparent 80%);
+}
+
+/* XBert signature brand gradient for headings and emphasis text.
+   Direction stays consistent across themes; the gradient itself is
+   colour-true so it reads on both dark and light backgrounds. */
+.brand-gradient-text {
+  background-image: linear-gradient(135deg, #1C1B41 0%, #4E53BD 60%, #02FFFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* In dark mode the ink stop is invisible against the dark background, so
+   shift the gradient to indigo → cyan for legibility while keeping the
+   on-brand feel. */
+[data-theme="dark"] .brand-gradient-text {
+  background-image: linear-gradient(135deg, #9CA3BA 0%, #4E53BD 50%, #02FFFF 100%);
 }

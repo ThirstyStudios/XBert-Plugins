@@ -25,7 +25,7 @@ export function MCPConnectorBox({
               <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">
                 You'll also need the XBert MCP connector
               </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-0.5 leading-relaxed">
+              <p className="text-xs text-neutral-700 dark:text-neutral-400 mt-0.5 leading-relaxed">
                 The connector is what powers the plugins — without it the slash
                 commands can't reach your XBert data. Click to expand the
                 4-step setup.
@@ -68,7 +68,7 @@ export function MCPConnectorBox({
                     <div className="text-sm font-semibold text-neutral-900 dark:text-white">
                       {s.title}
                     </div>
-                    <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    <div className="mt-1 text-sm text-neutral-700 dark:text-neutral-400 leading-relaxed">
                       {s.body}
                     </div>
                     {s.detail}
@@ -81,7 +81,7 @@ export function MCPConnectorBox({
             ))}
           </ol>
 
-          <div className="mt-5 rounded-xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] p-3 text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          <div className="mt-5 rounded-xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] p-3 text-xs text-neutral-700 dark:text-neutral-400 leading-relaxed">
             <ShieldCheck
               size={12}
               className="inline mr-1 -mt-0.5 text-emerald-500 dark:text-emerald-400"
@@ -195,8 +195,8 @@ const STEPS = [
     title: "You're connected",
     body: (
       <>
-        Claude now has 70+ XBert tools available. The plugins you installed
-        above will use these automatically — but you can also ask Claude
+        Your AI assistant now has 200+ XBert tools available. The plugins you
+        installed above will use these automatically — but you can also ask
         directly:{" "}
         <span className="font-mono text-neutral-900 dark:text-neutral-100">
           Show me aged receivables for this client

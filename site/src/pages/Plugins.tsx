@@ -49,8 +49,8 @@ export default function PluginsPage() {
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
           All plugins
         </h1>
-        <p className="mt-2 text-neutral-600 dark:text-neutral-400">
-          {plugins.length} Claude Code plugin{plugins.length === 1 ? "" : "s"} powered by the XBert MCP.
+        <p className="mt-2 text-neutral-700 dark:text-neutral-400">
+          {plugins.length} plugin{plugins.length === 1 ? "" : "s"} powered by the XBert MCP.
         </p>
       </motion.div>
 
@@ -59,13 +59,13 @@ export default function PluginsPage() {
         <div className="relative w-full md:max-w-sm">
           <Search
             size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-600 dark:text-neutral-500 pointer-events-none"
           />
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search plugins…"
-            className="w-full rounded-md bg-black/[0.03] border border-black/10 dark:bg-white/[0.04] dark:border-white/10 pl-9 pr-3 py-2 text-sm placeholder:text-neutral-500 focus:outline-none focus:border-black/25 focus:bg-black/[0.05] dark:focus:border-white/25 dark:focus:bg-white/[0.06] transition"
+            className="w-full rounded-md bg-black/[0.03] border border-black/10 dark:bg-white/[0.04] dark:border-white/10 pl-9 pr-3 py-2 text-sm placeholder:text-neutral-600 dark:placeholder:text-neutral-500 focus:outline-none focus:border-black/25 focus:bg-black/[0.05] dark:focus:border-white/25 dark:focus:bg-white/[0.06] transition"
           />
         </div>
         <div className="flex flex-wrap gap-2">
@@ -91,7 +91,7 @@ export default function PluginsPage() {
           <PluginCard key={p.slug} plugin={p} index={i} />
         ))}
         {filtered.length === 0 && (
-          <div className="md:col-span-2 rounded-2xl border border-dashed border-black/10 dark:border-white/10 p-12 text-center text-neutral-600 dark:text-neutral-400">
+          <div className="md:col-span-2 rounded-2xl border border-dashed border-black/10 dark:border-white/10 p-12 text-center text-neutral-700 dark:text-neutral-400">
             No plugins match that filter.
           </div>
         )}
