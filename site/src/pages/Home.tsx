@@ -31,7 +31,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.05 }}
             className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.05] max-w-4xl"
           >
-            XBert turns your accounting practice into an{" "}
+            XBert turns your practice into an{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
