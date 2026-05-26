@@ -4,7 +4,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Check,
-  ExternalLink,
   Clock,
   Search,
   ShieldCheck,
@@ -314,22 +313,6 @@ export default function PluginDetailPage() {
               />
             </Link>
           </div>
-        </section>
-
-        {/* SOURCE LINKS */}
-        <section className="mt-12 flex flex-wrap gap-5 text-sm">
-          <a
-            href={`https://github.com/ThirstyStudios/XBert-Plugins/tree/main/plugins/${p.slug}`}
-            className="inline-flex items-center gap-1 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition"
-          >
-            View source on GitHub <ExternalLink size={13} />
-          </a>
-          <a
-            href="mailto:hello@xbert.io"
-            className="inline-flex items-center gap-1 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition"
-          >
-            Contact XBert <ExternalLink size={13} />
-          </a>
         </section>
 
         {/* RELATED */}
