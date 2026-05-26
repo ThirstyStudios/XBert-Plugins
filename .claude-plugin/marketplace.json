@@ -10,7 +10,7 @@
     {
       "name": "xbert-aged-receivables",
       "source": "./plugins/xbert-aged-receivables",
-      "description": "Prioritised debtor call-list with promise-tracking and escalation ladders — turn an aged receivables report into the week's chase plan.",
+      "description": "Prioritised debtor call-list ranked by working-capital impact — turn an aged receivables report into the week's chase plan.",
       "version": "0.1.0"
     },
     {
