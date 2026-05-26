@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: plugin
+COMMAND: /capacity
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_XPMTimesheets_Summary, Data_XPMClients, Features_UserActualTimeReview
+SEARCH_TERMS_USED: "XPM time entries billable hours WIP", "XPM timesheets summary time logged practice"
+RESPONSE_SUMMARY: Found the right tools (XPMTimesheets_Summary/Search, Features_UserActualTimeReview, GetBatchCapacityAllocation) for billable/non-billable buckets and capacity allocation. Invocations returned valid responses but empty data for the test tenant: Data_XPMTimesheets_Summary is feature-flag-gated (FEATURE_FLAG_DISABLED on XBERT_MCP_DATA_XPM_TIMESHEETS_USE_SUMMARY_ENDPOINT), Data_XPMClients reports XPM not connected for practice 11374, and Features_UserActualTimeReview returns NO_DATA for the May period.
+ISSUES: Plugin mentions "WIP planned vs actual" but no dedicated WIP-variance tool was surfaced — would need to combine XPM job budgets (not visible in search) with actual time. Feature flag gating on the summary endpoint blocks the canonical aggregate path.
+---END---
+---TEST 2---
+KIND: plugin
+COMMAND: /client-fee-review
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_GetAllAccessibleClients, Data_Bills_Summary
+SEARCH_TERMS_USED: "list all clients connect practice accessible", "ledger volume bank transactions bills invoices payruns count"
+RESPONSE_SUMMARY: Found Data_GetAllAccessibleClients (returned 3 clients in the Connect) and all six ledger-volume tools the plugin enumerates: Data_Bills_Summary, Data_BankTransactions_Summary, Data_Invoices_Summary, Data_JournalMaster_Summary, Data_Contacts_Summary, plus XPM client/timesheet aggregates. Bills summary returned 3 bills totalling 821.66 with by-status and supplier breakdown — exactly the per-client volume signal the methodology needs.
+ISSUES: XPM timesheets gated by feature flag (same as test 1), so the "logged time" axis of cost-to-serve is currently unavailable for practices that aren't on the new endpoint.
+---END---
+---TEST 3---
+KIND: plugin
+COMMAND: /client-onboard
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_GetClientConnections, Data_GetAllAccessibleClients
+SEARCH_TERMS_USED: "workflow templates flows onboarding client setup", "organisation settings client tenant connection ledger", "flow create assign template task notification"
+RESPONSE_SUMMARY: Data_GetClientConnections returned full connection metadata (Xero connected, write/fixed-asset perms, but no payroll, isDisconnected=true) — exactly the Phase 2 connection-state signal. Plugin instructs to "create the standard onboarding flow using the practice's onboarding flow template" and "use the practice's existing workflow templates" but semantic search did not surface a "create flow" or "list workflow templates" tool. Features_CreateClientTemplate exists for template generation and Features_CreateClientTask exists for individual tasks.
+ISSUES: No discoverable tool to list existing workflow templates or instantiate a named template against a client — the agent would have to fall back to Features_CreateClientTask one-by-one. Also no tool surfaced for "assign rules baseline rule pack to the client" (Phase 4 step 7). Features_BulkUpdateXBertConfigurations could substitute but isn't an obvious match.
+---END---
+---TEST 4---
+KIND: plugin
+COMMAND: /config-audit
+STATUS: works
+QUALITY: 5
+TOOLS_INVOKED: Data_XBertConfigurations, Features_BulkUpdateXBertConfigurations (schema verified)
+SEARCH_TERMS_USED: "XBert rule flow list configuration enabled disabled", "bulk update normalisation configuration audit"
+RESPONSE_SUMMARY: Data_XBertConfigurations returned 224 active configurations for the test client with rich breakdowns: byAnalyticsGroup (Purchases/Sales/Payroll/Banking/etc), byRiskLevel, byRiskType, plus 94 custom XBerts with title + natural-language rule. Features_BulkUpdateXBertConfigurations is the exact bulk-normalisation hand-off the plugin needs (single-field patch across many configs, supports IsActive). Tools align very tightly to the plugin's fingerprint + normalisation flow.
+ISSUES: Per-client fingerprint comparison across the book needs the call to fan out across every accessible client (Data_GetAllAccessibleClients then Data_XBertConfigurations per client). No single "all-clients-rule-matrix" tool, but the building blocks are present.
+---END---
+---TEST 5---
+KIND: plugin
+COMMAND: /cross-sell-opportunities
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_XBertNotificationSummary, Data_FindSimilarClientTenants
+SEARCH_TERMS_USED: "similar clients lookalike find similar tenants", "outstanding notifications advisory triggers cross sell"
+RESPONSE_SUMMARY: Data_XBertNotificationSummary returned 11 outstanding items for the test client with risk/analytics breakdowns and titles — strong advisory-trigger feed. However, Data_FindSimilarClientTenants is a name-string matcher (returned "Peak Precision Accounting" 0.8 / "XBert UK Limited" 0.125 — clearly Levenshtein, not service-profile lookalikes), not the "for each client fetch its similar clients by industry/size/service uptake" lookalike engine the plugin is built around.
+ISSUES: Major gap — no profile-based "similar clients" / lookalike-pair tool exists. The plugin's core methodology ("take its top N lookalikes...compare service uptake") cannot run because the only similarity tool matches client names, not behavioural/service-uptake profiles. Also no surfaced tool for "service uptake per client" (would need XPM job/service inference).
+---END---

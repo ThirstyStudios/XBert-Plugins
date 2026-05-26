@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: agent
+COMMAND: /fs-pack
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_OrganisationSettings, Data_FinancialStatements
+SEARCH_TERMS_USED: "organisation entity details", "balance sheet profit and loss financial statements"
+RESPONSE_SUMMARY: Data_OrganisationSettings returned full org details for Peak Precision Accounting (GB Xero, FYE 31-Mar). Data_FinancialStatements returned a 17-row balance sheet (Total Assets 56,297.38 GBP, Net Assets 11,674.37) as of 2026-03-31.
+ISSUES: Agent Instructions name tools as Data_BalanceSheet/Data_ProfitAndLoss/Data_Cashflow/Data_TrialBalance/Data_GetOrganisation — these names do NOT exist. Actual tools are unified under Data_FinancialStatements (with statement=balanceSheet|profitAndLoss|trialBalance) and Data_OrganisationSettings + Data_Cashflow. Agent will fail tool lookup unless prompt is corrected. No comparative-period support inside a single Data_FinancialStatements call; needs two calls.
+---END---
+---TEST 2---
+KIND: agent
+COMMAND: /health-check
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_DataQualityScore
+SEARCH_TERMS_USED: "data quality health check outstanding XBerts", "practice setup connect portal users templates"
+RESPONSE_SUMMARY: Data_DataQualityScore returned score 1.00, "Needs Attention", 0 ranked XBerts over the trailing year for client 11668. Practice/Connect-level setup data (users, roles, templates, capacity, XPM mapping) has no clear single MCP tool exposed via search — coverage gap.
+ISSUES: Instructions describe four review modes (Client / Practice / Data Quality / Scheduled Work) but only Client Health Check has direct tool coverage (Data_DataQualityScore + Data_XBertNotificationSummary). No tools surface user-setup, role-config, template/work setup, capacity setup, or XPM mapping audits — Practice Health Check section of the agent has no backing tools. Scheduled Work Issues also unsupported.
+---END---
+---TEST 3---
+KIND: agent
+COMMAND: /ias-ready
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_XBertNotificationSummary, Data_PayrollSettings
+SEARCH_TERMS_USED: "IAS BAS PAYG withholding payroll", "outstanding xberts notifications unresolved"
+RESPONSE_SUMMARY: Outstanding XBerts returned 11 items (4 Medium, 7 Low; all Overdue Risk/Bookkeeping Risk) — exactly what the "ALL outstanding XBerts block lodgement" rule needs. Payroll settings returned NO_DATA (client 11668 is GB Xero with no payroll), correctly signalling a block on W1/W2 readiness.
+ISSUES: Agent is AU-scoped (CountryCode=AU) but the only available test client (11668) is GB with no payroll, so the readiness check cannot prove the full pipeline end-to-end. Tool plumbing is solid; choose an AU+payroll client for a real test. PAYGW liability account check would need a balance-sheet pull, also available via Data_FinancialStatements.
+---END---
+---TEST 4---
+KIND: agent
+COMMAND: /instalment-variation
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_FinancialStatements (profitAndLoss), Data_Cashflow
+SEARCH_TERMS_USED: "cashflow budget adherence tax rates"
+RESPONSE_SUMMARY: P&L returned recordCount 0 (test ledger has no P&L data for FY25-26). Data_Cashflow returned zeros across operating/investing/financing — only 7 unreconciled transactions. Tools execute but provide no signal for a recommendation on this client.
+ISSUES: Agent Instructions reference Data_TaxRates and Data_BudgetAdherence as primary inputs — Data_TaxRates does NOT exist as a standalone tool (tax-rate surface is inside Data_OrganisationSettings surface=taxRates). Data_BudgetAdherence does exist. AU-scoped agent run against GB client; needs an AU client with active P&L to validate vary-up/vary-down recommendation logic and GIC calc.
+---END---
+---TEST 5---
+KIND: agent
+COMMAND: /interloan-review
+STATUS: tool-fail
+QUALITY: 2
+TOOLS_INVOKED: Data_FinancialStatements (trialBalance), Data_OrganisationSettings
+SEARCH_TERMS_USED: "trial balance intercompany related party loans", "organisation entity details"
+RESPONSE_SUMMARY: Trial balance retrieved 13 accounts (no intercompany/related-party/director loan keywords present in Peak Precision's accounts). Org returned GB country code, so UK Section 455 CTA 2010 + TIOPA 2010 path would apply.
+ISSUES: Agent Instructions name FOUR tools that do NOT exist on local gateway: Data_GetOrganisation (actual: Data_OrganisationSettings), Data_GetBalanceSheet, Data_GetTrialBalance, Data_GetProfitAndLoss (all three actually unified under Data_FinancialStatements with statement= parameter), Data_GetLedgerHealthSummary (no such tool found by semantic search). 4 of 5 declared tools are wrong names — the agent will hard-fail in real use until Instructions are updated. Tool intent is achievable via Data_FinancialStatements + Data_OrganisationSettings + Data_DataQualityScore.
+---END---

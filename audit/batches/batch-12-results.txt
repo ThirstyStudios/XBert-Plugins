@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: plugin
+COMMAND: /div7a-schedule
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_FinancialStatements (balanceSheet), Data_JournalMaster, Data_JournalMaster_Search, Data_Contacts_Summary
+SEARCH_TERMS_USED: closing balance sheet, journal master detail shareholder loan, contacts list
+RESPONSE_SUMMARY: Balance sheet retrieved (17 rows for Peak Precision Accounting, GBP entity), contacts list returns 39 contacts. Data_JournalMaster query mode returns deprecation error pointing to Data_JournalMaster_Search; the search call works but returns zero "loan" matches for the FY2025 window.
+ISSUES: Test client 11668 has NO shareholder loan accounts on its balance sheet and no loan-related journals — Div7A schedule has no data to build against. Plugin would correctly proceed but produce an empty schedule. Data_JournalMaster deprecation message is a usability rough edge (agent needs to retry with the correct tool name).
+---END---
+---TEST 2---
+KIND: plugin
+COMMAND: /end-of-period-dashboard
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_GetAllAccessibleClients, Features_CountNotifications, Data_AgedSummary (available), Data_Contacts_Summary
+SEARCH_TERMS_USED: accessible clients connect, data quality score reconciliation lock, outstanding xberts notification summary, lodgement obligations BAS
+RESPONSE_SUMMARY: Connect 11374 returns 3 client tenants (Peak Precision, Test Equipment, XBert UK). Features_CountNotifications returns 75 work items for Apr-May 2026 period. Aged summary, contacts summary all wired and returning live data per client.
+ISSUES: No dedicated data-quality-score or reconciliation-status tool — agent would need to compose readiness from BankTransactions_Summary (reconciled/unreconciled counts) and contacts overdue counts. No explicit "lock date" tool surfaced via search (lock dates are inside Data_OrganisationSettings surface=lockDates). Workable but composition is non-obvious.
+---END---
+---TEST 3---
+KIND: plugin
+COMMAND: /fbt-prep
+STATUS: works-partial
+QUALITY: 2
+TOOLS_INVOKED: Data_OrganisationSettings (surface=organisation), Data_FinancialStatements, Data_GetAllAccessibleClients
+SEARCH_TERMS_USED: organisation context country code, fixed asset register motor vehicle, fixed assets
+RESPONSE_SUMMARY: Organisation settings returns Peak Precision Accounting with countryCode=GB, baseCurrency=GBP — this client is UK-based, not AU. FBT-prep is hard-coded for AU clients and the plugin's step-2 country check would halt here. No FixedAsset summary/search tool was found via semantic search.
+ISSUES: 1) Test tenant 11668 fails AU eligibility — none of the 3 Connect clients appear AU-resident (one is "XBert UK Limited"). Plugin cannot be smoke-tested end-to-end on this Connect. 2) Fixed Asset register specifically called out in the plugin body is not searchable as a dedicated tool — `Data_LedgerForShare` supports `dataType=FixedAsset` but that's not what semantic search surfaced. Gap in tool discoverability for an explicitly named data requirement.
+---END---
+---TEST 4---
+KIND: plugin
+COMMAND: /fs-pack
+STATUS: works
+QUALITY: 5
+TOOLS_INVOKED: Data_OrganisationSettings, Data_FinancialStatements (balanceSheet/profitAndLoss/trialBalance), Data_Cashflow
+SEARCH_TERMS_USED: closing balance sheet, organisation context country code
+RESPONSE_SUMMARY: All three statements pulled cleanly for Peak Precision Accounting. Balance sheet has 17 lines, trial balance has 6 accounts and reports balanced=true (29,016.27 each side), cashflow notes "no bank transaction data found" with a clean operating/investing/financing breakdown. Organisation settings cleanly returns name/ABN/year-end/country.
+ISSUES: P&L returned recordCount=0 for the FY24-25 window (matches the "no transactions" cashflow note — this is a thin demo ledger). The plugin would build the pack but most P&L sections would be empty. Not a tool failure — data sparsity in the test tenant. No issues for plugin readiness.
+---END---
+---TEST 5---
+KIND: plugin
+COMMAND: /gst-prep-nz
+STATUS: works-partial
+QUALITY: 2
+TOOLS_INVOKED: Data_OrganisationSettings, Data_BankTransactions_Summary, Data_GetAllAccessibleClients
+SEARCH_TERMS_USED: GST sales tax boxes, bank reconciliation status
+RESPONSE_SUMMARY: Organisation returns countryCode=GB (not NZ), so plugin's NZ-only gate would block. BankTransactions_Summary returns salesTaxBasis=ACCRUAL but zero transactions for Jan-Feb 2026. None of the 3 clients in Connect 11374 are NZ-resident.
+ISSUES: 1) No NZ tenant available in Connect 11374 — plugin cannot smoke-test end-to-end. 2) No dedicated "GST boxes 5-15" tool surfaced via semantic search; agent would need to derive box values from bank transactions / bills / invoices summaries — a non-trivial composition. The plugin body asserts "GST boxes 5-15 from sales and purchases" as a direct pull which doesn't match what the MCP exposes. Real gap, not just data sparsity.
+---END---

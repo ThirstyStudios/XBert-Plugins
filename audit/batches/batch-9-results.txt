@@ -1,0 +1,10 @@
+---TEST 1---
+KIND: agent
+COMMAND: /xbert-checks
+STATUS: works
+QUALITY: 5
+TOOLS_INVOKED: Data_XBertNotificationSummary
+SEARCH_TERMS_USED: "xbert checks outstanding resolution status", "notifications outstanding risk level resolved"
+RESPONSE_SUMMARY: Tool returned 11 outstanding XBerts for client 11668 with full breakdown by analytics group (Purchases 6, Sales 5), risk level (Medium 4, Low 7), risk type (Overdue Risk 10, Bookkeeping Risk 1) plus top 10 items with title, notificationId, riskLevel, amount, transactionDate, status and assignedTo. Data maps directly to the agent's analysis framework — priority ranking by risk, grouping by process/client, and metrics tracking are all supported.
+ISSUES: Completion rate section returned 0/0 (0.0%) for last 30 days — no resolved/not-resolved data available to demonstrate the "Completed XBerts Analysis" branch of the agent's framework. No `Info` risk level present in the data; agent framework lists it as a category but tool data only surfaces Medium/Low here.
+---END---

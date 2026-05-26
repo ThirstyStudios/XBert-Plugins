@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: plugin
+COMMAND: /payment-run
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_AgedSummary, Data_Bills_Search
+SEARCH_TERMS_USED: aged payables outstanding bills supplier
+RESPONSE_SUMMARY: Data_AgedSummary returned a complete aged-payables view ($17,815.88 across 8 suppliers, all 90+ days overdue) with top-supplier breakdown sufficient for the pay schedule. Data_Bills_Search filtered to a 7-day pay window returned 0 rows because all outstanding bills are >90 days overdue (the test tenant has no recent due-dates).
+ISSUES: No supplier-contact lookup performed (no remittance addressing data fetched). No bank account / available balance tool surfaced in semantic search. Payment-run skill assumes "due within 7 days OR overdue" — overdue branch works via aged data; the in-window query would need date-range without status filter or use Data_Bills_Summary to align with the plugin's stated logic. PDF/remittance generation is plugin-side, not MCP, so not testable here.
+---END---
+---TEST 2---
+KIND: plugin
+COMMAND: /payroll-close
+STATUS: empty
+QUALITY: 2
+TOOLS_INVOKED: Data_Employees_Summary, Data_Employees_Search, Data_PayrollSettings
+SEARCH_TERMS_USED: payroll pay run summary employee; pay run STP super leave variance
+RESPONSE_SUMMARY: All three payroll-side tools returned empty/NO_DATA for client 11668 (Peak Precision Accounting) — connection metadata confirms hasPayroll=false. Tooling exists (Data_PayrollSettings, Data_Employees_*, Data_LeaveApplications_*) and matches the plugin's data needs, but this tenant has no payroll ledger so the workflow can't be exercised end-to-end here.
+ISSUES: Test tenant lacks payroll — would need a payroll-enabled client (e.g. 11377 Test Equipment Pty Ltd, hasPayroll=true) to verify. No dedicated pay-run variance / STP submission status tool visible — Data_PayrollSettings covers settings + pay runs but variance vs prior pay is left to the agent to compute. ABA/bank-file total reconciliation has no obvious dedicated MCP tool.
+---END---
+---TEST 3---
+KIND: plugin
+COMMAND: /practice-health-check
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_GetAllAccessibleClients, Data_DataQualityScore, Data_GetClientConnections
+SEARCH_TERMS_USED: data quality score clients connect portfolio; practice clients list connect firm
+RESPONSE_SUMMARY: Got 3 accessible clients in Connect 11374 with names + tenant ids. Data_DataQualityScore returned per-client score (1.00 / "Needs Attention" for 11668). GetClientConnections returned full ledger/payroll coverage matrix per child (Xero account file URL, hasPayroll, isDisconnected, tenantTagIds) — exactly the inventory the plugin needs for coverage variance.
+ISSUES: No dedicated "outstanding notification summary per client" tool surfaced — semantic search for notifications returned aged/cashflow/employee summaries instead. The notification-load signal is required by the plugin's banding methodology; needs verification that either Data_GetLinkedXBertsForAgent or another tool supplies portfolio-level notification counts.
+---END---
+---TEST 4---
+KIND: plugin
+COMMAND: /practice-metrics
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_XPMClients, Data_Invoices_Summary, Data_AgedSummary
+SEARCH_TERMS_USED: XPM timesheets invoices aged receivables WIP
+RESPONSE_SUMMARY: Data_XPMClients executed (TOON-format response, 0 records — no XPM mapping on this tenant). Data_Invoices_Summary for April 2026 returned an empty set (rangeStart/rangeEnd populated correctly, no invoices in that month for client 11668). Data_AgedSummary for receivables returned 37 invoices / $45,721.45 / 15 customers — full top-10 breakdown.
+ISSUES: XPM-side tools (Data_XPMClients, Data_XPMTimesheets_Search/Summary) exist but the test tenant has no XPM mapping, so timesheet / WIP / service-line P&L data cannot be exercised. The skill's standard KPI set (revenue, WIP, lockup, write-offs) needs XPM data which isn't available — needs an XPM-mapped Connect to verify end-to-end.
+---END---
+---TEST 5---
+KIND: plugin
+COMMAND: /pulse
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_BankTransactions_Summary (x2 — recent vs baseline window)
+SEARCH_TERMS_USED: transaction volume monthly client tempo
+RESPONSE_SUMMARY: Recent window (2026-04-26 to 2026-05-26) returned 0 transactions; baseline (2026-01-26 to 2026-04-25) returned 6 transactions / $1,376 across one bank account ("Barclaycard Business") with month-bucket + top-contacts breakdown. This directly supports the delta = (recent - baseline)/baseline computation the plugin requires.
+ISSUES: For multi-client whole-book mode, the plugin would need to loop Data_BankTransactions_Summary per client (no portfolio-aggregate tool surfaced). Total-value-based delta uses dollar value not transaction count — the plugin spec says "transactional volume" which is ambiguous (count vs value); both are available in the summary response so the agent can choose.
+---END---

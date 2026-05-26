@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: agent
+COMMAND: /ird-gst-ready
+STATUS: agent-confused
+QUALITY: 1
+TOOLS_INVOKED: none
+SEARCH_TERMS_USED: GST readiness IRD New Zealand; GST return lodgement period; GST ready CAM check; GST101A NZ tax filing readiness; BAS readiness sales tax; GST return tax compliance check NZ; GST
+RESPONSE_SUMMARY: No GST-specific tool is registered on the local MCP gateway. Agent Instructions describe a full CAM GST readiness flow (period auto-detection, GST101A box calculation, audit notes, QMS) but the gateway exposes no NZ GST endpoint to drive it - search for "GST" returns 0 totalMatches.
+ISSUES: Missing dedicated NZ GST readiness tool (e.g. Data_GSTReturn / Data_GSTReadinessIRD). Agent could only assemble fragments via Data_FinancialStatements + Data_AgedSummary + Data_XBertNotificationSummary, but with no GST box engine the GST101A computation and lodgement-blocker check cannot be performed. Without it the agent will hallucinate boxes or refuse the job. Instructions also reference QMS firm-level metadata; no tool surfaces that either.
+---END---
+---TEST 2---
+KIND: agent
+COMMAND: /loan-review
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_FinancialStatements
+SEARCH_TERMS_USED: balance sheet loan liabilities; Balance sheet trial balance financial statements
+RESPONSE_SUMMARY: Found Data_FinancialStatements (balanceSheet | profitAndLoss | trialBalance) which covers the Instructions' four named tools. Invoked balanceSheet for client 11668 (Peak Precision Accounting) - returned 17 rows successfully (Total Liabilities 44623.01, Accounts Payable 17815.88, Barclaycard Business 23776, CIS Liability 200, VAT 2831.13). No TERMLIAB/loan/HP accounts at all in this test ledger.
+ISSUES: Instructions list four separate tool names (Data_GetOrganisation, Data_GetBalanceSheet, Data_GetTrialBalance, Data_GetProfitAndLoss) - none of these exact names are registered. The single Data_FinancialStatements tool replaces all four via a statement parameter. Agent prompt needs updating to use the consolidated tool. Also no dedicated organisation/country-code tool - country code only surfaces inside the P&L payload, so "always call Data_GetOrganisation first" is impossible. Test ledger has no loan accounts so HP/lease checks could not be exercised.
+---END---
+---TEST 3---
+KIND: agent
+COMMAND: /month-end-pack
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_FinancialStatements, Data_BudgetAdherence (discovered)
+SEARCH_TERMS_USED: profit and loss budget adherence variance
+RESPONSE_SUMMARY: All four conceptual data sources exist: Data_FinancialStatements (BS/PL/TB), Data_BudgetAdherence, Data_Cashflow. Invoked profitAndLoss for client 11668 April 2026 - tool returned success but 0 records (test ledger has no April activity). Tool naming differs from Instructions which reference Data_ProfitAndLoss, Data_BalanceSheet, Data_Cashflow, Data_BudgetAdherence as separate primary tools.
+ISSUES: Agent Instructions name Data_ProfitAndLoss + Data_BalanceSheet as separate tools - actual contract uses Data_FinancialStatements with statement parameter. Empty April P&L on test client means variance/KPI commentary would be empty; Instructions have no "skip when data thin" guardrail beyond DATA_ACCESS_DENIED. No Data_GetOrganisation (called out as first step) - country code is a side-effect of P&L payload. Pack would render but with all-zero variance sections.
+---END---
+---TEST 4---
+KIND: agent
+COMMAND: /mtd-ready
+STATUS: agent-confused
+QUALITY: 1
+TOOLS_INVOKED: none
+SEARCH_TERMS_USED: Making Tax Digital MTD HMRC readiness; MTD income threshold self-employment property mapping; Data_MTDReadiness
+RESPONSE_SUMMARY: Agent Instructions explicitly direct "Call the Data_MTDReadiness tool" - that tool is not registered (TOOL_NOT_FOUND on direct invoke; 0 matches on keyword search). The MTD assessment is impossible without it because the agent depends on a backend that already maps chart of accounts to HMRC SA103/SA105 categories and computes qualifying income.
+ISSUES: Critical gap - Data_MTDReadiness tool is referenced by name in the agent and does not exist on the local MCP gateway. Without it the agent cannot determine income threshold, simplified-eligibility, or mapping issues. Even a fallback (Data_FinancialStatements UK ledger) would not surface HMRC category mappings. This agent will refuse the job or hallucinate.
+---END---
+---TEST 5---
+KIND: agent
+COMMAND: /my-work
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Features_CountNotifications
+SEARCH_TERMS_USED: user work today notifications priorities daily summary; my notifications outstanding work due today list user; completed work analysis tasks user profile estimate variance
+RESPONSE_SUMMARY: Invoked Features_CountNotifications for connect 11374 / userProfileId 1 with showOnlyAssignedToUser=true and datePeriodType=due for 2026-05-26 - returned success with count 0 (resolved upid 1601). Tool catalogue also exposes the supporting endpoints the agent would need for the deeper completed-work analysis (creation source, estimated/actual time, priority).
+ISSUES: Agent Instructions name a richer "TOON format" completed-work feed but a dedicated work-detail-list endpoint (returning per-task EstimatedTimeMinutes / ActualTimeMinutes / TileTitle / CreationSource) was not surfaced in search - only Features_CountNotifications. Without a per-item rows endpoint the "Over-Budget Items" / "Unestimated Work" / "Performance Metrics Table" sections cannot be populated; agent would only return the count. Daily-summary first-name greeting and "client activity" sections also need a separate feed not found here.
+---END---

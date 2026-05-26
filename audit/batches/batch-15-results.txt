@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: plugin
+COMMAND: /reconcile
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_ReconciliationStatus, Data_BankTransactions_Search
+SEARCH_TERMS_USED: bank reconciliation unmatched lines
+RESPONSE_SUMMARY: Discovery surfaced Data_BankTransactions_Search (filter reconciled=false) and Data_ReconciliationStatus, which together cover the "pull unmatched lines" step. Tools execute cleanly but client 11668 returned NO_DATA (no bank feed connected) and 0 unreconciled rows, so the matching logic could not be exercised end-to-end.
+ISSUES: No dedicated "propose ledger match" / "find contra entry" / "create reconciliation" tool surfaced — matching logic the body relies on must be inferred by the agent from raw transaction + ledger searches. No write/apply path discovered (consistent with "never auto-apply" rule).
+---END---
+---TEST 2---
+KIND: plugin
+COMMAND: /stp-finalisation
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_PayRuns_Search, Data_PayRuns_Summary, Data_PayrollSettings
+SEARCH_TERMS_USED: STP Phase 2 finalisation payroll YTD employee
+RESPONSE_SUMMARY: Search returned all the building blocks required (Data_Employees_Get/Search/Summary, Data_PayRuns_*, Data_Payslips_*, Data_PayrollSettings, Data_LeaveApplications_*) and tools accept FY date ranges cleanly. Test tenant 11668 has no payroll data (NO_DATA on PayrollSettings, 0 rows on PayRuns_Search/Summary), so the per-employee YTD reconciliation could not be verified live.
+ISSUES: No tool surfaced an STP Phase 2 income-type/tax-treatment-code field or RFB/ETP classification — agent must infer from raw payslip detail. No Word-document generation tool found in the search results (plugin must rely on a separate document-generation skill).
+---END---
+---TEST 3---
+KIND: plugin
+COMMAND: /super-check
+STATUS: works-partial
+QUALITY: 2
+TOOLS_INVOKED: Data_PayRuns_Summary, Data_PayrollSettings
+SEARCH_TERMS_USED: superannuation guarantee quarterly check SG payments
+RESPONSE_SUMMARY: Semantic search for "superannuation guarantee" returned only ONE match (Data_XBertConfigurations) — the SG-relevant tools (Data_PayRuns_*, Data_Payslips_*, Data_PayrollSettings, Data_BankTransactions_*) are not surfaced by that phrasing and must be found via separate searches. Tool invocations succeeded but tenant 11668 has no payroll/bank data, so SG calculation and liability-to-bank trace could not be exercised.
+ISSUES: Tool discovery is fragile for SG terminology — "superannuation" alone does not return Data_PayRuns_Summary which carries totalSuper. No tool returns clearing-house lodgement reference directly; must be inferred from bank transaction memo. No 28th-deadline / SGC-calculation tool — pure agent reasoning over raw data.
+---END---
+---TEST 4---
+KIND: plugin
+COMMAND: /tax-reconciliation
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_Bills_Summary, Data_JournalMaster_Summary
+SEARCH_TERMS_USED: tax reconciliation accounting profit taxable income; profit and loss balance sheet trial balance
+RESPONSE_SUMMARY: Tools for journal master and bills returned real data (8 journals, $2,476 debit/credit, 3 bills $821.66 outstanding), giving the agent something to walk against. However the core "P&L" / "balance sheet" / "closing trial balance" / "year-end financial statements" tools the body requires were NOT directly surfaced — search returned bank/payroll/employee aggregates instead.
+ISSUES: No dedicated Data_ProfitAndLoss / Data_BalanceSheet / Data_TrialBalance tool appeared. Plugin body explicitly asks for these — agent will have to fabricate the P&L from BankTransactions + Bills + Invoices summaries, which is unreliable for "accounting net profit". No Excel/PDF generation tool surfaced.
+---END---
+---TEST 5---
+KIND: plugin
+COMMAND: /tpar
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_Bills_Summary
+SEARCH_TERMS_USED: TPAR taxable payments annual report contractors
+RESPONSE_SUMMARY: Semantic search for "TPAR" returned only Workflow_AttachFileToTask (the document-attach tool, useful for step 5). The contractor data the plugin needs (Data_Bills_Search/Summary, Data_Contacts_Get, Data_BankTransactions_*, Data_ChartOfAccounts) requires separate searches. Bills summary executed cleanly for tenant 11668 with 3 bills / 2 suppliers (BBC, EASYJET) — enough to demonstrate the per-contractor grouping pattern would work given more data.
+ISSUES: Poor first-pass discovery — TPAR terminology does not retrieve the data tools. No tool returns ABN-validated contractor list directly; agent must pull bills + contacts and join. No industry-filter helper tool (mapping accounts to TPAR-reportable categories) — pure skill logic.
+---END---

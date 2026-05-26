@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: plugin
+COMMAND: /aged-receivables
+STATUS: works
+QUALITY: 5
+TOOLS_INVOKED: Data_AgedSummary
+SEARCH_TERMS_USED: aged receivables debtors
+RESPONSE_SUMMARY: Returned full AR ageing breakdown — 15 customers, $45,721 outstanding, all 90+ days overdue, with top 10 ranked by amount and per-bucket totals. Provides exactly the data the chase workflow needs to score and prioritise debtors.
+ISSUES: none
+---END---
+---TEST 2---
+KIND: plugin
+COMMAND: /balance-sheet-explain
+STATUS: works-partial
+QUALITY: 4
+TOOLS_INVOKED: Data_FinancialStatements
+SEARCH_TERMS_USED: balance sheet trial balance financial report
+RESPONSE_SUMMARY: Data_FinancialStatements returned the balance sheet at 2026-03-31 with all 17 account lines (Net Assets, Total Assets, classifications). Workflow also needs trial balance, manual journals, AR/AP, bank rec — those tools exist (separate calls), but no comparative period (period-over-period) view is returned in a single call.
+ISSUES: No single tool returns comparative-period delta; agent must call statement twice and diff client-side. No "reconciliation status" tool surfaced in the search.
+---END---
+---TEST 3---
+KIND: plugin
+COMMAND: /bank-statement-upload
+STATUS: works-partial
+QUALITY: 2
+TOOLS_INVOKED: Data_BankTransactions_Summary
+SEARCH_TERMS_USED: bank accounts list ledger
+RESPONSE_SUMMARY: Discovered existing bank account "Barclaycard Business" via Data_BankTransactions_Summary byBankAccount view (6 unreconciled txns). No dedicated "list bank accounts" tool found, and crucially no MCP tool exists for parsing PDF/CSV/OFX/QIF bank statements or generating target-system upload files — the plugin's core function is unsupported.
+ISSUES: Missing tools — no bank-account list endpoint; no statement parse/extract endpoint; no upload-file generator. Plugin can only do the validation/lookup pieces, not the actual file conversion workflow.
+---END---
+---TEST 4---
+KIND: plugin
+COMMAND: /bas-prep
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_OrganisationSettings
+SEARCH_TERMS_USED: GST BAS Australian business activity statement
+RESPONSE_SUMMARY: Data_OrganisationSettings returned org context — confirmed Peak Precision Accounting is GB-based with GBP base currency (so BAS-AU not applicable, but the country-check guard works). Data_FinancialStatements + Data_Bills_Summary + bank transactions exist for source data, but no dedicated GST/PAYG-W/BAS-label tool returns the G1-G11/1A/1B/W1-W5 figures the workflow needs.
+ISSUES: No tool returns BAS labels (G1, G10, 1A, 1B, W1-W5); no bank-reconciliation status tool; no "outstanding XBerts" tool surfaced. Agent must derive labels manually from raw P&L + transactions, which loses the audit-document fidelity the plugin promises.
+---END---
+---TEST 5---
+KIND: plugin
+COMMAND: /bill-intake
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_Bills_Search
+SEARCH_TERMS_USED: bill duplicate check supplier coding
+RESPONSE_SUMMARY: Data_Bills_Search returned 2 DRAFT bills for the period — and notably found a true duplicate (two EASYJET bills with identical reference "EJIN372464360"), so the Tier-1 dedup pattern works against this dataset. Data_Contacts_Search exists for supplier dedup. However, no MCP tool exists for bill extraction (parse PDF/email), AI coding prediction, or posting a bill to the ledger.
+ISSUES: Missing tools — no bill-parse/extract endpoint; no account/tax-code prediction endpoint; no bill-post or approval-task-creation endpoint. Plugin can only do the lookup/dedup-check pieces; the create-and-post core is unsupported via MCP.
+---END---

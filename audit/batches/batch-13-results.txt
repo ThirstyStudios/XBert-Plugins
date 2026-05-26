@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: plugin
+COMMAND: /ias-prep
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_OrganisationSettings, Data_ReconciliationStatus, Data_XBertNotificationSummary, Data_PayRuns_Summary
+SEARCH_TERMS_USED: "IAS PAYG withholding instalment activity statement Australia", "outstanding XBert alerts notifications period", "organisation country code AU GB context"
+RESPONSE_SUMMARY: Tool surface is adequate (org settings reveal country, payrun + notification + recon all available). However, the test client (11668 - Peak Precision Accounting) is GB-based not AU, so the agent's first step (confirm country=AU) would correctly halt the workflow. Outstanding XBert query returned 11 items (mostly overdue invoices); reconciliation returned NO_DATA.
+ISSUES: No dedicated tool for PAYG-W labels W1-W5 or PAYGW liability balance — agent would need to derive from P&L + chart of accounts. Plugin is workable for AU clients but partial on label-specific evidence.
+---END---
+---TEST 2---
+KIND: plugin
+COMMAND: /instalment-variation
+STATUS: works-partial
+QUALITY: 2
+TOOLS_INVOKED: Data_FinancialStatements (P&L), Data_FinancialStatements (BalanceSheet), Data_Cashflow, Data_BudgetAdherence
+SEARCH_TERMS_USED: "PAYG instalment variation GST quarterly", "month end profit loss budget balance sheet cashflow KPI"
+RESPONSE_SUMMARY: Direct search for "PAYG instalment variation" returned zero matches. The underlying YTD-trend data sources (P&L, BS, Cashflow, BudgetAdherence) are all present and were exercised. April P&L returned 0 records and Cashflow returned 0 transactions for the period, plus budget had no_results — so the variation recommendation would have no signal to compute on this client. No tool exists to fetch current ATO instalment rates or notice details.
+ISSUES: No dedicated tool for current tax rates / ATO notice. Tenant 11668 (GB-based) is wrong jurisdiction for this AU plugin. Agent would need historic YTD periods to produce a usable trend.
+---END---
+---TEST 3---
+KIND: plugin
+COMMAND: /intercompany-recon
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_GetClientConnections, Data_FinancialStatements (BalanceSheet), Data_OrganisationSettings (chartOfAccounts)
+SEARCH_TERMS_USED: "intercompany loan reconciliation group entity related party", "client connections accessible clients group entities multi-tenant"
+RESPONSE_SUMMARY: GetClientConnections returned 3 entities under Connect 11374 (Test Equipment Pty Ltd, Peak Precision Accounting, XBert UK Limited) — exactly the group-discovery unlock the plugin needs. Balance sheets and chart of accounts available per entity to identify related-party loan/recharge accounts. Cross-tenant access is the unique XBert capability and the tools support it.
+ISSUES: No dedicated "related-party contacts" filter on contacts API — agent must inspect contacts list and infer. Journal master tool is available (Data_JournalMaster_Summary surfaced) for inter-entity activity. Test client 11668 BS shows no obvious inter-entity loan accounts (CIS, VAT, Loan-generic only).
+---END---
+---TEST 4---
+KIND: plugin
+COMMAND: /month-end-pack
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_FinancialStatements (profitAndLoss), Data_FinancialStatements (balanceSheet), Data_Cashflow, Data_BudgetAdherence
+SEARCH_TERMS_USED: "month end profit loss budget balance sheet cashflow KPI"
+RESPONSE_SUMMARY: Full toolkit available for the pack: P&L with budget comparison, BS, cashflow, budget adherence. April 2026 P&L returned 0 records, cashflow returned 0 transactions, budget adherence "no_results" — so for this test tenant the pack would emit a hollow document. Tool surface is complete for a normal client.
+ISSUES: No dedicated "balance sheet review" or "KPI roll-up" tool — agent must compute KPIs (gross margin, debtor days, etc.) from raw statements. Test data is sparse; the pack methodology cannot demonstrate material variance commentary without populated periods.
+---END---
+---TEST 5---
+KIND: plugin
+COMMAND: /mtd-prep
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_OrganisationSettings (organisation + chartOfAccounts), Data_FinancialStatements (profitAndLoss)
+SEARCH_TERMS_USED: "Making Tax Digital MTD UK HMRC self assessment", "organisation country code AU GB context"
+RESPONSE_SUMMARY: Test client 11668 is correctly identified as GB-based (countryCode=GB, baseCurrency=GBP, Xero) — exactly the right jurisdiction for this plugin. Chart of accounts returned 91 accounts (CIS, VAT, PAYE Payable, Directors' Remuneration etc. — typical UK chart). The agent can perform unmapped-account / split-coding / HMRC SA103/SA105 mapping analysis from this data. P&L for the year would supply income threshold totals.
+ISSUES: No dedicated tool for HMRC category mapping audit (agent must do the SA103/SA105 mapping inline from skill). No dedicated tool for "qualifying income" threshold determination — agent must sum from P&L. Prior-year P&L would need a separate call.
+---END---

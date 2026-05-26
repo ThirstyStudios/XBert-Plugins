@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: agent
+COMMAND: /client-onboard
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_GetClientConnections
+SEARCH_TERMS_USED: "client onboarding phase status practice features", "Features CreateClientTask onboarding workflow", "Practice connect account review status"
+RESPONSE_SUMMARY: Data_GetClientConnections returned 3 connected clients with full connection metadata (Xero short codes, hasSynced, isDisconnected, payroll/accounting flags, tenantTagIds) sufficient to assess the Connection phase. Features_CreateClientTask is registered for filing onboarding tasks at gate progression.
+ISSUES: The instructions explicitly reference "Practice_*" tools to check phase, but semantic search surfaces no Practice_GetConnectAccountReview or any Practice_* tool at all. Phase-detection mechanism (Engagement/Configuration/Go-Live) has no dedicated tool — agent has to infer state from connection metadata + tenant tags + tasks, which is brittle. Rules-baseline-assignment action at go-live also has no obvious tool.
+---END---
+---TEST 2---
+KIND: agent
+COMMAND: /config-audit
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_XBertConfigurations
+SEARCH_TERMS_USED: "XBert rule configuration enablement audit drift"
+RESPONSE_SUMMARY: Data_XBertConfigurations returned full enablement fingerprint for client 11668: 224 active configurations, 94 Custom XBerts, grouped by analyticsGroup/riskLevel/riskType with full per-rule titles and natural-language rules. Sufficient raw material to compare across clients and identify inconsistencies/gaps/drift. Features_BulkUpdateXBertConfigurations is registered for the bulk-normalisation step.
+ISSUES: Instructions name Practice_GetConnectAccountReview and XBert_GetFlowList as required, neither is registered (only Data_XBertConfigurations and Features_BulkUpdateXBertConfigurations exist). Tool surface is sufficient for the analytical job, but per-rule history/audit (needed for the "drift" finding type with "when disabled" timestamps) is not exposed — drift detection is therefore approximate.
+---END---
+---TEST 3---
+KIND: agent
+COMMAND: /consolidation-review
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_OrganisationSettings
+SEARCH_TERMS_USED: "organisation country code entity details"
+RESPONSE_SUMMARY: Data_OrganisationSettings with surface=organisation returned country code (GB), platform (Xero), base currency (GBP), line of business, financial year end — the entity context the agent needs for Step 1. Data_FinancialStatements (balanceSheet/profitAndLoss/trialBalance) is the route for intercompany balance matching.
+ISSUES: Agent instructions name Data_GetOrganisation, Data_GetBalanceSheet, Data_GetTrialBalance, Data_GetProfitAndLoss — none of those exact names are registered. Replacements exist (Data_OrganisationSettings, Data_FinancialStatements) but the agent must know to map them. No dedicated "related-entity discovery" tool — the agent has to ask the user to name group members, which the instructions acknowledge.
+---END---
+---TEST 4---
+KIND: agent
+COMMAND: /cross-sell-opportunities
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_GetAllAccessibleClients
+SEARCH_TERMS_USED: "client cohort book accessible list all clients"
+RESPONSE_SUMMARY: Data_GetAllAccessibleClients returned 3 clients (Peak Precision Accounting, Test Equipment Pty Ltd, XBert UK Limited). Per instructions, agent must politely refuse because cohort is <20 — the guard rail fires correctly. The instructions' downstream tools (Data_FindSimilarClientTenants, Data_XPMClients, Data_XBertNotificationSummary) are all registered for the analytical pipeline once cohort threshold is met.
+ISSUES: Cohort size in this sandbox tenant is too small to actually exercise the lookalike-ranking workflow — agent would refuse, which is correct behaviour. The downstream tools exist but were not invoked due to the refusal guard. No estimated-uplift / revenue tool visible — agent would have to derive uplift heuristically from peer service mix.
+---END---
+---TEST 5---
+KIND: agent
+COMMAND: /depreciation-review
+STATUS: tool-fail
+QUALITY: 1
+TOOLS_INVOKED: Data_FinancialStatements (balanceSheet fallback)
+SEARCH_TERMS_USED: "fixed asset register depreciation schedule capital allowance", "FixedAsset", "depreciation", "asset book value depreciation rate"
+RESPONSE_SUMMARY: Direct invocation of Data_GetFixedAssets returned TOOL_NOT_FOUND. Search for "depreciation" returned zero matches. The agent's two primary tools (Data_GetFixedAssets, Data_GetFixedAssetDepreciation) are NOT registered. Best fallback is Data_FinancialStatements balance sheet, which exposes Total Fixed Assets ($2,583.33) and account balances (Computer Equipment, Office Equipment) but no register detail, no per-asset depreciation rate/method, no journal history.
+ISSUES: Agent is critically tool-starved. Without the fixed asset register or depreciation schedule, the depreciation-review workflow (Step 2 Asset Register Completeness, Step 3 Depreciation Method Review, Step 6 Missing/Late Depreciation) cannot run. The country-specific jurisdiction rules in the instructions (AU instant write-off, NZ Investment Boost, UK Capital Allowances) cannot be applied to actual asset data. Agent would be reduced to commentary on GL balances only — high risk of producing false-confidence output.
+---END---

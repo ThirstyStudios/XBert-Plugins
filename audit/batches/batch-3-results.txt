@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: agent
+COMMAND: /directors-loan-review
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_OrganisationSettings (surface=organisation), Data_OrganisationSettings (surface=chartOfAccounts)
+SEARCH_TERMS_USED: "director shareholder loan balance compliance", "organisation country company type"
+RESPONSE_SUMMARY: Confirmed client 11668 is UK (CC=GB), private company on Xero, FY end 31/3, GBP. Chart of accounts query surfaced 3 relevant accounts: Directors' Loan Account (CURRLIAB, code 835), Directors' Remuneration (EXPENSE, code 478), Owner A Drawings (EQUITY, code 980). Section 455 UK rules apply since this is a GB client.
+ISSUES: Instructions name Data_GetBalanceSheet, Data_GetTrialBalance, Data_GetProfitAndLoss, Data_GetOrganisation - none of these exact tool names exist. Actual tools are Data_OrganisationSettings (organisation/chartOfAccounts surfaces) and Data_FinancialStatements (statement=balanceSheet|trialBalance|profitAndLoss). Semantic search for "director shareholder loan" did not surface either tool - only employee/payroll noise; had to know the org-settings tool name to make progress. Tool table needs to be rewritten to match the actual MCP surface, or the agent will misfire.
+---END---
+---TEST 2---
+KIND: agent
+COMMAND: /div7a-review
+STATUS: works-partial
+QUALITY: 2
+TOOLS_INVOKED: Data_OrganisationSettings (surface=organisation), Data_FinancialStatements (statement=balanceSheet)
+SEARCH_TERMS_USED: "Division 7A shareholder loan related party balance"
+RESPONSE_SUMMARY: Organisation lookup returned CountryCode=GB, so agent's first-step country gate would correctly halt the review (Div 7A is AU-only). For completeness ran Data_FinancialStatements balanceSheet with Div 7A question filter - returned 0 at-risk accounts on this client. Agent would output "not applicable - client is UK" and stop.
+ISSUES: Agent Instructions tool table is blank in the markdown - the "Tool" column is empty for all four rows (the names Data_GetOrganisation/Data_GetBalanceSheet etc are only referenced narratively). Agent would have no concrete tool to call without inferring from prose. Search for "Division 7A" returns zero relevant tools - it falls back to employees/payroll. Agent depends on broader Data_OrganisationSettings + Data_FinancialStatements which aren't named anywhere. Only worked because the country gate fires early on a non-AU tenant; on a real AU tenant the agent would likely flail.
+---END---
+---TEST 3---
+KIND: agent
+COMMAND: /end-of-period-dashboard
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_GetAllAccessibleClients, Data_DataQualityScore
+SEARCH_TERMS_USED: "all accessible clients practice cohort", "profit and loss expense income"
+RESPONSE_SUMMARY: Data_GetAllAccessibleClients returned 3 clients (Peak Precision Accounting 11668, Test Equipment Pty Ltd 11377, XBert UK Limited 11673) for Connect 11374. Data_DataQualityScore on 11668 returned score=1.00 rating "Needs Attention" with 0 ranked XBerts and 0 activity over the last year. Two of the four named tools resolve cleanly; the validation tools and lock-date checks are not exposed via the local MCP search surface.
+ISSUES: Instructions reference Features_GetWork, Data_LockDates, Validation_BAS, Validation_VAT, Validation_Payroll. None of these surfaced in semantic searches for "workflow status" / "lock date" / "BAS validation". Bank reconciliation status is available via Data_ReconciliationStatus (different name). Agent would need to invent or guess validation calls per client - high risk of missing or misnamed tool calls on its 6-tool per-client loop, blocking accurate readiness scoring for the whole cohort.
+---END---
+---TEST 4---
+KIND: agent
+COMMAND: /fbt-review
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_OrganisationSettings (surface=organisation), Data_FinancialStatements (statement=profitAndLoss), Data_LedgerForShare (dataType=ProfitAndLoss)
+SEARCH_TERMS_USED: "expense profit loss vehicle entertainment fringe benefit", "profit and loss expense income"
+RESPONSE_SUMMARY: Country gate confirmed client is GB so FBT does not apply (AU/NZ only) and agent would correctly halt. For completeness ran Data_FinancialStatements P&L with FBT-trigger filter - returned 0 matching expense accounts (no motor vehicle, entertainment, gym, parking etc in 7 expense accounts on this small UK ledger). LedgerForShare P&L returned full monthly P&L records (insurance, pensions, subscriptions, staff training) confirming no FBT-triggering categories present.
+ISSUES: Same tool-naming gap as Tests 1 and 2: Instructions cite Data_GetOrganisation, Data_GetProfitAndLoss, Data_GetBalanceSheet, Data_GetTrialBalance - none exist. Actual tools are Data_OrganisationSettings and Data_FinancialStatements. Initial semantic search "expense profit loss vehicle entertainment fringe benefit" returned ZERO matches - agent would not find any P&L tool from intent alone and would either give up or fall back to generic ledger tools.
+---END---
+---TEST 5---
+KIND: agent
+COMMAND: /financial-review
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_FinancialStatements (statement=balanceSheet)
+SEARCH_TERMS_USED: "balance sheet review financial analysis"
+RESPONSE_SUMMARY: Search surfaced Data_FinancialStatements as the canonical tool. Invoked with statement=balanceSheet returning the full ratio set for Peak Precision Accounting at 2026-03-27: TotalAssets GBP 303,126.24, TotalLiabilities GBP 20,847.01, TotalEquity GBP 13,811.03, CurrentRatio 1.51, WorkingCapital GBP 77,490.05, plus 1 unusual balance flag. Agent has enough data for the Balance Sheet Review workflow (current ratio, debt-to-equity, working capital, notable items, risk classification).
+ISSUES: Agent Instructions do not name any MCP tools at all - relies on the model to discover Data_FinancialStatements, Data_LedgerForShare etc on its own. Worked here because the tool description is rich and search ranks it well, but a more specific search ("balance sheet review financial analysis") was needed to surface it - generic phrases like "balance sheet assets liabilities equity" only returned employee/payroll noise. Adding an explicit tool table to the agent (like the other 4 in this batch attempt) would improve reliability.
+---END---

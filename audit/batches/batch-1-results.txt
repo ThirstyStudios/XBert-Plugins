@@ -1,0 +1,54 @@
+---TEST 1---
+KIND: agent
+COMMAND: /aged-receivables
+STATUS: works
+QUALITY: 5
+TOOLS_INVOKED: Data_AgedSummary
+SEARCH_TERMS_USED: aged receivables debtors outstanding invoices
+RESPONSE_SUMMARY: Data_AgedSummary returned complete aged-receivables payload for tenant 11668: $45,721.45 total outstanding across 15 customers (all 90+ days), with top-10 customer breakdown by ageing bucket and oldest invoice date — exactly the data shape the agent's debtor call-list ranking and escalation logic need.
+ISSUES: none
+---END---
+
+---TEST 2---
+KIND: agent
+COMMAND: /balance-sheet-explain
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Data_FinancialStatements
+SEARCH_TERMS_USED: balance sheet trial balance journal master; balance sheet financial position assets liabilities equity
+RESPONSE_SUMMARY: Data_FinancialStatements (statement=balanceSheet) returned 17 BS lines for tenant 11668 (Total Assets $56,297.38, Total Liabilities $44,623.01, Net Assets $11,674.37) with classifications, codes, and SourceLinks. Data_JournalMaster and Data_TrialBalance also available to support the BS walk per the agent's process. Lacks an opening/closing pair in a single call — agent must invoke twice with different asOfDate to compute movement, and there is no explicit "FAR vs GL accumulated depreciation" tool, so the FAR reconciliation step would need manual derivation from journals.
+ISSUES: No dedicated fixed-asset register (FAR) endpoint to support the agent's required FAR-to-GL accumulated depreciation reconciliation; agent has to synthesise from journal data.
+---END---
+
+---TEST 3---
+KIND: agent
+COMMAND: /bas-ready
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_ReconciliationStatus, Data_BankTransactions_Summary
+SEARCH_TERMS_USED: BAS business activity statement GST PAYG readiness; bank reconciliation GST sales tax basis
+RESPONSE_SUMMARY: No dedicated BAS-ready tool exists; agent composes from generic data tools. Data_ReconciliationStatus returned NO_DATA for tenant 11668. Data_BankTransactions_Summary returned Q1-2026 data (6 transactions, $1,376, salesTaxBasis=ACCRUAL, 0 reconciled / 6 unreconciled) — that's enough for the rec + GST checks. PAYG/super coverage relies on Data_PayRuns_Summary, Data_PayrollSettings, Data_FinancialStatements — all present. No specific GST-label (G1/G10/W1/W5) computation endpoint; agent must derive labels.
+ISSUES: Missing first-class GST-label / W-label computation tool — agent must back into G1/G10/G11/W1/W2/W5 from raw bank transaction + payrun data. No "BAS-period checklist" endpoint that bundles all 13 readiness checks; agent orchestrates 8+ tool calls per run.
+---END---
+
+---TEST 4---
+KIND: agent
+COMMAND: /billing-review
+STATUS: tool-fail
+QUALITY: 2
+TOOLS_INVOKED: Data_XPMClients
+SEARCH_TERMS_USED: XPM Xero Practice Manager jobs invoicing billing
+RESPONSE_SUMMARY: Data_XPMClients returned "XPM is not connected for this practice or any of its clients. Please connect XPM in Settings > Integrations." for Connect 11374. The right tools exist (Data_XPMClients, Data_XPMTimesheets_Search/Get/Summary cover jobs, timesheets, billable status, invoice linkage) but this Connect has no XPM integration — agent cannot deliver billing review on this test tenant. Tool behaviour is correct (clear remediation message); environment lacks the data.
+ISSUES: Test Connect 11374 has no XPM integration; cannot exercise the agent's actual capability in this environment. Tools themselves look fit-for-purpose for an XPM-connected practice.
+---END---
+
+---TEST 5---
+KIND: agent
+COMMAND: /capacity
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Features_GetBatchCapacityAllocation
+SEARCH_TERMS_USED: user capacity workload allocation team overdue
+RESPONSE_SUMMARY: Features_GetBatchCapacityAllocation returned a structured day-by-day allocation for user 1601 in Connect 11374 (2026-05-26: 0 estimated min, 480 capacity min, no notifications, not exceeding capacity). Companion tools Features_GetCapacitySettings, Features_GetUserCapacityAllocation, Features_GetWork, Features_Review cover the individual / team / practice / time-review modes the agent advertises. Response is empty data (just one user, no work allocated today), not TOON-shaped — agent transforms into TOON itself.
+ISSUES: Test environment has minimal work-item data so only one user appears with zero allocations; harder to evaluate the team/practice rebalancing logic without a populated workload. Data shape returned is JSON, not the TOON format the agent's instructions reference — agent must transform.
+---END---

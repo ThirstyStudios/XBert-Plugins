@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: agent
+COMMAND: /practice-review
+STATUS: works
+QUALITY: 5
+TOOLS_INVOKED: Practice_GetConnectAccountReview
+SEARCH_TERMS_USED: Practice_GetConnectAccountReview
+RESPONSE_SUMMARY: Single-tool agent returned a comprehensive practice metrics payload covering users (8 active, 7 with no views), clients (3 total, 1 disconnected, 2 missing payroll), roles (16 unassigned client roles, 2 missing default unassigned role), templates (35 total, 29 without schedule), work (129 missing due date, 105 missing process tag), and XPM mapping gaps (3 clients, 13 process tags). All 10 analysis-framework sections in the prompt can be populated from this one payload.
+ISSUES: none
+---END---
+---TEST 2---
+KIND: agent
+COMMAND: /pulse
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_BankTransactions_Summary, Data_Invoices_Summary
+SEARCH_TERMS_USED: "bank transactions monthly volume", "invoices count rolling baseline"
+RESPONSE_SUMMARY: Tools exist and return month-bucketed counts/values that satisfy the rolling-1-month vs baseline goal. However client 11668 has only one month of bank-transaction data (2026-03 only) and zero invoices in the 3-month window, so the agent's <3-months-history refusal rule would trigger - the data shape supports the agent but this test client cannot exercise a real trend computation.
+ISSUES: Agent prompt references generic "Data_*" tools rather than naming them; the byMonth aggregation pattern works but bills + payroll line counts (other metrics named) require separate calls to Data_Bills_Summary and Data_PayRuns_Summary which were not verified. Test client has insufficient history to demonstrate the analysis.
+---END---
+---TEST 3---
+KIND: agent
+COMMAND: /reconcile
+STATUS: tool-fail
+QUALITY: 2
+TOOLS_INVOKED: Data_ReconciliationStatus, Data_DataQualityScore
+SEARCH_TERMS_USED: "reconciliation status bank accounts"
+RESPONSE_SUMMARY: Two of the agent's named tools do not exist: Data_GetReconciliationStatus (actual: Data_ReconciliationStatus, no Get_ prefix) and Data_GetBankReconciliation (no equivalent found). Data_GetUnreconciledBankTransactions also not registered - unreconciled items must be derived via Data_BankTransactions_Search with reconciled=false. Data_ReconciliationStatus returned NO_DATA for client 11668. Data_GetDataQualityScore name also wrong (actual: Data_DataQualityScore) - returned score 1.00 with rating "Needs Attention".
+ISSUES: Agent prompt names FOUR tools that don't exist under the names given (Data_GetReconciliationStatus, Data_GetBankReconciliation, Data_GetUnreconciledBankTransactions, Data_GetDataQualityScore). Need to update prompt to drop "Get" prefix and use Data_BankTransactions_Search?reconciled=false for unreconciled items.
+---END---
+---TEST 4---
+KIND: agent
+COMMAND: /scheduled-work
+STATUS: works
+QUALITY: 4
+TOOLS_INVOKED: Features_GetWork
+SEARCH_TERMS_USED: "scheduled work tasks template"
+RESPONSE_SUMMARY: Features_GetWork returned one work item for the current user (End of Year Tax return, due 2026-06-30, 5 subtasks). Companion tools available for the wider agent capability (Features_CreateClientTemplate, Features_CreateClientTemplateSchedule, Features_CountNotifications, Features_GetClientTemplate) cover the "all scheduled work / activity review / setup issues" scenarios described in the prompt.
+ISSUES: Prompt does not name specific MCP tools - it describes capabilities only. Agent must rely on semantic search; for a single client this gets only 1 row because the test user has limited assigned work. No tool returns "tasks scheduled without EstimatedTime" directly - needs client-side filtering of Features_GetWork results.
+---END---
+---TEST 5---
+KIND: agent
+COMMAND: /tax-reconciliation
+STATUS: tool-fail
+QUALITY: 2
+TOOLS_INVOKED: Data_FinancialStatements, Data_OrganisationSettings
+SEARCH_TERMS_USED: "trial balance profit loss journal", "financial statements organisation tax"
+RESPONSE_SUMMARY: All four tools named in the agent prompt (Data_FinancialStatements, Data_TrialBalance, Data_ProfitAndLoss, Data_BalanceSheet) are wrong - the actual single tool is Data_FinancialStatements with a statement parameter (balanceSheet|profitAndLoss|trialBalance). Data_JournalMaster_* tools exist as named. Data_FinancialStatements returned an empty P&L for client 11668 (recordCount 0). Data_OrganisationSettings confirmed entity is a UK COMPANY (Peak Precision Accounting, GBP, FYE 31 March) - country/entity context for the reconciliation is obtainable.
+ISSUES: Prompt names three non-existent tools (Data_TrialBalance, Data_ProfitAndLoss, Data_BalanceSheet) as if they were separate - they are one tool with a statement parameter. Test client has no P&L data so the reconciliation walk cannot be exercised end-to-end. The agent's "halt if any DATA_ACCESS_DENIED" rule combined with these missing-tool errors would halt the run immediately.
+---END---

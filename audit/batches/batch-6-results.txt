@@ -1,0 +1,50 @@
+---TEST 1---
+KIND: agent
+COMMAND: /paye-review
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_OrganisationSettings, Data_FinancialStatements, Data_PayrollSettings
+SEARCH_TERMS_USED: "organisation country", "PAYE payroll control account balance sheet", "balance sheet trial balance accounts", "payroll reconciliation control account"
+RESPONSE_SUMMARY: Client 11668 confirmed GB (Xero, GBP, country=GB) so the UK-only gate passes. Balance sheet returned 17 rows (Net Assets GBP 11,674.37, VAT GBP 2,831.13, CIS Liability GBP 200, Accounts Payable GBP 17,815.88) but contains no PAYE/payroll/pension control accounts; Data_PayrollSettings returned NO_DATA. Agent could still report on CIS and VAT, but the core PAYE/pension reconciliation it advertises has no data on this tenant.
+ISSUES: Instructions name tools that do not exist (Data_GetOrganisation, Data_GetBalanceSheet, Data_GetPayRunData, Data_GetPayrollReconciliation, Data_GetSuperReconciliation) - actual tools are Data_OrganisationSettings, Data_FinancialStatements (with statement=balanceSheet), Data_PayRuns_Summary, Data_PayrollSettings. No dedicated payroll-vs-GL reconciliation tool exists. Test tenant has no payroll data so deep validation impossible.
+---END---
+---TEST 2---
+KIND: agent
+COMMAND: /payment-run
+STATUS: works
+QUALITY: 5
+TOOLS_INVOKED: Data_AgedSummary, Data_Bills_Search
+SEARCH_TERMS_USED: "aged payables outstanding bills due overdue"
+RESPONSE_SUMMARY: Data_AgedSummary(direction=payables) returned a complete pay-run input: GBP 17,815.88 across 9 bills, all 90+ days overdue, grouped across 8 suppliers (Hoyt Productions GBP 5,953.75, SMART Agency GBP 4,500, Digital Accountancy GBP 4,354.80 etc) with oldest bill date per supplier. Agent has everything it needs to build the included-bills table, group by supplier, draft remittance advices, and compute the pay-run total. Data_Bills_Search for the next-7-day window returned 0 AUTHORISED bills (all outstanding are already overdue, consistent with the ageing).
+ISSUES: None - inclusion logic for overdue is fully covered; held/disputed/pending-approval exclusion logic has no dedicated tool, so the agent must infer from bill status (DRAFT/SUBMITTED) which is workable.
+---END---
+---TEST 3---
+KIND: agent
+COMMAND: /payroll-close
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_OrganisationSettings, Data_PayrollSettings, Data_PayRuns_Summary, Data_Employees_Summary
+SEARCH_TERMS_USED: "pay run employees timesheet payroll", "payroll reconciliation control account"
+RESPONSE_SUMMARY: Country gating works (GB resolved from Data_OrganisationSettings). However the tenant has no payroll: Data_PayrollSettings returned NO_DATA, Data_PayRuns_Summary returned 0 pay runs for the period, Data_Employees_Summary returned 0 employees. Per the agent's "halt politely if DATA_ACCESS_DENIED" rule this tenant should produce a no-payroll-data halt, which is correct behaviour but means the close workflow itself is not exercisable here.
+ISSUES: Instructions reference tools that don't exist (Data_GetOrganisation, Data_GetPayrollReconciliation, Data_GetEmployeePayData). No dedicated payroll-vs-GL reconciliation tool - agent would have to manually cross-walk Data_PayRuns_Summary totals against Data_FinancialStatements balance sheet liability accounts. Tenant has no payroll data so the AU/NZ/GB jurisdiction-specific branches can't be exercised.
+---END---
+---TEST 4---
+KIND: agent
+COMMAND: /payroll-reporting-review
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_OrganisationSettings, Data_PayRuns_Summary, Data_Employees_Summary, Data_PayrollSettings, Data_FinancialStatements
+SEARCH_TERMS_USED: "pay run employees timesheet payroll", "balance sheet trial balance accounts"
+RESPONSE_SUMMARY: Country resolution works (GB), so RTI branch would be selected. All payroll-side tools returned empty for tenant 11668 (no settings, no pay runs, no employees). The agent's "ask which review type they need if not specified" prompt + "halt politely if DATA_ACCESS_DENIED" instruction would catch this and halt at Step 2. Tooling exists to do payroll-vs-GL reconciliation by cross-walking Data_PayRuns_Summary with Data_FinancialStatements but no purpose-built reconciliation endpoint.
+ISSUES: Same broken tool-name list as paye-review: Data_GetOrganisation, Data_GetPayRunData, Data_GetEmployeePayData, Data_GetPayrollReconciliation, Data_GetPayrollSettings, Data_GetSuperReconciliation, Data_GetBalanceSheet all don't exist. Real names are different (Data_OrganisationSettings, Data_PayRuns_Summary, Data_Employees_Search/Get/Summary, Data_PayrollSettings, Data_FinancialStatements). Agent has to figure this out via tools_search instead of relying on its prompt. Test tenant has no payroll data.
+---END---
+---TEST 5---
+KIND: agent
+COMMAND: /practice-metrics
+QUALITY: 4
+STATUS: works
+TOOLS_INVOKED: Data_GetAllAccessibleClients
+SEARCH_TERMS_USED: "XPM clients all accessible practice manager", "accessible clients all tenants"
+RESPONSE_SUMMARY: Data_GetAllAccessibleClients(connectTenantId=11374) returned 3 child clients (Peak Precision Accounting 11668, Test Equipment Pty Ltd 11377, XBert UK Limited 11673) - the Connect-scoped roster the agent needs as Step 1. Data_XPMClients/XPMTimesheets and Data_AgedSummary tools are available per Connect to compute revenue, WIP, debtors, lockup days, utilisation etc. Agent has the structural inputs for the fixed-shape one-pager.
+ISSUES: No purpose-built "monthly practice metrics" rollup tool - agent must orchestrate multiple Data_AgedSummary + Data_XPMTimesheets_Summary + Data_FinancialStatements calls across 3 clients and compute deltas itself. Agent instructions handle the XPM-not-connected degradation pattern explicitly so this is workable, but token cost will be heavy for larger Connects.
+---END---

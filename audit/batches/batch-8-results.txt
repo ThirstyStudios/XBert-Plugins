@@ -1,0 +1,54 @@
+---TEST 1---
+KIND: agent
+COMMAND: /trial-balance-alignment
+STATUS: works-partial
+QUALITY: 4
+TOOLS_INVOKED: Data_FinancialStatements
+SEARCH_TERMS_USED: trial balance
+RESPONSE_SUMMARY: Retrieved trial balance for client 11668 (Peak Precision Accounting) as of 2026-03-31 with 13 accounts (totalDebits 1376.00 = totalCredits, balanced=true; YTD 30942.27 = 30942.27). Agent has the raw data to proceed with account-by-account FS matching once accountant's signed-off statements are supplied.
+ISSUES: Instructions reference Data_GetTrialBalance which is not registered; actual tool is Data_FinancialStatements with statement=trialBalance. Agent must translate or it will get TOOL_NOT_FOUND. Otherwise the workflow is valid.
+---END---
+
+---TEST 2---
+KIND: agent
+COMMAND: /trust-review
+STATUS: works-partial
+QUALITY: 3
+TOOLS_INVOKED: Data_OrganisationSettings, Data_FinancialStatements
+SEARCH_TERMS_USED: organisation entity type
+RESPONSE_SUMMARY: Data_OrganisationSettings confirmed client 11668 (Peak Precision Accounting) is a COMPANY in GB - not a trust and not AU/NZ. Per its own instructions the agent should halt politely; balance sheet contains no beneficiary loan accounts or UPEs as expected for a non-trust entity.
+ISSUES: Instructions reference Data_GetOrganisation/Data_GetProfitAndLoss/Data_GetBalanceSheet/Data_GetTrialBalance - none of these tool names are registered. Actual names are Data_OrganisationSettings (with surface=organisation) and Data_FinancialStatements (with statement=profitAndLoss|balanceSheet|trialBalance). All four tool-name references in the agent's MCP-tools table are wrong and would TOOL_NOT_FOUND on a naive call. The client is also out-of-scope (GB COMPANY) so the agent's halt path is the correct behaviour but masks the tool-naming bug.
+---END---
+
+---TEST 3---
+KIND: agent
+COMMAND: /vat-ready
+STATUS: works-partial
+QUALITY: 4
+TOOLS_INVOKED: Data_OrganisationSettings, Data_FinancialStatements, Data_XBertNotificationSummary, Data_ReconciliationStatus
+SEARCH_TERMS_USED: VAT data quality, outstanding xberts notifications, bank reconciliation period lock
+RESPONSE_SUMMARY: Client 11668 is GB (in-scope for VAT). Trial balance shows VAT 156.00 current / 2455.57 YTD; balance sheet shows VAT liability 2831.13. 11 outstanding XBerts (10 Overdue Risk + 1 Draft Invoices Bookkeeping Risk) BLOCK submission per agent's "ALL outstanding XBerts block" rule. ReconciliationStatus returns NO_DATA which is itself a blocking issue (cannot verify bank rec).
+ISSUES: Agent has no dedicated VAT-control-account or MTD-status tool; everything must be inferred from TB + BS. Two of the 13 readiness checks (MTD compliance, VAT codes accuracy) cannot be verified with the current MCP surface. Output of NO_DATA on ReconciliationStatus needs explicit handling in the agent prompt (currently it doesn't say what to do when the data is absent vs unreconciled).
+---END---
+
+---TEST 4---
+KIND: agent
+COMMAND: /withholding-review
+STATUS: works-partial
+QUALITY: 2
+TOOLS_INVOKED: Data_OrganisationSettings, Data_PayRuns_Summary, Data_PayrollSettings, Data_FinancialStatements
+SEARCH_TERMS_USED: payroll withholding PAYG BAS
+RESPONSE_SUMMARY: Client 11668 is GB so UK PAYE/NIC/CIS scope applies. Data_PayrollSettings returns NO_DATA, Data_PayRuns_Summary returns 0 pay runs in FY25-26, and P&L returns 0 records - so no payroll OR contractor expense data is available to review withholding accuracy. Agent can only produce a "no data, cannot assess" output for this tenant.
+ISSUES: Four of the seven tool names in the instructions table are NOT registered: Data_GetOrganisation, Data_GetPayrollReconciliation, Data_GetPayRunData, Data_GetBASSummary. Only Data_PayrollSettings, Data_PayRuns_Summary, Data_FinancialStatements (with statement aliases) and Data_OrganisationSettings work. Agent would hit TOOL_NOT_FOUND on every Get* call. CIS-specific bill-line tax-code analysis (the UK-specific deliverable) has no purpose-built tool - agent would need to walk Data_Bills_Search/Get.
+---END---
+
+---TEST 5---
+KIND: agent
+COMMAND: /workflow-review
+STATUS: works-partial
+QUALITY: 4
+TOOLS_INVOKED: Features_ListTemplates, Features_GetActualTimeList
+SEARCH_TERMS_USED: workflow templates flow list, list templates schedules budgets, Features_ListTemplates
+RESPONSE_SUMMARY: Connect 11374 has 34 templates across 4 pages including obvious consolidation candidates (smoke, brad template test 1, brad template 07 - clearly test/duplicate clutter alongside real ones like "VAT return", "BAS Quarterly", "Financial Performance Review", multiple Payroll variants). Features_GetActualTimeList returned 10 entries (mostly Aaron Wittman + Brad Yoo on Test Equipment Pty Ltd) sufficient to feed budget-variance analysis. Agent can produce the six-section snapshot.
+ISSUES: Instructions reference XBert_GetFlowList which is NOT registered - this tool simply does not exist on the MCP surface. The Features_* tools cover templates, schedules and actual-time but there is no dedicated "orphaned schedule" or "zombie schedule" detector - the agent must derive these by joining ListTemplates + GetActualTimeList + a list-schedules tool I did not find in searches. Budget-variance (estimated vs actual time) requires per-template estimatedTime which is on templates but actual-time is per-notification - the join is left as agent work.
+---END---
