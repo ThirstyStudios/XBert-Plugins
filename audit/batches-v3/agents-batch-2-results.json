@@ -1,0 +1,128 @@
+[
+  {
+    "id": 8,
+    "command": "billing-review",
+    "useAgentInReview": 0,
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "XPM client metadata", "tool": "Data_XPMClients", "result": "works", "note": "Returns no rows for the test tenants because XPM is not connected on 11668 and 11377 has no XPM data synced; tool itself is sound."},
+      {"section": "Timesheets (billable/non-billable, by staff, by job)", "tool": "Data_XPMTimesheets_Summary / Data_XPMTimesheets_Search / Data_XPMTimesheets_Get", "result": "partial", "note": "Data_XPMTimesheets_Summary is gated behind XBERT_MCP_DATA_XPM_TIMESHEETS_USE_SUMMARY_ENDPOINT feature flag (returns FEATURE_FLAG_DISABLED). Summary view (billable vs non-billable, by staff, by week, top 10 jobs, by invoice status) is the agent's core reporting surface."},
+      {"section": "Invoices (linkage to jobs, revenue)", "tool": "Data_Invoices_Search / Data_Invoices_Summary", "result": "works", "note": "Ledger-side invoices available; XPM job invoiceStatus is in Data_XPMTimesheets_Search."},
+      {"section": "Job profitability / WIP write-off / realisation", "tool": "(no dedicated tool)", "result": "missing", "note": "No XPM job-profitability or WIP/write-off summary tool exists. Agent would need to compute realisation from raw timesheets + invoices, which requires the Summary/Search endpoints active."}
+    ],
+    "topTool": "Data_XPMTimesheets_Summary",
+    "rationale": "All four reporting surfaces the agent describes (job billing, timesheet billable %, write-off %, profitability) hinge on XPM data. The summary endpoint is feature-flagged off in the local stack and the test tenants have no XPM rows, so the agent can only partially execute end-to-end. Once the flag flips and a client connects XPM, the core path works.",
+    "recommendation": "ticket-gap-enable-XPM-summary-flag-and-add-job-profitability-rollup"
+  },
+  {
+    "id": 9,
+    "command": "ias-ready",
+    "useAgentInReview": 1,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (country, currency, financial year)", "tool": "Data_OrganisationSettings (surface=organisation)", "result": "works", "note": "Returned Peak Precision Accounting org metadata cleanly."},
+      {"section": "Bank reconciliation status", "tool": "Data_ReconciliationStatus / Data_BankTransactions_Summary", "result": "works", "note": "ReconciliationStatus returned NO_DATA on 11668 (no bank accounts synced for this UK test ledger) but tool itself functions; AU tenants would have data."},
+      {"section": "Payroll wages (W1) and tax withheld (W2)", "tool": "Data_PayRuns_Summary (view=taxTotals / superTotals)", "result": "works", "note": "Returned zero pay runs for 11668 in Q1 2025; tool executed cleanly with totalWages/totalTax/totalSuper fields."},
+      {"section": "Superannuation posted", "tool": "Data_PayRuns_Summary (view=superTotals)", "result": "works", "note": "Same call returns superTotals object."},
+      {"section": "Outstanding XBerts blocking lodgement", "tool": "Data_XBertNotificationSummary / Data_GetLinkedXBertsForAgent", "result": "works", "note": "Returned 11 outstanding items grouped by risk, status, assignment for 11668."},
+      {"section": "PAYGW liability balance", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Balance sheet returned 17 rows incl. liability accounts; agent can locate PAYG-equivalent account."},
+      {"section": "Audit note creation", "tool": "Features_CreateClientNote", "result": "works", "note": "Note creation with isWorkpaper=true and visibility flags is supported."},
+      {"section": "QMS context (reviewer, firm, client names)", "tool": "Features_GetReviewAuditContext", "result": "works", "note": "Returns reviewerFullName, firmName, clientName, organisationName, timeZoneId."}
+    ],
+    "topTool": "Data_XBertNotificationSummary",
+    "rationale": "Every readiness check has a working tool. IAS is the lighter cousin of BAS (PAYG only, no GST) so it has no missing capability that BAS has. Confirmed 11668 returns real org, balance sheet, AR ageing, XBerts, and note-creation works.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 10,
+    "command": "bas-ready",
+    "useAgentInReview": 1,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context + lock dates + tax rates", "tool": "Data_OrganisationSettings (surface=organisation|lockDates|taxRates)", "result": "works", "note": "Multi-surface tool covers all org-config needs."},
+      {"section": "Bank reconciliation across all accounts", "tool": "Data_ReconciliationStatus / Data_BankTransactions_Summary", "result": "works", "note": "BankTransactions_Summary returns salesTaxBasis which is essential for BAS GST calculation."},
+      {"section": "GST label calculations (G1, G10, G11, 1A, 1B)", "tool": "Data_BankTransactions_Summary + Data_Invoices_Summary + Data_Bills_Summary", "result": "partial", "note": "No dedicated sales-tax-report tool; agent must derive G labels from bank/invoice/bill summaries plus salesTaxBasis. Workable but cross-tool reconciliation needed."},
+      {"section": "PAYG withholding (W1-W5) via payruns", "tool": "Data_PayRuns_Summary", "result": "works", "note": "view=taxTotals gives the W2/W5 totals."},
+      {"section": "Superannuation posted check", "tool": "Data_PayRuns_Summary (view=superTotals)", "result": "works", "note": "Returns totalSuper per period."},
+      {"section": "P&L review (current vs prior period)", "tool": "Data_FinancialStatements (statement=profitAndLoss)", "result": "works", "note": "Accrual/cash basis selectable; agent calls twice for comparison."},
+      {"section": "Balance Sheet review (current vs prior)", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Verified - returned 17 rows for 11668."},
+      {"section": "Fixed assets / depreciation", "tool": "Data_FixedAssets_Summary / Data_FixedAssets_Search", "result": "works", "note": "Status filter supports Draft assets per agent's spec."},
+      {"section": "Accounts payable / receivable", "tool": "Data_AgedSummary (direction=payables|receivables) / Data_Bills_Summary / Data_Invoices_Summary", "result": "works", "note": "AgedSummary returns full ageing buckets - verified 37 invoices/£45,721 AR for 11668."},
+      {"section": "Cashflow", "tool": "Data_Cashflow", "result": "works", "note": "Dedicated cash flow tool exists."},
+      {"section": "Outstanding XBerts", "tool": "Data_XBertNotificationSummary / Data_GetLinkedXBertsForAgent", "result": "works", "note": "Returns risk-typed counts; 11 outstanding on 11668."},
+      {"section": "Audit note + QMS", "tool": "Features_CreateClientNote + Features_GetReviewAuditContext", "result": "works", "note": "Note creation supports isWorkpaper, visibility; audit context gives reviewer/firm/timezone."}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "All 13 readiness checks are covered by working tools. The only soft spot is no single GST-labels endpoint (agent derives G/1A/1B from BankTransactions_Summary salesTaxBasis + Invoices/Bills summaries) - that is acceptable for an LLM agent, not a hard gap. End-to-end real data verified on 11668.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 11,
+    "command": "ird-gst-ready",
+    "useAgentInReview": 1,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation country / filing frequency / balance date", "tool": "Data_OrganisationSettings (surface=organisation|lockDates)", "result": "works", "note": "Returns countryCode (NZ filter) and financialYearEndMonth needed for SixMonthly period detection."},
+      {"section": "Bank reconciliation", "tool": "Data_ReconciliationStatus / Data_BankTransactions_Summary", "result": "works", "note": "Same as BAS."},
+      {"section": "GST box calculations (Box 5-15)", "tool": "Data_BankTransactions_Summary + Data_Invoices_Summary + Data_Bills_Summary", "result": "partial", "note": "Same constraint as BAS - no dedicated NZ GST101A box endpoint. Agent must derive Box 5/7/10/12 from salesTaxBasis + invoice/bill totals."},
+      {"section": "P&L review (period vs prior)", "tool": "Data_FinancialStatements (statement=profitAndLoss)", "result": "works", "note": "Same tool serves NZ."},
+      {"section": "Balance Sheet review", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Verified."},
+      {"section": "Fixed assets / depreciation", "tool": "Data_FixedAssets_Summary", "result": "works", "note": "Status filter supports Draft assets."},
+      {"section": "Accounts payable / receivable / cashflow", "tool": "Data_AgedSummary + Data_Cashflow + Data_Bills_Summary + Data_Invoices_Summary", "result": "works", "note": "Verified on 11668."},
+      {"section": "Outstanding XBerts blocking lodgement", "tool": "Data_XBertNotificationSummary / Data_GetLinkedXBertsForAgent", "result": "works", "note": "Filters by transaction date for the period."},
+      {"section": "Liability balances (GST/PAYE/KiwiSaver)", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Returns liability accounts incl. VAT/GST controls."},
+      {"section": "Audit note + QMS", "tool": "Features_CreateClientNote + Features_GetReviewAuditContext", "result": "works", "note": "Same as BAS."}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "NZ GST agent uses the same generic tool surface as BAS; everything resolves except a dedicated GST101A box endpoint. The agent's period-determination logic (TwoMonthly/Monthly/SixMonthly) is prompt-driven and feasible with the org-settings tool.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 12,
+    "command": "vat-ready",
+    "useAgentInReview": 1,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (country=GB, currency=GBP, VAT registration)", "tool": "Data_OrganisationSettings (surface=organisation|taxRates)", "result": "works", "note": "Verified - 11668 returns countryCode=GB, baseCurrency=GBP, salesTaxBasis=ACCRUAL."},
+      {"section": "Data quality score >= 50", "tool": "Data_DataQualityScore", "result": "works", "note": "Direct tool exists for the agent's gate."},
+      {"section": "Lock dates check", "tool": "Data_OrganisationSettings (surface=lockDates)", "result": "works", "note": "Surface returns periodLockDateCurrent."},
+      {"section": "Bank reconciliation", "tool": "Data_ReconciliationStatus / Data_BankTransactions_Summary", "result": "works", "note": "Same as BAS."},
+      {"section": "VAT box calculations (Box 1-9)", "tool": "Data_BankTransactions_Summary + Data_Invoices_Summary + Data_Bills_Summary", "result": "partial", "note": "Same as BAS/GST - no dedicated VAT-return endpoint; agent derives boxes from sales/purchases tax rates."},
+      {"section": "VAT control accounts reconciled", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Balance sheet shows the VAT liability account (verified - £2,831.13 VAT on 11668)."},
+      {"section": "P&L review revenue vs Box 6", "tool": "Data_FinancialStatements (statement=profitAndLoss)", "result": "works", "note": "Standard P&L."},
+      {"section": "Payroll / PAYE / pension auto-enrolment", "tool": "Data_PayRuns_Summary (view=taxTotals)", "result": "works", "note": "view=taxTotals returns PAYE-equivalent totals."},
+      {"section": "Accounts payable / receivable / cashflow", "tool": "Data_AgedSummary + Data_Cashflow", "result": "works", "note": "Verified - £45,721 AR on 11668 in 90+ bucket."},
+      {"section": "Outstanding XBerts blocking submission", "tool": "Data_XBertNotificationSummary / Data_GetLinkedXBertsForAgent", "result": "works", "note": "Returns 11 outstanding on 11668."},
+      {"section": "MTD compliance verification", "tool": "(no dedicated tool)", "result": "missing", "note": "No MTD-specific compliance/HMRC flag endpoint. Agent's spec says 'flag if MTD compliance cannot be verified' - the agent would surface this as a caveat rather than a verified pass."},
+      {"section": "Reverse charge (CIS) detection", "tool": "Data_OrganisationSettings (chartOfAccounts) + Data_Bills_Search", "result": "partial", "note": "Chart of accounts on 11668 actually shows CIS Liability/CIS Labour/CIS Materials accounts - so the data is exposed; agent infers from account names + transaction tax types."},
+      {"section": "Audit note + QMS", "tool": "Features_CreateClientNote + Features_GetReviewAuditContext", "result": "works", "note": "Same as BAS."}
+    ],
+    "topTool": "Data_DataQualityScore",
+    "rationale": "11668 is a perfect VAT test tenant (UK landscaping firm, real CIS accounts, real VAT liability balance, real overdue AR). Almost all 14 readiness checks resolve. MTD compliance is the only true gap - agent can flag it but cannot verify against HMRC. Acceptable.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 13,
+    "command": "mtd-ready",
+    "useAgentInReview": 0,
+    "tier": "WORK",
+    "quality": 2,
+    "sections": [
+      {"section": "Income totals (self-employment + property separately)", "tool": "Data_FinancialStatements (statement=profitAndLoss)", "result": "partial", "note": "P&L gives revenue totals but does not split self-employment vs property income. No tool surfaces ITSA-specific income classes."},
+      {"section": "Chart of accounts mapping to HMRC SA103/SA105 categories", "tool": "Data_OrganisationSettings (surface=chartOfAccounts)", "result": "partial", "note": "Verified 91 accounts returned for 11668 - agent could pattern-match account names to HMRC SA103 categories (Travel, Rent, etc.) but there is NO existing mapping table, taxonomy, or system field linking COA accounts to HMRC categories. Agent would have to hand-classify."},
+      {"section": "Unmapped accounts / split coding identification", "tool": "(no dedicated tool)", "result": "missing", "note": "No MTD readiness service; would need new endpoint that scores accounts against HMRC taxonomy."},
+      {"section": "Income threshold check (50k/30k/20k)", "tool": "Data_FinancialStatements + Data_OrganisationSettings", "result": "partial", "note": "Total revenue from P&L works, but threshold logic is for qualifying income (self-employment + property only, NOT PAYE/dividends/pensions) - and no tool separates those streams."},
+      {"section": "Property vs self-employment separation", "tool": "Data_OrganisationSettings (chartOfAccounts) + Data_OrganisationSettings (trackingCategories)", "result": "partial", "note": "Tracking categories surface exists but is not specifically set up for MTD income-class separation."},
+      {"section": "Finance cost separation (residential vs commercial mortgage)", "tool": "(no dedicated tool)", "result": "missing", "note": "No mortgage-classification capability."},
+      {"section": "Simplified vs full reporting eligibility", "tool": "Data_FinancialStatements (statement=profitAndLoss)", "result": "partial", "note": "Total turnover from P&L gives the 90k cutoff, but eligibility also depends on income type."}
+    ],
+    "topTool": "Data_OrganisationSettings (chartOfAccounts)",
+    "rationale": "MTD-ITSA is structurally different from VAT/BAS/GST/IAS - it needs an HMRC SA103/SA105 category mapping that XBert does not yet expose as a first-class concept. Agent could produce a hand-wavy 'looks ready / looks not ready' answer purely from COA pattern matching, but core capability for an actual readiness assessment is missing.",
+    "recommendation": "ticket-gap-build-MTD-ITSA-readiness-endpoint-with-HMRC-category-mapping"
+  }
+]

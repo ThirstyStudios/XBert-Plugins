@@ -1,0 +1,55 @@
+[
+  {
+    "id": 55,
+    "command": "month-end-pack",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (client, country, currency)", "tool": "Data_OrganisationSettings (surface=organisation)", "result": "works", "note": "Country code surfaced by Data_FinancialStatements response (GB confirmed on 11668); locale/currency available via OrganisationSettings"},
+      {"section": "P&L current + prior month", "tool": "Data_FinancialStatements (statement=profitAndLoss)", "result": "works", "note": "Invoked on 11668 (GB) for Apr 2026 — returned ProfitAndLoss shape with isAccrual control and connectTenantId rollup option. Re-call with prior-month dates for comparison."},
+      {"section": "Balance sheet movement walk", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Same tool, statement=balanceSheet; agent computes opening/movement/closing via two as-of dates"},
+      {"section": "Cashflow vs forecast", "tool": "Data_Cashflow", "result": "works", "note": "Cash flow summary derived from bank tx; forecast comparison is agent-side narrative (no forecast tool)"},
+      {"section": "Budget adherence (P&L vs budget)", "tool": "Data_BudgetAdherence", "result": "works", "note": "Dedicated budget vs actual tool — instructions say fall back to prior-month P&L if no budget; the tool itself handles the no-budget case"},
+      {"section": "KPI roll-up (margin, working capital, debtor/creditor days, current ratio)", "tool": "Data_FinancialStatements + Data_Invoices_Summary + Data_Bills_Summary", "result": "partial", "note": "No dedicated KPI/ratios tool. Agent must compute from BS + P&L + aged receivables/payables — all data available."}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Every fixed section of the pack has a working data tool: P&L, BS, TB via Data_FinancialStatements, cashflow via Data_Cashflow, budget vs actual via Data_BudgetAdherence, organisation context via Data_OrganisationSettings. KPIs aren't a single tool but are all derivable from the returned statements + Bills/Invoices summaries. Verified live: P&L on client 11668 returned shape + country (GB).",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 56,
+    "command": "payroll-close",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Country / jurisdiction (AU/NZ/GB) for jurisdiction-specific checks", "tool": "Data_OrganisationSettings (surface=organisation)", "result": "works", "note": "Country code also returned on Data_FinancialStatements responses; jurisdiction drives STP/Payday Filing/RTI branching agent-side"},
+      {"section": "Pre-run validation — pay run scheduled, calendars, employees, leave requests", "tool": "Data_PayrollSettings (includePayRuns, includeLeaveBalances) + Data_LeaveApplications_Search", "result": "works", "note": "Invoked Data_PayrollSettings on 11668 — returned NO_DATA (GB client without payroll), expected for this tenant. Tool path itself works."},
+      {"section": "Awards / pay rates / employee setup", "tool": "Data_Employees_Get + Data_Employees_Summary", "result": "works", "note": "Full employee records include tax info, super funds, leave balances, bank accounts"},
+      {"section": "Post-run reconciliation — gross wages, PAYG/PAYE, super, net pay vs bank", "tool": "Data_PayRuns_Summary + Data_FinancialStatements (P&L/BS for GL) + Data_BankTransactions_Summary", "result": "works", "note": "PayRuns_Summary supports byPeriod/byEmployee/superTotals/taxTotals views; agent reconciles each line against GL via P&L wages expense and BS liability accounts"},
+      {"section": "Aged control accounts (wages payable, super/PAYE liabilities)", "tool": "Data_FinancialStatements (trialBalance) + Data_BudgetAdherence", "result": "works", "note": "Trial balance surfaces liability balances and ages via reportDate + ytd columns"},
+      {"section": "Bookkeeper action list", "tool": "(agent narrative)", "result": "works", "note": "No tool needed — narrative output composed from preceding sections"}
+    ],
+    "topTool": "Data_PayrollSettings",
+    "rationale": "Full payroll toolset present: PayrollSettings (settings + calendars + pay runs + leave), PayRuns_Summary (by-period/employee/super/tax), Employees_Get/Summary, LeaveApplications_Search/Summary. GL reconciliation via Data_FinancialStatements P&L (wages expense) + BS (liabilities). Country code available for jurisdiction branching. Verified live: payroll tool path works on 11668 (returned NO_DATA — tenant has no payroll, not a tool defect).",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 57,
+    "command": "trial-balance-alignment",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Confirm client + period", "tool": "Data_GetClientConnections / Data_FindSimilarClientTenants", "result": "works", "note": "Standard tenant resolution path; agent confirms period from user input"},
+      {"section": "Pull trial balance from ledger (Xero v1)", "tool": "Data_FinancialStatements (statement=trialBalance, asOfDate)", "result": "works", "note": "Invoked on 11668 (GB, Xero) — returned 13 accounts with debit/credit/ytdDebit/ytdCredit + balanced=true. asOfDate=2026-04-30 resolved to actualAsOfDate=2026-03-31. Shape supports first-pass account-code match and balance proximity."},
+      {"section": "Chart of accounts for account-code/name matching", "tool": "Data_OrganisationSettings (surface=chartOfAccounts)", "result": "works", "note": "Provides full CoA with codes, names, and types — supports the second-pass (fuzzy name) and third-pass (account type) match"},
+      {"section": "Signed-off FS input (uploaded attachment / pasted figures)", "tool": "(user input — out of scope for MCP)", "result": "n/a", "note": "Instructions explicitly say accept this as input; not a data tool dependency"},
+      {"section": "Variance compute + proposed alignment journals", "tool": "(agent reasoning over TB + FS input)", "result": "works", "note": "No tool needed — agent computes deltas, drafts journal proposals; never posts"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Core tool Data_FinancialStatements (statement=trialBalance) works live on 11668 — returned balanced 13-account TB with debits, credits, and YTD figures suitable for variance matching. Chart of accounts available via Data_OrganisationSettings for account-code/name fuzzy match. FS upload is user input (instructions explicit), variance/journal proposals are agent-side reasoning. v1 ledger scope (Xero) honoured by underlying tool.",
+    "recommendation": "keep-as-is"
+  }
+]

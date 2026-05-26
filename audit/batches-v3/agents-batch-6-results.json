@@ -1,0 +1,114 @@
+[
+  {
+    "id": 49,
+    "command": "client-onboard",
+    "useAgentInReview": 0,
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "Practice setup / Connect account review", "tool": "Practice_GetConnectAccountReview", "result": "works", "note": "Returned users, clients, templates, work coverage gaps (e.g. ClientsMissingPayrollCount=2, WorkMissingDueDateCount=129) for connect 11374"},
+      {"section": "Accessible client list", "tool": "Data_GetAllAccessibleClients", "result": "works", "note": "Returned 3 clients (11668, 11377, 11673)"},
+      {"section": "Rules baseline (XBert configurations)", "tool": "Data_XBertConfigurations", "result": "works", "note": "Schema confirmed; canonical tool for rules baseline lookup"},
+      {"section": "Workflow templates", "tool": "Features_CreateClientTemplate / Features_CreateClientTask", "result": "works", "note": "Template creation, scheduling, and one-off task filing supported"},
+      {"section": "Engagement / Configuration phase gates", "tool": "(none)", "result": "missing", "note": "No engagement-letter, scope, opening-balance, or COA-load phase tracker exists. Agent must infer phase from indirect signals (clients disconnected, missing payroll, work-missing-due-date) which is a soft heuristic"},
+      {"section": "Ledger connection / bank feed status", "tool": "Practice_GetConnectAccountReview (ClientsDisconnectedCount)", "result": "works", "note": "Connection state derivable from review summary"},
+      {"section": "Chart of accounts / opening balances (v1 manual)", "tool": "Data_OrganisationSettings surface=chartOfAccounts", "result": "works", "note": "COA inspection works; agent's own instructions concede COA creation + opening balances are manual in v1"}
+    ],
+    "topTool": "Practice_GetConnectAccountReview",
+    "rationale": "Core practice-setup and template tools work; engagement/configuration phase gates have no first-class tool so phase must be inferred. Otherwise fully serviceable.",
+    "recommendation": "keep-with-prompt-tweak"
+  },
+  {
+    "id": 50,
+    "command": "end-of-period-dashboard",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Accessible client cohort", "tool": "Data_GetAllAccessibleClients", "result": "works", "note": "Returned 3 clients"},
+      {"section": "Workflow status / work items / due dates", "tool": "Features_CountNotifications / Features_GetWork", "result": "works", "note": "Standard work-item filters with dates, statuses, assignees"},
+      {"section": "Data quality score", "tool": "Data_DataQualityScore", "result": "works", "note": "Per-client score + XBert + activity counts"},
+      {"section": "Lock-date status", "tool": "Data_OrganisationSettings surface=lockDates", "result": "works", "note": "Live"},
+      {"section": "Bank reconciliation status", "tool": "Data_ReconciliationStatus", "result": "works", "note": "Per-account reconciled vs unreconciled, designed for month-end/BAS"},
+      {"section": "Outstanding XBerts / critical issues", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Returned 11 outstanding items on 11668 with risk levels"},
+      {"section": "Lodgement deadlines (BAS / VAT / payroll filings)", "tool": "(partial)", "result": "partial", "note": "No dedicated lodgement-calendar tool. Payroll deadlines reachable via Data_PayRuns_Summary; BAS/VAT only via salesTaxBasis on Data_BankTransactions_Summary. Agent must compose deadlines client-side from country + quarter"}
+    ],
+    "topTool": "Data_XBertNotificationSummary",
+    "rationale": "Every required readiness signal (workflow, quality, lock date, bank rec, critical XBerts) has a clean tool. Only lodgement-deadline calendar is partial.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 51,
+    "command": "tax-reconciliation",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Financial statements (P&L, BS, TB)", "tool": "Data_FinancialStatements", "result": "works", "note": "Returned P&L for client 11668 (Peak Precision Accounting, GB) with accounting method and country code"},
+      {"section": "Journal evidence per adjustment line", "tool": "Data_JournalMaster_Search + Data_JournalMaster_Get", "result": "works", "note": "Search/get pattern works; legacy Data_JournalMaster still returns data but is deprecated"},
+      {"section": "Manual journals (entity-specific adjustments)", "tool": "Data_ManualJournals_Search / Get / Summary", "result": "works", "note": "Available for trustee distributions / partner allocations / Div 7A adjustments"},
+      {"section": "Fixed assets (tax depreciation swap)", "tool": "Data_FixedAssets_Summary / Search / Get", "result": "works", "note": "Depreciation totals, asset types and history available"},
+      {"section": "Entity type / organisation context", "tool": "Data_OrganisationSettings surface=organisation", "result": "works", "note": "Entity name, ABN/registration available"},
+      {"section": "Schedule-M structure / non-deductible classification", "tool": "(none)", "result": "missing", "note": "No tax-coded chart-of-accounts or non-deductible mapping tool. Agent must classify entertainment/fines/private-use from account names, which is a heuristic"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Schedule-M walk is fully supported: starting profit, journal-sourced adjustments, fixed-asset depreciation swap and manual-journal evidence all available. Only systemic limit is no first-class non-deductible classifier.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 52,
+    "command": "instalment-variation",
+    "useAgentInReview": 0,
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "P&L YTD vs prior-year same period", "tool": "Data_FinancialStatements statement=profitAndLoss", "result": "works", "note": "Two calls (current FY YTD vs prior FY same period) give the comparison"},
+      {"section": "Balance sheet", "tool": "Data_FinancialStatements statement=balanceSheet", "result": "works", "note": "Available"},
+      {"section": "Cashflow run-rate", "tool": "Data_Cashflow", "result": "works", "note": "Derived from bank transaction data"},
+      {"section": "Budget adherence", "tool": "Data_BudgetAdherence", "result": "works", "note": "Returned 4 records for 11668 over 2025 - works with dates supplied"},
+      {"section": "Tax rate data", "tool": "Data_OrganisationSettings surface=taxRates", "result": "works", "note": "Available"},
+      {"section": "ATO instalment notice (trigger + implied annual)", "tool": "(none)", "result": "missing", "note": "No ATO instalment notice ingestion tool. Agent depends on user supplying the notice values, exactly as the instructions concede (\"triggered by ATO notice arrival, not by calendar date\")"},
+      {"section": "GIC exposure calculation", "tool": "(none)", "result": "n/a", "note": "Pure compute - no tool needed; agent does the arithmetic"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Data side (P&L, BS, cashflow, budget, tax rates) fully covered. ATO instalment-notice ingestion is missing by design - agent treats the notice as user input.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 53,
+    "command": "fs-pack",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "Organisation settings (cover sheet)", "tool": "Data_OrganisationSettings surface=organisation", "result": "works", "note": "Entity name, ABN, registered address"},
+      {"section": "Balance sheet (current + prior comparative)", "tool": "Data_FinancialStatements statement=balanceSheet", "result": "works", "note": "Two-call pattern (current vs prior year)"},
+      {"section": "Profit and loss (current + prior comparative)", "tool": "Data_FinancialStatements statement=profitAndLoss", "result": "works", "note": "Returned P&L for 11668; accrual/cash toggle supported"},
+      {"section": "Trial balance", "tool": "Data_FinancialStatements statement=trialBalance", "result": "works", "note": "asOfDate parameter for year-end snapshot"},
+      {"section": "Cashflow (indirect method)", "tool": "Data_Cashflow", "result": "works", "note": "Derived from bank data; agent can also derive indirectly from BS+P&L comparatives"},
+      {"section": "Notes shell / provisions schedule", "tool": "(composed)", "result": "n/a", "note": "Composition step is LLM work - no tool needed"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Every section the agent needs to assemble (cover, BS, P&L, TB, cashflow) has a clean tool with current and comparative period support.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 54,
+    "command": "balance-sheet-explain",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "Organisation context (country)", "tool": "Data_OrganisationSettings surface=organisation", "result": "works", "note": "Country code on P&L return also confirms (GB on 11668)"},
+      {"section": "Balance sheet opening + closing", "tool": "Data_FinancialStatements statement=balanceSheet", "result": "works", "note": "Two calls give opening and closing"},
+      {"section": "Trial balance", "tool": "Data_FinancialStatements statement=trialBalance", "result": "works", "note": "Available"},
+      {"section": "Journal master detail for movements", "tool": "Data_JournalMaster_Search + Data_JournalMaster_Get", "result": "works", "note": "Confirmed live - returned 2 journals for 11668 in 2025. Lean-row search then Get for line items is the canonical pattern"},
+      {"section": "Bank reconciliation check (Cash vs bank rec)", "tool": "Data_ReconciliationStatus", "result": "works", "note": "Per-account reconciled vs unreconciled counts"},
+      {"section": "Aged receivables / payables (AR/AP reconciliation)", "tool": "Data_AgedSummary", "result": "works", "note": "direction=receivables or payables, asOfDate"},
+      {"section": "Fixed asset register (FAR) reconciliation", "tool": "Data_FixedAssets_Summary", "result": "works", "note": "Depreciation totals and asset register"}
+    ],
+    "topTool": "Data_JournalMaster_Search",
+    "rationale": "Every reconciliation in the agent's process (cash, AR, AP, FAR) has a first-class tool; journal sourcing of explanations is fully supported.",
+    "recommendation": "keep-as-is"
+  }
+]

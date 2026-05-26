@@ -1,0 +1,17 @@
+[
+  {
+    "slug": "xbert-workflow-review",
+    "command": "workflow-review",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Capacity & workload (per-user, Section 2.5/5.1)", "tool": "Features_Review / Features_GetBatchCapacityAllocation / Features_GetCapacitySettings", "result": "works", "note": "Features_Review invoked live against connect 11374 — returned Capacity context with outstandingWork[] including user, period, due dates, required minutes, target range; capacityAnalysis array empty for single test user but schema present."},
+      {"section": "Activity data — Connect-wide 12mo (Section 2.1/5.2)", "tool": "Features_GetMyConnectActivity / Features_ReviewActivity / Features_GetRecentActivityHistory", "result": "works", "note": "Connect-scoped paged activity feed supports live/dormant/zombie windowing. ReviewActivity provides engagement aggregates."},
+      {"section": "Notification summary per client (Section 1, 2.4)", "tool": "Data_XBertNotificationSummary + Features_CountNotifications", "result": "works", "note": "XBertNotificationSummary returns outstanding by analytics category/risk per client; CountNotifications supports per-status, per-date, per-assignee aggregates required for completion-quality gates."},
+      {"section": "Template & schedule configuration (Sections 1, 2.2, 2.3, 3, 4, 5)", "tool": "Features_ListTemplates / Features_GetClientTemplate / Features_ListSchedulesForTemplate / Features_ListProcessTags", "result": "works", "note": "Full template inventory + per-template schedules + processTag filter cover base-process variant grouping, role-only variants, override-vs-duplicate, stale templates, subtask presence, assignment patterns, and budget vs actual comparison."}
+    ],
+    "topTool": "Features_Review",
+    "rationale": "All four data sections required by the skill have working local MCP tools: capacity (Features_Review live-verified), activity feed (Features_GetMyConnectActivity / Features_ReviewActivity), notification aggregates (Data_XBertNotificationSummary + Features_CountNotifications), and template/schedule inventory (Features_ListTemplates + Features_GetClientTemplate + Features_ListSchedulesForTemplate + Features_ListProcessTags). Workload concentration, base-process grouping, completion quality, and budget-vs-actual analyses are all achievable from these surfaces. No reference to the removed Data_LedgerForShare. Read-only analysis remit aligns with read-only tool annotations.",
+    "recommendation": "keep-as-is"
+  }
+]

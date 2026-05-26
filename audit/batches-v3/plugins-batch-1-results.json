@@ -1,0 +1,114 @@
+[
+  {
+    "slug": "xbert-aged-receivables",
+    "command": "aged-receivables",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      { "section": "Aged receivables breakdown by debtor", "tool": "Data_AgedSummary", "result": "works", "note": "Live: tenant 11668 returned 15 customers, $45,721.45 total, full ageing buckets + topCustomersByOutstanding." },
+      { "section": "Aged ageing summary totals", "tool": "Data_AgedSummary", "result": "works", "note": "Same call returns summary {totalOutstanding, totalInvoiceCount, overdueInvoiceCount, customerCount}." },
+      { "section": "Contact records with interaction history", "tool": "Data_Contacts_Get / Data_Contacts_Search", "result": "partial", "note": "Contact email/phone/address available. No explicit prior-interaction-history tool; would have to infer from invoices+bank txns." },
+      { "section": "Outstanding invoices per debtor", "tool": "Data_Invoices_Search / Data_Invoices_Summary", "result": "works", "note": "Lean rows include number, contactName, amountDue, dueDate, status." },
+      { "section": "Prior promise notes / reminders / tasks (stored AR context)", "tool": "Features_ListClientNotes / Features_CountNotifications", "result": "partial", "note": "No first-class AR-promise store. Would have to filter ClientNotes by topic or notifications by filterTerm. Free-text only, not structured kept/broken." },
+      { "section": "Send drafted reminder (per debtor)", "tool": "Workflow_SendReminder / Features_CreateClientNote / Features_CreateClientTask", "result": "partial", "note": "Workflow_SendReminder posts to an XBert notification, not directly to the customer. No outbound email-to-customer tool. Note/task creation works." },
+      { "section": "Create follow-up task with next-action date", "tool": "Features_CreateClientTask", "result": "works", "note": "Supports title, description, dueDate, assignedUserProfileId, isPriority, subTasks." },
+      { "section": "Add client note recording planned call", "tool": "Features_CreateClientNote", "result": "works", "note": "Markdown content, visibility draft/published/public, clientTenantId binding, workpaper flag." }
+    ],
+    "topTool": "Data_AgedSummary",
+    "rationale": "Core scoring inputs all present (aged summary + invoice search + contacts + tasks/notes). The skill's prior-promise weighting and outbound customer-reminder delivery have no first-class tools and must be approximated.",
+    "recommendation": "keep-with-clarifications: clarify in the command that reminders post as internal notifications/tasks (not direct emails to customers), and that prior-promise tracking uses ClientNotes/notifications free-text rather than a dedicated promise store."
+  },
+  {
+    "slug": "xbert-balance-sheet-explain",
+    "command": "balance-sheet-explain",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      { "section": "Comparative balance sheet at period end", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Live: tenant 11668 returned 17 BS lines with classification, account type, amount, validFromDate, sourceLink." },
+      { "section": "Trial balance at same date", "tool": "Data_FinancialStatements (statement=trialBalance, asOfDate)", "result": "works", "note": "Same endpoint exposes trialBalance variant." },
+      { "section": "Aged receivables and aged payables", "tool": "Data_AgedSummary", "result": "works", "note": "direction=receivables | payables. Live verified for tenant 11668." },
+      { "section": "Reconciliation status of bank and key accounts", "tool": "Data_ReconciliationStatus", "result": "works", "note": "Live verified: returns reconciled/unreconciled per bank account. Tenant 11668 returned NO_DATA (no bank feed) but tool responded cleanly." },
+      { "section": "Bank reconciliation validation result", "tool": "Data_ReconciliationStatus + Data_XBertNotificationSummary", "result": "partial", "note": "No dedicated 'validation result' object; must compose from reconciliation status + outstanding XBerts of bank-reconciliation risk type." },
+      { "section": "Full balance sheet review validation", "tool": "Data_XBertNotificationSummary", "result": "partial", "note": "No dedicated 'BS review validation' tool. Outstanding XBerts list is the closest proxy." },
+      { "section": "Manual journals for period", "tool": "Data_ManualJournals_Search / Data_ManualJournals_Get", "result": "works", "note": "Search returns narration + totals; Get returns full line items + line accounts." }
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "All core data layers exist. The skill's named 'validation result' tools (BankRec validation, BS review validation) do not exist as first-class endpoints; must be composed from ReconciliationStatus + XBertNotificationSummary.",
+    "recommendation": "keep-with-clarifications: rename 'Bank reconciliation validation result' and 'Full balance sheet review validation' steps to reflect the compose-from-XBerts pattern, or add wrapper validation tools."
+  },
+  {
+    "slug": "xbert-bas-prep",
+    "command": "bas-prep",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      { "section": "Organisation context (AU country, financial method, GST registration)", "tool": "Data_OrganisationSettings (surface=organisation)", "result": "works", "note": "Live: returns countryCode, salesTaxBasis, taxNumber, financialYearEnd month/day. (Tenant 11668 is GB — verifies tool, not workflow.)" },
+      { "section": "Bank reconciliation status across every bank account", "tool": "Data_ReconciliationStatus", "result": "works", "note": "Verified live; per-account reconciled/unreconciled counts." },
+      { "section": "GST labels G1/G2/G3/G10/G11 and computed 1A/1B", "tool": "Data_BankTransactions_Summary (salesTaxBasis) + Data_Invoices_Summary + Data_Bills_Summary", "result": "partial", "note": "No first-class BAS-label calculator. BankTransactions_Summary exposes salesTaxBasis but the G1-G11 / 1A / 1B mapping must be computed agent-side." },
+      { "section": "PAYG withholding W1-W5 vs payrun totals", "tool": "Data_PayRuns_Summary / Data_PayRuns_Get / Data_Payslips_Summary", "result": "partial", "note": "PayRun totalTax / totalSuper available. No explicit W1-W5 breakdown — must derive." },
+      { "section": "Superannuation posting and payment status", "tool": "Data_PayRuns_Summary / Data_Payslips_Summary / Data_PayrollSettings", "result": "works", "note": "PayRun totalSuper + payroll settings cover the post side; payment status from BankTransactions_Search filter." },
+      { "section": "Outstanding XBerts for the period", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Live verified: tenant 11668 returned 11 outstanding XBerts with risk levels and analytics groups." },
+      { "section": "Prior-period BAS variance", "tool": "Data_FinancialStatements + Data_BankTransactions_Summary (two date windows)", "result": "partial", "note": "No dedicated 'prior BAS lodgement comparison' tool. Must rerun GST inputs for prior period and diff." }
+    ],
+    "topTool": "Data_XBertNotificationSummary",
+    "rationale": "Core blocking-XBert and bank-rec data is there. GST label, PAYG W1-W5, and BAS variance are not first-class; the plugin currently relies on the agent to derive ATO-form labels from primary data.",
+    "recommendation": "keep-with-clarifications: add a 'BAS labels are computed agent-side from primary data' note. Consider adding a dedicated Data_BasReadiness tool that maps to ATO G1-G11/W1-W5/1A/1B."
+  },
+  {
+    "slug": "xbert-bill-intake",
+    "command": "bill-intake",
+    "tier": "WORK",
+    "quality": 2,
+    "sections": [
+      { "section": "Text extraction + line-item structuring", "tool": "—", "result": "missing", "note": "No OCR / document-extraction tool in MCP catalogue. Agent must do this out-of-band (e.g. capture pipeline)." },
+      { "section": "Dedup Tier 1 (reference + total)", "tool": "Data_Bills_Search (searchTerm=reference)", "result": "works", "note": "Live verified: returned 3 bills for tenant 11668 with number+supplierName+amountDue." },
+      { "section": "Dedup Tier 2 (contact + total + date window)", "tool": "Data_Bills_Search + Data_Bills_Get + Data_Contacts_Search", "result": "works", "note": "Combine searchTerm by supplierName, date window, and amount filter agent-side." },
+      { "section": "Supplier match by name + ABN", "tool": "Data_Contacts_Search", "result": "partial", "note": "searchTerm matches businessName only. No ABN-indexed lookup in schema — must filter agent-side from Data_Contacts_Get full records." },
+      { "section": "Propose creating new contact (write)", "tool": "—", "result": "missing", "note": "No Features_CreateContact / supplier write tool in MCP catalogue." },
+      { "section": "Predict account code per line", "tool": "—", "result": "missing", "note": "No coding-prediction MCP tool. Must be done by agent reasoning over Data_OrganisationSettings (surface=chartOfAccounts) + Data_Bills_Get history." },
+      { "section": "Predict tax code per line", "tool": "—", "result": "missing", "note": "Same — taxRates available via Data_OrganisationSettings but no prediction tool." },
+      { "section": "Post the bill", "tool": "—", "result": "missing", "note": "No Bills_Create / Bills_Post write tool exposed via MCP. Cannot fulfil step 8 without ledger write capability." },
+      { "section": "Create approval task assigned to invoker", "tool": "Features_CreateClientTask", "result": "works", "note": "Live verified: supports title/description/assignedUserProfileId/dueDate/subTasks/clientTenantId binding." }
+    ],
+    "topTool": "Data_Bills_Search",
+    "rationale": "Read paths (dedup search + contact lookup + task creation) work. Critical write paths (OCR, supplier create, AI coding, bill posting) have NO MCP tools — the plugin cannot complete its stated end-to-end loop today.",
+    "recommendation": "rework: either narrow scope to 'dedup advisory + task creation' (drop OCR/coding/posting from v1) or build the missing extraction + coding + Bills_Create + Contacts_Create endpoints. As-written the command makes promises (post the bill, predict codes) the local gateway cannot keep."
+  },
+  {
+    "slug": "xbert-capacity",
+    "command": "capacity",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      { "section": "Time entries for period with billable flags", "tool": "Features_GetActualTimeList / Data_XPMTimesheets_Search", "result": "works", "note": "Live verified: GetActualTimeList for connect 11374 May 2026 returned cleanly (0 entries — connect lacks data, tool fine). Supports billableStatus, workStatus, date range." },
+      { "section": "WIP planned vs actual practice + per-client", "tool": "Features_UserActualTimeReview / Data_XPMTimesheets_Summary / Features_GetBatchCapacityAllocation", "result": "works", "note": "Capacity settings via Features_GetCapacitySettings + actual time via GetActualTimeList; per-client variance via XPMTimesheets_Summary grouping by job." },
+      { "section": "Billable %, billable/non-billable hours", "tool": "Features_GetActualTimeList (billableStatus filter)", "result": "works", "note": "Returns flat list with billable flag — agent computes percentages." },
+      { "section": "Per-client WIP variance ranked", "tool": "Data_XPMTimesheets_Summary", "result": "works", "note": "Bucketed by top 10 jobs / top 10 clients." }
+    ],
+    "topTool": "Features_GetActualTimeList",
+    "rationale": "Every data section in the capacity skill maps cleanly to an MCP endpoint. Read-only review only — no write paths needed. The skill's '>+25% / >+50%' WIP thresholds are agent-side logic, not MCP gaps.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-client-fee-review",
+    "command": "client-fee-review",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      { "section": "All accessible clients in Connect", "tool": "Data_GetAllAccessibleClients", "result": "works", "note": "Live verified: connect 11374 returned 3 clients (11668/11377/11673)." },
+      { "section": "XPM client list with fee positions", "tool": "Data_XPMClients", "result": "works", "note": "Live verified: tool responded with TOON format. Tenant 11668 has 0 XPM rows — tool fine, just no XPM data for that GB tenant." },
+      { "section": "XPM timesheets summary", "tool": "Data_XPMTimesheets_Summary / Data_XPMClients (includeTimesheets=true)", "result": "works", "note": "Bucketed by staff/week/job/invoice status." },
+      { "section": "Practice-internal actual time list", "tool": "Features_GetActualTimeList / Features_UserActualTimeReview", "result": "works", "note": "Tenant-wide or filtered by user." },
+      { "section": "Per-client bank transactions volume", "tool": "Data_BankTransactions_Summary", "result": "works", "note": "Bucketed by month / status / bank account." },
+      { "section": "Per-client bills (AP) volume", "tool": "Data_Bills_Summary", "result": "works", "note": "Aged payables + top suppliers + by-status counts." },
+      { "section": "Per-client invoices (AR) volume", "tool": "Data_Invoices_Summary", "result": "works", "note": "Aged receivables + top customers + by-status counts." },
+      { "section": "Per-client payruns volume", "tool": "Data_PayRuns_Summary", "result": "works", "note": "Period totals + by-employee." },
+      { "section": "Per-client payslips volume", "tool": "Data_Payslips_Summary", "result": "works", "note": "By-employee/by-earnings-rate aggregates." },
+      { "section": "Per-client manual journals volume", "tool": "Data_ManualJournals_Summary", "result": "works", "note": "Count by status, month-over-month, top accounts." },
+      { "section": "Optional workflow throughput per client", "tool": "Features_CountNotifications", "result": "works", "note": "Per-client filter via filterTerm / assignedUserProfileIds; per-period via startDate/endDate." }
+    ],
+    "topTool": "Data_XPMClients",
+    "rationale": "All 11 sections of the methodology have dedicated MCP endpoints. Read-only evidence assembly — no writes required. Excellent fit for the local gateway.",
+    "recommendation": "keep-as-is"
+  }
+]

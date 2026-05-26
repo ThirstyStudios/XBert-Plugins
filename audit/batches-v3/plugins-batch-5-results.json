@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "xbert-stp-finalisation",
+    "command": "stp-finalisation.md",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (AU, STP Phase 2)", "tool": "Data_OrganisationSettings", "result": "works", "note": "surface=organisation returns countryCode and platform; STP Phase 2 flag not explicitly exposed but inferable from platform/country"},
+      {"section": "Full year payrun + employee pay", "tool": "Data_PayRuns_Search/Get + Data_Payslips_Search/Get", "result": "works", "note": "Search by date range; Get returns nested payslip summaries with super/tax lines"},
+      {"section": "Payroll reconciliation to GL", "tool": "Data_PayRuns_Summary + Data_FinancialStatements(trialBalance)", "result": "works", "note": "PayRuns_Summary returns totalWages/totalTax/totalSuper; TB available for liability accounts"},
+      {"section": "Super reconciliation YTD", "tool": "Data_PayRuns_Summary view=superTotals", "result": "works", "note": "Returns totalSuper and averageSuperPerPayRun; per-employee via view=byEmployee"},
+      {"section": "Employee STP classifications", "tool": "Data_Employees_Get", "result": "works", "note": "Returns tax info, country code, super funds per employee"},
+      {"section": "Outstanding XBerts touching payroll", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Returns analyticsGroup buckets and risk; no payroll-only filter but groupable client-side"}
+    ],
+    "topTool": "Data_PayRuns_Summary",
+    "rationale": "Live invoke against 11377 returned 10 payruns, $130,920 wages, $57,161 tax, $15,710 super for FY25-26 — all the per-employee/YTD figures the plugin needs are available. Organisation tool confirms country code and platform. Employees_Get covers TFN/tax-treatment. No Phase-2-classification or RFB tool exists natively but figures are derivable from payslip + employee data.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-super-check",
+    "command": "super-check.md",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (AU)", "tool": "Data_OrganisationSettings", "result": "works", "note": "Country code + base currency returned"},
+      {"section": "Quarter payrun + employee pay", "tool": "Data_PayRuns_Search + Data_Payslips_Search/Get", "result": "works", "note": "Date-range scoping built in; payslip Get exposes super lines"},
+      {"section": "Super reconciliation per employee", "tool": "Data_PayRuns_Summary view=byEmployee/superTotals + Data_Employees_Summary view=superFundDistribution", "result": "works", "note": "PayRuns superTotals returned totalSuper $15,710; Employees super-fund view returned 11 employees (distribution array empty for this client — likely no funds attached, plugin must handle gracefully)"},
+      {"section": "Super liability account + bank trace", "tool": "Data_FinancialStatements(trialBalance) + Data_BankTransactions_Search", "result": "works", "note": "TB exposes liability movement; bank search filters by contactName for clearing house"},
+      {"section": "Outstanding XBerts touching super/payroll", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Returns outstanding XBerts; no super-specific filter"}
+    ],
+    "topTool": "Data_PayRuns_Summary",
+    "rationale": "All five data sections resolvable from existing tools. Super-fund distribution can be empty (it was for 11377) — plugin should handle. SGC calculation is internal logic not an MCP gap.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-tax-reconciliation",
+    "command": "tax-reconciliation.md",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Year-end financial statements", "tool": "Data_FinancialStatements", "result": "works", "note": "Live call returned balanced TB with 8 accounts; supports balanceSheet, profitAndLoss, trialBalance"},
+      {"section": "Closing trial balance", "tool": "Data_FinancialStatements statement=trialBalance", "result": "works", "note": "asOfDate parameter; YTD debits/credits balance verified"},
+      {"section": "Profit and loss", "tool": "Data_FinancialStatements statement=profitAndLoss", "result": "works", "note": "isAccrual toggle; supports rollup connectTenantId"},
+      {"section": "Closing balance sheet", "tool": "Data_FinancialStatements statement=balanceSheet", "result": "works", "note": "Same endpoint, statement switch"},
+      {"section": "Journal master + manual journals", "tool": "Data_JournalMaster_Search/Get + Data_ManualJournals_Search/Get", "result": "works", "note": "Live JournalMaster_Summary returned 2 journals/8 lines for 11668 in 2025; manual-journal split also available"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "All five data sections returned real data on 11668. Single Data_FinancialStatements endpoint covers TB/BS/P&L; JournalMaster covers the add-back drilldown. Entity-type and FBT logic are skill-side, not MCP gaps.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-tpar",
+    "command": "tpar.md",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (AU)", "tool": "Data_OrganisationSettings", "result": "works", "note": "countryCode confirms AU"},
+      {"section": "Supplier / contact register", "tool": "Data_Contacts_Search/Get + Data_Contacts_Summary", "result": "works", "note": "Search returns AR/AP amounts; Get exposes addresses + tax IDs; ABN not a dedicated field — must be inferred from taxNumber"},
+      {"section": "Bills paid in FY", "tool": "Data_Bills_Search + Data_Bills_Summary", "result": "works", "note": "Live call returned 104 bills, $149,707 aged payables, top-suppliers breakdown for 11377; status filter for PAID"},
+      {"section": "Bank transactions for direct-pay contractors", "tool": "Data_BankTransactions_Search", "result": "works", "note": "Search by contactName + date; reconciled filter"},
+      {"section": "Chart of accounts (TPAR-relevant expenses)", "tool": "Data_OrganisationSettings surface=chartOfAccounts", "result": "works", "note": "Single OrganisationSettings surface returns CoA"}
+    ],
+    "topTool": "Data_Bills_Summary",
+    "rationale": "Live invoke against 11377 returned real bills data with top-10 supplier breakdown. ABN validation is a skill-side concern; the contact data exposes taxNumber to feed it. Industry filter is rule-driven, not a tool gap.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-trial-balance-alignment",
+    "command": "trial-balance-alignment.md",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Trial balance at year-end", "tool": "Data_FinancialStatements statement=trialBalance", "result": "works", "note": "Live call against 11668 returned 8-account balanced TB with YTD figures"},
+      {"section": "Balance sheet at year-end", "tool": "Data_FinancialStatements statement=balanceSheet", "result": "works", "note": "Same endpoint, statement switch"},
+      {"section": "Existing financial statements", "tool": "Data_FinancialStatements (as proxy)", "result": "partial", "note": "Plugin says 'where present' — there is no native 'signed FS PDF' tool, but the PDF is supplied by user not pulled from MCP, so not a gap"},
+      {"section": "Manual journal summary", "tool": "Data_ManualJournals_Summary + Data_JournalMaster_Summary", "result": "works", "note": "ManualJournals_Summary returns counts/totals by status and top accounts"},
+      {"section": "PDF text extraction over user-supplied FS", "tool": "(plugin-side, not MCP)", "result": "n/a", "note": "OCR/extract is performed by the agent runtime not via MCP"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Core TB + BS data verified live with balanced totals. PDF extraction is intentionally outside MCP scope (user supplies the file). Four-case matching is skill-side logic.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-vat-prep",
+    "command": "vat-prep.md",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (GB, VAT scheme, MTD)", "tool": "Data_OrganisationSettings surface=organisation", "result": "works", "note": "Live call confirmed CC=GB, baseCurrency=GBP, salesTaxBasis=ACCRUAL for 11668 'Peak Precision Accounting'; MTD flag not explicit but inferable from platform/country"},
+      {"section": "Data quality score (>=50)", "tool": "Data_DataQualityScore", "result": "works", "note": "Live call returned score 1.00 (rating 'Needs Attention') for 11668 — endpoint works; threshold gate is plugin logic"},
+      {"section": "Lock date status", "tool": "Data_OrganisationSettings surface=lockDates", "result": "works", "note": "Dedicated surface available"},
+      {"section": "Bank reconciliation status", "tool": "Data_ReconciliationStatus", "result": "works", "note": "Returns reconciled vs unreconciled counts per bank account"},
+      {"section": "VAT boxes 1-9 calculation", "tool": "Data_BankTransactions_Summary salesTaxBasis + Data_Bills_Summary + Data_Invoices_Summary", "result": "partial", "note": "No dedicated 'VAT boxes' endpoint; salesTaxBasis is exposed on bank tx summary but the nine-box calc is plugin logic over invoices+bills+bank+journals. Adequate inputs but no shortcut."},
+      {"section": "VAT control account movements", "tool": "Data_FinancialStatements(trialBalance) + Data_JournalMaster_Search", "result": "works", "note": "TB exposes VAT (820) account directly; journal search drills movements"},
+      {"section": "PAYE/NI reconciliation", "tool": "Data_PayRuns_Summary view=taxTotals", "result": "works", "note": "PayRuns Summary exposes totalTax across pay runs"},
+      {"section": "Outstanding XBerts (blocking)", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Live call returned 11 outstanding on 11668 with risk/group buckets"},
+      {"section": "Prior-period VAT for variance", "tool": "Data_FinancialStatements + Data_JournalMaster_Summary (prior dates)", "result": "works", "note": "Re-invoke with prior date range"}
+    ],
+    "topTool": "Data_OrganisationSettings",
+    "rationale": "All 9 data sections resolvable; live invoke on 11668 confirmed UK/GBP context, data quality score, outstanding XBerts and balanced TB. The only mild gap is no dedicated 'VAT boxes' computed view — but bills/invoices/bank-tx summaries plus the VAT TB account give the plugin everything to compute boxes 1-9 itself. MTD/partial-exemption/reverse-charge are skill-side rules.",
+    "recommendation": "keep-as-is"
+  }
+]

@@ -1,0 +1,105 @@
+[
+  {
+    "id": 21,
+    "command": "directors-loan-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (country/entity type)", "tool": "Data_OrganisationSettings", "result": "available", "note": "surface=organisation returns country code + company type"},
+      {"section": "Balance sheet (director/shareholder accounts)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified on 11668 - returned 17 BS rows incl. equity / current accounts"},
+      {"section": "Trial balance (account balances + movements)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified on 11668 - returned 13 TB rows with debits/credits/YTD"},
+      {"section": "Profit and loss (interest income/expense)", "tool": "Data_FinancialStatements", "result": "available", "note": "statement=profitAndLoss covers interest accounts"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "All four required sections sit in two tools (FinancialStatements covers BS/TB/PL, OrganisationSettings covers jurisdiction context). Account-name pattern scan happens inside the agent, not via a dedicated tool.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 22,
+    "command": "fbt-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (AU/NZ jurisdiction gate)", "tool": "Data_OrganisationSettings", "result": "available", "note": "Required to confirm FBT-applicable country"},
+      {"section": "Profit and loss (entertainment/MV/staff amenities)", "tool": "Data_FinancialStatements", "result": "available", "note": "statement=profitAndLoss"},
+      {"section": "Balance sheet (motor vehicle asset accounts)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified 11668 - Fixed Asset rows visible (Computer Equipment, Office Equipment)"},
+      {"section": "Trial balance (detail balances)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified 11668"},
+      {"section": "Fixed asset register (motor vehicle detection)", "tool": "Data_FixedAssets_Search", "result": "available", "note": "assetType filter supports MV filtering"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "All five FBT-trigger data sources have a direct MCP tool. FixedAssets_Search adds register-level depth for vehicle detection. Pattern-matching of P&L account names happens in the agent.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 23,
+    "command": "withholding-review",
+    "useAgentInReview": 0,
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "Organisation context (country/industry)", "tool": "Data_OrganisationSettings", "result": "available", "note": "Drives AU/NZ/GB rule branching"},
+      {"section": "Payroll withholding reconciliation", "tool": "Data_PayrollSettings", "result": "available", "note": "Returns settings + pay calendars + leave"},
+      {"section": "Pay run details with withholding amounts", "tool": "Data_PayRuns_Summary", "result": "available", "note": "view=taxTotals returns withholding totals"},
+      {"section": "BAS withholding labels W1-W5 (AU)", "tool": "MISSING", "result": "gap", "note": "No dedicated BAS labels endpoint; must reconstruct from PayRuns_Summary + Bills_Summary"},
+      {"section": "P&L (contractor / subcontractor expenses)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified 11668"},
+      {"section": "Balance sheet (PAYG/PAYE liability accounts)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified 11668 - CIS Liability visible"},
+      {"section": "Trial balance (detailed withholding accounts)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified 11668"}
+    ],
+    "topTool": "Data_PayRuns_Summary",
+    "rationale": "Core payroll + GL withholding data is covered, but BAS labels W1-W5 have no first-class tool. Agent can synthesise from PayRuns_Summary tax totals + BankTransactions_Summary salesTaxBasis, but this is reconstruction work the prompt does not name. Otherwise sound.",
+    "recommendation": "keep-with-note"
+  },
+  {
+    "id": 24,
+    "command": "trust-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (Trust entity type, country)", "tool": "Data_OrganisationSettings", "result": "available", "note": "Required to confirm trust entity"},
+      {"section": "P&L (distributable income calculation)", "tool": "Data_FinancialStatements", "result": "available", "note": "statement=profitAndLoss"},
+      {"section": "Balance sheet (beneficiary loans / UPEs / retained earnings)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified 11668 - retained earnings + equity accounts visible"},
+      {"section": "Trial balance (detail movements)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified 11668"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Trust distribution analysis runs entirely off BS/TB/PL plus jurisdiction context. All four sections are covered. Beneficiary account scanning is pattern-matched in-agent from balance sheet rows.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 25,
+    "command": "consolidation-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (country/group structure)", "tool": "Data_OrganisationSettings", "result": "available", "note": "Drives AU/NZ/GB group rule selection"},
+      {"section": "Balance sheet (intercompany account balances)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified 11668"},
+      {"section": "Trial balance (detail movements for matching)", "tool": "Data_FinancialStatements", "result": "works", "note": "Verified 11668"},
+      {"section": "P&L (intercompany revenue/expense / elimination)", "tool": "Data_FinancialStatements", "result": "available", "note": "statement=profitAndLoss"},
+      {"section": "Multi-entity client connection enumeration", "tool": "Data_GetClientConnections", "result": "available", "note": "Returns every accessible child client - enables cross-entity matching"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Intercompany balance matching is performed by the agent on BS/TB extracts; no dedicated intercompany tool needed. Data_GetClientConnections lets the agent loop across sibling entities. All required data sections are covered.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 42,
+    "command": "workflow-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "Workflow templates", "tool": "Features_ListTemplates", "result": "works", "note": "Verified 11374 - 34 templates returned across 4 pages"},
+      {"section": "Schedules for templates", "tool": "Features_ListSchedulesForTemplate", "result": "available", "note": "Per-template schedule enumeration with active/end-type/clientTenantIds"},
+      {"section": "Work items / tasks (count + filters)", "tool": "Features_CountNotifications", "result": "available", "note": "Used to derive instantiation counts per template"},
+      {"section": "Users and assignments", "tool": "Features_UserActualTimeReview", "result": "available", "note": "Tenant-wide actual time per user"},
+      {"section": "Budget accuracy (estimated vs actual)", "tool": "Features_GetActualTimeList + Features_UpdateNotificationEstimatedTime", "result": "available", "note": "Actual time list + estimated time field on notifications gives variance"},
+      {"section": "Capacity / load context", "tool": "Features_GetBatchCapacityAllocation", "result": "available", "note": "Day-by-day estimated-time per user"}
+    ],
+    "topTool": "Features_ListTemplates",
+    "rationale": "Every one of the six deterministic analyses in the prompt has a matching read-only Features tool. Snapshot, usage reality, consolidation candidates, budget accuracy, health flags and prioritised recommendations are all directly supported. Strong fit.",
+    "recommendation": "keep-as-is"
+  }
+]

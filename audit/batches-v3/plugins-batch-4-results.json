@@ -1,0 +1,96 @@
+[
+  {
+    "slug": "xbert-payment-run",
+    "command": "payment-run",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "aged payables by supplier/bucket", "tool": "Data_AgedSummary", "result": "works", "note": "direction=payables, supports asOfDate"},
+      {"section": "outstanding bills awaiting payment", "tool": "Data_Bills_Search + Data_Bills_Summary", "result": "works", "note": "Bills_Summary invoked on 11668 returned bucketed payables aggregate; status filter (AUTHORISED) supported"},
+      {"section": "supplier contact records", "tool": "Data_Contacts_Search + Data_Contacts_Get", "result": "works", "note": "lean rows with AR/AP amounts"},
+      {"section": "nominated payment bank account detail", "tool": "(missing)", "result": "gap", "note": "No bank-account-detail tool found; only BankTransactions_* and ReconciliationStatus exist. Plugin needs the bank account record (balance, BSB/account)."}
+    ],
+    "topTool": "Data_Bills_Summary",
+    "rationale": "Core data (aged payables, bills, suppliers) is well-covered with clean Summary+Search+Get shapes. Only structural gap is a 'bank account detail / balance' tool for the v1 'vs available bank balance check'. Skill-side filtering (hold/dispute/approval) is workable from full Bills_Get records.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-payroll-close",
+    "command": "payroll-close",
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "pay-run summary + detail + prior pays for variance", "tool": "Data_PayrollSettings", "result": "works", "note": "Returns payCalendars + payRuns (Aaron's tenant 11377 shows 6 payroll accounts, 4 pay calendars); covers prior pay-run totals"},
+      {"section": "payslip detail", "tool": "Data_Payslips_Get", "result": "works", "note": "Full payslip records with detail items, leave accruals, super lines"},
+      {"section": "active employees + settings", "tool": "Data_Employees_Search + Data_Employees_Get + Data_Employees_Summary", "result": "works", "note": "filter by status=Active, full records expose tax info, bank accounts, super funds"},
+      {"section": "leave applications hitting period", "tool": "Data_LeaveApplications_Search + Data_LeaveApplications_Get + Data_LeaveApplications_Summary", "result": "works", "note": "filter by startDate/endDate range"},
+      {"section": "payroll config / super rates / STP setup", "tool": "Data_PayrollSettings", "result": "works", "note": "Single call covers config; STP-specific flags may need extension"},
+      {"section": "bank-out reconciliation of payroll clearing", "tool": "Data_ReconciliationStatus + Data_BankTransactions_Search", "result": "works", "note": "Per-account reconciled/unreconciled counts available"}
+    ],
+    "topTool": "Data_PayrollSettings",
+    "rationale": "Best-covered plugin in the batch. Every section has a direct tool match; PayrollSettings is a one-stop config+history call. Pre-run vs post-run methodology fits the existing Search+Get+Summary triplet pattern across employees and leave.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-practice-health-check",
+    "command": "practice-health-check",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "all accessible clients in Connect", "tool": "Data_GetAllAccessibleClients", "result": "works", "note": "Invoked on Connect 11374: 3 clients returned (11668, 11377, 11673)"},
+      {"section": "data quality score per client", "tool": "Data_DataQualityScore", "result": "works", "note": "Invoked on 11668: score=1.00 rating 'Needs Attention'. Per-client call — N round-trips for N clients."},
+      {"section": "outstanding notification summary per client", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Per-client call"},
+      {"section": "practice-level Connect account review", "tool": "(missing)", "result": "gap", "note": "No Connect-aggregated DQ/notification roll-up tool; plugin must loop per-client and aggregate client-side. Scales poorly past ~50 clients."},
+      {"section": "connection inventory per client", "tool": "Data_GetClientConnections", "result": "works", "note": "Connect-level call returns metadata for every child client in one shot — efficient"}
+    ],
+    "topTool": "Data_DataQualityScore",
+    "rationale": "All required data exists, but the plugin's worst-case (whole portfolio) is N×2 round trips because there's no Connect-level DQ/notification aggregator. Methodology is sound; performance gap is real but mitigated by GetClientConnections being single-call.",
+    "recommendation": "extend-tools (add Practice_DataQualityRollup or Connect-aggregated notification summary)"
+  },
+  {
+    "slug": "xbert-practice-metrics",
+    "command": "practice-metrics",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "accessible clients in Connect", "tool": "Data_GetAllAccessibleClients", "result": "works", "note": ""},
+      {"section": "XPM client list", "tool": "Data_XPMClients", "result": "works", "note": "Invoked on 11668: shape valid (returned no_results — no XPM connected on test tenant); requires startDate/endDate"},
+      {"section": "XPM timesheets summary current + prior month", "tool": "Data_XPMTimesheets_Summary + Data_XPMTimesheets_Search", "result": "works", "note": "Bucketed by billable/non-billable, by staff, by week"},
+      {"section": "practice-internal actual time list", "tool": "Features_ReviewActivity", "result": "partial", "note": "Closest analog — 'user activity and engagement metrics' at Connect level; not the same as XPM internal-time. May not satisfy the 'actual time list' need."},
+      {"section": "invoices for month + prior month", "tool": "Data_Invoices_Search + Data_Invoices_Summary", "result": "works", "note": "Standard Summary shape with by-status + top-N contacts"},
+      {"section": "aged receivables", "tool": "Data_AgedSummary (direction=receivables)", "result": "works", "note": ""}
+    ],
+    "topTool": "Data_XPMTimesheets_Summary",
+    "rationale": "Most metrics covered, but two structural issues: (1) no dedicated 'internal time' (non-XPM staff time) tool — plugin must approximate with ReviewActivity, weakening the service-line P&L; (2) per-client loop required for portfolio-wide invoices and AR (no Connect-level invoices summary). Will work but commentary depth depends on XPM being connected.",
+    "recommendation": "extend-tools (add Practice_InternalTime or surface non-XPM time path; consider Connect-level invoices roll-up)"
+  },
+  {
+    "slug": "xbert-pulse",
+    "command": "pulse",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "rolling 1-month transactional volume per client", "tool": "Data_BankTransactions_Summary", "result": "works", "note": "Invoked on 11668 for 2026-04-26..2026-05-26: zero-volume but shape valid (byMonth + totalTransactionCount). Per-client call."},
+      {"section": "trailing 2-3 month baseline per client", "tool": "Data_BankTransactions_Summary", "result": "works", "note": "Same tool, separate date range. N×2 round-trips for N clients."},
+      {"section": "portfolio-wide tempo aggregation", "tool": "(missing)", "result": "gap", "note": "No Connect-level monthly volume roll-up. Plugin must call BankTransactions_Summary per client × 2 windows; ~100 calls for a 50-client book."}
+    ],
+    "topTool": "Data_BankTransactions_Summary",
+    "rationale": "All the math works from BankTransactions_Summary.byMonth, but with no Connect-level aggregator the 'whole book' default in the command (step 1) is expensive. Threshold logic (±30%) is fully client-side from existing data. Suggested outreach drafting (step 7) has no MCP support and stays as LLM-only output — acceptable for v1.",
+    "recommendation": "extend-tools (Practice_TransactionalVolumeTempo Connect-level roll-up for the default 'whole book' path)"
+  },
+  {
+    "slug": "xbert-reconcile",
+    "command": "reconcile",
+    "tier": "WORK",
+    "quality": 2,
+    "sections": [
+      {"section": "unmatched bank lines for account + date range", "tool": "Data_BankTransactions_Search (reconciled=false) / Data_BankTransactions_Summary view=statementLines", "result": "partial", "note": "Search supports reconciled=false filter; view=statementLines on Summary exposes bank statement lines. But neither returns 'best ledger match candidates' or split proposals."},
+      {"section": "propose best ledger match per line", "tool": "(missing)", "result": "gap", "note": "Core matching/proposal engine has no MCP tool. Plugin step 3 ('propose the best ledger match, or contra entry, or split') has no data path beyond raw transactions; the LLM would have to reinvent matching."},
+      {"section": "batch high-confidence matches", "tool": "(missing)", "result": "gap", "note": "No confidence-scoring or apply-match tool exposed."},
+      {"section": "reconciliation status summary", "tool": "Data_ReconciliationStatus", "result": "works", "note": "Invoked on 11668 and 11377 — valid NO_DATA response on both (no synced bank accounts); shape good for overall completeness check."}
+    ],
+    "topTool": "Data_ReconciliationStatus",
+    "rationale": "The plugin asks for a matching engine that doesn't exist in MCP. Without a 'propose matches' tool, the LLM is reduced to surfacing unmatched lines and asking the user, which is a thin value-add over Xero itself. The actual matching needs ledger entries (contacts, GL accounts, prior reconciliations) cross-joined to bank lines — substantial backend work.",
+    "recommendation": "extend-tools (need Data_BankReconcile_ProposeMatches and Features_ApplyReconciliation; OR rescope plugin to 'unmatched-lines triage' only)"
+  }
+]

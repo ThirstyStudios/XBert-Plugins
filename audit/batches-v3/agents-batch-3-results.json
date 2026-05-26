@@ -1,0 +1,105 @@
+[
+  {
+    "id": 14,
+    "command": "practice-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "Practice portal setup metrics (users, clients, roles, templates, capacity, XPM)", "tool": "Practice_GetConnectAccountReview", "result": "works", "note": "Single tool returns ALL sections in one call - UsersCount, UsersActiveCount, UsersAdminCount, UsersWithNoViewsCount, ClientsCount, ClientsMissingPayrollCount, ClientsDisconnectedCount, ConnectRolesCount, ClientRolesSetCount, ClientsMissingDefaultUnassignedRole, TemplatesCount, TemplatesNoScheduleCount, WorkMissingDueDateCount, WorkMissingProcessTagCount, WorkNoClientCount, UsersWithNoCapacitySetupCount, ClientsNotMappedToXpmCount, ProcessTagsNotMappedToXpmCount. Verified live: 8 users (8 admin, 7 no views), 3 clients (2 missing payroll, 1 disconnected), 35 templates (29 no schedule), 129 work items missing due dates."},
+      {"section": "Client integration drill-down", "tool": "Data_GetClientConnections", "result": "works", "note": "Optional supplementary tool for per-client connection metadata (hasPayroll, hasPayrollAccess, xpmClientMapping, tenantToKeyPayConnection). Not strictly needed - main tool already returns the named lists."}
+    ],
+    "topTool": "Practice_GetConnectAccountReview",
+    "rationale": "Dedicated single-call tool returns every section in the agent's framework with detail lists for drill-down. Live invoke on connect 11374 confirmed all fields populated with realistic counts.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 15,
+    "command": "div7a-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (country, company type, FY end)", "tool": "Data_OrganisationSettings", "result": "works", "note": "Returns countryCode, organisation type, FYEnd day/month. Live on 11668 returned GB/COMPANY/31-March - agent would correctly skip Div7A (Australian only)."},
+      {"section": "Balance sheet for shareholder/related-party accounts", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Returns AccountClassification + AccountName + Amount. Verified live for client 11668: 17 accounts including Owner A Funds Introduced, Retained Earnings, Accounts Payable - the kind of names Div7A scan targets."},
+      {"section": "Trial balance for detailed balances", "tool": "Data_FinancialStatements (statement=trialBalance)", "result": "works", "note": "Returns debit/credit/ytdDebit/ytdCredit per account with balanced check. Verified live: 13 accounts, totals balanced."},
+      {"section": "Profit and loss for interest income/expense", "tool": "Data_FinancialStatements (statement=profitAndLoss)", "result": "works", "note": "Same consolidated tool serves all three primary statements."}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Every named data section maps cleanly to Data_FinancialStatements + Data_OrganisationSettings. Country-gating logic (AU only) is supported. Agent can scan for shareholder loan / director loan / drawings / UPE account names without a dedicated tool.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 17,
+    "command": "depreciation-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "Organisation context (country, turnover)", "tool": "Data_OrganisationSettings", "result": "works", "note": "Returns countryCode (AU/NZ/GB) so agent applies the right jurisdiction rules."},
+      {"section": "Fixed asset register (registered + draft + disposed)", "tool": "Data_FixedAssets_Search", "result": "works", "note": "status filter accepts Active/Disposed/Draft/Registered. Verified live for 11668: 2 DRAFT assets returned (Coffee table, Laptop) with assetNumber, status, purchaseDate, purchasePrice, bookValue."},
+      {"section": "Asset register summary (depreciation totals, by-status counts)", "tool": "Data_FixedAssets_Summary", "result": "works", "note": "Returns by-status counts, top-10 asset types by book value, depreciation totals, disposals activity."},
+      {"section": "Per-asset depreciation history", "tool": "Data_FixedAssets_Get", "result": "works", "note": "Returns full depreciation history and asset-type settings per asset id (up to 25 ids)."},
+      {"section": "Balance sheet fixed-asset accounts", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Verified live: Computer Equipment 1583.33, Office Equipment 1000.00. Agent can reconcile register totals to GL."},
+      {"section": "P&L for capital vs revenue scan", "tool": "Data_FinancialStatements (statement=profitAndLoss)", "result": "works", "note": "Agent scans for large one-off purchases miscategorised as repairs/maintenance."}
+    ],
+    "topTool": "Data_FixedAssets_Summary",
+    "rationale": "Complete tool coverage for every framework step. Draft asset detection, register-vs-GL reconciliation, depreciation history, jurisdiction-aware capital vs revenue scan all supported.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 18,
+    "command": "reconcile",
+    "useAgentInReview": 0,
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "Organisation context (country, financial method)", "tool": "Data_OrganisationSettings", "result": "works", "note": "Returns countryCode and salesTaxBasis (ACCRUAL/CASH)."},
+      {"section": "Reconciliation status per bank account (counts, balances, last-reconciled)", "tool": "Data_ReconciliationStatus", "result": "works-no-data-on-test-tenant", "note": "Tool responds correctly with NO_DATA + recommendation when no bank accounts connected. Live on 11668 returned 'No reconciliation data found for this client'. Schema includes reconciled vs unreconciled counts."},
+      {"section": "Unreconciled bank transactions (age buckets)", "tool": "Data_BankTransactions_Search (reconciled=false)", "result": "works", "note": "Supports reconciled=false filter + date-range. Agent must compute age buckets client-side. No native bucketing tool."},
+      {"section": "Bank transaction summary (by-status, by-month)", "tool": "Data_BankTransactions_Summary", "result": "works", "note": "view=transactions (default) or statementLines. Useful for staleness aggregation."},
+      {"section": "Duplicate scan (+/- 3 days, same counterparty)", "tool": "MISSING", "result": "missing", "note": "No dedicated duplicate-detection tool. Fabric_CheckForDuplicateBankTransaction is a write-side guard, not a discovery scan. Agent would need to load all unreconciled txns and dedupe client-side."},
+      {"section": "Proposed match suggestions (exact/date-shifted/split/contra)", "tool": "MISSING", "result": "missing", "note": "No ledger-side matching engine exposed. Agent would have to fetch bills/invoices/journals separately and pair them manually."},
+      {"section": "Data quality score cross-check", "tool": "Data_DataQualityScore", "result": "works", "note": "Returns score and component metrics."}
+    ],
+    "topTool": "Data_ReconciliationStatus",
+    "rationale": "Status + unreconciled-list + data-quality flows are all covered, but the two value-add sections (duplicate scan, proposed matches) have NO native tools - the agent must do heavy client-side reasoning over raw bank-transaction rows. Output remains useful but the 'match-batch for one-click approval' promise overreaches the available data.",
+    "recommendation": "trim-instructions-or-add-tools (drop the match-proposal section OR add Validation_BankReconciliation + a duplicate-scan tool)"
+  },
+  {
+    "id": 19,
+    "command": "payroll-reporting-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (country, FY end)", "tool": "Data_OrganisationSettings", "result": "works", "note": "Drives AU STP Phase 2 vs NZ Payday vs GB RTI branching."},
+      {"section": "Payroll pay runs", "tool": "Data_PayRuns_Search + Data_PayRuns_Summary", "result": "works", "note": "Search returns periodStart/End, paymentDate, totalWages, totalTax, totalSuper, totalNetPay, employeeCount. Summary aggregates byPeriod/byEmployee/superTotals/taxTotals."},
+      {"section": "Employee payment details", "tool": "Data_Payslips_Search + Data_Payslips_Get", "result": "works", "note": "grossWages, totalTax, totalSuper, netPay per payslip; Get returns detail items + super lines."},
+      {"section": "Payroll vs GL reconciliation (wages payable, PAYG, super)", "tool": "PARTIAL", "result": "partial", "note": "No dedicated Validation_PayrollReconciliation tool registered (canonical-241 lists it but local MCP returns TOOL_NOT_FOUND). Agent must manually compare Data_PayRuns_Summary totals to Data_FinancialStatements balance-sheet liability accounts."},
+      {"section": "Payroll configuration settings", "tool": "Data_PayrollSettings", "result": "works", "note": "Returns settings, pay calendars, pay runs, leave balances. Verified live for 11668: NO_DATA (no payroll)."},
+      {"section": "Super/pension reconciliation (AU)", "tool": "PARTIAL", "result": "partial", "note": "Validation_SuperReconciliation in canonical list but not registered. Workaround: Data_PayRuns_Summary view=superTotals + balance sheet super liability account."},
+      {"section": "Control account balances on balance sheet", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Agent can read Wages Payable, PAYG/PAYE Liability, Super Liability balances."}
+    ],
+    "topTool": "Data_PayrollSettings",
+    "rationale": "Core data tools all work. The two Validation_* reconciliation helpers the agent would prefer are not registered, but the agent can complete every section by combining pay-run summaries with balance-sheet reads. STP/RTI/Payday-filing rule logic is prompt-driven, not tool-driven.",
+    "recommendation": "keep-as-is (consider registering Validation_PayrollReconciliation + Validation_SuperReconciliation to remove manual reconciliation effort)"
+  },
+  {
+    "id": 20,
+    "command": "loan-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (country, FY end)", "tool": "Data_OrganisationSettings", "result": "works", "note": "Drives jurisdiction rules (IFRS 16 vs AASB 16 vs NZ IFRS 16)."},
+      {"section": "Balance sheet (loan accounts current and non-current)", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Returns accountClassification + accountType + accountName + amount. Agent scans for TERMLIAB classification and account-name keywords (Loan, Mortgage, HP, Hire Purchase, Chattel Mortgage, Lease Liability, Line of Credit, Overdraft)."},
+      {"section": "Trial balance for movements", "tool": "Data_FinancialStatements (statement=trialBalance)", "result": "works", "note": "Returns debit/credit/ytdDebit/ytdCredit per account. Agent calculates opening vs closing balance + repayment progression."},
+      {"section": "Profit and loss for interest expense", "tool": "Data_FinancialStatements (statement=profitAndLoss)", "result": "works", "note": "Agent reads Interest Expense line to test reasonableness against average loan balance."},
+      {"section": "Fixed asset register match for HP assets", "tool": "Data_FixedAssets_Search", "result": "works", "note": "Optional cross-check: HP agreement must have corresponding fixed asset."}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Every section maps to balance-sheet / trial-balance / P&L reads from one consolidated tool. Loan account discovery is via account-name and account-classification scanning, not a dedicated 'loan list' tool. HP asset matching cross-references the fixed-asset register. No tool gap.",
+    "recommendation": "keep-as-is"
+  }
+]

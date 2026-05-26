@@ -1,0 +1,105 @@
+[
+  {
+    "id": 1,
+    "command": "financial-review",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "Organisation context (country, company type, accrual/cash)", "tool": "Data_OrganisationSettings", "result": "works", "note": "surface=organisation returns countryCode, salesTaxBasis, baseCurrency, organisationType — verified for client 11668 (GB / ACCRUAL / COMPANY)"},
+      {"section": "Balance sheet (assets, liabilities, equity)", "tool": "Data_FinancialStatements", "result": "works", "note": "statement=balanceSheet returned 17 rows of real account balances for client 11668"},
+      {"section": "Profit & Loss (month-by-month variance)", "tool": "Data_FinancialStatements", "result": "works", "note": "statement=profitAndLoss with start/end dates + isAccrual flag covers cash/accrual basis"},
+      {"section": "Bank transactions (patterns, categorisation)", "tool": "Data_BankTransactions_Summary", "result": "works", "note": "Summary view aggregates by status/bank/month/contact; Search + Get available for detail drilldown"},
+      {"section": "Advisory items from XBert notifications", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Returns byRiskLevel / byAnalyticsGroup / topHighRiskItems — adequate to filter for 'Advisory' process category"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Every framework section (Balance Sheet, P&L, Bank Tx, Advisory summary) maps to a working MCP tool with confirmed real data for client 11668. Account classification codes (0=Asset..4=Liability) are encoded in the balance sheet result. Agent can produce a complete, country-localised review.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 2,
+    "command": "health-check",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "Practice Health (users/clients/roles/templates/capacity/XPM)", "tool": "Practice_GetConnectAccountReview", "result": "works", "note": "Single call returns ALL framework buckets — UsersActive/Inactive/Admin/NoViews, ClientsMissingPayroll, ConnectRoles, TemplatesNoSchedule, WorkMissingDueDate/ProcessTag/NoClient, UsersWithNoCapacity, ClientsNotMappedToXpm, ProcessTagsNotMappedToXpm. Verified live against connect 11374 (8 users, 35 templates, 129 work missing due date)"},
+      {"section": "Client Health Check (outstanding XBerts, risk levels)", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Returns byRiskLevel + byAnalyticsGroup buckets needed for engagement-letter-style process breakdown"},
+      {"section": "Data Quality items by process", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "byAnalyticsGroup aggregation supports per-process paragraph format; empty-state easily detected from totalOutstanding=0"},
+      {"section": "Scheduled Work Issues (missing estimates, duplicates)", "tool": "Practice_GetConnectAccountReview", "result": "partial", "note": "Returns WorkMissingDueDateCount + TemplatesNoScheduleCount aggregates with template/work names BUT no duplicate-title detection or missing-estimate count surfaced — agent can list missing-info classes but cannot fully detect duplicates"},
+      {"section": "Client country/company context", "tool": "Data_OrganisationSettings", "result": "works", "note": "Provides countryCode, organisationType for engagement-letter framing"}
+    ],
+    "topTool": "Practice_GetConnectAccountReview",
+    "rationale": "Practice_GetConnectAccountReview is purpose-built for this agent's framework — single call covers six of the seven setup areas described in the prompt. Outstanding XBert + organisation context flows handled by separate tools. One small gap: duplicate-title detection in scheduled work would need post-processing of GetWork list (not surfaced as a dedicated tool).",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 4,
+    "command": "capacity",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "Individual user capacity (allocated vs available minutes)", "tool": "Features_GetUserCapacityAllocation", "result": "works", "note": "Returns day-by-day allocation for a single targetUserProfileId"},
+      {"section": "Team-wide capacity (all users)", "tool": "Features_GetBatchCapacityAllocation", "result": "works", "note": "Day-by-day allocations for every user the caller is authorised to read"},
+      {"section": "Capacity settings (targets, working hours)", "tool": "Features_GetCapacitySettings", "result": "works", "note": "Snapshot for week containing supplied date, with IANA timezone support"},
+      {"section": "Single-user OR team capacity review with overdue/due-today buckets", "tool": "Features_Review", "result": "works", "note": "Verified live for connectTenantId=11374 / userProfileId=1601 — returns total_outstanding_items, capacity_target range, outstandingWork[] with status/priority/IsPriority/DueDate"},
+      {"section": "Time Review (actual vs estimated)", "tool": "Features_UserActualTimeReview", "result": "works", "note": "Supports tenant-wide OR per-user filter via userProfileIds; billableStatus + workStatus + period filters"}
+    ],
+    "topTool": "Features_Review",
+    "rationale": "Features_Review is a near-perfect match for this agent — returns user/team capacity with overdue/due-today/in-progress reasons exactly as the TOON schema demands. Backed by GetCapacitySettings + UserActualTimeReview for the deeper time-vs-estimate analysis. All four agent modes are covered.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 5,
+    "command": "my-work",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Outstanding work assigned to user (overdue/due today/this week)", "tool": "Features_GetWork", "result": "works", "note": "Verified — returns NotificationId, Title, Status, DueDate, StartDate, CreatedDate, IsPriority. Defaults to assignedToMe=true so 'my' work flow is one call"},
+      {"section": "Completed work performance (actual vs estimate)", "tool": "Features_UserActualTimeReview", "result": "works", "note": "Returns actual time + estimated time per work item, supports workStatus=Completed filter"},
+      {"section": "Per-task actual-time entries (flat list)", "tool": "Features_GetActualTimeList", "result": "works", "note": "Paged flat list of individual actual-time entries — supports the per-contributor breakdown the prompt asks for"},
+      {"section": "Client activity context for user's clients", "tool": "Data_XBertNotificationSummary", "result": "partial", "note": "Per-client summary works but would need iteration across multiple clients to surface 'changes on the user's clients' — no single 'recent activity across my clients' tool"},
+      {"section": "Daily greeting / first name personalisation", "tool": "Auth_GetCurrentSession", "result": "partial", "note": "Session returns business name only; first name not exposed in session tool output, must be passed in by caller via firstName arg pattern used elsewhere"}
+    ],
+    "topTool": "Features_GetWork",
+    "rationale": "Core capabilities (daily summary, work review, completed work analysis, manager view of another user) all have direct tools. Variance calculations come straight from UserActualTimeReview. Minor caveats: cross-client 'activity' is per-client only, and first-name personalisation depends on caller passing the name. Agent will produce useful output but the 'client activity' paragraph will be light without iteration.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 6,
+    "command": "scheduled-work",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Client scheduled work (per-client list grouped by process)", "tool": "Features_GetWork", "result": "works", "note": "Supports clientTenantId filter to scope to one client; returns ProcessTag, EstimatedTime, DueDate per item"},
+      {"section": "Practice-wide scheduled work summary", "tool": "Features_GetWork", "result": "works", "note": "Omit clientTenantId for tenant-wide; pair with Features_CountNotifications for aggregated counts by status/date"},
+      {"section": "Aggregate count by status/date/priority", "tool": "Features_CountNotifications", "result": "works", "note": "Filters by startDate/endDate plus notificationStatusIds/priorityFilterType"},
+      {"section": "Setup issues — missing estimates / due dates / process tags / no client", "tool": "Practice_GetConnectAccountReview", "result": "works", "note": "Direct WorkMissingDueDateCount, WorkMissingProcessTagCount, WorkNoClientCount + TemplatesNoScheduleCount surfaced as portal-wide counters (verified — 129 work items missing due date in connect 11374)"},
+      {"section": "Duplicate task titles with same frequency", "tool": "none", "result": "missing", "note": "No dedicated tool — agent would need to fetch template list + post-process for duplicate detection. Not blocking but reduces completeness of 'Work Setup Issues' framework"},
+      {"section": "Activity review over time period", "tool": "Features_GetWork", "result": "partial", "note": "Can filter by datePeriodType=created/completed for activity slice but no dedicated activity-feed tool"}
+    ],
+    "topTool": "Features_GetWork",
+    "rationale": "Most framework sections (per-client, practice-wide, setup issues, count by process) covered by GetWork + CountNotifications + GetConnectAccountReview. Duplicate-detection has no dedicated tool which is the one explicit gap in the agent's prompt. Estimated-time aggregation per process is available because Features_GetWork returns EstimatedTime and ProcessTag in the row schema.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 7,
+    "command": "xbert-checks",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "Outstanding XBerts by risk level (High/Medium/Low/Info)", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Verified live for client 11668 — byRiskLevel buckets (Medium=4, Low=7) and topHighRiskItems list with riskLevel + riskType + analyticsGroup + amount + transactionDate"},
+      {"section": "Outstanding XBerts by process category", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "byAnalyticsGroup aggregation (e.g. Purchases=6, Sales=5) maps to 'process category' framework requirement"},
+      {"section": "Outstanding XBerts by client (across multiple clients)", "tool": "Data_GetAllAccessibleClients", "result": "partial", "note": "Returns the client list (3 verified) but XBertNotificationSummary is per-client — multi-client analysis needs iteration; no single 'all-clients XBert summary' tool"},
+      {"section": "Resolved / Not Resolved completed counts", "tool": "Data_XBertNotificationSummary", "result": "partial", "note": "Tool labelled 'Outstanding' summary — resolution status counts may not be in the same payload. Would need Features_CountNotifications with status filters or a separate completed-XBerts endpoint"},
+      {"section": "XBert check configurations (metadata about what's being checked)", "tool": "Data_XBertConfigurations", "result": "works", "note": "Returns XBert check configurations for a client tenant, enables 'recurring issue types' pattern analysis"}
+    ],
+    "topTool": "Data_XBertNotificationSummary",
+    "rationale": "Outstanding-XBerts analysis is a direct hit — risk-level + process-category buckets + top-priority items all present in one call. Configurations tool covers recurring-issue analysis. Two partial gaps: cross-client aggregation needs iteration, and explicit 'Resolved vs Not Resolved' completed metrics are not in the outstanding summary. Agent will produce strong per-client outstanding analysis but completed-XBerts table may need extra plumbing.",
+    "recommendation": "keep-as-is"
+  }
+]

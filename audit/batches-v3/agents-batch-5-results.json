@@ -1,0 +1,110 @@
+[
+  {
+    "id": 43,
+    "command": "practice-metrics",
+    "useAgentInReview": 0,
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "XPM timesheets", "tool": "Data_XPMTimesheets_Summary", "result": "gap", "note": "FEATURE_FLAG_DISABLED on local: gated behind XBERT_MCP_DATA_XPM_TIMESHEETS_USE_SUMMARY_ENDPOINT. Data_XPMClients with includeTimesheets=true is the fallback path."},
+      {"section": "Invoices/revenue", "tool": "Data_Invoices_Summary", "result": "works", "note": "Returns aged AR, by-status, top contacts. Verified on 11668 (empty for date range, but tool ok)."},
+      {"section": "Aged receivables (debtors)", "tool": "Data_AgedSummary direction=receivables", "result": "works", "note": "Verified: tenant 11668 returns $45,721.45 outstanding across 15 customers, all 90+ days."},
+      {"section": "Aged payables", "tool": "Data_AgedSummary direction=payables", "result": "works", "note": "Verified: tenant 11668 returns $17,815.88 outstanding."},
+      {"section": "Service-line P&L", "tool": "Data_FinancialStatements + Data_XPMClients", "result": "works", "note": "P&L tool exists; service-line split requires XPM job-tagging logic in agent."},
+      {"section": "Client cohort + tags", "tool": "Data_GetAllAccessibleClients + Features_GetAllTenantTags", "result": "works", "note": "Verified: 3 clients accessible, 3 tags (Gold/Silver/Bronze)."},
+      {"section": "Notification rollup for RAG", "tool": "Data_XBertNotificationSummary + Features_CountNotifications", "result": "works", "note": "Notification + data-quality signals available for RAG banding."}
+    ],
+    "topTool": "Data_AgedSummary",
+    "rationale": "Core financial sections (revenue, AR, AP, P&L, cohort, tags, notifications) all work. XPM timesheets summary is currently gated on the local stack, so billable utilisation is a graceful-degrade case the agent already promises to handle.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 44,
+    "command": "cross-sell-opportunities",
+    "useAgentInReview": 0,
+    "tier": "WORK",
+    "quality": 2,
+    "sections": [
+      {"section": "Client cohort", "tool": "Data_GetAllAccessibleClients", "result": "works", "note": "Returns 3 clients. Agent refuses politely below 20 clients, so refusal-path is the active branch on this test tenant."},
+      {"section": "Lookalike peers", "tool": "Data_FindSimilarClientTenants", "result": "partial", "note": "Tool exists but searches by name string only - NOT a similarity model on industry/size/transaction profile. Agent's lookalike requirement is not directly satisfied by any MCP tool."},
+      {"section": "XPM service mix", "tool": "Data_XPMClients", "result": "works", "note": "Returns XPM client data including services; verified call (no-results on 11668 within date range, but path works)."},
+      {"section": "Notification profile", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Outstanding notifications give a depth-of-engagement signal."},
+      {"section": "Industry tagging", "tool": "Features_GetAllTenantTags", "result": "partial", "note": "Tags exist (Gold/Silver/Bronze) but practice-level not industry-level. Industry segmentation depends on tag hygiene."}
+    ],
+    "topTool": "Data_FindSimilarClientTenants",
+    "rationale": "Core lookalike-peer requirement has no direct MCP tool - Data_FindSimilarClientTenants is name-only, not industry/size/transaction-profile similarity. Agent must construct its own peer model from XPMClients + tags + notification profile, which is fragile. Service-mix and notification data are available, but the matching primitive is missing.",
+    "recommendation": "needs-tool"
+  },
+  {
+    "id": 45,
+    "command": "pulse",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Bank transaction volume", "tool": "Data_BankTransactions_Summary", "result": "works", "note": "Verified on 11668: bucketed by month + status enables rolling-window comparison."},
+      {"section": "Invoices volume", "tool": "Data_Invoices_Summary", "result": "works", "note": "Counts + dollar buckets per date range."},
+      {"section": "Bills volume", "tool": "Data_Bills_Summary", "result": "works", "note": "Counts + dollar buckets per date range."},
+      {"section": "Payroll line counts", "tool": "Data_PayRuns_Summary", "result": "works", "note": "Pay-run aggregates by period/employee/super/tax."},
+      {"section": "Named drivers", "tool": "Data_BankTransactions_Search + Data_Contacts_Search", "result": "works", "note": "Per-contact and per-transaction detail available for top-mover surfacing."},
+      {"section": "History sufficiency check", "tool": "Data_*_Summary with date ranges", "result": "works", "note": "Agent computes 3-month baseline by issuing 3 dated calls; tools support it."}
+    ],
+    "topTool": "Data_BankTransactions_Summary",
+    "rationale": "Every section the Pulse agent needs (bank txn volume, invoices, bills, payroll, named drivers, baseline-history check) is covered by paged Summary tools that bucket by month and contact. Verified live invocation against 11668. Refusal-on-insufficient-history is straightforward.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 46,
+    "command": "config-audit",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Per-client rule enablement", "tool": "Data_XBertConfigurations", "result": "works", "note": "Verified on 11668: returns 224 active configs grouped by analytics group, risk level, risk type - directly usable for enablement fingerprint."},
+      {"section": "Connect-level config metadata", "tool": "Features_GetXBertConfiguration + Practice_GetConnectAccountReview", "result": "works", "note": "Per-config detail + portal review surface available."},
+      {"section": "Client connection list", "tool": "Data_GetClientConnections", "result": "works", "note": "Verified: returns 3 connections with hasPayroll, isConnectedToAccountingSoftware, tenantTagIds for segmentation."},
+      {"section": "Segmentation by tag", "tool": "Features_GetAllTenantTags + connection.tenantTagIds", "result": "works", "note": "3 tags exist; tenant->tag mapping is on the connection row."},
+      {"section": "Bulk normalisation move", "tool": "Features_BulkUpdateXBertConfigurations", "result": "works", "note": "Destructive tool exists for the proposed bulk action - agent correctly defers to user approval."},
+      {"section": "Drift / history", "tool": "none", "result": "gap", "note": "No tool exposes historical enablement audit log. Drift detection requires comparing current state to a prior snapshot; agent would have to make 'drift' inferential rather than evidence-based."}
+    ],
+    "topTool": "Data_XBertConfigurations",
+    "rationale": "Inconsistencies + gaps findings fully supported via XBertConfigurations + GetClientConnections + tenant tags. Bulk normalisation has a real ACTION tool. Only drift detection lacks a historical audit-log tool - but that is an acceptable Q4 trade-off given the agent explicitly defers any change to user approval.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 47,
+    "command": "aged-receivables",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 5,
+    "sections": [
+      {"section": "Aged receivables data", "tool": "Data_AgedSummary direction=receivables", "result": "works", "note": "Verified on 11668: $45,721.45 / 37 invoices / 15 customers with full ageing-bucket breakdown."},
+      {"section": "Aged summary roll-up", "tool": "Data_Invoices_Summary", "result": "works", "note": "Aged receivables aggregate + top contacts in a single call."},
+      {"section": "Contact records", "tool": "Data_Contacts_Search + Data_Contacts_Summary", "result": "works", "note": "AR amounts on contacts."},
+      {"section": "Outstanding invoices detail", "tool": "Data_Invoices_Search + Data_Invoices_Get", "result": "works", "note": "Lean rows + full invoice (line items) retrieval."},
+      {"section": "Prior promise notes (client memory)", "tool": "Features_ListClientNotes", "result": "works", "note": "Verified: returns 7 client notes for 11668 with topic/tag filters and date ranges - usable as the promise-history source."},
+      {"section": "Per-debtor reminder action", "tool": "none (draft only)", "result": "works", "note": "Agent only drafts copy; no send tool required per its 'never auto-send' rule. Conversation tools exist for posting drafts if needed."}
+    ],
+    "topTool": "Data_AgedSummary",
+    "rationale": "Every section needed by the agent works end-to-end on a real tenant. Aged data, contacts, invoice detail, prior-promise notes all live and accessible. Agent's 'approval per debtor' constraint maps cleanly to drafted output - no destructive tool needed.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "id": 48,
+    "command": "payment-run",
+    "useAgentInReview": 0,
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Aged payables", "tool": "Data_AgedSummary direction=payables", "result": "works", "note": "Verified on 11668: $17,815.88 across 9 bills / 8 suppliers."},
+      {"section": "Outstanding bills detail", "tool": "Data_Bills_Search + Data_Bills_Get", "result": "works", "note": "Lean rows (id, supplier, dueDate, amount) + full bill (line items) retrieval."},
+      {"section": "Bills summary by supplier", "tool": "Data_Bills_Summary", "result": "works", "note": "Aged payables + top-N suppliers grouping native to the tool."},
+      {"section": "Hold/dispute/approval status", "tool": "Bill.status field via Data_Bills_*", "result": "partial", "note": "Status enum captures AUTHORISED/PAID/DRAFT - 'held' or 'disputed' are practice-managed flags, not native ledger states. Agent must rely on bill.status + practice convention (e.g. notes/tags) to surface holds."},
+      {"section": "Remittance advice drafting", "tool": "none (LLM-only)", "result": "works", "note": "Agent's v1 scope explicitly excludes send/post - just drafts copy. No send tool needed."},
+      {"section": "ABA file generation", "tool": "none (out of scope)", "result": "works", "note": "Agent explicitly defers to the ledger - correctly avoids needing an ABA tool."}
+    ],
+    "topTool": "Data_AgedSummary",
+    "rationale": "Inclusion logic (due in 7 days + overdue) and per-supplier grouping work on real data. The only soft spot is hold/dispute detection - the agent must lean on bill.status + practice convention rather than a dedicated 'on hold' field. Approval-per-supplier flow is draft-only, no destructive tool needed.",
+    "recommendation": "keep-as-is"
+  }
+]

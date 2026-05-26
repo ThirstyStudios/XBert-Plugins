@@ -1,0 +1,102 @@
+[
+  {
+    "slug": "xbert-client-onboard",
+    "command": "client-onboard",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "List existing clients in Connect", "tool": "Data_GetAllAccessibleClients", "result": "works", "note": "Returned 3 clients on 11374"},
+      {"section": "Client connection state", "tool": "Data_GetClientConnections", "result": "present", "note": "Connect-portal connection metadata per child"},
+      {"section": "Organisation settings", "tool": "Data_OrganisationSettings", "result": "works", "note": "Invoked surface=organisation against 11668; returns platform, country, FYE, lock dates"},
+      {"section": "Existing flows / templates for client", "tool": "Features_GetClientTemplate", "result": "present", "note": "Template retrieval available; no per-client 'flows list' tool"},
+      {"section": "Create workflow task from template", "tool": "Features_CreateClientTask + Features_CreateClientTemplate", "result": "present", "note": "Both create tools exist"},
+      {"section": "Create onboarding flow / template schedule", "tool": "Features_CreateClientTemplateSchedule", "result": "present", "note": "Recurring schedule creation"},
+      {"section": "Document engagement scope as client note", "tool": "Features_CreateClientNote (not surfaced)", "result": "gap", "note": "Found CreateClientNoteTopic / CreateClientNoteLinkingTag and UpdateClientNote but no obvious create-note tool in top searches"},
+      {"section": "Assign rules baseline rule pack", "tool": "Features_BulkUpdateXBertConfigurations", "result": "partial", "note": "Bulk patch exists but no first-class 'apply rule pack to client' tool"}
+    ],
+    "topTool": "Features_CreateClientTemplate",
+    "rationale": "Orchestration tools (tasks, templates, schedules, client list, connection state, org settings) all present and working. Gaps: no 'create client note' surfaced cleanly in search, and 'apply rule baseline pack to client' must be assembled from BulkUpdateXBertConfigurations rather than a single 'assign rule pack' call. Both gaps are workable.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-config-audit",
+    "command": "config-audit",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "All accessible clients in Connect", "tool": "Data_GetAllAccessibleClients", "result": "works", "note": "3 clients returned on 11374"},
+      {"section": "Practice Connect-level review", "tool": "Data_GetClientConnections", "result": "present", "note": "Per-child connection metadata across the Connect"},
+      {"section": "XBert rule / flow list", "tool": "Data_XBertConfigurations", "result": "works", "note": "Returned 224 configs on 11668 with byAnalyticsGroup, byRiskLevel, byRiskType buckets and 94 custom XBerts"},
+      {"section": "Per-client configuration assignments", "tool": "Data_XBertConfigurations", "result": "works", "note": "Same tool covers per-client enablement fingerprint"},
+      {"section": "Bulk-update capability metadata", "tool": "Features_BulkUpdateXBertConfigurations", "result": "present", "note": "Single-field patch across 1..500 config ids; covers normalisation hand-off"},
+      {"section": "Client connection list for ledger-type segmentation", "tool": "Data_GetClientConnections", "result": "present", "note": "Ledger platform per client available"}
+    ],
+    "topTool": "Data_XBertConfigurations",
+    "rationale": "Every section has a working tool. XBertConfigurations is rich (224 configs with full breakdown). Bulk-update exists for the normalisation backlog. Connection list provides ledger-type segmentation. No critical gap — this is a clean fit.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-cross-sell-opportunities",
+    "command": "cross-sell-opportunities",
+    "tier": "WORK",
+    "quality": 2,
+    "sections": [
+      {"section": "All accessible clients in Connect", "tool": "Data_GetAllAccessibleClients", "result": "works"},
+      {"section": "XPM client list with service uptake", "tool": "Data_XPMClients", "result": "present", "note": "XPM client data tool exists"},
+      {"section": "Outstanding notification context for advisory triggers", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "Per-client outstanding notification summary"},
+      {"section": "Lookalike pairs — for each client, fetch its similar clients", "tool": "Data_FindSimilarClientTenants", "result": "wrong-tool", "note": "CRITICAL GAP: Data_FindSimilarClientTenants only matches by name (searchTerm), it is a name-resolver returning similarity scores on the name — NOT a profile/industry/size-based lookalike engine. Plugin's core scoring loop (top-N lookalikes by profile, compare service uptake) has no backing tool."}
+    ],
+    "topTool": "Data_XBertNotificationSummary",
+    "rationale": "Core methodology requires a per-client lookalike-by-profile engine. The only 'similar' tool on the gateway resolves names — not industry/size/service-pattern peers. Cannot produce ranked lookalike-driven opportunities without that. XPM service uptake is partly available. Advisory triggers + client list both fine.",
+    "recommendation": "needs-new-tool: add Data_FindLookalikeClientsByProfile (or equivalent) before this plugin can deliver its stated output"
+  },
+  {
+    "slug": "xbert-div7a-schedule",
+    "command": "div7a-schedule",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Closing balance sheet for the income year", "tool": "Data_FinancialStatements", "result": "works", "note": "Invoked statement=balanceSheet on 11668 FY24/25; 17 BS rows including shareholder-relevant equity accounts"},
+      {"section": "Journal master detail for shareholder loan movements", "tool": "Data_JournalMaster + Data_JournalMaster_Search + Data_JournalMaster_Get", "result": "present", "note": "Full coverage: summary, paged search, full record retrieval"},
+      {"section": "Contacts list (shareholders, related parties)", "tool": "Data_Contacts_Search + Data_Contacts_Summary + Data_Contacts_Get", "result": "present", "note": "Search by name / type / status; bucketed summary; full record"}
+    ],
+    "topTool": "Data_JournalMaster_Search",
+    "rationale": "All 3 data sections are covered with rich first-class tools. Balance sheet invoked successfully. Journal master has search + summary + get triad for loan-movement tracing. Contacts has equivalent coverage. v1 benchmark-rate is documented as user-input (no tool required). No gap.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-end-of-period-dashboard",
+    "command": "end-of-period-dashboard",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      {"section": "All accessible clients in Connect", "tool": "Data_GetAllAccessibleClients", "result": "works"},
+      {"section": "Per-client data-quality score", "tool": "Data_DataQualityScore", "result": "works", "note": "Returned score 1.00 / rating 'Needs Attention' on 11668"},
+      {"section": "Reconciliation status", "tool": "Data_ReconciliationStatus", "result": "present", "note": "Per-bank reconciled vs unreconciled counts"},
+      {"section": "Lock dates per client", "tool": "Data_OrganisationSettings (surface=lockDates)", "result": "works", "note": "Surface parameter explicitly supports lockDates"},
+      {"section": "Outstanding work board", "tool": "Features_GetWork + Features_CountNotifications", "result": "present"},
+      {"section": "Outstanding notification summary", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "11 outstanding on 11668 with byAnalyticsGroup/byRiskLevel/byRiskType buckets"},
+      {"section": "BAS / payroll reconciliation validation", "tool": "Data_ReconciliationStatus + Data_PayRuns_Summary + Data_PayrollSettings", "result": "partial", "note": "Bank-reconciliation status exists, payroll aggregates exist; no first-class 'BAS reconciliation' or 'VAT reconciliation' validator — must be assembled from components"},
+      {"section": "VAT reconciliation (international fallback)", "tool": "(no dedicated tool)", "result": "gap", "note": "Only Data_ReconciliationStatus surfaces, which is bank-reconciliation. No GST/VAT-specific validator."}
+    ],
+    "topTool": "Data_XBertNotificationSummary",
+    "rationale": "Most coordination data is present (clients, DQ score, lock dates, work board, notifications, bank recon). BAS/VAT reconciliation 'validation' is a methodology-level assembly — the dashboard must compute it from BankTransactions_Summary (salesTaxBasis field) + PayRuns_Summary + ReconciliationStatus rather than calling one validator. Workable but pluginis carrying the reasoning load.",
+    "recommendation": "keep-as-is; consider follow-up to add a first-class BAS/VAT reconciliation tool"
+  },
+  {
+    "slug": "xbert-fbt-prep",
+    "command": "fbt-prep",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      {"section": "Organisation context (country, type, employer obligations)", "tool": "Data_OrganisationSettings (surface=organisation)", "result": "works", "note": "Returned country, FYE, platform, base currency on 11668 (GB tenant — FBT is AU but tool generic)"},
+      {"section": "Full P&L for the FBT year", "tool": "Data_FinancialStatements (statement=profitAndLoss)", "result": "present", "note": "Cash/accrual flag, date range, multi-tenant rollup supported"},
+      {"section": "Balance sheet (motor vehicles, employee loans, related assets)", "tool": "Data_FinancialStatements (statement=balanceSheet)", "result": "works", "note": "Invoked successfully; returns full BS"},
+      {"section": "Trial balance for detailed account balances", "tool": "Data_FinancialStatements (statement=trialBalance)", "result": "present", "note": "asOfDate-driven TB on the same tool"},
+      {"section": "Fixed asset register for company-owned vehicles", "tool": "Data_FixedAssets_Summary + Data_FixedAssets_Search + Data_FixedAssets_Get", "result": "present", "note": "Full triad: bucketed summary, paged search, full record incl depreciation history"}
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "All 5 data sections have first-class tools. FinancialStatements covers BS/PL/TB on one surface. FixedAssets has summary+search+get for vehicle/asset reconstruction. OrganisationSettings confirms country for AU eligibility. No gaps.",
+    "recommendation": "keep-as-is"
+  }
+]

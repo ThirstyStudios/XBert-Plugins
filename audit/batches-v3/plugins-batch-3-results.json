@@ -1,0 +1,108 @@
+[
+  {
+    "slug": "xbert-fs-pack",
+    "command": "fs-pack",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      { "section": "Organisation settings", "tool": "Data_OrganisationSettings", "result": "works", "note": "surface=organisation returns entity name/registered details; no ABN/director-signing field — must be elicited from user" },
+      { "section": "Balance sheet + comparative", "tool": "Data_FinancialStatements", "result": "works", "note": "statement=balanceSheet returned 17 lines for 11668 incl. classifications; comparative period requires a second call with prior asOfDate" },
+      { "section": "P&L for the year + comparative", "tool": "Data_FinancialStatements", "result": "works", "note": "statement=profitAndLoss with startDate/endDate; prior-year comparative is a second invocation" },
+      { "section": "Cashflow statement", "tool": "Data_Cashflow", "result": "partial", "note": "bank-derived only — no indirect-method derivation from B/S movements; skill must derive that locally for SPFS/GPFS" },
+      { "section": "Closing trial balance", "tool": "Data_FinancialStatements", "result": "works", "note": "statement=trialBalance with asOfDate" },
+      { "section": "Pre-drafted financial statements", "tool": "(none)", "result": "missing", "note": "no MCP tool surfaces previously-drafted FS — skill drafts from scratch each run" },
+      { "section": "Notes-to-accounts data (provisions/accruals/related-party)", "tool": "(none)", "result": "missing", "note": "no provisions/accruals schedule tool; skill scaffolds shell only — partner completes notes by hand" }
+    ],
+    "topTool": "Data_FinancialStatements",
+    "rationale": "Core year-end pack data (BS/P&L/TB) is fully covered by Data_FinancialStatements; cashflow is bank-feed-derived (acceptable for SPFS shell); pack is explicitly a 'shell' that requires partner input for notes. Read-only by design fits the 'no posting' guarantee.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-gst-prep-nz",
+    "command": "gst-prep-nz",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      { "section": "Organisation context (country, balance date, GST scheme)", "tool": "Data_OrganisationSettings", "result": "works", "note": "surface=organisation returns country code + scheme details" },
+      { "section": "Bank reconciliation status", "tool": "Data_ReconciliationStatus", "result": "works", "note": "returns reconciled vs unreconciled counts across bank accounts" },
+      { "section": "GST boxes 5-15 (sales + purchases)", "tool": "Data_BankTransactions_Summary", "result": "partial", "note": "salesTaxBasis field is the closest surface; no dedicated NZ GST101A box compute — skill must aggregate sales/purchases by tax rate locally" },
+      { "section": "P&L for revenue cross-check", "tool": "Data_FinancialStatements", "result": "works", "note": "statement=profitAndLoss covers the cross-check" },
+      { "section": "Balance sheet for GST / PAYE / KiwiSaver control balances", "tool": "Data_FinancialStatements", "result": "works", "note": "balanceSheet exposes control-account balances by accountName/code" },
+      { "section": "Outstanding XBerts blocking lodgement", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "11668 returned 11 outstanding with risk/group breakdown — blocker logic works" },
+      { "section": "Prior-period GST variance", "tool": "(none)", "result": "missing", "note": "no GST-return-history tool; skill needs to re-run the boxes for the prior period and compare locally" }
+    ],
+    "topTool": "Data_XBertNotificationSummary",
+    "rationale": "Block/release logic is well served (outstanding XBerts + bank rec + control accounts). The GST101A box compute relies on derivation from bank-transaction salesTaxBasis rather than a first-class NZ tool; acceptable but skill becomes more complex.",
+    "recommendation": "improve-pack-with-dedicated-gst-tool-later"
+  },
+  {
+    "slug": "xbert-ias-prep",
+    "command": "ias-prep",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      { "section": "Organisation context (AU + IAS obligation)", "tool": "Data_OrganisationSettings", "result": "works", "note": "surface=organisation exposes country code" },
+      { "section": "Bank reconciliation status", "tool": "Data_ReconciliationStatus", "result": "works", "note": "standard rec counts" },
+      { "section": "Payrun data + W1 gross wages + W2 tax withheld", "tool": "Data_PayRuns_Summary", "result": "partial", "note": "view=byPeriod returns totalWages/totalTax (W1/W2 inputs); no native W1-W5 label compute — skill maps locally" },
+      { "section": "Super posting status", "tool": "Data_PayRuns_Summary", "result": "partial", "note": "view=superTotals gives totals but no 'posted vs accrued' split; cross-reference with B/S super liability needed" },
+      { "section": "PAYG instalment T7/T11", "tool": "(none)", "result": "missing", "note": "no PAYG-I label tool; skill needs ATO notice details from user or BAS prior" },
+      { "section": "PAYGW liability balance", "tool": "Data_FinancialStatements", "result": "works", "note": "balanceSheet account 'PAYG Withholdings Payable' or equivalent" },
+      { "section": "Outstanding XBerts blocking lodgement", "tool": "Data_XBertNotificationSummary", "result": "works", "note": "blocker logic verified" }
+    ],
+    "topTool": "Data_PayRuns_Summary",
+    "rationale": "Payroll-driven IAS prep is mostly covered via pay-run summaries + balance sheet control accounts + outstanding XBerts. Label compute (W1-W5, T7/T11) is the skill's responsibility — no native ATO-label tool exists. Workable but more derivation than the equivalent BAS plugin.",
+    "recommendation": "keep-document-derivation-in-skill"
+  },
+  {
+    "slug": "xbert-instalment-variation",
+    "command": "instalment-variation",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      { "section": "YTD P&L vs prior year", "tool": "Data_FinancialStatements", "result": "works", "note": "statement=profitAndLoss with startDate=YTD-start; prior-year is a second call" },
+      { "section": "Closing balance sheet", "tool": "Data_FinancialStatements", "result": "works", "note": "statement=balanceSheet with asOfDate" },
+      { "section": "Cashflow position", "tool": "Data_Cashflow", "result": "works", "note": "returned a structured operating/investing/financing roll-up (0s for 11668 due to no reconciled tx in period — wiring is correct)" },
+      { "section": "Budget adherence YTD", "tool": "Data_BudgetAdherence", "result": "works", "note": "single dedicated tool — perfect fit" },
+      { "section": "Current tax rates", "tool": "Data_OrganisationSettings", "result": "works", "note": "surface=taxRates" },
+      { "section": "Variation analysis (trend rules, GIC exposure, confidence)", "tool": "(none)", "result": "missing", "note": "no MCP tool — entirely owned by the skill's variation rules (correct: this is judgement, not data)" }
+    ],
+    "topTool": "Data_BudgetAdherence",
+    "rationale": "Data inputs are well-covered (P&L/BS/cashflow/budget/tax rates). The recommendation engine (vary up/down/stay, GIC exposure, confidence label) is intentionally skill-owned — fits the 'never submit on behalf, partner sign-off if Needs review' guardrail.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-month-end-pack",
+    "command": "month-end-pack",
+    "tier": "KEEP",
+    "quality": 4,
+    "sections": [
+      { "section": "P&L vs budget", "tool": "Data_FinancialStatements + Data_BudgetAdherence", "result": "works", "note": "two-call pattern: P&L for period, then budget adherence YTD" },
+      { "section": "Balance sheet at period end", "tool": "Data_FinancialStatements", "result": "works", "note": "asOfDate=period end" },
+      { "section": "Cashflow vs forecast", "tool": "Data_Cashflow", "result": "partial", "note": "actual cashflow returned; 'forecast' must be sourced from budget cashflow or prior period — no forecast tool" },
+      { "section": "Budget adherence summary", "tool": "Data_BudgetAdherence", "result": "works", "note": "dedicated tool" },
+      { "section": "Balance sheet review (unexpected movements)", "tool": "(none)", "result": "missing", "note": "no movement-walk tool — skill must call BS twice (period start + end) and diff locally" },
+      { "section": "KPI roll-up (margins, ratios, debtor/creditor days)", "tool": "(derived)", "result": "missing", "note": "no KPI tool; derived from P&L + BS + AR/AP aged summaries — acceptable, KPI logic is skill-owned" }
+    ],
+    "topTool": "Data_BudgetAdherence",
+    "rationale": "Monthly pack composition is well-served by P&L/BS/Budget/Cashflow tools. BS movement walk + KPI calcs are skill-derived from the same tools — sensible since 'commentary scaffolded for the partner to complete' is in scope. Read-only and period-stamped output filename is good hygiene.",
+    "recommendation": "keep-as-is"
+  },
+  {
+    "slug": "xbert-mtd-prep",
+    "command": "mtd-prep",
+    "tier": "review",
+    "quality": 3,
+    "sections": [
+      { "section": "Organisation context (country=GB)", "tool": "Data_OrganisationSettings", "result": "works", "note": "surface=organisation returns country code" },
+      { "section": "MTD readiness data per agent guidance", "tool": "(none)", "result": "missing", "note": "no MTD-specific readiness tool; skill must derive 'unmapped accounts/split coding/missing categories' from the COA itself" },
+      { "section": "Chart of accounts", "tool": "Data_OrganisationSettings", "result": "works", "note": "surface=chartOfAccounts returned 91 GB-style accounts for 11668 incl. VAT/PAYE/NIC/CIS — the input the skill maps to SA103/SA105" },
+      { "section": "P&L for the year", "tool": "Data_FinancialStatements", "result": "works", "note": "statement=profitAndLoss" },
+      { "section": "Prior year income (threshold determination)", "tool": "Data_FinancialStatements", "result": "works", "note": "second P&L call with prior-year dates" },
+      { "section": "Chart-to-HMRC category mapping audit", "tool": "(none)", "result": "missing", "note": "no HMRC-mapping lookup tool; skill owns the SA103/SA105 mapping table and severity rules" },
+      { "section": "Property / residential vs commercial finance cost separation", "tool": "(derived)", "result": "missing", "note": "must be derived from COA + tracking categories; no native tool" }
+    ],
+    "topTool": "Data_OrganisationSettings",
+    "rationale": "GB-only: tested against 11668 (Peak Precision Accounting, GBP, VAT/PAYE/NIC/CIS — real GB ledger). Core data (COA + P&L) is available; HMRC-mapping logic is entirely skill-owned (correct — HMRC SA103/SA105 category lists belong in domain skill, not MCP). Workable but heavy on skill-side derivation.",
+    "recommendation": "keep-document-derivation-in-skill"
+  }
+]
