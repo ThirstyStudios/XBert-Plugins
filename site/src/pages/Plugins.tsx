@@ -20,19 +20,59 @@ ms.addAll(
   }))
 );
 
+const COUNTRY_LABELS: Record<string, string> = {
+  australian: "Australia",
+  "new-zealand": "New Zealand",
+  uk: "UK",
+};
+const COUNTRY_TAGS = Object.keys(COUNTRY_LABELS);
+
+type CountryFilter = "all" | "global" | string;
+
+function pluginIsInCountry(
+  p: (typeof plugins)[number],
+  country: CountryFilter
+): boolean {
+  if (country === "all") return true;
+  const cats = p["x-xbert"].categories;
+  const tagsOnPlugin = cats.filter((c) => COUNTRY_TAGS.includes(c));
+  if (country === "global") return tagsOnPlugin.length === 0;
+  return tagsOnPlugin.includes(country);
+}
+
 export default function PluginsPage() {
   const [text, setText] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
+  const [country, setCountry] = useState<CountryFilter>("all");
   const [open, setOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
-  const cats = useMemo(allCategories, []);
+  const cats = useMemo(
+    () => allCategories().filter((c) => !COUNTRY_TAGS.includes(c)),
+    []
+  );
 
   const available = useMemo(
     () => cats.filter((c) => !selected.includes(c)),
     [cats, selected]
   );
+
+  const countryCounts = useMemo(() => {
+    const counts: Record<CountryFilter, number> = {
+      all: plugins.length,
+      global: 0,
+    };
+    COUNTRY_TAGS.forEach((t) => (counts[t] = 0));
+    plugins.forEach((p) => {
+      const tagsOnPlugin = p["x-xbert"].categories.filter((c) =>
+        COUNTRY_TAGS.includes(c)
+      );
+      if (tagsOnPlugin.length === 0) counts.global += 1;
+      tagsOnPlugin.forEach((t) => (counts[t] += 1));
+    });
+    return counts;
+  }, []);
 
   const suggestions = useMemo(() => {
     const q = text.trim().toLowerCase();
@@ -69,8 +109,11 @@ export default function PluginsPage() {
         selected.every((c) => p["x-xbert"].categories.includes(c))
       );
     }
+    if (country !== "all") {
+      list = list.filter((p) => pluginIsInCountry(p, country));
+    }
     return list;
-  }, [text, selected]);
+  }, [text, selected, country]);
 
   function addCategory(cat: string) {
     if (!selected.includes(cat)) setSelected([...selected, cat]);
@@ -118,8 +161,46 @@ export default function PluginsPage() {
         </p>
       </motion.div>
 
+      {/* Country filter */}
+      <div className="mt-8 flex flex-wrap gap-2">
+        {(
+          [
+            { key: "all", label: "All countries" },
+            { key: "global", label: "Global" },
+            ...COUNTRY_TAGS.map((t) => ({ key: t, label: COUNTRY_LABELS[t] })),
+          ] as { key: CountryFilter; label: string }[]
+        ).map((opt) => {
+          const active = country === opt.key;
+          const count = countryCounts[opt.key] ?? 0;
+          return (
+            <button
+              key={opt.key}
+              type="button"
+              onClick={() => setCountry(opt.key)}
+              disabled={opt.key !== "all" && count === 0}
+              className={`text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border transition inline-flex items-center gap-1.5 ${
+                active
+                  ? "bg-neutral-900 text-white border-neutral-900 dark:bg-white dark:text-black dark:border-white"
+                  : "bg-black/[0.03] text-neutral-700 border-black/10 hover:bg-black/[0.06] dark:bg-white/[0.04] dark:text-neutral-300 dark:border-white/10 dark:hover:bg-white/[0.08]"
+              } disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-black/[0.03] dark:disabled:hover:bg-white/[0.04]`}
+            >
+              {opt.label}
+              <span
+                className={`text-[10px] font-mono ${
+                  active
+                    ? "opacity-80"
+                    : "text-neutral-500 dark:text-neutral-500"
+                }`}
+              >
+                {count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
       {/* Smart search */}
-      <div className="mt-10" ref={wrapRef}>
+      <div className="mt-6" ref={wrapRef}>
         <div className="relative w-full md:max-w-2xl">
           <div
             className="flex flex-wrap items-center gap-1.5 rounded-md bg-black/[0.03] border border-black/10 dark:bg-white/[0.04] dark:border-white/10 pl-3 pr-3 py-2 focus-within:border-black/25 focus-within:bg-black/[0.05] dark:focus-within:border-white/25 dark:focus-within:bg-white/[0.06] transition cursor-text"
