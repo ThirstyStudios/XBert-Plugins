@@ -22,11 +22,18 @@
       "plugins": ["xbert-bas-prep", "xbert-ias-prep", "xbert-fbt-prep", "xbert-super-check", "xbert-stp-finalisation", "xbert-tpar", "xbert-instalment-variation", "xbert-div7a-schedule", "xbert-payroll-close"]
     },
     {
-      "id": "country-compliance-pack",
-      "name": "Country Compliance Pack",
-      "tagline": "Country-specific compliance lodgement workflows — UK and NZ.",
+      "id": "uk-compliance-pack",
+      "name": "UK Compliance Pack",
+      "tagline": "UK lodgement workflows — VAT preparation and Making Tax Digital readiness for HMRC.",
       "audience": "accountants",
-      "plugins": ["xbert-vat-prep", "xbert-mtd-prep", "xbert-gst-prep-nz"]
+      "plugins": ["xbert-vat-prep", "xbert-mtd-prep"]
+    },
+    {
+      "id": "nz-compliance-pack",
+      "name": "NZ Compliance Pack",
+      "tagline": "New Zealand lodgement workflows — GST101A preparation for IRD.",
+      "audience": "accountants",
+      "plugins": ["xbert-gst-prep-nz"]
     },
     {
       "id": "principal-practice-pack",

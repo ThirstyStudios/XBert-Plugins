@@ -1,0 +1,26 @@
+name: Version + manifest sync
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check_versions:
+    runs-on: ubuntu-latest
+    name: Check plugin.json vs marketplace.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          lfs: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate version + description sync
+        run: node scripts/check-version-sync.mjs

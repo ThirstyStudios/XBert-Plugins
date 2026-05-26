@@ -40,7 +40,7 @@
     {
       "name": "xbert-client-onboard",
       "source": "./plugins/xbert-client-onboard",
-      "description": "Structured new-client onboarding with checklist, practice-owner gate, and rules baseline. v1 orchestrates the workflow; COA + opening-balance steps are checklist items the bookkeeper completes in the ledger.",
+      "description": "Structured new-client onboarding with checklist, practice-owner gate, and approval-gated rules baseline assignment with rollback. v1 orchestrates the workflow; COA + opening-balance steps are checklist items the bookkeeper completes in the ledger.",
       "version": "0.1.0"
     },
     {
@@ -52,7 +52,7 @@
     {
       "name": "xbert-div7a-schedule",
       "source": "./plugins/xbert-div7a-schedule",
-      "description": "Division 7A loan schedule with minimum repayment calc and benchmark-rate-ready output. v1 narrow: user supplies the ATO benchmark rate manually.",
+      "description": "Division 7A loan schedule with minimum repayment calc and benchmark-rate-ready output. v1 narrow: manual benchmark-rate entry until an ATO benchmark rate lookup ships.",
       "version": "0.1.0"
     },
     {

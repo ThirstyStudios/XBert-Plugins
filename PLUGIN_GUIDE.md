@@ -181,9 +181,9 @@ You are running the [workflow name] for a bookkeeping or accounting practice.
 Steps:
 1. Ask the user [opening question to scope the work].
 2. Pull from XBert via the connected MCP:
-   - [data 1] (try `xbert.namespace.tool_name` or `tools_search` if the name differs)
+   - [data 1 — describe what data is needed, not which tool to call]
    - [data 2]
-3. Compute / analyze [what you do with the data].
+3. Compute / analyse [what you do with the data].
 4. Present results in [format].
 5. Offer next actions; never auto-apply without explicit user approval.
 
@@ -192,7 +192,7 @@ Use the `[skill-name]` skill for the methodology. Never [the thing you must not 
 
 ### MCP tool naming convention
 
-We use placeholder names like `xbert.tasks.list_overdue` until the real MCP exposes a definitive list. Always include a fallback instruction (`try X or use tools_search if the name differs`) so the command degrades gracefully when the connected MCP has different tool names.
+**Describe the data, let the runtime resolve the tool.** Do NOT hard-code MCP tool names (`Data_X`, `Features_Y`, etc.) in commands or skills — the agent will discover the right tool from its description and the canonical tool catalogue at runtime. This matches the system-agent Instructions sweep (2026-05-25) that stripped tool names from the database surface for the same reason: tool names drift, and a name that's correct today can be wrong next sprint. Describe the data you need ("organisation context", "current trial balance", "outstanding XBerts for the period"), not the function that fetches it.
 
 ---
 
@@ -276,7 +276,7 @@ Located at `.claude-plugin/marketplace.json` (repo root). This is the file Claud
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "xbert",
   "description": "XBert plugins for accounting firms and bookkeepers.",
-  "owner": { "name": "XBert Intelligence Plugins", "email": "hello@xbert.io" },
+  "owner": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "plugins": [
     {
       "name": "xbert-foo",
@@ -345,6 +345,7 @@ node scripts/build-catalog.mjs
 | `/plugins/:slug` | `site/src/pages/PluginDetail.tsx` | One plugin | Header → longDescription → useCases grid → benefits cards → workflow timeline → prerequisites → compact install CTA → source links → related |
 | `/install` | `site/src/pages/Install.tsx` | All plugins | CLI-only multi-plugin bundle builder with URL sync (`?p=slug1,slug2`) |
 | `/connect` | `site/src/pages/Connect.tsx` | All plugins | Plugin install (primary) + MCP connector setup (collapsible secondary) |
+| `/inside-xbert` | `site/src/pages/InsideXBert.tsx` | Static content | Explainer page — how XBert / MCP / Claude work together, the agents-build-tools narrative |
 
 Component reuse:
 
@@ -357,22 +358,45 @@ Component reuse:
 
 ## 10. CSS / visual conventions
 
-The site uses **Tailwind v4** with light + dark mode via class-based theming (`dark:` prefix). All component styles inline as utility classes. No CSS modules, no styled-components.
+The site uses **Tailwind v4** with light + dark mode driven by a **`data-theme` attribute** on `<html>` (NOT a class). The provider at `site/src/lib/theme.tsx` sets `document.documentElement.dataset.theme = "light" | "dark"`. Tailwind's `dark:` prefix still works because the theme provider keeps the dataset value and the variant in sync; new code should keep using `dark:` prefixes inline.
 
-### Theme tokens
+### Theme tokens (post-XBert rebrand 2026-05)
 
 Defined in [`site/src/index.css`](site/src/index.css):
 
 ```css
 @theme {
-  --color-bg: #07090d;          /* Dark mode page background */
+  /* XBert brand palette */
+  --color-xbert-ink: #1C1B41;          /* Deep ink — primary headings */
+  --color-xbert-ink-medium: #2E2C53;
+  --color-xbert-indigo: #4E53BD;       /* Brand indigo — primary accent */
+  --color-xbert-cyan: #02FFFF;         /* Brand cyan — secondary accent */
+  --color-xbert-teal: #00FDBF;
+  --color-xbert-canvas: #FAF9FC;       /* Light-mode page background */
+  --color-xbert-grey-30: #EAECF5;
+  --color-xbert-grey-50: #9CA3BA;
+  --color-xbert-grey-70: #616E91;
+  --color-xbert-grey-80: #3e3f69;
+
+  /* Semantic surface tokens (light mode defaults) */
+  --color-bg: #ffffff;
+  --color-bg-soft: var(--color-xbert-canvas);
+  --color-fg: #0a0a0a;
+  --color-muted: var(--color-xbert-grey-70);
+  --color-accent: #4E53BD;             /* Brand indigo */
+  --color-accent-2: #02FFFF;           /* Brand cyan */
+}
+
+/* Dark-mode variant (engaged by [data-theme="dark"] on html) */
+[data-theme="dark"] {
+  --color-bg: #07090d;
   --color-bg-soft: #0b0d12;
   --color-fg: #f5f6f7;
   --color-muted: #9aa0a6;
-  --color-accent: #3b82f6;      /* Blue 500 */
-  --color-accent-2: #06b6d4;    /* Cyan 500 */
 }
 ```
+
+The brand gradient (used for the hero + select chrome) is `linear-gradient(135deg, #1C1B41 0%, #4E53BD 60%, #02FFFF 100%)`.
 
 ### Recurring class patterns
 
