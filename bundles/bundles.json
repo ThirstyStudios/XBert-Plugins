@@ -5,7 +5,7 @@
       "name": "Bookkeeper Daily Pack",
       "tagline": "Daily and weekly bookkeeping workflows — reconciliation, AR chasing, bank statement onboarding, client pulse.",
       "audience": "bookkeepers",
-      "plugins": ["xbert-reconcile", "xbert-pulse", "xbert-aged-receivables"]
+      "plugins": ["xbert-pulse", "xbert-aged-receivables"]
     },
     {
       "id": "period-end-pack",

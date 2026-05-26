@@ -26,12 +26,6 @@
       "version": "0.1.0"
     },
     {
-      "name": "xbert-bill-intake",
-      "source": "./plugins/xbert-bill-intake",
-      "description": "Inbox-to-ledger bill processing with duplicate guard, AI coding suggestions, and supplier dedup. v1 ships dedup + coding + approval task; approver routing is v2.",
-      "version": "0.1.0"
-    },
-    {
       "name": "xbert-capacity",
       "source": "./plugins/xbert-capacity",
       "description": "Billable utilisation and WIP variance reporting at practice and client level, using XBert data.",
@@ -143,12 +137,6 @@
       "name": "xbert-pulse",
       "source": "./plugins/xbert-pulse",
       "description": "Detect material changes in client transactional tempo and propose actions using XBert.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "xbert-reconcile",
-      "source": "./plugins/xbert-reconcile",
-      "description": "Reconcile bank lines against ledger entries using XBert matching.",
       "version": "0.1.0"
     },
     {
