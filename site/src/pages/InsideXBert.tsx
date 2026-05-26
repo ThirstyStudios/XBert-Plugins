@@ -42,7 +42,7 @@ export default function InsideXBertPage() {
         <MessageSquare size={12} className="text-blue-500 dark:text-blue-400" />
       ),
       title: "Install once. Slash-command everything.",
-      body: "Add the XBert MCP and the plugins. Slash commands like /reconcile, /bas-prep, /aged-receivables run the same workflow XBert runs internally, with audit-ready output dropping into your file system or back into the chat.",
+      body: "Add the XBert MCP and the plugins. Slash commands like /anomaly-review, /bas-prep, /aged-receivables run the same workflow XBert runs internally, with audit-ready output dropping into your file system or back into the chat.",
       bullets: [
         {
           label: "Best for",
@@ -93,9 +93,9 @@ export default function InsideXBertPage() {
 
   const mappingRows: MappingRow[] = [
     {
-      plugin: "/reconcile",
-      chat: "Bank reconciliation matching with reasoning",
-      product: "Review module → Bank Transaction items",
+      plugin: "/anomaly-review",
+      chat: "Cross-ledger anomaly review with reasoning",
+      product: "Review module → Exception items",
     },
     {
       plugin: "/aged-receivables",

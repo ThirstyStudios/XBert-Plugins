@@ -188,9 +188,9 @@ function DesktopPluginWalkthrough({ slugCount }: { slugCount: number }) {
       body: (
         <>
           Skills and slash commands auto-load. Type{" "}
-          <span className="font-mono text-neutral-900 dark:text-neutral-100">/review</span>,{" "}
-          <span className="font-mono text-neutral-900 dark:text-neutral-100">/reconcile</span>,{" "}
-          <span className="font-mono text-neutral-900 dark:text-neutral-100">/workload</span>,{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">/anomaly-review</span>,{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">/bas-prep</span>,{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">/aged-receivables</span>,{" "}
           <span className="font-mono text-neutral-900 dark:text-neutral-100">/pulse</span>, or{" "}
           <span className="font-mono text-neutral-900 dark:text-neutral-100">/capacity</span> in any
           Claude chat.
