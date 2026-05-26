@@ -50,12 +50,6 @@
       "version": "0.1.0"
     },
     {
-      "name": "xbert-cross-sell-opportunities",
-      "source": "./plugins/xbert-cross-sell-opportunities",
-      "description": "Find your highest-value cross-sell opportunities by matching client profile to service uptake patterns.",
-      "version": "0.1.0"
-    },
-    {
       "name": "xbert-div7a-schedule",
       "source": "./plugins/xbert-div7a-schedule",
       "description": "Division 7A loan schedule with minimum repayment calc and benchmark-rate-ready output. v1 narrow: manual benchmark-rate entry until a Tax_GetATOBenchmarkRate tool ships.",

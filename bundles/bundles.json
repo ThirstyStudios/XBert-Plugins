@@ -31,9 +31,9 @@
     {
       "id": "principal-practice-pack",
       "name": "Principal Practice Pack",
-      "tagline": "Practice oversight, growth, and advisory — workflow review, health check, capacity, fee review, KPI metrics, cross-sell.",
+      "tagline": "Practice oversight, growth, and advisory — workflow review, health check, capacity, fee review, KPI metrics.",
       "audience": "principals",
-      "plugins": ["xbert-workflow-review", "xbert-practice-health-check", "xbert-capacity", "xbert-client-fee-review", "xbert-practice-metrics", "xbert-cross-sell-opportunities", "xbert-config-audit"]
+      "plugins": ["xbert-workflow-review", "xbert-practice-health-check", "xbert-capacity", "xbert-client-fee-review", "xbert-practice-metrics", "xbert-config-audit"]
     }
   ]
 }
