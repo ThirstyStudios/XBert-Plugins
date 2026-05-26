@@ -3,16 +3,16 @@
     {
       "id": "bookkeeper-daily-pack",
       "name": "Bookkeeper Daily Pack",
-      "tagline": "Daily and weekly bookkeeping workflows — AR chasing and client pulse.",
+      "tagline": "Daily and weekly bookkeeping workflows — AR cadence, debtor chase, client pulse, and receipt review.",
       "audience": "bookkeepers",
-      "plugins": ["xbert-pulse", "xbert-aged-receivables"]
+      "plugins": ["xbert-pulse", "xbert-aged-receivables", "xbert-ar-cadence", "xbert-receipt-review"]
     },
     {
       "id": "period-end-pack",
       "name": "Period-End Pack",
-      "tagline": "Month-end, quarter-end and year-end close — readiness dashboard, trial balance alignment, balance sheet explain, payroll close, financial statements pack.",
+      "tagline": "Month-end, quarter-end and year-end close — readiness dashboard, trial balance alignment, balance sheet explain, payroll close, financial statements pack, close packet, and 13-week cashflow.",
       "audience": "accountants",
-      "plugins": ["xbert-end-of-period-dashboard", "xbert-trial-balance-alignment", "xbert-balance-sheet-explain", "xbert-payroll-close", "xbert-month-end-pack", "xbert-fs-pack"]
+      "plugins": ["xbert-end-of-period-dashboard", "xbert-trial-balance-alignment", "xbert-balance-sheet-explain", "xbert-payroll-close", "xbert-month-end-pack", "xbert-fs-pack", "xbert-close-packet", "xbert-cashflow-13week"]
     },
     {
       "id": "au-compliance-pack",
@@ -38,9 +38,16 @@
     {
       "id": "principal-practice-pack",
       "name": "Principal Practice Pack",
-      "tagline": "Practice oversight, growth, and advisory — workflow review, health check, capacity, fee review, KPI metrics.",
+      "tagline": "Practice oversight, growth, and advisory — workflow review, health check, capacity, fee review, KPI metrics, inbox triage, and close-period chase.",
       "audience": "principals",
-      "plugins": ["xbert-workflow-review", "xbert-practice-health-check", "xbert-capacity", "xbert-client-fee-review", "xbert-practice-metrics", "xbert-config-audit"]
+      "plugins": ["xbert-workflow-review", "xbert-practice-health-check", "xbert-capacity", "xbert-client-fee-review", "xbert-practice-metrics", "xbert-config-audit", "xbert-firm-inbox-triage", "xbert-close-chase"]
+    },
+    {
+      "id": "xbert-review-pack",
+      "name": "XBert Review Pack",
+      "tagline": "XBerts detect — these plugins synthesise. Anomaly, policy, FX, and audit-evidence reviews driven by what the deterministic XBerts caught.",
+      "audience": "accountants",
+      "plugins": ["xbert-anomaly-review", "xbert-policy-review", "xbert-fx-review", "xbert-audit-evidence-pack"]
     }
   ]
 }

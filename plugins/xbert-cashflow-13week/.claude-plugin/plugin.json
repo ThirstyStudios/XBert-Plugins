@@ -1,0 +1,68 @@
+{
+  "name": "xbert-cashflow-13week",
+  "version": "0.1.0",
+  "description": "13-week rolling cash forecast — AR predicted-pay + AP due + payroll cadence + tax obligations + recurring bank-tx — with named risk weeks and recommended actions.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-cashflow-13week",
+  "license": "MIT",
+  "keywords": ["cashflow", "forecast", "13-week", "working-capital", "treasury", "risk-week"],
+  "x-xbert": {
+    "displayName": "XBert 13-Week Cashflow",
+    "tagline": "13-week rolling cash forecast — AR predicted-pay + AP due + payroll cadence + tax obligations + recurring bank-tx — with named risk weeks and recommended actions.",
+    "audience": ["accountants", "principals"],
+    "categories": ["cashflow", "forecast", "treasury"],
+    "prerequisites": [
+      "XBert account",
+      "Client ledger connected (Xero, MYOB, or QuickBooks Online)",
+      "Bank feed connected with at least 90 days of transaction history",
+      "Open AR and AP balances on file"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "A 13-week rolling cashflow forecast is the classic working-capital tool. The model is simple enough — take the actual bank balance today, layer expected inflows and outflows by week — but the assembly is what makes it useful. Treating every receivable as 'will pay on due date' produces a forecast that's always wrong by Friday. Treating every payable as 'will pay on due date' produces one that's always wrong by Wednesday.\n\nXBert 13-Week Cashflow combines actual bank balance with AR ageing weighted by predicted pay-date (per-debtor historic latency vs. invoice due date), AP due dates, recurring payroll/super/tax obligations, and recurring bank-tx patterns. The output is a weekly cash position chart, named risk weeks where the projected cash dips below the configured threshold, and the top three recommended actions per risk week — 'delay supplier X by 7 days', 'draw down on facility on week 4', 'chase the top three debtors above $20k'. Coverage today: /pulse is rolling-tempo backward-looking, /instalment-variation is tax-instalment-driven; neither produces a forward-looking cash forecast.",
+    "useCases": [
+      {
+        "title": "Weekly cashflow check",
+        "description": "Run the 13-week rolling forecast every Monday to surface cash position week-by-week and named risk weeks before they bite."
+      },
+      {
+        "title": "Pre-instalment-payment decision",
+        "description": "Before authorising the next tax instalment, check whether the cashflow accommodates it or whether to lodge a variation."
+      },
+      {
+        "title": "Pre-facility-drawdown decision",
+        "description": "Before drawing down on overdraft or invoice finance, see whether the forecast actually requires it or whether AR chasing covers the gap."
+      },
+      {
+        "title": "Board/owner cashflow brief",
+        "description": "Produce the weekly cashflow brief for the client owner or board — named risks, recommended actions, sources of variability."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Wallet",
+        "title": "Forward-looking not backward",
+        "description": "Most cashflow tooling reports yesterday. This is the 13 weeks ahead — when each weekly cash position drops below threshold and what to do about it."
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "Predicted-pay weighting",
+        "description": "Per-debtor historic latency vs. invoice due date weights each AR inflow into the week it's actually likely to land, not the week the invoice claims it will."
+      },
+      {
+        "icon": "BarChart3",
+        "title": "Named risk weeks + recommended actions",
+        "description": "Each week the projected balance dips below threshold is named explicitly, with three recommended actions ranked by impact — delay supplier, draw facility, chase debtor."
+      }
+    ],
+    "workflow": [
+      "Type /cashflow-13week in any Claude chat",
+      "Confirm the client tenant and the minimum cash threshold (e.g. $25,000 buffer)",
+      "Plugin pulls bank balance, AR with per-debtor payment history, AP with due dates, payroll cadence, tax obligations, and recurring bank-tx via the XBert MCP",
+      "Forecast is projected weekly for 13 weeks with predicted-pay weighting on AR and dated obligations on AP",
+      "Weekly cash position chart and named risk weeks are presented with the top three recommended actions per risk week",
+      "Operator reviews — no auto-pay, no auto-delay, no auto-drawdown"
+    ]
+  }
+}

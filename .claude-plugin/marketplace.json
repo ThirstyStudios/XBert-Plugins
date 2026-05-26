@@ -14,6 +14,24 @@
       "version": "0.1.0"
     },
     {
+      "name": "xbert-anomaly-review",
+      "source": "./plugins/xbert-anomaly-review",
+      "description": "Review the period's anomaly XBerts (duplicate journals, reversal pairs, vendor flips, period-jumps) — cluster patterns, evidence pack, drive resolution.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-ar-cadence",
+      "source": "./plugins/xbert-ar-cadence",
+      "description": "Behaviour-driven AR cadence — per-debtor predicted-pay-date + tone-matched drafted reminder + ranked call list.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-audit-evidence-pack",
+      "source": "./plugins/xbert-audit-evidence-pack",
+      "description": "External-auditor-ready evidence pack driven by which XBerts fired on each transaction — risk-weighted sample, hyperlinked workpapers.",
+      "version": "0.1.0"
+    },
+    {
       "name": "xbert-balance-sheet-explain",
       "source": "./plugins/xbert-balance-sheet-explain",
       "description": "Movement-by-movement balance sheet review with reconciliation status, manual journal trace, and FAR-to-GL accumulated depreciation check.",
@@ -32,6 +50,12 @@
       "version": "0.1.0"
     },
     {
+      "name": "xbert-cashflow-13week",
+      "source": "./plugins/xbert-cashflow-13week",
+      "description": "13-week rolling cash forecast — AR predicted-pay + AP due + payroll cadence + tax obligations + recurring bank-tx — with named risk weeks and recommended actions.",
+      "version": "0.1.0"
+    },
+    {
       "name": "xbert-client-fee-review",
       "source": "./plugins/xbert-client-fee-review",
       "description": "Evidence-based annual fee review across the whole client book, with per-client drill-down.",
@@ -41,6 +65,18 @@
       "name": "xbert-client-onboard",
       "source": "./plugins/xbert-client-onboard",
       "description": "Structured new-client onboarding with checklist, practice-owner gate, and approval-gated rules baseline assignment with rollback. v1 orchestrates the workflow; COA + opening-balance steps are checklist items the bookkeeper completes in the ledger.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-close-chase",
+      "source": "./plugins/xbert-close-chase",
+      "description": "Own the close-period chase — outstanding XBerts become the ranked chase list with drafted reminders + delta-on-rerun.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-close-packet",
+      "source": "./plugins/xbert-close-packet",
+      "description": "Month-end packet assembled — BS/P&L + variance commentary + journal narrative + outstanding XBerts — single Word/PDF deliverable for the client.",
       "version": "0.1.0"
     },
     {
@@ -68,9 +104,21 @@
       "version": "0.1.0"
     },
     {
+      "name": "xbert-firm-inbox-triage",
+      "source": "./plugins/xbert-firm-inbox-triage",
+      "description": "Daily firm-inbox triage — categorise threads + priority-score + drafted tone-matched reply grounded in XBert client state.",
+      "version": "0.1.0"
+    },
+    {
       "name": "xbert-fs-pack",
       "source": "./plugins/xbert-fs-pack",
       "description": "Year-end financial statement pack ready for partner review — SPFS structure with comparative period, notes shell, and GPFS variant for audit clients.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-fx-review",
+      "source": "./plugins/xbert-fx-review",
+      "description": "Review the period's FX-exposure XBerts (unrevalued balances, intercompany FX mismatches) — propose period-end revaluation journals.",
       "version": "0.1.0"
     },
     {
@@ -116,6 +164,12 @@
       "version": "0.1.0"
     },
     {
+      "name": "xbert-policy-review",
+      "source": "./plugins/xbert-policy-review",
+      "description": "Weekly review of posted spend against firm + client policy XBerts (out-of-policy categories, vendor anomalies, missing receipts, forensic flags).",
+      "version": "0.1.0"
+    },
+    {
       "name": "xbert-practice-health-check",
       "source": "./plugins/xbert-practice-health-check",
       "description": "Portfolio-wide data-quality and financial-health snapshot with diagnostic recommendations per client.",
@@ -131,6 +185,12 @@
       "name": "xbert-pulse",
       "source": "./plugins/xbert-pulse",
       "description": "Detect material changes in client transactional tempo and propose actions using XBert.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "xbert-receipt-review",
+      "source": "./plugins/xbert-receipt-review",
+      "description": "Review the period's orphan-receipt and orphan-bank-line XBerts — batch-approve matches, draft spender follow-ups for true orphans.",
       "version": "0.1.0"
     },
     {

@@ -1,0 +1,66 @@
+{
+  "name": "xbert-close-chase",
+  "version": "0.1.0",
+  "description": "Own the close-period chase — outstanding XBerts become the ranked chase list with drafted reminders + delta-on-rerun.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-close-chase",
+  "license": "MIT",
+  "keywords": ["close", "chase", "month-end", "reminders", "ledger", "xbert"],
+  "x-xbert": {
+    "displayName": "XBert Close Chase",
+    "tagline": "Own the close-period chase — outstanding XBerts become the ranked chase list with drafted reminders + delta-on-rerun.",
+    "audience": ["bookkeepers", "practice-managers"],
+    "categories": ["close", "chase", "reminders", "month-end"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to a ledger"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Close-period chase is the same loop every month. Pull every outstanding issue the client needs to resolve before the period closes — every outstanding XBert — rank them by impact and age, draft reminder messages with the right tone for the channel, record what was chased, and on the next run produce a delta of what is still outstanding versus what has already been chased.\n\nXBert Close Chase orchestrates the loop. It operates on ALL outstanding XBerts for the client — not a curated subset — because the chase covers every issue the client needs to resolve, not a narrowly themed review. The chase list is ranked, the reminder text is drafted per item with email and Capture-chat tone variants, the chase record is kept in a small ChaseLedger store, and the delta-on-rerun shows the practice manager what has moved and what has not.\n\nRead-only and never auto-sent. The plugin drafts; the bookkeeper sends.",
+    "useCases": [
+      {
+        "title": "Monthly close-period chase",
+        "description": "Every month before the period closes, run the chase, get the ranked list, send the reminders, run again a few days later and see the delta."
+      },
+      {
+        "title": "Quarter-end pulse",
+        "description": "Quarterly cadence on a multi-client portfolio — same loop, every client, sequenced."
+      },
+      {
+        "title": "Year-end document chase",
+        "description": "End of the financial year — sweep every outstanding XBert that needs evidence or sign-off before year-end close."
+      },
+      {
+        "title": "New-client onboarding chase",
+        "description": "First-month new-client chase to surface every gap and drive resolution before the period locks."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Clock",
+        "title": "Loop-closing delta on rerun",
+        "description": "Re-run after a few days and the plugin shows what has been resolved, what remains outstanding, and what has been chased but not resolved — the loop-closing delta."
+      },
+      {
+        "icon": "Users",
+        "title": "Tone-matched reminder drafting",
+        "description": "Drafts reminder text per item with tone variants for email and Capture chat — the bookkeeper picks the channel and sends."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Read-only, never auto-sent",
+        "description": "The plugin drafts; the bookkeeper sends. Nothing is auto-sent. The chase record is kept for the next run's delta."
+      }
+    ],
+    "workflow": [
+      "Type /close-chase in any Claude chat",
+      "Confirm the client and the close period",
+      "Plugin pulls ALL outstanding XBerts for the client (close-chase covers every issue, not a curated subset)",
+      "The chase list is ranked by impact and age",
+      "Reminder text is drafted per item with email and Capture-chat tone variants",
+      "What was chased is recorded so the next run produces a delta of resolved versus still-outstanding"
+    ]
+  }
+}

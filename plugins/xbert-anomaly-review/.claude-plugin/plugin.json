@@ -1,0 +1,67 @@
+{
+  "name": "xbert-anomaly-review",
+  "version": "0.1.0",
+  "description": "Review the period's anomaly XBerts (duplicate journals, reversal pairs, vendor flips, period-jumps) — cluster patterns, evidence pack, drive resolution.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-anomaly-review",
+  "license": "MIT",
+  "keywords": ["anomaly", "review", "fraud", "duplicate", "reversal", "audit", "xbert"],
+  "x-xbert": {
+    "displayName": "XBert Anomaly Review",
+    "tagline": "Review the period's anomaly XBerts (duplicate journals, reversal pairs, vendor flips, period-jumps) — cluster patterns, evidence pack, drive resolution.",
+    "audience": ["accountants", "principals"],
+    "categories": ["review", "anomaly", "fraud", "audit"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to a ledger",
+      "Anomaly XBerts linked to the Anomaly Review agent in the Connect portal"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Anomalies in the general ledger are detected deterministically by Custom XBerts — one XBert per anomaly type: duplicate journals, posted-and-reversed pairs, vendor-flip on recurring suppliers, round-tripping between accounts, period-over-period balance jumps, unusual-day-of-week postings. The XBerts do the detection; this plugin does not.\n\nXBert Anomaly Review orchestrates the review of what the anomaly XBerts caught. It clusters the findings by pattern — one cluster per analytics group rather than a flat list of individual items — explains the likely root cause behind each cluster, and drives partner sign-off on the resolution. The evidence pack hyperlinks back to each source XBert and the underlying journal lines so the reviewer can drill from cluster summary down to source document in two clicks.\n\nDeterministic detection plus AI synthesis: the XBerts are the heroes; the plugin is the workflow shell.",
+    "useCases": [
+      {
+        "title": "Monthly anomaly review during close",
+        "description": "Before signing off the month, sweep every anomaly XBert that fired and resolve as clusters rather than item-by-item."
+      },
+      {
+        "title": "Pre-audit anomaly sweep",
+        "description": "Ahead of an external audit, surface and resolve every anomaly pattern so the auditor sees a clean ledger with documented evidence."
+      },
+      {
+        "title": "New-client first-month sanity check",
+        "description": "A first-month review on a newly onboarded client surfaces structural anomalies — duplicate vendors, reversal pairs, period-jumps — that legacy data dragged in."
+      },
+      {
+        "title": "Recurring-issue debugging",
+        "description": "When the same vendor-flip pattern keeps firing month after month, cluster review surfaces the root cause and drives a permanent fix."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Scale",
+        "title": "Pattern clustering not findings list",
+        "description": "Findings are grouped into analytics clusters so the reviewer reasons about patterns and root causes — not a flat list of individual journal lines."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Deterministic detection + AI synthesis",
+        "description": "Detection is owned by the Custom XBerts deterministically; the plugin synthesises clusters, explains likely causes, and drives resolution."
+      },
+      {
+        "icon": "FileText",
+        "title": "Audit-ready evidence pack",
+        "description": "Hyperlinked workpapers from cluster summary down to the source XBert and the underlying journal lines — filable straight into the client folder."
+      }
+    ],
+    "workflow": [
+      "Type /anomaly-review in any Claude chat",
+      "Confirm the client and the review period",
+      "Plugin resolves the linked anomaly XBerts for the period — if none are linked, the review stops and the user is prompted to configure linked XBerts first",
+      "Findings are clustered by analytics group and the likely root cause is explained per cluster",
+      "Partner sign-off is captured against each cluster",
+      "An evidence pack is produced with hyperlinks back to every source XBert and journal line"
+    ]
+  }
+}

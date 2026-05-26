@@ -1,0 +1,68 @@
+{
+  "name": "xbert-receipt-review",
+  "version": "0.1.0",
+  "description": "Review the period's orphan-receipt and orphan-bank-line XBerts — batch-approve matches, draft spender follow-ups for true orphans.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-receipt-review",
+  "license": "MIT",
+  "keywords": ["receipt", "review", "orphan", "matching", "capture", "xbert"],
+  "x-xbert": {
+    "displayName": "XBert Receipt Review",
+    "tagline": "Review the period's orphan-receipt and orphan-bank-line XBerts — batch-approve matches, draft spender follow-ups for true orphans.",
+    "audience": ["bookkeepers"],
+    "categories": ["review", "receipts", "capture", "matching"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to a ledger",
+      "Receipt Capture enabled for the client",
+      "Receipt XBerts linked to the Receipt Review agent in the Connect portal"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Receipt-to-ledger matching is detected deterministically by two Custom XBerts. The Receipt-without-ledger-match XBert fires when a captured receipt has no candidate transaction in the ledger. The Bank-line-without-receipt XBert fires when a bank line looks like it should have a receipt but none is attached. The XBerts do the detection; this plugin does not.\n\nXBert Receipt Review orchestrates the desktop-side review of what those two XBerts surfaced. High-confidence proposed matches are grouped for two-click batch approval; true orphans — both sides — are drafted into spender follow-ups for chase.\n\nReceipt Capture stays mobile-only (per CEO ruling 2026-05-05). This is the review-side desktop workflow that complements what Capture has already collected on phones.",
+    "useCases": [
+      {
+        "title": "End-of-week receipt sweep",
+        "description": "Every Friday afternoon, sweep the week's orphan receipts and orphan bank lines, batch-approve proposed matches, and draft chase messages for true orphans."
+      },
+      {
+        "title": "Pre-month-end clean-up",
+        "description": "Before the month closes, resolve every receipt-side and bank-line-side orphan so the period closes with attached evidence on every spend transaction."
+      },
+      {
+        "title": "Receipts-without-bank-lines investigation",
+        "description": "When a captured receipt has no candidate bank line at all, surface it for spender follow-up — the receipt may have been paid through a different channel or never settled."
+      },
+      {
+        "title": "Long-tail orphan triage",
+        "description": "Roll over the persistent orphans from prior weeks, escalate to write-off candidates after the firm's grace period."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Search",
+        "title": "Two-sided XBert detection",
+        "description": "Both receipt-side orphans (captured but unmatched) and bank-side orphans (spend with no receipt) are caught by their own deterministic XBerts and reviewed together."
+      },
+      {
+        "icon": "GitBranch",
+        "title": "Batch approval not one-by-one",
+        "description": "High-confidence proposed matches are grouped so the reviewer approves a cluster of dozens in two clicks — not one receipt at a time."
+      },
+      {
+        "icon": "Users",
+        "title": "Spender follow-up drafting",
+        "description": "True orphans are drafted into per-spender follow-up messages with date, amount and vendor named — for reviewer approval before sending."
+      }
+    ],
+    "workflow": [
+      "Type /receipt-review in any Claude chat",
+      "Confirm the client and the review period (default: prior week)",
+      "Plugin resolves the linked receipt XBerts for the period — if none are linked, the review stops and the user is prompted to configure linked XBerts first",
+      "High-confidence proposed matches are grouped for batch approval",
+      "True orphans are drafted into per-spender follow-up messages",
+      "A summary is produced with what was batch-approved, what was drafted for follow-up, and what rolls into next week"
+    ]
+  }
+}

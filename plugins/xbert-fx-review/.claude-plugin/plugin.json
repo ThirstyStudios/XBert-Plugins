@@ -1,0 +1,66 @@
+{
+  "name": "xbert-fx-review",
+  "version": "0.1.0",
+  "description": "Review the period's FX-exposure XBerts (unrevalued balances, intercompany FX mismatches) — propose period-end revaluation journals.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-fx-review",
+  "license": "MIT",
+  "keywords": ["fx", "foreign-exchange", "revaluation", "review", "intercompany", "multi-currency", "xbert"],
+  "x-xbert": {
+    "displayName": "XBert FX Review",
+    "tagline": "Review the period's FX-exposure XBerts (unrevalued balances, intercompany FX mismatches) — propose period-end revaluation journals.",
+    "audience": ["accountants"],
+    "categories": ["review", "fx", "multi-currency", "close"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to a multi-currency ledger",
+      "FX XBerts linked to the FX Review agent in the Connect portal"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "FX exposure is detected deterministically by Custom XBerts — unrevalued foreign-currency balances, intercompany FX mismatches between trading entities, FX bank accounts requiring period-end revaluation, FX AR and AP with movement since the last revaluation. The XBerts do the detection; this plugin does not.\n\nXBert FX Review orchestrates the review and proposes the period-end revaluation journal lines for partner approval. Plugin proposes — partner posts. Nothing is auto-applied.\n\nWhere the linked XBerts identify the exposure, the plugin synthesises the revaluation journal: per balance, the source amount in foreign currency, the rate at posting, the rate at period end, the gain or loss, and the offsetting P&L line. Every line in the proposed journal traces back to the source XBert and the underlying account.",
+    "useCases": [
+      {
+        "title": "Month or quarter-end FX revaluation",
+        "description": "At every period close on a multi-currency client, surface unrevalued balances and propose the revaluation journal for the partner to approve before posting."
+      },
+      {
+        "title": "New multi-currency client setup",
+        "description": "First period on a newly multi-currency client surfaces baseline FX exposure and the revaluation approach the practice will use ongoing."
+      },
+      {
+        "title": "Intercompany FX reconciliation",
+        "description": "When two related entities trade in different currencies, the FX XBerts catch the mismatch and the plugin reconciles it in one place."
+      },
+      {
+        "title": "FX audit working paper",
+        "description": "Year-end audit FX working paper assembled with the revaluation journal, supporting rates, and partner sign-off captured."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Scale",
+        "title": "FX XBerts enforce deterministically",
+        "description": "Unrevalued balances, intercompany mismatches and rate-movement exposure are caught by deterministic XBerts. The plugin reasons only over what fired."
+      },
+      {
+        "icon": "GitBranch",
+        "title": "Revaluation journal proposed",
+        "description": "Per-balance proposed journal lines with source amount, posting rate, period-end rate, gain or loss and offsetting P&L line — ready for partner approval."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Partner approval gated",
+        "description": "Plugin proposes; partner posts. Nothing is auto-applied — every journal line is signed off before it reaches the ledger."
+      }
+    ],
+    "workflow": [
+      "Type /fx-review in any Claude chat",
+      "Confirm the client and the review period (default: current open period)",
+      "Plugin resolves the linked FX XBerts for the period — if none are linked, the review stops and the user is prompted to configure linked XBerts first",
+      "A revaluation journal is proposed per balance with rates, gain/loss and offsetting P&L line",
+      "Partner reviews and approves the journal before it is posted to the ledger"
+    ]
+  }
+}

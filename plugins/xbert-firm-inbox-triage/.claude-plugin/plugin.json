@@ -1,0 +1,67 @@
+{
+  "name": "xbert-firm-inbox-triage",
+  "version": "0.1.0",
+  "description": "Daily firm-inbox triage — categorise threads + priority-score + drafted tone-matched reply grounded in XBert client state.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-firm-inbox-triage",
+  "license": "MIT",
+  "keywords": ["inbox", "triage", "email", "practice-management", "client-state", "draft-reply"],
+  "x-xbert": {
+    "displayName": "XBert Firm Inbox Triage",
+    "tagline": "Daily firm-inbox triage — categorise threads + priority-score + drafted tone-matched reply grounded in XBert client state.",
+    "audience": ["practice-managers", "bookkeepers"],
+    "categories": ["inbox", "triage", "practice-management"],
+    "prerequisites": [
+      "XBert account",
+      "Gmail or Microsoft 365 inbox connected via Claude Code connector",
+      "Client tenants on XBert with sender email addresses recorded for matching"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Karbon AI ships inbox triage as its most-deployed practice-management AI feature. Categorise the thread, score the priority, draft a reply. The wedge XBert has over Karbon is **client-state context** — a draft that says 'BAS draft was sent to you yesterday, awaiting your approval — open /bas-prep to review?' beats a generic 'thanks for your email' every time. A reply grounded in what the client is actually waiting on shortens the loop and reduces the back-and-forth.\n\nXBert Firm Inbox Triage scans the firm's connected inbox (Gmail or M365 via Claude Code connectors), matches each thread's sender to a client tenant where possible, categorises the thread (compliance question, payroll query, document request, fee discussion, FYI), priority-scores each, and drafts a tone-matched reply for high-priority items in the firm's voice — referencing the actual client state from XBert. The operator approves or edits before sending; no auto-send and no auto-archive.",
+    "useCases": [
+      {
+        "title": "Morning inbox triage",
+        "description": "Open the inbox at 8am and have the top-priority threads categorised, scored, and drafted — work through them with judgment, not from a blank screen."
+      },
+      {
+        "title": "Pre-client-call brief",
+        "description": "Before a client call, surface every open thread from that client with the current XBert state and any drafted responses — go into the call informed."
+      },
+      {
+        "title": "New-thread categorise/route",
+        "description": "For new inbound threads, categorise and suggest the right team-member route (compliance lead / payroll specialist / partner) based on category and client state."
+      },
+      {
+        "title": "Out-of-hours overflow scan",
+        "description": "After-hours triage of overnight inbox so the morning team starts with already-prioritised work rather than scrolling through 80 unread threads."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Search",
+        "title": "XBert client state in every draft",
+        "description": "Every drafted reply references what the client is actually waiting on — BAS draft sent yesterday, payroll run pending approval, missing receipt requested — not a generic 'thanks for your email'."
+      },
+      {
+        "icon": "Users",
+        "title": "Tone-matched reply drafting",
+        "description": "Replies match the firm's voice (formal / friendly-professional / warm) and the existing thread tone with the client — not a stock template."
+      },
+      {
+        "icon": "Clock",
+        "title": "Priority + category + draft in one pass",
+        "description": "Triage produces category, priority score, and drafted reply in a single workflow — no second pass to write the reply once you've decided what's important."
+      }
+    ],
+    "workflow": [
+      "Type /firm-inbox-triage in any Claude chat",
+      "Connect Gmail or M365 via Claude Code connector if not already connected",
+      "Plugin scans recent unread/unread-this-period threads, matches each sender to a client tenant where possible",
+      "For each thread: category, priority score, current XBert state for the matched client",
+      "For high-priority threads: tone-matched drafted reply that references the actual client state via the XBert MCP",
+      "Operator reviews each draft — approve, edit, or skip — no auto-send and no auto-archive"
+    ]
+  }
+}

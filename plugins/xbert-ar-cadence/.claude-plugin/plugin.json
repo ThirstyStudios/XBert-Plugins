@@ -1,0 +1,67 @@
+{
+  "name": "xbert-ar-cadence",
+  "version": "0.1.0",
+  "description": "Behaviour-driven AR cadence — per-debtor predicted-pay-date + tone-matched drafted reminder + ranked call list.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-ar-cadence",
+  "license": "MIT",
+  "keywords": ["accounts-receivable", "cadence", "behaviour", "collections", "reminders", "debtor"],
+  "x-xbert": {
+    "displayName": "XBert AR Cadence",
+    "tagline": "Behaviour-driven AR cadence — per-debtor predicted-pay-date + tone-matched drafted reminder + ranked call list.",
+    "audience": ["bookkeepers"],
+    "categories": ["accounts-receivable", "collections", "cadence"],
+    "prerequisites": [
+      "XBert account",
+      "Client with sales/AR ledger connected (Xero, MYOB, or QuickBooks Online)",
+      "At least 60 days of debtor payment history for latency modelling"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Calendar-driven AR reminders — 'send at 7 days overdue, escalate at 14, formal letter at 30' — miss the fact that every debtor has a different payment latency. A reliable debtor who always pays at +14 days doesn't need chasing at +7. An unreliable debtor who averages +35 days needs an earlier nudge than the calendar suggests. Calendar cadence chases the reliable customers and leaves the unreliable ones to drift.\n\nXBert AR Cadence is behaviour-driven. For each debtor it predicts the actual pay-date based on historic latency vs. invoice due date, recommends the reminder window per debtor (earlier for chronic latency, later for reliable payers), and drafts the reminder text in the firm's tone. The output is a ranked call list the operator works through — predicted pay-date, recommended reminder window, drafted reminder per debtor. No auto-send — the operator approves each touch.",
+    "useCases": [
+      {
+        "title": "Weekly debtor-management session",
+        "description": "Run the weekly cadence session against behaviour, not the calendar — chase the unreliable debtor early; leave the reliable one alone."
+      },
+      {
+        "title": "Pre-statement-run cadence check",
+        "description": "Before the monthly statement run goes out, surface which debtors need a separate earlier touch and which can wait for the statement."
+      },
+      {
+        "title": "New-customer credit-history baseline",
+        "description": "For new customers with no latency history, default to the practice baseline cadence and re-tune once three to five invoices of history are on file."
+      },
+      {
+        "title": "Large-balance specific cadence",
+        "description": "For large-balance debtors, run a tailored cadence (earlier touches, more formal tone) rather than the default rules."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "Clock",
+        "title": "Behaviour over calendar",
+        "description": "Cadence is per-debtor and based on historic pay-latency, not a one-size-fits-all '7 / 14 / 30' rule. The right debtors get chased; the reliable ones stop getting nagged."
+      },
+      {
+        "icon": "PhoneCall",
+        "title": "Tone-matched drafted reminders",
+        "description": "Each reminder is drafted in the firm's voice and matched to the debtor's payment behaviour and the relationship tone — not a stock template."
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "Predicted-pay date per debtor",
+        "description": "Each debtor gets a predicted pay-date based on their historic latency, so the operator knows when to expect the money — and when to act if it doesn't land."
+      }
+    ],
+    "workflow": [
+      "Type /ar-cadence in any Claude chat",
+      "Confirm the client tenant (and the firm's tone preference if not yet set)",
+      "Plugin pulls aged AR and per-debtor payment history via the XBert MCP",
+      "For each debtor: predicted pay-date is computed from historic latency; recommended reminder window is set; reminder text is drafted in the firm's tone",
+      "Ranked call list is presented — predicted pay-date, recommended window, drafted reminder per debtor",
+      "Operator approves each reminder before send — no auto-send across the cadence"
+    ]
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "name": "xbert-audit-evidence-pack",
+  "version": "0.1.0",
+  "description": "External-auditor-ready evidence pack driven by which XBerts fired on each transaction — risk-weighted sample, hyperlinked workpapers.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-audit-evidence-pack",
+  "license": "MIT",
+  "keywords": ["audit", "evidence", "workpaper", "risk", "sample", "external-auditor", "xbert"],
+  "x-xbert": {
+    "displayName": "XBert Audit Evidence Pack",
+    "tagline": "External-auditor-ready evidence pack driven by which XBerts fired on each transaction — risk-weighted sample, hyperlinked workpapers.",
+    "audience": ["accountants"],
+    "categories": ["audit", "evidence", "workpaper", "compliance"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to a ledger",
+      "Audit XBerts linked to the Audit Evidence agent in the Connect portal"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "When the firm hands their external auditor the year-end evidence pack, the deliverable is a risk-weighted sample of transactions with full source documentation. XBert's signal is which XBerts fired on each transaction — that IS the risk score. More XBerts firing on a transaction means higher risk weight in the sample selection.\n\nXBert Audit Evidence Pack assembles the workpaper. Sample selection is weighted by the count and severity of XBerts that fired on each transaction. A lead schedule is produced per material account. Every sample item hyperlinks from the workpaper down to the source XBert and the underlying source document — captured receipt, supplier invoice, signed contract, payroll record — held in Capture and XDI.\n\nThis generalises the QMS-Word pattern used in BAS/VAT prep to the full audit period — for an external auditor, here is the year, with the risk-weighted sample and the evidence behind every item.",
+    "useCases": [
+      {
+        "title": "Year-end auditor evidence pack",
+        "description": "When the external auditor arrives, hand them a single workpaper bundle with the risk-weighted sample and the source documents already hyperlinked."
+      },
+      {
+        "title": "Quarterly board-pack working papers",
+        "description": "Quarterly governance review — produce a board-pack working paper with the period's risk-weighted sample and the supporting evidence."
+      },
+      {
+        "title": "Material account drill-down",
+        "description": "When a single account requires deeper audit attention, produce a focused evidence pack with every sample item from that account and the source documentation."
+      },
+      {
+        "title": "Risk-weighted sample selection",
+        "description": "Use the XBert-firing risk signal to drive the sample selection itself — high-risk transactions feature prominently rather than a flat random sample."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "ShieldCheck",
+        "title": "XBert firings = risk signal",
+        "description": "Sample selection is weighted by the count and severity of deterministic XBerts that fired on each transaction. Higher firing rate means higher risk weight."
+      },
+      {
+        "icon": "FileSearch",
+        "title": "Hyperlinked source docs",
+        "description": "Every sample item hyperlinks from the workpaper down to the source XBert and the underlying source document held in Capture and XDI."
+      },
+      {
+        "icon": "Stamp",
+        "title": "External-auditor ready",
+        "description": "Cover page, lead schedules per material account, risk-weighted sample sections, source links and QMS block — bundle handed direct to the auditor."
+      }
+    ],
+    "workflow": [
+      "Type /audit-evidence-pack in any Claude chat",
+      "Confirm the client and the audit period (default: current financial year)",
+      "Plugin resolves the linked audit XBerts for the period — if none are linked, the pack stops and the user is prompted to configure linked XBerts first",
+      "A risk-weighted sample is selected based on the count and severity of XBert firings per transaction",
+      "Lead schedules are produced per material account",
+      "Partner reviews and the bundled workpaper is exported for the auditor"
+    ]
+  }
+}

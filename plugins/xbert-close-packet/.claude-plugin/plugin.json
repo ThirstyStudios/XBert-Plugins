@@ -1,0 +1,67 @@
+{
+  "name": "xbert-close-packet",
+  "version": "0.1.0",
+  "description": "Month-end packet assembled — BS/P&L + variance commentary + journal narrative + outstanding XBerts — single Word/PDF deliverable for the client.",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-close-packet",
+  "license": "MIT",
+  "keywords": ["close", "month-end", "client-pack", "partner-pack", "variance", "journals", "deliverable"],
+  "x-xbert": {
+    "displayName": "XBert Close Packet",
+    "tagline": "Month-end packet assembled — BS/P&L + variance commentary + journal narrative + outstanding XBerts — single Word/PDF deliverable for the client.",
+    "audience": ["accountants", "principals"],
+    "categories": ["close", "month-end", "client-pack"],
+    "prerequisites": [
+      "XBert account",
+      "Client ledger with at least one closed accounting period",
+      "Budget loaded in the ledger (recommended; packet still runs without)"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Every month-end an accountant assembles a packet: balance sheet, P&L with variance commentary, narrative for material journals, KPI page, and a 'what changed and why' summary. Today this is copy-paste from the month-end pack + balance sheet explainer + manual narrative. Three surfaces, three formats, three rounds of reformatting before the partner can review.\n\nXBert Close Packet composes the three into a single client-ready deliverable. The outstanding-XBerts list lives inside the variance section so the risks and issues sit alongside the explanations they relate to — not buried in a separate report nobody opens. Material journals get narrative drafted from the journal description, the affected accounts, and the prior-period context, so the partner reviews a paragraph rather than recomposing one. Lodgement and signing stay manual — the partner reads, edits, and sends.",
+    "useCases": [
+      {
+        "title": "Month-end client packet",
+        "description": "Assemble the standard month-end packet for client delivery — BS, P&L, variance commentary, journal narrative, KPIs — in a single Word/PDF."
+      },
+      {
+        "title": "Quarterly partner-pack",
+        "description": "Produce the quarter-end partner pack with the same composition pattern — variances rolled up across three months, journal narrative across the quarter."
+      },
+      {
+        "title": "Board-pack draft",
+        "description": "Generate a board-ready first draft the partner edits — the composition does the boring assembly; the partner adds the boardroom narrative on top."
+      },
+      {
+        "title": "Year-end summary draft",
+        "description": "Compose the FY summary deliverable — full-year variance commentary, year-end journal narrative, outstanding-XBerts trail — as a single document the partner reviews before client delivery."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "FileText",
+        "title": "Single deliverable not three",
+        "description": "The client receives one packet, not three reports stitched together with email forwards. Same shape every period so the client reads it faster and the partner reviews it faster."
+      },
+      {
+        "icon": "GitBranch",
+        "title": "Composes existing surfaces",
+        "description": "Pulls the same numbers the month-end pack and balance sheet explainer already produce — no duplicate calculation, no drift between the packet and the underlying reports."
+      },
+      {
+        "icon": "ShieldCheck",
+        "title": "Partner reviews before send",
+        "description": "Lodgement and signing stay manual. The composition does the assembly; the partner adds judgment, edits commentary, and approves the send."
+      }
+    ],
+    "workflow": [
+      "Type /close-packet in any Claude chat",
+      "Confirm the client tenant, the period being closed, and the reporting shape (SPFS or GPFS)",
+      "Plugin pulls BS, P&L, cashflow, trial balance, budget, outstanding XBerts, and material journals via the XBert MCP",
+      "Variance commentary and journal narrative are drafted into the composed packet structure",
+      "Word/PDF deliverable is assembled with consistent sections and the outstanding-XBerts list inside the variance section",
+      "Partner reviews, edits, and sends — no auto-lodgement, no auto-send"
+    ]
+  }
+}

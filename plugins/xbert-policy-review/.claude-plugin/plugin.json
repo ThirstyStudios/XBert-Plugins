@@ -1,0 +1,66 @@
+{
+  "name": "xbert-policy-review",
+  "version": "0.1.0",
+  "description": "Weekly review of posted spend against firm + client policy XBerts (out-of-policy categories, vendor anomalies, missing receipts, forensic flags).",
+  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "homepage": "https://plugins.xbert.io/plugins/xbert-policy-review",
+  "license": "MIT",
+  "keywords": ["policy", "spend", "compliance", "forensic", "receipts", "review", "xbert"],
+  "x-xbert": {
+    "displayName": "XBert Policy Review",
+    "tagline": "Weekly review of posted spend against firm + client policy XBerts (out-of-policy categories, vendor anomalies, missing receipts, forensic flags).",
+    "audience": ["bookkeepers", "accountants"],
+    "categories": ["review", "policy", "spend", "compliance"],
+    "prerequisites": [
+      "XBert account",
+      "Client connected to a ledger",
+      "Policy XBerts linked to the Policy Review agent in the Connect portal"
+    ],
+    "screenshots": [],
+    "demoVideo": null,
+    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "longDescription": "Spend policy is enforced deterministically by Custom XBerts — out-of-policy categories, banned vendors, mileage-over-threshold, duplicate submissions, missing-receipt-after-N-days, plus the forensic signals on captured receipts (copy-move, metadata tampering, greyscale conversion, image-of-an-image). The XBerts do the detection; this plugin does not.\n\nXBert Policy Review orchestrates the weekly periodic review of what the policy XBerts flagged. Violations are grouped by category, per-violation follow-ups are drafted with the spender's tone and context, and an audit pack is produced.\n\nThe selling shape: pre-spend enforcement plus periodic review. Where US-style products (Navan, Ramp, Klippa) block the spend at the moment of purchase, XBert Policy Review recasts the same control as a weekly review workflow that fits how Australian and UK firms already work.",
+    "useCases": [
+      {
+        "title": "Weekly spend review",
+        "description": "Every Monday morning, sweep every policy XBert that fired across the prior week, group by category, and draft follow-ups for the spenders concerned."
+      },
+      {
+        "title": "Pre-period-close policy sweep",
+        "description": "Before the month closes, ensure every policy violation is either resolved with the spender or escalated for write-off."
+      },
+      {
+        "title": "New-employee onboarding pulse",
+        "description": "In the first 60 days after a new employee starts spending, run a tighter weekly review to catch and correct patterns early."
+      },
+      {
+        "title": "Vendor-anomaly investigation",
+        "description": "When the same vendor keeps tripping forensic flags, the policy review surfaces the recurring pattern and drives a vendor-master decision."
+      }
+    ],
+    "benefits": [
+      {
+        "icon": "ShieldCheck",
+        "title": "Policy XBerts enforce deterministically",
+        "description": "Out-of-policy categories, banned vendors, missing-receipt thresholds, mileage caps — every rule is owned by a deterministic XBert. The plugin reasons only over what fired."
+      },
+      {
+        "icon": "Search",
+        "title": "Forensic flags surfaced",
+        "description": "Receipt forensic signals (copy-move, metadata tampering, greyscale, image-of-image) caught by Capture XBerts are surfaced in-line with the policy review."
+      },
+      {
+        "icon": "FileText",
+        "title": "Audit pack output",
+        "description": "Outputs a workpaper grouped by violation category with drafted spender follow-ups and a QMS block — filable straight into the client folder."
+      }
+    ],
+    "workflow": [
+      "Type /policy-review in any Claude chat",
+      "Confirm the client and the review period (default: prior week)",
+      "Plugin resolves the linked policy XBerts for the period — if none are linked, the review stops and the user is prompted to configure linked XBerts first",
+      "Violations are grouped by policy category and per-violation follow-ups are drafted with spender tone",
+      "An audit pack is produced with the supporting evidence and the draft follow-ups for review"
+    ]
+  }
+}
