@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   MousePointerClick,
+  RefreshCw,
   Search,
   ShieldCheck,
   Sparkles,
@@ -179,6 +180,24 @@ function DesktopPluginWalkthrough({ slugCount }: { slugCount: number }) {
           {slugCount > 1 ? ` with all ${slugCount} plugins listed.` : "."} Click{" "}
           <span className="font-mono text-neutral-900 dark:text-neutral-100">+</span> on each one
           you want — skip the rest. Authorize the permissions prompt.
+        </>
+      ),
+    },
+    {
+      icon: <RefreshCw size={14} />,
+      title: "Turn on auto-update",
+      body: (
+        <>
+          Third-party marketplaces don&apos;t auto-update by default. To get new
+          plugin versions automatically, run{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">/plugin</span> in any
+          Claude chat →{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Marketplaces</span> →
+          select <span className="font-mono text-neutral-900 dark:text-neutral-100">XBert</span> →{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">Enable auto-update</span>.
+          Updates refresh on Claude startup; you&apos;ll be prompted to run{" "}
+          <span className="font-mono text-neutral-900 dark:text-neutral-100">/reload-plugins</span>
+          {" "}when anything changes.
         </>
       ),
     },
