@@ -4,7 +4,7 @@ Walk from accounting profit to taxable income for a year-end tax reconciliation 
 
 ## What it does
 - Pulls year-end financial statements, trial balance, P&L, balance sheet, and journal master
-- Runs the Schedule M-style walk: starting accounting profit → add-backs → deductions → prior-year losses → taxable income
+- Runs the tax-effect walk: starting accounting profit → add-backs → deductions → prior-year losses → taxable income
 - Per-entity-type structure — company / trust / partnership
 - Ties every adjustment to its source journal, account, or schedule
 - Marks FBT-included or FBT-excluded for the period

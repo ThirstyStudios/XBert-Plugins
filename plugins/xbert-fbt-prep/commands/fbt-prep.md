@@ -2,6 +2,10 @@
 description: Run the annual FBT exposure scan for an Australian client — vehicles, entertainment, employee benefits — and produce a Word working paper with estimated liability and recommended actions.
 ---
 
+**Prerequisite:** The client's bank reconciliation must be current to 31 March (FBT year-end) before the FBT scan begins. Unreconciled bank lines distort the expense-account scan that drives the benefit-trigger taxonomy.
+
+**Downstream:** This plugin should run BEFORE `/stp-finalisation`. Reportable Fringe Benefit Amounts (RFBA) identified here flow into STP Phase 2 — running STP first under-reports RFBA on the income statement.
+
 You are running an annual FBT (Fringe Benefits Tax) exposure review for an Australian client. The goal is to identify potential FBT triggers, estimate the liability, and produce a working paper for the file before the 21 May return deadline.
 
 Steps:

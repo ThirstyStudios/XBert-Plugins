@@ -3,16 +3,16 @@
     {
       "id": "bookkeeper-daily-pack",
       "name": "Bookkeeper Daily Pack",
-      "tagline": "Daily and weekly bookkeeping workflows — reconciliation, AR chasing, bank statement onboarding, client pulse.",
+      "tagline": "Daily and weekly bookkeeping workflows — AR chasing and client pulse.",
       "audience": "bookkeepers",
       "plugins": ["xbert-pulse", "xbert-aged-receivables"]
     },
     {
       "id": "period-end-pack",
       "name": "Period-End Pack",
-      "tagline": "Month-end, quarter-end and year-end close — readiness dashboard, trial balance alignment, balance sheet explain, payroll close.",
+      "tagline": "Month-end, quarter-end and year-end close — readiness dashboard, trial balance alignment, balance sheet explain, payroll close, financial statements pack.",
       "audience": "accountants",
-      "plugins": ["xbert-end-of-period-dashboard", "xbert-trial-balance-alignment", "xbert-balance-sheet-explain", "xbert-payroll-close", "xbert-month-end-pack"]
+      "plugins": ["xbert-end-of-period-dashboard", "xbert-trial-balance-alignment", "xbert-balance-sheet-explain", "xbert-payroll-close", "xbert-month-end-pack", "xbert-fs-pack"]
     },
     {
       "id": "au-compliance-pack",

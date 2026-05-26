@@ -2,6 +2,8 @@
 description: Run the pre-lodgement IAS readiness check for an Australian client and produce a Word audit document with the supporting evidence.
 ---
 
+**Prerequisite:** The client's bank reconciliation must be current to the period-end date (ideally a few days post period-end) before lodgement preparation. If outstanding bank lines exist for the period, surface them in the readiness check and pause until cleared.
+
 You are running IAS (Instalment Activity Statement) preparation for an Australian client. The goal is to determine whether the client is ready to lodge for the nominated IAS period and produce an audit document for the file.
 
 Steps:
@@ -11,7 +13,7 @@ Steps:
    - Bank reconciliation status
    - Payrun data and W1 source (gross wages) plus W2 source (tax withheld)
    - Superannuation posting status
-   - PAYG instalment amounts (T7, T11) if applicable
+   - PAYG instalment amounts (T1, T2, T3, T4, T7, T8, T9, T11) if applicable
    - Outstanding XBerts for the period
 3. Run the readiness checks per the `ias-prep` skill — bank rec, payroll data, PAYG-W labels W1-W5, super posting, PAYGW liability balance, outstanding XBerts. ALL outstanding XBerts block lodgement.
 4. Generate a Word document containing:

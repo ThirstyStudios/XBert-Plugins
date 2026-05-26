@@ -2,6 +2,10 @@
 description: Run the annual STP Phase 2 finalisation check for an Australian client — verify every employee's YTD figures are accurate before the 14 July ATO deadline. Produces a Word working paper.
 ---
 
+**Prerequisites — run-order matters:**
+- **Run `/fbt-prep` FIRST** if the client provides any reportable fringe benefits. Reportable Fringe Benefit Amounts (RFBA) identified by the FBT scan flow into STP Phase 2; running STP finalisation first means RFBA gets under-reported on the income statement.
+- The client's bank reconciliation must be current to 30 June (financial year end) before STP finalisation begins, so the GL payroll reconciliation behind the YTD check is trustworthy.
+
 You are running an annual STP Phase 2 finalisation check for an Australian client. The goal is to verify each employee's year-to-date wages, PAYG withholding, super, allowances, RFB and termination payments are accurate before the FINAL event is sent to the ATO by the 14 July deadline.
 
 Steps:

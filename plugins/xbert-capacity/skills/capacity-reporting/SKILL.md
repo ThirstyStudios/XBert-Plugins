@@ -43,6 +43,7 @@ Thresholds: practice billable % target <range>, per-client variance flag at <%>.
 ```
 
 ## Always
+- **Read-only.** Capacity figures and WIP variances are produced for review — never write back to XPM, never adjust capacity targets, never re-budget without explicit user approval.
 - Present billable % and WIP variance together — one without the other misleads
 - Note any team member with unsubmitted time (skews everything)
 - Distinguish noise from signal — if WIP variance is +5% across the board, don't make it a story

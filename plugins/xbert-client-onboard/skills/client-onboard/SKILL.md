@@ -46,11 +46,11 @@ Gate: Phase 3 cannot start unless ledger connection is confirmed (other items ca
 - [ ] COA template chosen (industry-specific or practice default)
 - [ ] COA created in the ledger **(v1: manual checklist item — bookkeeper completes in the ledger)**
 - [ ] Opening balances loaded **(v1: manual checklist item — bookkeeper completes in the ledger)**
-- [ ] Rules baseline assigned (XBert rule pack — automated by this plugin once scope confirmed)
+- [ ] Rules baseline assigned (XBert rule pack — **explicit approval gate; see Rules baseline assignment below**)
 - [ ] Approval matrix set (who approves bills, who approves journals)
 - [ ] Bank rules / matching rules configured in the ledger
 
-Gate: Phase 4 cannot start unless rules baseline is assigned AND COA is confirmed present.
+Gate: Phase 4 cannot start unless rules baseline is assigned (with the approval gate satisfied AND the rollback block emitted) AND COA is confirmed present.
 
 **Phase 4 — Go-live**
 - [ ] First bank reconciliation completed
@@ -65,9 +65,19 @@ Onboarding marked complete when all Phase 4 items are checked.
 - Tasks are created from those templates (not free-form) so practice-wide consistency holds
 - Default assignee per template; bookkeeper can reassign
 
-### Rules baseline assignment
-- The practice has a standard rules baseline (which XBert checks fire, which thresholds apply, which approvers are default)
-- Assigned automatically at the end of Phase 3 (after scope is confirmed) — not at Phase 1 (because scope might change)
+### Rules baseline assignment — explicit approval gate (no auto-assign)
+The practice has a standard rules baseline (which XBert checks fire, which thresholds apply, which approvers are default). The baseline write is **gated by explicit approval against the resolved client name — scope-confirm earlier in the onboarding is NOT authorisation to write configuration**, because the resolved client tenant under the resolved Connect must be verbalised back to the user before any write.
+
+Per assignment, the plugin must:
+1. **Re-read names.** Read the client tenant name and Connect tenant name from XBert and SHOW them in the approval prompt (not just the IDs).
+2. **Dry-run summary.** SHOW the rule pack name, the count of rules in the pack, and any rules that conflict with the client's existing configuration. List each conflict so the user can resolve before approving.
+3. **Explicit approval prompt** — use this exact line:
+   > Assign rule pack `<pack name>` (`<N>` rules) to client `<client name>` under Connect `<connect name>`? Reply `yes` to proceed or `no` to stop.
+   STOP until the user replies with exactly `yes`. Anything else (`no`, silence, an unrelated message) means do NOT write.
+4. **On approval: capture the rollback state.** Write the baseline AND immediately record (a) every rule id + name assigned, (b) the prior state of any rule that was overwritten, (c) a reversal block (paste-back instructions the user can use to roll the assignment back to the pre-write state). The reversal block is the audit-trail artefact.
+5. **Phase 3 is not complete until the reversal block has been emitted to chat.**
+
+Apply the same name-confirmation principle (steps 1-3, minus the rollback in step 4) to **task creation** in Phase 2 / 3 and to the **onboarding flow + scope client-note write** in Phase 3 (step 6 of the command): re-read the resolved client name and have the user confirm it matches before any record is created under that tenant — the wrong-client risk applies to those writes too.
 
 ## v1 limitations (surface in every run)
 - **COA creation**: this plugin does not create the chart of accounts in the ledger. It tracks COA-create as a checklist item; the bookkeeper does the work in Xero/MYOB/QBO. (v2: automate the COA creation through the ledger.)
@@ -77,7 +87,9 @@ Onboarding marked complete when all Phase 4 items are checked.
 ## Always
 - Never skip a phase gate — surface the blocker explicitly when a gate fails
 - Never auto-progress to go-live without all Phase 4 items checked
-- Never assign the rules baseline before scope is confirmed (Phase 3 only)
+- **Never assign the rules baseline without the explicit approval gate** (see Rules baseline assignment above) — scope-confirm does NOT authorise the write, and the user must reply `yes` to a prompt that names the resolved client and Connect tenants
+- **Always emit the rollback block** to chat after the baseline write — Phase 3 is incomplete without it
+- Always confirm the resolved client name (not just the ID) before any task creation or client-note write — wrong-client writes are a wrong-tenant risk
 - Always create tasks from practice templates — never free-form
 - Always surface v1 limitations (COA, opening balances) so the bookkeeper knows what's manual
 - Always log the onboarding state changes as client notes for audit trail

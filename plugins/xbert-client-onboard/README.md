@@ -6,7 +6,8 @@ Structured new-client onboarding with checklist, scope gate, and rules baseline.
 - Drives the new client through four phases: engagement, connection, configuration, go-live
 - Enforces gate checks at each phase boundary (no skipping ahead)
 - Creates workflow tasks from your practice templates per checklist item
-- Assigns the practice's standard XBert rules baseline once scope is confirmed
+- Assigns the practice's standard XBert rules baseline via an **explicit approval gate** (the prompt names the resolved client and Connect tenants — scope-confirm doesn't authorise the write); emits a rollback block recording every rule assigned for paste-back reversal
+- Confirms the resolved client name (not just the ID) before any task or client-note write, so wrong-tenant writes are prevented
 - Records onboarding state as client notes for audit trail
 - Surfaces practice-owner gate (engagement letter, scope) before any configuration starts
 

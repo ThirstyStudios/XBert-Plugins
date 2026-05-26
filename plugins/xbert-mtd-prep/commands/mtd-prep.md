@@ -2,6 +2,8 @@
 description: Run the Making Tax Digital for Income Tax readiness assessment for a UK client — chart-to-HMRC mapping, threshold determination, simplified vs full reporting. Produces a Word working paper.
 ---
 
+**Prerequisite:** The client's bank reconciliation must be current to the period-end date (ideally a few days post period-end) before the readiness assessment. If outstanding bank lines exist for the period, surface them in the readiness check and pause until cleared.
+
 You are running a Making Tax Digital for Income Tax Self Assessment (MTD ITSA) readiness assessment for a UK client. The goal is to determine whether the client's bookkeeping is ready for MTD quarterly reporting to HMRC and produce a working paper for the file.
 
 Steps:

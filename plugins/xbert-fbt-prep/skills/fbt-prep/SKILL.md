@@ -16,7 +16,7 @@ An annual exposure scan for Australian Fringe Benefits Tax. Identifies expense a
 - **Quarterly instalments** apply for FBT instalment payers
 - **Minor benefits exemption** — benefits under $300, infrequent and irregular, are exempt
 - **Reportable Fringe Benefits** — grossed-up value over $2,000 per employee must report via STP/payment summary
-- **Small business car parking exemption** — turnover under $10M, employer-provided parking exempt
+- **Small business car parking exemption** (s58GA ITAA 1936) — employer-provided parking is exempt if EITHER (a) total ordinary income for the year before the FBT year is less than $10M, OR (b) the employer is a small business entity with aggregated turnover less than $50M (extended to the $10M-$50M band from 1 April 2021). Clients in the $10M-$50M band still qualify under limb (b) — do not apply the old $10M-only test.
 
 ## Trigger taxonomy
 

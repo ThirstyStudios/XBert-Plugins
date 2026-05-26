@@ -47,10 +47,10 @@ A quarterly SG verification for Australian employers. Confirms super is calculat
 
 If super is paid after the 28th:
 - **Days late** — calendar days from the deadline to the bank payment date
-- **Late amount** — SG that should have been paid but wasn't
-- **SGC components** — shortfall amount + nominal interest (10% pa from start of quarter) + administration fee ($20 per employee per quarter)
+- **SGC base — broader than SG.** Once SG is late, the SGC shortfall is calculated on **total salary and wages**, NOT on OTE. This is a wider base, so the SGC can exceed the original SG that was missed. Quote the SGC explicitly against total salary and wages per employee.
+- **SGC components** — (a) shortfall amount on the total-salary-and-wages base + (b) nominal interest at 10% pa from the start of the quarter to the lodgement date + (c) administration fee of $20 per employee per quarter
 - **Tax treatment** — SGC is NOT tax deductible (unlike on-time SG which is)
-- **Lodgement** — SGC statement due 1 month after the 28th deadline
+- **Lodgement** — SGC statement due 1 month after the 28th deadline (SGAA 1992 s17)
 
 Surface the estimated SGC liability per employee and total. Recommend immediate payment to limit further interest.
 

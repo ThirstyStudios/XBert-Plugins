@@ -2,6 +2,8 @@
 description: Run the pre-lodgement BAS readiness check for an Australian client and produce a Word audit document with the supporting evidence.
 ---
 
+**Prerequisite:** The client's bank reconciliation must be current to the period-end date (ideally a few days post period-end) before lodgement preparation. If outstanding bank lines exist for the period, surface them in the readiness check and pause until cleared — unreconciled bank lines distort GST, PAYG-W, and the control-account checks.
+
 You are running BAS (Business Activity Statement) preparation for an Australian client. The goal is to determine whether the client is ready to lodge for the nominated BAS period and produce an audit document for the file.
 
 Steps:

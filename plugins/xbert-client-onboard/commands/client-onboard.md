@@ -23,10 +23,17 @@ Steps:
    - Assign tasks per template default (usually the lead bookkeeper)
    - Create the client task
 6. For configuration phase, when the user confirms scope:
+   - Re-read and SHOW the resolved client name plus the Connect tenant name; ask the user to confirm the client name matches before any write
    - Create the standard onboarding flow using the practice's onboarding flow template
    - Document the engagement scope as a client note
-7. For go-live, when all prior phases pass:
-   - Assign the practice's rules baseline rule pack to the client
+7. **Rules baseline — explicit approval gate (no auto-assign).** Scope-confirm earlier in the flow is NOT authorisation to write configuration.
+   - Re-read the resolved client name and Connect tenant name.
+   - Look up the practice's rules baseline rule pack and SHOW: pack name, number of rules in the pack, and any rules that conflict with existing client configuration (list them so the user can resolve before the write).
+   - Ask exactly this approval line and STOP until you receive an explicit `yes`:
+     > Assign rule pack `<pack name>` (`<N>` rules) to client `<client name>` under Connect `<connect name>`? Reply `yes` to proceed or `no` to stop.
+   - On `no` (or anything other than `yes`): do NOT write. Surface what the user said and ask whether to revise the pack or skip the step.
+   - On `yes`: write the baseline AND record (a) every rule id + name assigned, (b) the prior state of any rule that was overwritten, (c) a reversal block the user can paste back to roll the configuration back. Do NOT consider Phase 3 complete until the reversal block has been emitted to chat.
+8. For go-live, when all prior phases pass:
    - Mark the onboarding complete in the audit trail
 8. Output:
    - A status board showing the four phases with per-item state

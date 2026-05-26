@@ -19,7 +19,7 @@ Annual contractor-payments report preparation for Australian businesses in TPAR-
   - Road freight services
   - Security, investigation or surveillance services
   - Government entities (always)
-- **Mixed services** — if the client provides any reportable service, all payments for that service must be reported regardless of business size
+- **Mixed-business 10% test** — if the client's business is only partly in a reportable industry, TPAR lodgement is required only if income from reportable services is **10% or more of GST turnover** (current or projected). Below 10%, TPAR is not required for a mixed business. Wholly-reportable businesses (e.g. a pure cleaning company) always lodge regardless of size.
 
 ## What is reportable
 

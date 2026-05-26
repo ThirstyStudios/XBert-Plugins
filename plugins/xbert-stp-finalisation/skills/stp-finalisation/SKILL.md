@@ -9,7 +9,7 @@ An annual reconciliation of every employee's year-to-date payroll figures agains
 
 ## STP Phase 2 framework
 
-- **Deadline** — 14 July (or 31 July for small employers with closely held payees only)
+- **Deadline** — 14 July for non-closely-held employees. **Closely-held payees:** finalisation is due by the payee's own individual tax return due date — NOT a flat 31 July. The historic "31 July for closely held" rule no longer applies; small employers must align finalisation to each closely-held payee's return-due date.
 - **What is sent** — a FINAL event marking each employee's YTD figures as complete for the year
 - **Locks** the employee income statement for tax return purposes
 - **Corrections** after FINAL require a replacement FINAL event with revised YTD

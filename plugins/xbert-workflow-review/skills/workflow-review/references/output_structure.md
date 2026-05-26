@@ -1,6 +1,6 @@
 # Output structure
 
-The canonical structure of the Workflow Review document. Use this reference when generating the Word document via the `GenerateWord` MCP tool.
+The canonical structure of the Workflow Review document. Use this reference when generating the Word document deliverable.
 
 ## Document order
 
@@ -78,6 +78,6 @@ Mirrors the first-page summary for readers who scroll to the bottom. Includes th
 
 ## Format
 
-`.docx` is the default output via the `GenerateWord` MCP tool. PDF and markdown are reasonable secondary options if asked for.
+`.docx` is the default output. PDF and markdown are reasonable secondary options if asked for.
 
 Page size is A4 (Australian customer base default).

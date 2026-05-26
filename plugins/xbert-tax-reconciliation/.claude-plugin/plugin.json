@@ -1,14 +1,14 @@
 {
   "name": "xbert-tax-reconciliation",
   "version": "0.1.0",
-  "description": "Accounting-to-tax reconciliation worksheet — every Schedule M-style adjustment from accounting profit to taxable income, per-entity worksheet, with working papers.",
+  "description": "Accounting-to-tax reconciliation worksheet — every adjustment from accounting profit to taxable income (tax-effect walk), per-entity worksheet, with working papers.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-tax-reconciliation",
   "license": "MIT",
-  "keywords": ["tax", "year-end", "company-tax", "schedule-m", "reconciliation", "working-papers"],
+  "keywords": ["tax", "year-end", "company-tax", "tax-effect-walk", "reconciliation", "working-papers"],
   "x-xbert": {
     "displayName": "XBert Tax Reconciliation",
-    "tagline": "Accounting-to-tax reconciliation worksheet — every Schedule M-style adjustment, every working paper.",
+    "tagline": "Accounting-to-tax reconciliation worksheet — every tax-effect adjustment, every working paper.",
     "audience": ["accountants"],
     "categories": ["tax", "year-end", "company-tax"],
     "prerequisites": [
@@ -19,7 +19,7 @@
     "screenshots": [],
     "demoVideo": null,
     "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
-    "longDescription": "Every year-end the accountant walks from accounting profit to taxable income — adding back non-deductible expenses (entertainment, fines, private-use motor vehicle), backing out accounting depreciation and replacing it with tax depreciation, accounting for prior-year tax losses, dealing with the FBT base, and handling foreign-source income adjustments. It's the working paper the ATO wants to see if the return is reviewed and the working paper the partner wants to sign before the return is lodged.\n\nXBert Tax Reconciliation builds the worksheet. It pulls the year-end financial statements, the trial balance, the journal master, and manual journals — then runs the Schedule M-style walk in the structure your firm uses: starting accounting profit, add-backs, deductions, prior-year losses, taxable income. Each adjustment line carries the supporting evidence (which journal, which account, which schedule it ties to). The deliverable is an Excel worksheet for the return-prep team and a PDF for the file. Per-entity output — company / trust / partnership — because the structure of the reconciliation differs.\n\nv1 produces the working paper. Lodgement stays out — that's tax-agent platform territory.",
+    "longDescription": "Every year-end the accountant walks from accounting profit to taxable income — adding back non-deductible expenses (entertainment, fines, private-use motor vehicle), backing out accounting depreciation and replacing it with tax depreciation, accounting for prior-year tax losses, dealing with the FBT base, and handling foreign-source income adjustments. It's the working paper the ATO wants to see if the return is reviewed and the working paper the partner wants to sign before the return is lodged.\n\nXBert Tax Reconciliation builds the worksheet. It pulls the year-end financial statements, the trial balance, the journal master, and manual journals — then runs the tax-effect walk in the structure your firm uses: starting accounting profit, add-backs, deductions, prior-year losses, taxable income. Each adjustment line carries the supporting evidence (which journal, which account, which schedule it ties to). The deliverable is an Excel worksheet for the return-prep team and a PDF for the file. Per-entity output — company / trust / partnership — because the structure of the reconciliation differs.\n\nv1 produces the working paper. Lodgement stays out — that's tax-agent platform territory.",
     "useCases": [
       {
         "title": "Year-end tax reconciliation worksheet",
@@ -46,7 +46,7 @@
       },
       {
         "icon": "FileSearch",
-        "title": "Schedule M-style structure",
+        "title": "Tax-effect walk structure",
         "description": "The reconciliation follows the structured walk the ATO and partner expect — starting profit, add-backs, deductions, prior-year losses, taxable income."
       },
       {

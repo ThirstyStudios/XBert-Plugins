@@ -13,10 +13,19 @@ A structural readiness check for an Australian BAS lodgement. Verifies bookkeepi
 |---|---|---|
 | GST | G1, G2, G3, G10, G11, 1A, 1B | Sales and purchases GST collected / paid |
 | PAYG Withholding | W1, W2, W3, W4, W5 | Tax withheld from wages |
-| PAYG Instalments | T7, T11 | Business income tax instalments |
+| PAYG Instalments | T1, T2, T3, T4, T7, T8, T9, T11 | Business income tax instalments |
 | FBT Instalments | F-labels | If FBT instalment payer |
 
-Standard rate 10%. Quarterly (default) or monthly filers. Quarterly lodgement due 28th of month following quarter end (electronic).
+**PAYG-I labels:** T1 = instalment income (gross business + investment income, option 1 core field). T2 = applied rate. T3 = new varied rate (if varying). T4 = reason code for option-1 variation. T7 = reason code for option-2 variation. T8 = variation amount. T9 = instalment amount. T11 = varied instalment amount (option 2).
+
+Standard GST rate 10%. Quarterly (default) or monthly filers. **Quarterly BAS due dates (electronic, tax-agent concessions apply):**
+
+| Quarter | Period | Lodgement due |
+|---|---|---|
+| Q1 | Jul-Sep | 28 October |
+| Q2 | Oct-Dec | **28 February** (extra month for Christmas/January) |
+| Q3 | Jan-Mar | 28 April |
+| Q4 | Apr-Jun | 28 July |
 
 ## Readiness checks
 

@@ -1,12 +1,12 @@
 ---
 name: tax-reconciliation
-description: Walk accounting profit to taxable income for a year-end tax reconciliation worksheet — company, trust, or partnership structure, with every adjustment tied to its source journal or account. Use when the user asks for the tax reconciliation, the accounting-to-tax walk, the Schedule M, the year-end tax worksheet, or runs the /tax-reconciliation slash command. Also triggers on "what's the taxable income", "build the tax walk", "post the tax-effect entries", "year-end tax adjustments".
+description: Walk accounting profit to taxable income for a year-end tax reconciliation worksheet — company, trust, or partnership structure, with every adjustment tied to its source journal or account. Use when the user asks for the tax reconciliation, the accounting-to-tax walk, the tax-effect walk, the year-end tax worksheet, or runs the /tax-reconciliation slash command. Also triggers on "what's the taxable income", "build the tax walk", "post the tax-effect entries", "year-end tax adjustments".
 ---
 
 # Tax Reconciliation
 
 ## Goal
-Produce a Schedule M-style reconciliation from accounting profit to taxable income for a single entity, with each adjustment line tied to a journal, account or schedule. Structure adapts to entity type — company, trust, or partnership.
+Produce a tax-effect reconciliation from accounting profit to taxable income for a single entity, with each adjustment line tied to a journal, account or schedule. Structure adapts to entity type — company, trust, or partnership.
 
 ## Metrics
 - **Adjustment coverage** — % of material adjustments tied to a named source (journal, account, schedule)

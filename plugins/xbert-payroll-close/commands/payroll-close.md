@@ -2,6 +2,8 @@
 description: Pre-run sanity check and post-run reconciliation for the current pay cycle, including STP Phase 2 hygiene and bank-out reconciliation.
 ---
 
+**Prerequisite (post-run path):** the bank reconciliation of the payroll clearing account must be current to the bank-payment date before the post-run reconciliation can complete. Surface any unreconciled bank lines and pause the close until cleared.
+
 You are running the Payroll Close workflow for a bookkeeping practice.
 
 Steps:

@@ -2,6 +2,8 @@
 description: Run the pre-lodgement GST readiness check for a New Zealand client and produce a Word audit document for IRD filing.
 ---
 
+**Prerequisite:** The client's bank reconciliation must be current to the period-end date (ideally a few days post period-end) before lodgement preparation. If outstanding bank lines exist for the period, surface them in the readiness check and pause until cleared.
+
 You are running GST (Goods and Services Tax) preparation for a New Zealand client. The goal is to determine whether the client is ready to file their GST101A return with the IRD for the nominated period and produce an audit document for the file.
 
 Steps:

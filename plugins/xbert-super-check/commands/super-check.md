@@ -2,6 +2,8 @@
 description: Run the quarterly Superannuation Guarantee check for an Australian client — verify SG calculated, posted, and paid through the clearing house by the 28th. Produces a Word working paper.
 ---
 
+**Prerequisite:** The client's bank reconciliation must be current to the SG quarter end (ideally to the clearing-house payment date) before the SG check begins. The liability-to-bank trace depends on the bank-side payment being reconciled.
+
 You are running a quarterly Superannuation Guarantee (SG) check for an Australian client. The goal is to verify SG is calculated correctly, posted to the liability account, and paid through the clearing house by the 28th deadline, and produce a working paper for the file.
 
 Steps:

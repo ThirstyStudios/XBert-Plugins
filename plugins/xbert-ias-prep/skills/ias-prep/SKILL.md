@@ -25,8 +25,14 @@ Used by entities NOT registered for GST, and medium withholders ($25K-$1M annual
 | W3 | Other amounts withheld (interest, dividends, no TFN) |
 | W4 | Amounts withheld where no ABN quoted |
 | W5 | Total withheld (W2 + W3 + W4) |
-| T7 | PAYG instalment amount |
-| T11 | Instalment calculated amount |
+| T1 | Instalment income (gross business + investment income — option-1 core field) |
+| T2 | Applied instalment rate |
+| T3 | New varied rate (if varying under option 1) |
+| T4 | Reason code for an option-1 variation |
+| T7 | Reason code for an option-2 variation |
+| T8 | Variation amount |
+| T9 | Instalment amount payable |
+| T11 | Varied instalment amount (option 2) |
 
 ## Readiness checks
 

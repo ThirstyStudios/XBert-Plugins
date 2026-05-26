@@ -45,7 +45,7 @@
         "description": "Word + PDF output with entity name, ABN, registered address, comparative columns, and notes shell — all populated from the ledger, ready for partner review."
       },
       {
-        "icon": "Sparkles",
+        "icon": "Scale",
         "title": "SPFS or GPFS structure",
         "description": "Default SPFS shape (small proprietary company) covers most clients. Switch to GPFS for audit clients with deeper note disclosures."
       },

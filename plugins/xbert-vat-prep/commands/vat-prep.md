@@ -2,6 +2,8 @@
 description: Run the pre-submission VAT readiness check for a UK client — boxes 1-9 validated, MTD compliance verified, partial exemption and reverse charge flagged. Produces a Word audit document.
 ---
 
+**Prerequisite:** The client's bank reconciliation must be current to the period-end date (ideally a few days post period-end) before lodgement preparation. If outstanding bank lines exist for the period, surface them in the readiness check and pause until cleared.
+
 You are running VAT (Value Added Tax) preparation for a UK client. The goal is to determine whether the client is ready to submit their VAT return to HMRC for the nominated period and produce an audit document for the file.
 
 Steps:

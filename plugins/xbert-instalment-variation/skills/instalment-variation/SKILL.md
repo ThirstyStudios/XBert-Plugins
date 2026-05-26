@@ -53,6 +53,7 @@ Recommend a variation direction (up / down / stay) for a client's PAYG-I or GST 
 - Hypothesis: if YTD projection turns out wrong by 15% on the final return, what is the GIC?
 - Calculate: shortfall × current GIC rate × average exposure period (estimated 9 months for a Q3 variation)
 - v1 uses manually-entered GIC rate (automated benchmark-rate lookup is not yet available; capability gap noted)
+- **Deductibility — material change from 1 July 2025.** GIC and SIC incurred on or after 1 July 2025 are **not deductible** for income tax (Treasury Laws Amendment (Tax Incentives and Integrity) Act 2024). Pre-1-Jul-2025 GIC/SIC remained deductible. Treat any post-1-Jul-2025 GIC as a permanent after-tax cost (no 25% / 30% recovery via deduction) when weighing the cost of varying down too far. If the variation period straddles 1 July 2025, split the exposure pre- and post-cutover.
 
 ### Step 7 — Working paper
 - PDF with all inputs, the recommendation, and the confidence label
