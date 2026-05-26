@@ -39,7 +39,7 @@ export default function HomePage() {
                   "linear-gradient(135deg, #2563eb 0%, #0891b2 60%, #7c3aed 100%)",
               }}
             >
-              AI-ready workspace
+              AI-ready, trusted workspace
             </span>
             .
           </motion.h1>
