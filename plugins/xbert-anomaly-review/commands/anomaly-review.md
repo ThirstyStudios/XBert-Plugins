@@ -1,15 +1,26 @@
 ---
-description: Review the period's anomaly XBerts for a client — cluster findings by pattern, explain likely root cause, drive partner sign-off, and produce an audit-ready evidence pack.
+description: Surface every anomaly XBert that fired across the period as a single ranked list — per firing, with the underlying transaction and a proposed action. No invented pattern labels, no user attribution, no Journal data.
 ---
 
-You are running an anomaly review for a client. The deterministic anomaly XBerts have already done the detection — your job is to orchestrate the review of what they caught, cluster the findings, drive resolution, and produce the evidence pack.
+You are running an anomaly review for a client. The deterministic anomaly XBerts have already done the detection — your job is to present what they caught as a flat ranked list and propose the next action per firing. You do not invent pattern labels, you do not attribute postings to users, you do not claim Journal data.
 
 Steps:
 1. **Linked XBerts gate.** Resolve the system agent backing this plugin (matched by the `/anomaly-review` slug) and call `Data_GetLinkedXBertsForAgent` for the client and review period. If the returned list is EMPTY, STOP and tell the user: "No XBerts are linked to this agent in your Connect portal. Configure them under Agent → Linked XBerts before running this review — without linked XBerts there is nothing deterministic to reason over."
 2. Ask the user which client and which review period to assess (month-end date or custom range). If the slash command has named a client, proceed.
-3. Pull the firings of each linked anomaly XBert across the period, plus the underlying journal lines, vendor and account context, and any prior-period firings on the same pattern.
-4. Cluster the findings per the `anomaly-review` skill — one cluster per analytics group (duplicate journals, reversal pairs, vendor-flip, round-tripping, period-jump, unusual-day-of-week). For each cluster explain the likely root cause and the recommended resolution.
-5. Drive partner sign-off: present clusters in priority order (impact × certainty), capture the sign-off decision and any rationale per cluster, and record what is being actioned versus accepted-as-noise.
-6. Produce an evidence pack — cover page, cluster summaries with explanations, full list of source XBert firings and journal lines, hyperlinks back to each source XBert and ledger transaction, and a QMS block with check reference ID, preparer, timestamp.
+3. Pull the firings of each linked anomaly XBert across the period, plus the underlying Bill / BankTransaction / Invoice / account balance and the vendor / account context.
+4. Present a flat ranked list (highest impact first). Per firing: posting date, doc number, vendor, amount, account, the linked XBert that fired, the XBert's detection reason, the count of prior firings on the same vendor or same account in the period (a deterministic fact, not a pattern label), recommended action, confidence.
+5. Optionally sub-group by deterministic facets only — by vendor, by account, by period bucket. Do NOT name these sub-groups as patterns (no "duplicate-journal cluster", no "round-tripping cluster", no "after-hours cluster"). The label IS the data facet ("5 firings on Vendor X", "3 firings on Account Y").
+6. Produce an evidence pack: cover page, the ranked list, optional facet sub-groupings with counts, source links to every XBert firing, QMS block with check reference ID, preparer, timestamp.
 
-Use the `anomaly-review` skill for cluster definitions, the sign-off workflow and the evidence-pack structure. Use Australian English (organisation, behaviour, colour). Never auto-resolve XBerts — surface them with resolution instructions only.
+## Out of scope (do NOT attempt these — no backing data)
+
+- Identify the posting user / user who entered the transaction — no user / posting-user property on any data type.
+- Time-of-day posting patterns (after-hours by specific user) — created timestamps include date but no time-of-day or user identity.
+- Detect deliberate round-tripping based on intent — intent is not a data property; debit / credit pair patterns would need Journal data, which isn't available.
+- Cluster anomalies across multiple XBerts into named patterns — clustering is synthesis the agent does; a Custom XBert detects a single condition on a single record. Present what fired; do not invent pattern labels.
+- Track resolution status of an anomaly cluster — no cluster / case / resolution-status entity exists; resolution is per firing in the XBert's own workflow.
+- Identify journal entries and journal reversal pairs — no Journal or ManualJournal data type in MCP today. Duplicate-journals, reversal-pair and round-tripping checks all need Journal data.
+
+If the user wants any of the above, the answer is the same: it needs a deterministic Custom XBert sitting on a data surface that XBert MCP exposes, and that surface does not exist yet.
+
+Use the `anomaly-review` skill for the per-firing presentation, the deterministic facet sub-grouping rules, and the evidence-pack structure. Use Australian English (organisation, behaviour, colour). Never invent pattern labels, never attribute to users, never claim Journal data — surface what the XBerts caught and route resolution per firing.

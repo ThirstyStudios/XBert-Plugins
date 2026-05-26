@@ -1,52 +1,63 @@
 ---
 name: policy-review
-description: Policy-review methodology for posted spend caught by deterministic policy XBerts — group violations by category, draft per-spender follow-ups, produce an audit pack. Use when the user asks to review policy violations, run a weekly spend review, check out-of-policy spend, investigate a vendor anomaly, or runs the /policy-review slash command. Also triggers on: "weekly spend sweep", "spend policy review", "receipt forensic review", "out-of-policy review", "vendor anomaly check".
+description: Policy-review methodology for posted spend caught by deterministic policy XBerts — surface what they caught on the supported categories (out-of-policy account, banned vendor, missing receipt, duplicate transaction, receipt forensic flag), propose per-firing action, produce an audit pack. Use when the user asks to review policy violations, run a weekly spend review, check out-of-policy spend, investigate a vendor anomaly, or runs the /policy-review slash command. Also triggers on "weekly spend sweep", "spend policy review", "receipt forensic review", "out-of-policy review", "vendor anomaly check".
 ---
 
 # Policy Review
 
-A periodic review of every policy XBert that fired across the period. Enforcement is owned deterministically by Custom XBerts (the XBerts are the heroes); this skill orchestrates the review, groups violations by category, drafts per-spender follow-ups, and produces the audit pack.
+A periodic review of every policy XBert that fired across the period. Enforcement is owned deterministically by Custom XBerts (the XBerts are the heroes); this skill surfaces what they caught, groups firings on supported categories, proposes the next action per firing, and produces the audit pack. The user writes the communication.
 
 ## Goal
 
-Convert a flat list of policy XBert firings into a categorised review with drafted spender follow-ups and a filable audit pack — without ever auto-sending a message or auto-resolving a violation.
+Convert a flat list of policy XBert firings into a categorised review with a per-firing proposed action and a filable audit pack — without ever auto-sending a message, auto-resolving a violation, or inventing a signal the XBerts cannot independently detect.
 
-## Policy categories
+## Supported policy categories
 
 | Category | Pattern detected by linked XBerts |
 |---|---|
-| Out-of-policy category | Spend coded to an account or category the firm or client policy disallows |
-| Banned vendor | Posting to a vendor on the deny list |
-| Mileage-over-threshold | Mileage claims above the firm or client cap |
-| Duplicate submission | The same receipt or expense submitted more than once |
-| Missing-receipt-after-N-days | Receipt outstanding beyond the firm's grace period |
-| Receipt forensic signals | Copy-move artefacts, metadata tampering, greyscale conversion, image-of-image — caught by Capture XBerts |
+| Out-of-policy account | Spend coded to an account / category the firm or client policy disallows |
+| Banned vendor | Posting to a vendor on the deny list (matched on vendor name) |
+| Missing receipt | Transaction over the receipt-required threshold with no attachment |
+| Duplicate transaction | Same vendor + amount + date appearing more than once on Bill or BankTransaction |
+| Receipt forensic flag | Copy-move, metadata tampering, greyscale conversion or image-of-image caught on a captured receipt |
+
+If a linked XBert does not fit one of these five buckets, surface it under "Other" with the XBert title verbatim — do NOT force-fit it into a per-employee or per-user bucket.
 
 ## Metrics
 
-- **Violations per category** — to focus the reviewer on dominant categories
-- **Spenders represented** — distribution across the team
-- **Forensic flag rate** — proportion of receipts tripping a forensic signal
-- **Repeat-offender count** — spenders who have appeared in prior weeks' reviews
-- **Resolution outcome per violation** — actioned, accepted-with-exception, escalated
+- **Firings per category** — focuses the reviewer on dominant categories
+- **Recurrence by vendor** — vendors with two or more firings in the period (deterministic fact, not pattern label)
+- **Recurrence by account** — accounts with two or more firings in the period
+- **Forensic-flag rate** — proportion of receipts tripping a forensic signal
 
 ## Methodology
 
 1. **Linked XBerts gate.** If no XBerts are linked to the Policy Review agent in the Connect portal for the client, STOP. Tell the user to configure linked XBerts first. The plugin reasons only over what the linked XBerts caught.
-2. **Pull firings.** For every linked policy XBert, pull the period's firings with spender, vendor, category, amount, captured receipt and any forensic flags.
-3. **Group.** Group by policy category (table above). Within each category, sub-group by spender where it tightens the narrative.
-4. **Draft follow-ups.** For each violation, draft the spender follow-up — date, vendor, amount, the rule broken, what evidence is missing, the action required. Match the firm's tone-of-voice.
+2. **Pull firings.** For every linked policy XBert, pull the period's firings with vendor, account, amount, date, captured receipt and any forensic flags.
+3. **Bucket.** Group by supported category (table above). Within a category, sub-group by vendor or account where it tightens the narrative.
+4. **Per-firing action.** Propose the next action per firing: recode, request supporting doc, accept-as-correct, escalate. Do not draft a communication — the user writes the message.
 5. **Highlight forensic signals.** Receipt forensic flags get a dedicated sub-section with the specific signal (copy-move, metadata, greyscale, image-of-image) named per receipt.
-6. **Compile audit pack.** Workpaper with category sections, drafted follow-ups, source links to every XBert firing and captured receipt.
+6. **Compile audit pack.** Workpaper with category sections, recommended actions per firing, source links to every XBert firing and captured receipt.
 
 ## Audit pack structure
 
 1. Cover page — client name, period, generation date
-2. Summary — total violations, by-category breakdown, repeat-offender count
-3. Category sections — description, firings list, drafted follow-ups, supporting evidence
+2. Summary — total firings, by-category breakdown, recurrence by vendor / account
+3. Category sections — description, firings list, recommended action per firing, supporting evidence
 4. Forensic-signal sub-section — flagged receipts with the specific signal named
 5. Source links — hyperlinks to every underlying XBert firing and captured receipt
 6. QMS block — practice name + ID, preparer name + ID, timestamp, unique check reference ID, compliance statement
+
+## Out of scope (do NOT include in output — no backing data)
+
+- Per-employee patterns (no employee identifier on transactions)
+- Per-cardholder patterns (no cardholder link on BankTransaction)
+- After-hours / time-of-day patterns (only created-date is available, not time-of-day or user identity)
+- Approved-with-exception annotations (no annotation property exists)
+- Manual journal forensic review (no journal data type in MCP)
+- Expense claim review (no expense claim data type; only Bill / BankTransaction / Invoice)
+- Mileage-over-threshold per employee (expense claim data, unsupported)
+- Drafted spender follow-up text (the user writes the communication)
 
 ## Output format
 
@@ -60,7 +71,8 @@ Convert a flat list of policy XBert firings into a categorised review with draft
 ## Always
 
 - Never auto-apply; never lodge; never send. Output is for review.
-- Name the specific date, vendor, amount and rule broken in every drafted follow-up — no generic messages
-- If the linked-XBerts list is empty, stop and prompt the user — do not invent a fallback
-- Receipt forensic signals must be named specifically — copy-move, metadata, greyscale, image-of-image — not generic "looks suspicious"
-- Repeat-offender patterns from prior weeks must be flagged explicitly
+- Never draft communication copy — the user writes the message.
+- Never invent per-employee, per-cardholder, per-user, after-hours or approved-with-exception signals. If the linked XBerts cannot deterministically detect it, it does not exist.
+- If the linked-XBerts list is empty, stop and prompt the user — do not invent a fallback.
+- Recurrence by vendor or account is a deterministic fact (a count), not a pattern label.
+- Receipt forensic signals must be named specifically — copy-move, metadata, greyscale, image-of-image — not generic "looks suspicious".
