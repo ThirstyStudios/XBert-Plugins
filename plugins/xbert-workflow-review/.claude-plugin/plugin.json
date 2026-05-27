@@ -1,6 +1,6 @@
 {
   "name": "xbert-workflow-review",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Run a structural audit of your XBert workflow setup — template consolidation, budget accuracy, workload balance, and setup hygiene.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-workflow-review",

@@ -1,6 +1,6 @@
 {
   "name": "xbert-mtd-prep",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Making Tax Digital for Income Tax readiness assessment for UK clients — chart of accounts mapped to HMRC categories, income threshold, simplified vs full reporting eligibility, quarterly reporting readiness.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-mtd-prep",

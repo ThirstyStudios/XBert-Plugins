@@ -1,6 +1,6 @@
 {
   "name": "xbert-tpar",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Annual Taxable Payments Annual Report (TPAR) preparation for Australian clients in building, cleaning, courier, IT, road-freight and security industries — due 28 August.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-tpar",

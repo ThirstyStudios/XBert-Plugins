@@ -1,6 +1,6 @@
 {
   "name": "xbert-balance-sheet-explain",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Movement-by-movement balance sheet review with reconciliation status, manual journal trace, and FAR-to-GL accumulated depreciation check.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-balance-sheet-explain",

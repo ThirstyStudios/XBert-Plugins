@@ -1,6 +1,6 @@
 {
   "name": "xbert-super-check",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Quarterly Superannuation Guarantee check for Australian clients — verify SG calculated, posted, and paid through the clearing house by the 28th, with SGC-risk audit trail.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-super-check",

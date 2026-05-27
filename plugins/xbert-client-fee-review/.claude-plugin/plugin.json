@@ -1,6 +1,6 @@
 {
   "name": "xbert-client-fee-review",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Evidence-based annual fee review across the whole client book, with per-client drill-down.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-client-fee-review",

@@ -1,6 +1,6 @@
 {
   "name": "xbert-tax-reconciliation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Accounting-to-tax reconciliation worksheet — every adjustment from accounting profit to taxable income (tax-effect walk), per-entity worksheet, with working papers.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-tax-reconciliation",

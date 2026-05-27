@@ -1,6 +1,6 @@
 {
   "name": "xbert-ias-prep",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pre-lodgement IAS readiness check for Australian clients — verify PAYG withholding and instalment data before lodging the Instalment Activity Statement.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-ias-prep",

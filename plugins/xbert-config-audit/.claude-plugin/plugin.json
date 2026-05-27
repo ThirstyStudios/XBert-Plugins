@@ -1,6 +1,6 @@
 {
   "name": "xbert-config-audit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Is XBert configured consistently across your book? Spot inconsistencies, gaps, and drift in one pass.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-config-audit",

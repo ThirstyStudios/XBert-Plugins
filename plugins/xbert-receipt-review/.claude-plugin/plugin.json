@@ -1,6 +1,6 @@
 {
   "name": "xbert-receipt-review",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Review the period's orphan-receipt and orphan-bank-line XBerts — batch-approve matches, draft spender follow-ups for true orphans.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-receipt-review",

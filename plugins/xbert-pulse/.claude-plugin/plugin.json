@@ -1,6 +1,6 @@
 {
   "name": "xbert-pulse",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Detect material changes in client transactional tempo and propose actions using XBert.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-pulse",

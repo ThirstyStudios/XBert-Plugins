@@ -1,6 +1,6 @@
 {
   "name": "xbert-anomaly-review",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Surface every anomaly XBert that fired across the period as a flat ranked list with per-firing recommended action. No invented pattern labels, no user attribution, no Journal data.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-anomaly-review",

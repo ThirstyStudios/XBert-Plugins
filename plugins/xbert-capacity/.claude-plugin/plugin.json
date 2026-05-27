@@ -1,6 +1,6 @@
 {
   "name": "xbert-capacity",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Billable utilisation and WIP variance reporting at practice and client level, using XBert data.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-capacity",

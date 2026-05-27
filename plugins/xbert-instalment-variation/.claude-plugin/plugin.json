@@ -1,6 +1,6 @@
 {
   "name": "xbert-instalment-variation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "PAYG-I and GST instalment variation recommendation with cashflow run-rate, YTD profit trend, and GIC-risk audit trail.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-instalment-variation",
