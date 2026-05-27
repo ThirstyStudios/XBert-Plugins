@@ -9,6 +9,8 @@ import {
   Users,
   ArrowRight,
   ExternalLink,
+  FileText,
+  Network,
 } from "lucide-react";
 import { plugins } from "../lib/catalog";
 
@@ -253,6 +255,62 @@ export default function InsideXBertPage() {
                   </div>
                 ))}
               </dl>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* WHERE CO-WORK PULLS AHEAD */}
+      <section className="mt-20">
+        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
+          Where co-work pulls ahead
+        </h2>
+        <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 max-w-3xl leading-relaxed">
+          XBert is built to surface the right information at the moment
+          you&apos;re doing the work. Co-work — your AI assistant running the
+          XBert plugins — takes that further: arbitrary output formats, and
+          everything else in your stack pulled into a single thread.
+        </p>
+        <div className="mt-10 grid md:grid-cols-2 gap-4">
+          {[
+            {
+              icon: (
+                <FileText
+                  size={18}
+                  className="text-blue-500 dark:text-blue-400"
+                />
+              ),
+              title: "Any document, any format",
+              body: "XBert shows you the answer; co-work shapes it into whatever you need. Board pack PDF, client email, Word brief, exported workpaper, plain summary — co-work composes the artefact from live XBert data, then drops it back into your file system or the chat.",
+            },
+            {
+              icon: (
+                <Network
+                  size={18}
+                  className="text-violet-500 dark:text-violet-400"
+                />
+              ),
+              title: "Your whole stack, one thread",
+              body: "Co-work isn't just XBert. Through MCP it reaches your other connected systems — ledgers, mailbox, calendars, document store, and whatever else your firm runs. XBert is the accounting brain; co-work brings the wider ecosystem into the same conversation.",
+            },
+          ].map((c, i) => (
+            <motion.div
+              key={c.title}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.45, delay: 0.05 * i }}
+              className="rounded-2xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] p-6 md:p-8"
+            >
+              <div className="inline-flex items-center justify-center size-9 rounded-lg border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/[0.06] mb-4">
+                {c.icon}
+              </div>
+              <h3 className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-white">
+                {c.title}
+              </h3>
+              <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                {c.body}
+              </p>
             </motion.div>
           ))}
         </div>
