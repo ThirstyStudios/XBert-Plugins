@@ -3,6 +3,8 @@ name: payment-run
 description: "Plan the week's pay run — inclusion/exclusion logic, supplier grouping, prioritisation, and per-supplier remittance drafting. Use this skill when the user asks to prep the pay run, draft remittances, decide what to pay this week, or runs the /payment-run slash command. Also triggers on: 'weekly pay schedule', 'what to pay this week', 'remittance advice drafts', 'supplier payment list'. v1 scope: schedule + remittances; ABA file generation is v2 (still happens in the ledger)."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Payment Run
 
 ## Goal

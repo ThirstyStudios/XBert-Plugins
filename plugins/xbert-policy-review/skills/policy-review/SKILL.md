@@ -3,6 +3,8 @@ name: policy-review
 description: Policy-review methodology for posted spend caught by deterministic policy XBerts — surface what they caught on the supported categories (out-of-policy account, banned vendor, missing receipt, duplicate transaction, receipt forensic flag), propose per-firing action, produce an audit pack. Use when the user asks to review policy violations, run a weekly spend review, check out-of-policy spend, investigate a vendor anomaly, or runs the /policy-review slash command. Also triggers on "weekly spend sweep", "spend policy review", "receipt forensic review", "out-of-policy review", "vendor anomaly check".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Policy Review
 
 A periodic review of every policy XBert that fired across the period. Enforcement is owned deterministically by Custom XBerts (the XBerts are the heroes); this skill surfaces what they caught, groups firings on supported categories, proposes the next action per firing, and produces the audit pack. The user writes the communication.

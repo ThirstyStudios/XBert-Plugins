@@ -3,6 +3,8 @@ name: month-end-pack
 description: "Assemble the month-end financial pack the partner hands to the client — P&L vs budget, BS movement walk, cashflow vs forecast, and KPI roll-up. Use this skill when the user asks to produce the monthly client pack, run month-end reporting, generate the financial pack, or runs the /month-end-pack slash command. Also triggers on: 'monthly client report', 'partner pack', 'month-end reporting', 'client board pack', 'rolling monthly financials'."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Month-End Pack
 
 ## Goal

@@ -3,6 +3,8 @@ name: fs-pack
 description: Compose a year-end financial statement pack for an Australian client — SPFS structure by default, GPFS variant for audit clients. Use when the user asks to produce the year-end financial statements, generate the FS pack, draft the annual accounts, build the partner pack, or runs the /fs-pack slash command. Also triggers on "year-end accounts", "annual statements", "directors' declaration", "SPFS pack".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # FS Pack
 
 ## Goal

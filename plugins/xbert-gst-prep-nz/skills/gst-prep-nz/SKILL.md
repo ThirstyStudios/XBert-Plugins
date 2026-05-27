@@ -3,6 +3,8 @@ name: gst-prep-nz
 description: GST readiness methodology for New Zealand clients — verify the client is ready to file their GST101A return with the IRD and produce a Word audit document. Use when the user asks to prep NZ GST, check if a client is GST-ready, run an IRD GST readiness review, or runs the /gst-prep-nz slash command. Also triggers on: "is the GST ready", "GST period close", "IRD filing readiness", "NZ GST101A prep".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # GST Prep (NZ)
 
 A structural readiness check for a New Zealand GST101A filing. Verifies bookkeeping is complete, balanced, and audit-defensible before filing with the IRD. Produces a Word audit document with a unique check reference ID, preparer details, and supporting evidence.

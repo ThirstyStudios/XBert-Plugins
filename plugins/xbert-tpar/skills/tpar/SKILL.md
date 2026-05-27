@@ -3,6 +3,8 @@ name: tpar
 description: Annual TPAR (Taxable Payments Annual Report) preparation for Australian clients in reportable industries — identify contractors, validate ABNs, separate GST, surface errors, and produce a TPAR-ready breakdown and Word working paper. Use when the user asks to prep TPAR, run a contractor payments review, prepare the taxable payments report, or runs the /tpar slash command. Also triggers on: "TPAR annual report", "contractor payments report", "28 August TPAR deadline", "building industry TPAR".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # TPAR Prep
 
 Annual contractor-payments report preparation for Australian businesses in TPAR-reportable industries. Identifies every reportable payment, validates the supplier data, and produces a TPAR-ready breakdown plus a Word working paper.

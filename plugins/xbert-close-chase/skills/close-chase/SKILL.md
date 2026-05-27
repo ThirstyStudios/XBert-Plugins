@@ -3,6 +3,8 @@ name: close-chase
 description: Close-period chase methodology — pull all outstanding XBerts for a client, rank by impact and age, draft per-item reminder text with email and Capture-chat tone variants, record the chase and produce a delta on the next run. Use when the user asks to chase outstanding items, run a close-period chase, draft client reminders, get a delta on prior chase, or runs the /close-chase slash command. Also triggers on: "month-end chase", "outstanding XBert chase", "client reminder draft", "close-period sweep".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Close Chase
 
 A close-period chase loop driven by every outstanding XBert for the client. This skill does NOT use the linked-XBerts gate that the other XBert-led plugins use — the chase intentionally covers every issue, not a curated subset. Drafts reminders, records what was chased, and produces a delta on the next run.

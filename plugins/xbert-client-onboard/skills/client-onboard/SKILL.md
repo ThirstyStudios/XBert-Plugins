@@ -3,6 +3,8 @@ name: client-onboard
 description: "Drive a new client through the four-phase onboarding workflow — engagement, connection, configuration, go-live — with gate checks at each phase boundary. Use this skill when the user is onboarding a new client, asks to run the onboarding checklist, asks if a client is ready for go-live, or runs the /client-onboard slash command. Also triggers on: 'new client setup', 'onboarding checklist', 'engagement letter on file', 'ready for go-live'. v1 scope: orchestration + checklist + gates + rules baseline assignment; COA + opening-balance load remain manual ledger work."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Client Onboard
 
 ## Goal

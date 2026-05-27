@@ -3,6 +3,8 @@ name: mtd-prep
 description: Making Tax Digital for Income Tax readiness assessment for UK clients — assess chart of accounts mapping to HMRC categories, determine income threshold and mandate date, check simplified vs full reporting eligibility, identify issues before quarterly digital reporting. Use when the user asks about MTD readiness, MTD for ITSA, chart-to-HMRC mapping, MTD threshold, or runs the /mtd-prep slash command. Also triggers on: "is the client MTD ready", "MTD ITSA assessment", "HMRC category mapping", "quarterly MTD reporting".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # MTD Prep
 
 A readiness assessment for UK Making Tax Digital for Income Tax Self Assessment. Determines whether the client's bookkeeping is mapped, classified, and structured for MTD quarterly reporting to HMRC.

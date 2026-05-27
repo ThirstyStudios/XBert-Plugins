@@ -3,6 +3,8 @@ name: end-of-period-dashboard
 description: "Run the XBert End-of-Period Dashboard for a Connect tenant — fuse XBert work, ledger data quality and lodgement obligations into one per-client period-close readiness view. Use when the user asks about month-end, quarter-end, year-end, BAS readiness, payroll close, period-close status, who is ready to close, lodgement deadlines, or runs the /end-of-period-dashboard slash command. Also triggers on 'are we ready for month-end', 'who is at risk for BAS', 'what is blocking close', 'period-close stand-up'."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # End-of-Period Dashboard
 
 A cadence-aware per-client readiness view that fuses XBert work-in-flight, ledger data quality, and lodgement obligations. v1 is AU-first and runs one cadence at a time.

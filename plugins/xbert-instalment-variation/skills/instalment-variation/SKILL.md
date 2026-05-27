@@ -3,6 +3,8 @@ name: instalment-variation
 description: Analyse a client's PAYG-I or GST instalment variation decision for a given quarter — YTD trend, cashflow run-rate, GIC exposure, and an audit-defence working paper. Use when the user asks to vary an instalment, run a PAYG variation, vary down the GST instalment, assess instalment exposure, or runs the /instalment-variation slash command. Also triggers on "ATO notice arrived", "do we vary the instalment", "PAYG headline rate is too high", "client wants to vary down".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Instalment Variation
 
 ## Goal

@@ -3,6 +3,8 @@ name: super-check
 description: Quarterly Superannuation Guarantee check for Australian clients — verify SG calculated, posted, paid through the clearing house, and lodged by the 28th deadline. Quantifies SGC risk where super is late or missed. Use when the user asks to check super, run an SG review, reconcile the clearing house, check super deadline, or runs the /super-check slash command. Also triggers on: "is super paid", "SG quarterly check", "super clearing house reconciliation", "SGC risk".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Super Check
 
 A quarterly SG verification for Australian employers. Confirms super is calculated at the current 12% rate, posted to the liability account, lodged with the clearing house, and paid by the 28th of the month following the quarter end. Quantifies SGC exposure for late or missed payments.

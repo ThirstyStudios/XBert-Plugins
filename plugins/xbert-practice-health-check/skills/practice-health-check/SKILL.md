@@ -3,6 +3,8 @@ name: practice-health-check
 description: "Run the XBert Practice Health Check across a Connect tenant — portfolio-wide data-quality and financial-health snapshot with diagnostic and prescriptive recommendations per client. Use when the user asks to assess practice health, sanity-check the book, identify deteriorating clients, find which clients need attention, run a monthly health check, or invokes the /practice-health-check slash command. Also triggers on 'how healthy is my book', 'which clients are slipping', 'where should I focus this month'."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Practice Health Check
 
 A portfolio-level diagnostic that rolls up data-quality and notification signals across every client in a Connect tenant, bands the portfolio, then drills into the worst-performing N with prescriptive recommendations.

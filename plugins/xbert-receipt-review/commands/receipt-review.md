@@ -2,6 +2,8 @@
 description: Review the period's orphan-receipt and orphan-bank-line XBerts for a client — batch-approve high-confidence matches and draft per-spender follow-ups for the true orphans.
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 You are running a receipt review for a client. The deterministic receipt XBerts have already surfaced the orphans on both sides — your job is to orchestrate the review, batch-approve high-confidence matches, draft follow-ups for true orphans, and produce the summary.
 
 Steps:

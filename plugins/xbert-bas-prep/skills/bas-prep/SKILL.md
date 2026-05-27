@@ -3,6 +3,8 @@ name: bas-prep
 description: BAS readiness methodology for Australian clients — verify the client is ready to lodge a Business Activity Statement with the ATO and produce a Word audit document with the supporting evidence. Use when the user asks to prep a BAS, check if a client is BAS-ready, do BAS preparation, run a pre-lodgement review, or runs the /bas-prep slash command. Also triggers on: "is the BAS ready", "BAS quarter close", "lodgement readiness check", "pre-lodgement sweep".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # BAS Prep
 
 A structural readiness check for an Australian BAS lodgement. Verifies bookkeeping is complete, balanced, and audit-defensible before lodging with the ATO. Produces a Word audit document with a unique check reference ID, preparer details, and the supporting evidence behind every readiness decision.

@@ -3,6 +3,8 @@ name: cashflow-13week
 description: "Project a 13-week rolling cash forecast — predicted-pay-weighted AR, dated AP, payroll/tax cadence, recurring bank-tx — and surface named risk weeks with recommended actions. Use this skill when the user asks for a cashflow forecast, 13-week forecast, rolling cash forecast, working-capital projection, or runs the /cashflow-13week slash command. Also triggers on: 'cashflow looks tight', 'when does cash run low', 'project the bank balance forward', 'risk weeks ahead', 'should we draw on the facility', 'should we delay supplier payments'."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # 13-Week Cashflow
 
 ## Goal

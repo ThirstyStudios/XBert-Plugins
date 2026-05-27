@@ -3,6 +3,8 @@ name: receipt-review
 description: Receipt-review methodology for orphan-receipt and orphan-bank-line XBerts — cluster proposed matches by confidence, batch-approve high-confidence, draft spender follow-ups for true orphans. Use when the user asks to review receipts, match orphan receipts, sweep orphan bank lines, chase missing receipts, or runs the /receipt-review slash command. Also triggers on: "orphan receipt review", "bank line without receipt", "receipt match approval", "weekly receipt sweep".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Receipt Review
 
 A two-sided review of every receipt and bank-line orphan XBert that fired across the period. Detection is owned deterministically by Custom XBerts (the XBerts are the heroes); this skill orchestrates the desktop-side review, batch-approves the high-confidence proposed matches, and drafts per-spender follow-ups for the true orphans.

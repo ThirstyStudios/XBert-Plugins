@@ -3,6 +3,8 @@ name: payroll-close
 description: "Run pre-run sanity checks and post-run reconciliation for a weekly pay cycle, including STP Phase 2 hygiene and bank-out reconciliation against net pays. Use this skill when the user is about to post a pay run, has just posted a pay run and needs to check it, or runs the /payroll-close slash command. Also triggers on: 'checking the pay before I post', 'reconcile the payroll', 'is the bank file right', 'STP compliance check', 'why did super go up this week'."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Payroll Close
 
 ## Goal

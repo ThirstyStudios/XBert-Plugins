@@ -3,6 +3,8 @@ name: div7a-schedule
 description: Build a Division 7A loan schedule per shareholder loan — opening, advances, repayments, interest at the benchmark rate, minimum yearly repayment, and complying-loan-agreement assumption check. Use when the user asks for the Div 7A schedule, the shareholder loan schedule, the minimum repayment calc, year-end Div 7A walk, or runs the /div7a-schedule slash command. Also triggers on "Div 7A", "shareholder loan", "loan to director", "deemed dividend risk", "complying loan agreement".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Div 7A Schedule
 
 ## Goal

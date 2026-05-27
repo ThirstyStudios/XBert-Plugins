@@ -3,6 +3,8 @@ name: capacity-reporting
 description: Methodology for billable utilisation and WIP variance reporting at practice and client level. Trigger when reviewing capacity, billable hours, WIP variance, overruns, or producing internal practice reports.
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Capacity & utilisation reporting
 
 ## Metrics

@@ -3,6 +3,8 @@ name: fbt-prep
 description: Annual FBT exposure scan for Australian clients — identify potential fringe benefit tax triggers from motor vehicles, entertainment, employee benefits and financial arrangements, estimate the liability, and produce a Word working paper. Use when the user asks to run an FBT review, scan for fringe benefit exposure, prep an FBT return, or runs the /fbt-prep slash command. Also triggers on: "FBT exposure check", "company car FBT", "entertainment FBT", "annual FBT review".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # FBT Prep
 
 An annual exposure scan for Australian Fringe Benefits Tax. Identifies expense and balance sheet items that may trigger FBT, estimates the liability with the correct gross-up applied, and produces a Word working paper for the file.

@@ -3,6 +3,8 @@ name: vat-prep
 description: VAT readiness methodology for UK clients — verify the client is ready to submit their VAT return to HMRC via MTD and produce a Word audit document. Use when the user asks to prep VAT, check if a client is VAT-ready, run a pre-submission review, check MTD compliance, or runs the /vat-prep slash command. Also triggers on: "is the VAT ready", "VAT quarter close", "MTD submission check", "VAT return prep".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # VAT Prep
 
 A structural readiness check for a UK VAT return submission. Verifies bookkeeping is complete, balanced, and HMRC-defensible before submitting via Making Tax Digital. Produces a Word audit document with a unique check reference ID, preparer details, and supporting evidence.

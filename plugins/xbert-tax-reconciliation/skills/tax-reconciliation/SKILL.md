@@ -3,6 +3,8 @@ name: tax-reconciliation
 description: Walk accounting profit to taxable income for a year-end tax reconciliation worksheet — company, trust, or partnership structure, with every adjustment tied to its source journal or account. Use when the user asks for the tax reconciliation, the accounting-to-tax walk, the tax-effect walk, the year-end tax worksheet, or runs the /tax-reconciliation slash command. Also triggers on "what's the taxable income", "build the tax walk", "post the tax-effect entries", "year-end tax adjustments".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Tax Reconciliation
 
 ## Goal

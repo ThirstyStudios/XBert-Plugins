@@ -3,6 +3,8 @@ name: stp-finalisation
 description: Annual STP Phase 2 finalisation review for Australian clients — verify every employee's YTD payroll figures, income type, allowance disaggregation, RFB and termination payments before the 14 July FINAL event. Use when the user asks to run STP finalisation, finalise payroll for the year, check STP Phase 2 readiness, prep the income statement, or runs the /stp-finalisation slash command. Also triggers on: "STP year end", "income statement finalisation", "send FINAL event", "STP Phase 2 review".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # STP Finalisation
 
 An annual reconciliation of every employee's year-to-date payroll figures against STP Phase 2 reporting requirements. Produces a Word working paper to file alongside the FINAL event submission.

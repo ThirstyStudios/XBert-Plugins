@@ -3,6 +3,8 @@ name: ias-prep
 description: IAS readiness methodology for Australian clients — verify the client is ready to lodge an Instalment Activity Statement with the ATO and produce a Word audit document with the supporting evidence. Use when the user asks to prep an IAS, check if a client is IAS-ready, run a monthly PAYG readiness review, or runs the /ias-prep slash command. Also triggers on: "is the IAS ready", "monthly PAYG lodgement", "PAYG withholding check".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # IAS Prep
 
 A structural readiness check for an Australian IAS lodgement. Verifies bookkeeping is complete, balanced, and audit-defensible before lodging with the ATO. Produces a Word audit document with a unique check reference ID, preparer details, and the supporting evidence.

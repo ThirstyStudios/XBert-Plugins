@@ -3,6 +3,8 @@ name: fx-review
 description: FX-review methodology — surface which foreign-currency exposures the linked FX XBerts caught for the period, present the per-balance picture, and route the user to the ledger's native FX revaluation. The plugin does NOT compose the revaluation journal. Use when the user asks to review FX exposure, run a period-end FX sweep, list foreign-currency balances, or runs the /fx-review slash command. Also triggers on "FX exposure check", "foreign currency balances", "period-end FX sweep".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # FX Review
 
 A narrow, honest period review of every FX-exposure XBert that fired across the period. Detection is owned deterministically by Custom XBerts (the XBerts are the heroes); this skill surfaces what they caught and routes the user to the ledger's native FX revaluation. **The plugin does not compose the revaluation journal — the data primitives for that don't exist in MCP today.**

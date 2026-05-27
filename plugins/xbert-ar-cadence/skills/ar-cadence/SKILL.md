@@ -3,6 +3,8 @@ name: ar-cadence
 description: "Behaviour-driven AR cadence — predict per-debtor pay-date from historic latency, recommend the reminder window per debtor, and draft tone-matched reminders into a ranked call list. Use this skill when the user asks for behaviour-driven debtor reminders, per-debtor cadence, payment-latency-aware chase, AR cadence, drafted reminders, or runs the /ar-cadence slash command. Also triggers on: 'when should I chase this debtor', 'this debtor always pays late', 'this debtor is reliable, don't chase yet', 'predicted pay-date', 'reminder cadence per customer', 'firm voice reminders'."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # AR Cadence
 
 ## Goal

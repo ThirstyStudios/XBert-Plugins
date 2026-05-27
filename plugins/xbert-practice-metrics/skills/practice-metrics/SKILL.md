@@ -3,6 +3,8 @@ name: practice-metrics
 description: "Produce the XBert monthly Practice Metrics one-pager — standard partner KPIs, service-line P&L, prior-month variance commentary and RAG-banded client risk view. Use when the user asks for monthly metrics, partner-meeting pack, practice KPIs, lockup days, write-offs, WIP report, service-line P&L, or invokes the /practice-metrics slash command. Also triggers on 'monthly numbers', 'what are our KPIs this month', 'partner pack'."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Practice Metrics
 
 A monthly partner-meeting one-pager. Same shape every month. Designed for consistency, not novelty.

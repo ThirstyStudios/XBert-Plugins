@@ -3,6 +3,8 @@ name: config-audit
 description: "Run the XBert Config Audit across a Connect tenant — fingerprint per-client XBert rule enablement, segment the book, and surface inconsistencies, gaps and drift with named bulk-normalisation moves. Use when the user asks about XBert configuration consistency, whether rules are set up the same across clients, configuration drift, standardisation, the /config-audit slash command, or 'are we set up consistently'. Distinct from the workflow review skill, which looks at templates and schedules."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Config Audit
 
 A quarterly audit of XBert rule enablement across a Connect tenant. Looks at the rule configuration itself — not templates, not schedules. Pairs every finding with a named bulk-normalisation move.

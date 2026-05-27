@@ -3,6 +3,8 @@ name: audit-evidence-pack
 description: Audit evidence pack methodology — risk-weighted sample driven by deterministic XBert firings, lead schedules per material account, hyperlinked workpapers ready for the external auditor. Use when the user asks to produce an audit pack, build year-end working papers, select an audit sample, drill into a material account, or runs the /audit-evidence-pack slash command. Also triggers on: "auditor evidence", "year-end workpapers", "risk-weighted sample", "audit lead schedule".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Audit Evidence Pack
 
 A bundled workpaper for the external auditor. XBert firings supply the risk signal that drives the sample selection (the XBerts are the heroes); this skill orchestrates the assembly — sample selection, lead schedules per material account, hyperlinks to every source XBert and source document.

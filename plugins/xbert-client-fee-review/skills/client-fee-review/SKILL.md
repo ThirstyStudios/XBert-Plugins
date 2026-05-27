@@ -3,6 +3,8 @@ name: client-fee-review
 description: "Run the XBert Client Fee Review for a Connect tenant — assemble per-client evidence (logged time, six ledger-volume categories, current fee) and categorise the book into Increase / Stable / Decrease / Insufficient-data. Use when the user asks for an annual fee review, pricing review, fee-recovery analysis, cost-to-serve, pricing standardisation, or invokes the /client-fee-review slash command. Also triggers on 'are we charging the right fee', 'which clients are underpriced', 'we need to repricing the book'."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Client Fee Review
 
 Per-client cost-to-serve evidence pack. Produces three first-class outputs (Increase / Stable / Decrease) plus an insufficient-data list. Read-only evidence assembly — does not set prices.

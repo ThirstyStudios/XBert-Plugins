@@ -3,6 +3,8 @@ name: balance-sheet-explain
 description: Walk a client's balance sheet opening-to-closing with movement narrative, reconciliation status per account, manual journal trace, and fixed-asset-register-to-GL accumulated depreciation check. Use when the user asks to review the balance sheet, explain BS movements, prep for year-end or audit, walk the BS, or runs the /balance-sheet-explain slash command. Also triggers on "what moved on the balance sheet", "is the BS clean", "FAR doesn't match the GL", "explain the equity movement".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Balance Sheet Explain
 
 ## Goal

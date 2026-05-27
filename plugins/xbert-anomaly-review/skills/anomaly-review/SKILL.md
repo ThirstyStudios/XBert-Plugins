@@ -3,6 +3,8 @@ name: anomaly-review
 description: Anomaly-review methodology — present every anomaly XBert that fired across the period as a flat ranked list with per-firing recommended action. No invented pattern labels, no user attribution, no Journal data. Use when the user asks to review anomalies, run an anomaly sweep, debug a recurring anomaly, or runs the /anomaly-review slash command. Also triggers on "anomaly review", "GL anomaly sweep", "fire XBert review", "anomaly evidence pack".
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Anomaly Review
 
 A per-firing review of every anomaly XBert that fired across the period. Detection is owned deterministically by Custom XBerts (the XBerts are the heroes); this skill surfaces what they caught, presents them as a ranked list, and drives resolution per firing.

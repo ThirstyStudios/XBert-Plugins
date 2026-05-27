@@ -3,6 +3,8 @@ name: close-packet
 description: "Compose the month-end client packet — BS/P&L with variance commentary, material-journal narrative, outstanding XBerts inline, KPI page — into a single Word/PDF deliverable. Use this skill when the user asks for the close packet, month-end packet, client-ready close pack, partner pack composition, or runs the /close-packet slash command. Also triggers on: 'month-end client pack', 'quarter-end packet', 'board pack draft', 'year-end summary draft', 'compose the close pack', 'assemble client deliverable'."
 ---
 
+**Source of truth — XBert MCP:** Every figure, client record, ledger transaction, payrun, and XBert notification referenced here must come from the connected XBert MCP server. Call XBert MCP tools to fetch the data — do not invent figures, estimate from context, or substitute from chat history. If the XBert MCP is not connected, ask the user to install and authenticate it before continuing.
+
 # Close Packet
 
 ## Goal
