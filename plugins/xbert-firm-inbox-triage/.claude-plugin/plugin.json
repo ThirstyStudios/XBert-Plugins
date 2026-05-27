@@ -1,6 +1,7 @@
 {
   "name": "xbert-firm-inbox-triage",
-  "version": "0.1.1",
+  "displayName": "XBert Firm Inbox Triage",
+  "version": "0.1.2",
   "description": "Daily firm-inbox triage — categorise threads + priority-score + drafted tone-matched reply grounded in XBert client state.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-firm-inbox-triage",

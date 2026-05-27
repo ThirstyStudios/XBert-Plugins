@@ -1,6 +1,7 @@
 {
   "name": "xbert-payment-run",
-  "version": "0.1.1",
+  "displayName": "XBert Payment Run",
+  "version": "0.1.2",
   "description": "Weekly pay-run brief with remittance drafts ready for review. v1 produces the schedule + remittances; ABA payment file generation is v2.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-payment-run",

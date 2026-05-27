@@ -1,6 +1,7 @@
 {
   "name": "xbert-vat-prep",
-  "version": "0.1.1",
+  "displayName": "XBert VAT Prep (UK)",
+  "version": "0.1.2",
   "description": "Pre-submission VAT readiness check for UK clients — boxes 1-9 validated, MTD compliance verified, partial exemption and reverse charge flagged, audit document for the file.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-vat-prep",

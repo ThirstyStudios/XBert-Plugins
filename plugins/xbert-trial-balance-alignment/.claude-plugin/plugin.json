@@ -1,6 +1,7 @@
 {
   "name": "xbert-trial-balance-alignment",
-  "version": "0.1.1",
+  "displayName": "XBert Trial Balance Alignment",
+  "version": "0.1.2",
   "description": "Reconcile your trial balance against the accountant's financials with a journal-ready Excel workbook and Word audit document.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-trial-balance-alignment",

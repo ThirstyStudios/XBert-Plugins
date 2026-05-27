@@ -1,6 +1,7 @@
 {
   "name": "xbert-practice-health-check",
-  "version": "0.1.1",
+  "displayName": "XBert Practice Health Check",
+  "version": "0.1.2",
   "description": "Portfolio-wide data-quality and financial-health snapshot with diagnostic recommendations per client.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-practice-health-check",

@@ -1,6 +1,7 @@
 {
   "name": "xbert-month-end-pack",
-  "version": "0.1.1",
+  "displayName": "XBert Month-End Pack",
+  "version": "0.1.2",
   "description": "Month-end financial pack the partner can hand to the client — P&L vs budget, BS movement walk, cashflow vs forecast, and KPI roll-up in a single Word document.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-month-end-pack",

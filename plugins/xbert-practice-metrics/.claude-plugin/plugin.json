@@ -1,6 +1,7 @@
 {
   "name": "xbert-practice-metrics",
-  "version": "0.1.1",
+  "displayName": "XBert Practice Metrics",
+  "version": "0.1.2",
   "description": "Monthly partner-meeting one-pager — revenue, lockup, write-offs, service-line P&L, client risk segmentation.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-practice-metrics",

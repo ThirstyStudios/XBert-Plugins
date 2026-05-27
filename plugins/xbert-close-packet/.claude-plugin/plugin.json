@@ -1,6 +1,7 @@
 {
   "name": "xbert-close-packet",
-  "version": "0.1.1",
+  "displayName": "XBert Close Packet",
+  "version": "0.1.2",
   "description": "Month-end packet assembled — BS/P&L + variance commentary + journal narrative + outstanding XBerts — single Word/PDF deliverable for the client.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-close-packet",

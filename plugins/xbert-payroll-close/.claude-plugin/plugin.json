@@ -1,6 +1,7 @@
 {
   "name": "xbert-payroll-close",
-  "version": "0.1.1",
+  "displayName": "XBert Payroll Close",
+  "version": "0.1.2",
   "description": "Pre-run sanity checks and post-run reconciliation for every pay cycle, including STP Phase 2 hygiene and bank-out reconciliation.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-payroll-close",

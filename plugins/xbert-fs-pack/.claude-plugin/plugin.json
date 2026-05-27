@@ -1,6 +1,7 @@
 {
   "name": "xbert-fs-pack",
-  "version": "0.1.1",
+  "displayName": "XBert FS Pack",
+  "version": "0.1.2",
   "description": "Year-end financial statement pack ready for partner review — SPFS structure with comparative period, notes shell, and GPFS variant for audit clients.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-fs-pack",

@@ -1,6 +1,7 @@
 {
   "name": "xbert-end-of-period-dashboard",
-  "version": "0.1.1",
+  "displayName": "XBert End-of-Period Dashboard",
+  "version": "0.1.2",
   "description": "Period-close readiness dashboard fusing workflow, data quality and lodgement obligations across every client.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-end-of-period-dashboard",

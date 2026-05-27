@@ -1,6 +1,7 @@
 {
   "name": "xbert-client-onboard",
-  "version": "0.1.1",
+  "displayName": "XBert Client Onboard",
+  "version": "0.1.2",
   "description": "Structured new-client onboarding with checklist, practice-owner gate, and approval-gated rules baseline assignment with rollback. v1 orchestrates the workflow; COA + opening-balance steps are checklist items the bookkeeper completes in the ledger.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-client-onboard",

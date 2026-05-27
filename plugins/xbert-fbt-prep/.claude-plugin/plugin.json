@@ -1,6 +1,7 @@
 {
   "name": "xbert-fbt-prep",
-  "version": "0.1.1",
+  "displayName": "XBert FBT Prep (AU)",
+  "version": "0.1.2",
   "description": "Annual FBT exposure review for Australian clients — scan motor vehicles, entertainment, employee benefits and salary packaging arrangements before the 21 May return deadline.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-fbt-prep",

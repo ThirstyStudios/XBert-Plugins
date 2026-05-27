@@ -1,6 +1,7 @@
 {
   "name": "xbert-cashflow-13week",
-  "version": "0.1.1",
+  "displayName": "XBert 13-Week Cashflow",
+  "version": "0.1.2",
   "description": "13-week rolling cash forecast — AR predicted-pay + AP due + payroll cadence + tax obligations + recurring bank-tx — with named risk weeks and recommended actions.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-cashflow-13week",

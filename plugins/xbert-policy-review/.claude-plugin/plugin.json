@@ -1,6 +1,7 @@
 {
   "name": "xbert-policy-review",
-  "version": "0.1.1",
+  "displayName": "XBert Policy Review",
+  "version": "0.1.2",
   "description": "Weekly review of posted spend against policy XBerts on supported categories (out-of-policy account, banned vendor, missing receipt, duplicate transaction, receipt forensic flag).",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-policy-review",
