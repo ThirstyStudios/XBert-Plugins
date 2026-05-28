@@ -1,7 +1,7 @@
 {
   "name": "xbert-close-packet",
   "displayName": "XBert Close Packet",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Month-end packet assembled — BS/P&L + variance commentary + journal narrative + outstanding XBerts — single Word/PDF deliverable for the client.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-close-packet",
@@ -61,7 +61,7 @@
       "Confirm the client tenant, the period being closed, and the reporting shape (SPFS or GPFS)",
       "Plugin pulls BS, P&L, cashflow, trial balance, budget, outstanding XBerts, and material journals via the XBert MCP",
       "Variance commentary and journal narrative are drafted into the composed packet structure",
-      "Word/PDF deliverable is assembled with consistent sections and the outstanding-XBerts list inside the variance section",
+      "Render the deliverable(s) via xbert-working-paper:render-docx / render-xlsx / render-pdf as specified by the skill, and report the saved path(s)",
       "Partner reviews, edits, and sends — no auto-lodgement, no auto-send"
     ]
   }

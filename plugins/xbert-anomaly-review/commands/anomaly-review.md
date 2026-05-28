@@ -10,7 +10,9 @@ Steps:
 3. Pull the firings of each linked anomaly XBert across the period, plus the underlying Bill / BankTransaction / Invoice / account balance and the vendor / account context.
 4. Present a flat ranked list (highest impact first). Per firing: posting date, doc number, vendor, amount, account, the linked XBert that fired, the XBert's detection reason, the count of prior firings on the same vendor or same account in the period (a deterministic fact, not a pattern label), recommended action, confidence.
 5. Optionally sub-group by deterministic facets only — by vendor, by account, by period bucket. Do NOT name these sub-groups as patterns (no "duplicate-journal cluster", no "round-tripping cluster", no "after-hours cluster"). The label IS the data facet ("5 firings on Vendor X", "3 firings on Account Y").
-6. Produce an evidence pack: cover page, the ranked list, optional facet sub-groupings with counts, source links to every XBert firing, QMS block with check reference ID, preparer, timestamp.
+6. Build the working-paper payload conforming to the schema in the `anomaly-review` skill (sections, blocking flags, tables, QMS block).
+7. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+8. Present the saved document path to the user with a chat-side summary of the top findings.
 
 ## Out of scope (do NOT attempt these — no backing data)
 

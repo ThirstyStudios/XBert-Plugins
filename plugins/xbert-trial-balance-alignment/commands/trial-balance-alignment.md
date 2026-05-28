@@ -18,9 +18,8 @@ Steps:
    - Case C: unmatched on TB (FS line has no ledger counterpart — likely a year-end journal)
    - Case D: unmatched on FS (TB account does not appear in the FS — likely was renamed or rolled up)
    - Validate that the totals on both sides balance and that no account has been silently dropped
-4. Generate the deliverables:
-   - Excel comparative-review workbook with one row per matched / unmatched account, the proposed journal, and a tab summarising variances by case
-   - Word audit document walking each unmatched line and the recommended action
-5. Present the top differences in chat with confidence labels, then offer to (a) draft the journal entries, (b) email a query list to the accountant for unmatched FS lines, or (c) re-run with a different PDF extraction strategy if any totals look off.
+4. Save the comparative-workbook payload (one row per matched / unmatched account, the proposed journal, and a tab summarising variances by case) to `outputs/<check_reference_id>/workbook.json` and invoke `xbert-working-paper:render-xlsx`. Do not report success until the render skill's JSON shows `status == "ok"` and the `recalc.py` gate passes with no error cells.
+5. Save the audit-narrative payload (walks each unmatched line and the recommended action) to `outputs/<check_reference_id>/payload.json` and invoke `xbert-working-paper:render-docx`. Do not report success until the render skill's JSON shows `status == "ok"`.
+6. Present the top differences in chat with confidence labels, then offer to (a) draft the journal entries, (b) email a query list to the accountant for unmatched FS lines, or (c) re-run with a different PDF extraction strategy if any totals look off.
 
 Use the `trial-balance-alignment` skill for the matching rules, thresholds, and audit-trail conventions. Never auto-post a journal — every adjustment is proposed for the user to approve and post manually. Always flag PDF extraction uncertainty rather than silently using a low-confidence number.

@@ -18,13 +18,9 @@ Steps:
    - Section 4: Budget accuracy (templates where budgeted time diverges from actuals, ranked by annualised impact)
    - Section 5: Health flags (unassigned schedules, stale templates, duplicate names, inconsistent assignments)
    - Section 6: Prioritised recommendations (5-10 actions ranked by impact with confidence labels)
-4. Generate a Word document containing:
-   - Cover page with customer name and generation date
-   - First-page benefits summary with highest-impact findings
-   - Data-sparsity summary (what ran on full vs sparse data)
-   - Six analytical sections
-   - Closing summary with the XBert-team support hook
-5. Present the document to the user with a brief chat-side summary of the top 2-3 recommendations.
-6. Offer to answer follow-up questions about any finding.
+4. Build the working-paper payload conforming to the schema in the `workflow-review` skill (sections, blocking flags, tables, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved document path to the user with a chat-side summary of the top findings.
+7. Offer to answer follow-up questions about any finding.
 
 Use the `workflow-review` skill for the full methodology, thresholds, and tone guidance. Never apply changes — this is a read-only structural audit. Every recommendation is proposed, never enacted.

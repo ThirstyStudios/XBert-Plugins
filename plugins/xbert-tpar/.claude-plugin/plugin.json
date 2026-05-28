@@ -1,7 +1,7 @@
 {
   "name": "xbert-tpar",
   "displayName": "XBert TPAR (AU)",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Annual Taxable Payments Annual Report (TPAR) preparation for Australian clients in building, cleaning, courier, IT, road-freight and security industries — due 28 August.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-tpar",
@@ -61,7 +61,7 @@
       "Confirm the client and the financial year (defaults to year ending 30 June just past) and the reportable industry",
       "Plugin pulls supplier register, bills paid and bank transactions via MCP for the year",
       "Industry filter applied, contractors identified, ABNs validated, GST separated; error log produced",
-      "A TPAR-ready summary and Word working paper are generated; chat summarises any items needing correction before lodgement"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

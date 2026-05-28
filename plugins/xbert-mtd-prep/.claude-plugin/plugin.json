@@ -1,7 +1,7 @@
 {
   "name": "xbert-mtd-prep",
   "displayName": "XBert MTD Prep (UK)",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Making Tax Digital for Income Tax readiness assessment for UK clients — chart of accounts mapped to HMRC categories, income threshold, simplified vs full reporting eligibility, quarterly reporting readiness.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-mtd-prep",
@@ -61,7 +61,7 @@
       "Confirm the client (sole trader or landlord) and whether self-employment, property or both",
       "Plugin pulls chart of accounts, income figures and prior-year position via MCP",
       "Mapping audit runs against HMRC categories; threshold and mandate date determined",
-      "A Word readiness working paper is generated and the chat summarises the actions needed before the next quarterly deadline"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

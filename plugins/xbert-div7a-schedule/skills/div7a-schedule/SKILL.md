@@ -72,3 +72,23 @@ Per Div 7A formula:
 - Surface single-signal loan identifications for user confirmation; don't silently include or exclude
 - Complying-loan-agreement is an explicit assumption documented in the working paper — never silently assumed true
 - Benchmark rate is user-entered in v1 — never guess
+
+## Payload schema
+
+After running the analysis, structure the result as JSON conforming to the render skill payload schemas (`xbert-working-paper/skills/render-docx/SKILL.md` for narrative outputs; `xbert-working-paper/skills/render-xlsx/SKILL.md` for spreadsheet outputs). For this plugin you produce:
+
+- **per-loan schedule workbook**: consumed by `xbert-working-paper:render-xlsx` — one worksheet per loan (opening / advances / repayments / interest / closing rows, minimum repayment calc), a working paper tab listing benchmark rate + assumption set, and a next-year reminder cell.
+
+Common fields across payloads: `plugin: "xbert-div7a-schedule"`, `check_reference_id`, `tenant_name`, `period`, `prepared_by`, `prepared_at`, `title`, `qms_block`. The xlsx payload also needs `sheets[]` with `name`, `columns`, `rows`, `column_widths`, `freeze_top_row`, `number_format`. Cells starting with `=` are Excel formulas — always prefer formulas to hard-coded calculated values.
+
+## Output handoff
+
+1. Save each payload to `outputs/<check_reference_id>/<payload-name>.json`.
+2. Invoke the matching render skill(s) in order:
+   a. Save the per-loan schedule workbook payload to `outputs/<check_reference_id>/workbook.json` and invoke `xbert-working-paper:render-xlsx`. Wait for `status == "ok"` and the `recalc.py` gate to pass with no error cells.
+3. Each render skill emits a single JSON line on stdout with its own `status`/`path`/file-specific metadata.
+4. Pass the saved path(s) and a one-line summary back to the user.
+
+## Verification gate
+
+Do not report any deliverable as produced until its render skill's JSON shows `status == "ok"`. For render-xlsx, `recalc.py` must also have run and returned no error cells. If any gate fails, surface the JSON to the user verbatim and stop — do not retry silently and do not claim success.

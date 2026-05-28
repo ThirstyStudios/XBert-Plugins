@@ -21,12 +21,8 @@ Steps:
      - **Gaps** — rule enabled on ≥80% of segment but missing on the rest (likely meant to be always-on)
      - **Drift** — rule was enabled at some point but is currently disabled
    - For each finding, propose the bulk-normalisation move (enable on missing N, disable on outlier N, or surface for human decision)
-4. Generate a Word document containing:
-   - Cover page with practice name and audit date
-   - First-page summary (finding counts by type, top three segments with the most drift, normalisation backlog size)
-   - Segment-by-segment breakdown
-   - Named bulk-normalisation backlog
-   - Caveats where segmentation was approximate
-5. Present the document with a chat-side summary of the top three normalisation moves and offer to walk the user through any segment.
+4. Build the working-paper payload conforming to the schema in the `config-audit` skill (sections, blocking flags, tables, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved document path to the user with a chat-side summary of the top findings.
 
 Use the `config-audit` skill for the methodology, fingerprinting approach and segmentation rules. Never apply changes — propose the bulk update; the user actions it through XBert.

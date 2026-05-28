@@ -20,7 +20,8 @@ Steps:
    - Section 3: manual journal trace — every material journal with reason, supporting doc reference, and confidence label
    - Section 4: unexpected-mover flags — movements above the materiality threshold without an obvious source journal
    - Section 5: clean-up recommendations
-4. Generate a Word narrative review covering all five sections with named accounts, named journals, and confidence labels.
-5. Present the top 3-5 observations in chat with the underlying numbers. Offer to (a) email a query list to the bookkeeper, (b) draft any cleanup journals (proposed only), or (c) re-run with a different comparative period.
+4. Build the working-paper payload conforming to the schema in the `balance-sheet-explain` skill (sections, blocking flags, tables, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved document path to the user with a chat-side summary of the top findings.
 
 Use the `balance-sheet-explain` skill for the materiality thresholds, walk methodology, and confidence-label rules. Never auto-post a cleanup journal — every adjustment is proposed for the user to review and post manually. Read-only review only.

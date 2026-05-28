@@ -84,3 +84,28 @@ Generate a Word document containing:
 - Distinguish OTE from gross wages — the most common source of SG underpayment
 - The working paper must be filable as evidence the SG was paid on time
 - If the 28th has not yet passed, frame the check as pre-deadline; if it has, frame as compliance verification
+
+## Payload schema
+
+After running the readiness checks, structure the result as JSON conforming to the render-docx payload schema (defined in `xbert-working-paper/skills/render-docx/SKILL.md`). Required fields:
+
+- `plugin`: `"xbert-super-check"`
+- `check_reference_id`: a unique ID for the run (e.g. `SUPER-2026Q1-<tenantId>-001`)
+- `tenant_name`, `period`, `prepared_by`, `prepared_at`
+- `title`, `subtitle` (optional)
+- `executive_summary`: two sentences naming the headline finding and overall readiness verdict
+- `sections[]`: one entry per major readiness area, each with `heading`, `body`, optional `blocking: true`, optional `table` with `columns` and `rows`
+- `qms_block`: `{ firm_name, preparer, reviewer, certification }`
+- `appendix[]` (optional)
+
+Section ordering and content must match the audit-document structure described above.
+
+## Output handoff
+
+1. Save the payload to `outputs/<check_reference_id>/payload.json`.
+2. Invoke the `xbert-working-paper:render-docx` skill. It will write `outputs/<check_reference_id>/working-paper.docx` and emit a single JSON line on stdout with `status`, `path`, `exists`, `size_bytes`, `opens_cleanly`, `paragraph_count`.
+3. Pass through to the user the path and the summary line the render skill prescribes (`Working paper saved to <path> — N sections, M blocking issues`).
+
+## Verification gate
+
+Do not report the working paper as produced until the render skill's JSON has `status == "ok"` and `opens_cleanly == true`. If the gate fails, surface the JSON to the user verbatim and stop — do not retry silently and do not claim success.

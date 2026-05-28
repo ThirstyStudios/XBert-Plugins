@@ -16,11 +16,8 @@ Steps:
    - PAYG instalment amounts (T1, T2, T3, T4, T7, T8, T9, T11) if applicable
    - Outstanding XBerts for the period
 3. Run the readiness checks per the `ias-prep` skill — bank rec, payroll data, PAYG-W labels W1-W5, super posting, PAYGW liability balance, outstanding XBerts. ALL outstanding XBerts block lodgement.
-4. Generate a Word document containing:
-   - Cover page with client name, ABN, IAS period, generation date
-   - First-page summary of readiness status and blocking issues
-   - Each readiness section with pass/fail and supporting evidence
-   - QMS block: practice name, preparer, timestamp, unique check reference ID, compliance statement
-5. Present the document to the user with a chat-side summary of the top blocking issues to resolve before lodgement. Never auto-resolve XBerts — surface them with resolution instructions only.
+4. Build the working-paper payload conforming to the schema in the `ias-prep` skill (sections, blocking flags, prior-period table, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved working-paper path to the user with a chat-side summary of the top blocking issues to resolve before lodgement.
 
 Use the `ias-prep` skill for label definitions and audit-document structure. Use Australian English (organisation, behaviour, colour), dd/MM/yyyy dates, and $0.00 currency formatting. Never use emojis.

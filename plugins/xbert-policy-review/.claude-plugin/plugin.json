@@ -1,7 +1,7 @@
 {
   "name": "xbert-policy-review",
   "displayName": "XBert Policy Review",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Weekly review of posted spend against policy XBerts on supported categories (out-of-policy account, banned vendor, missing receipt, duplicate transaction, receipt forensic flag).",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-policy-review",
@@ -61,7 +61,7 @@
       "Confirm the client and the review period (default: prior week)",
       "Plugin resolves the linked policy XBerts for the period — if none are linked, the review stops and the user is prompted to configure linked XBerts first",
       "Firings are grouped by supported category (with vendor or account sub-grouping where useful) and each firing carries a recommended next action",
-      "An audit pack is produced with the supporting evidence; the user writes any communication"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

@@ -63,3 +63,25 @@ Apply in this order — first match wins:
 - Variances are directional (debit ≠ credit at the line level)
 - Flag PDF extraction uncertainty before running matching, not after
 - v1 supports Xero exports + PDF FS only — refuse cleanly if the source ledger is MYOB/QBO/FreeAgent and direct the user to wait for v2
+
+## Payload schema
+
+After running the analysis, structure the result as JSON conforming to the render skill payload schemas (`xbert-working-paper/skills/render-docx/SKILL.md` for narrative outputs; `xbert-working-paper/skills/render-xlsx/SKILL.md` for spreadsheet outputs). For this plugin you produce:
+
+- **comparative workbook**: consumed by `xbert-working-paper:render-xlsx` — one row per matched / unmatched account, the proposed journal, and a tab summarising variances by case.
+- **audit narrative**: consumed by `xbert-working-paper:render-docx` — Word audit document walking each unmatched line and the recommended action.
+
+Common fields across payloads: `plugin: "xbert-trial-balance-alignment"`, `check_reference_id`, `tenant_name`, `period`, `prepared_by`, `prepared_at`, `title`, `qms_block`. The xlsx payload also needs `sheets[]` with `name`, `columns`, `rows`, `column_widths`, `freeze_top_row`, `number_format`. Cells starting with `=` are Excel formulas — always prefer formulas to hard-coded calculated values.
+
+## Output handoff
+
+1. Save each payload to `outputs/<check_reference_id>/<payload-name>.json`.
+2. Invoke the matching render skill(s) in order:
+   a. Save the comparative-workbook payload to `outputs/<check_reference_id>/workbook.json` and invoke `xbert-working-paper:render-xlsx`. Wait for `status == "ok"` and the `recalc.py` gate to pass with no error cells.
+   b. Save the audit-narrative payload to `outputs/<check_reference_id>/payload.json` and invoke `xbert-working-paper:render-docx`. Wait for `status == "ok"`.
+3. Each render skill emits a single JSON line on stdout with its own `status`/`path`/file-specific metadata.
+4. Pass the saved path(s) and a one-line summary back to the user.
+
+## Verification gate
+
+Do not report any deliverable as produced until its render skill's JSON shows `status == "ok"`. For render-xlsx, `recalc.py` must also have run and returned no error cells. If any gate fails, surface the JSON to the user verbatim and stop — do not retry silently and do not claim success.

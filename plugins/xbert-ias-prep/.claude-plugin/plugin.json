@@ -1,7 +1,7 @@
 {
   "name": "xbert-ias-prep",
   "displayName": "XBert IAS Prep (AU)",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Pre-lodgement IAS readiness check for Australian clients — verify PAYG withholding and instalment data before lodging the Instalment Activity Statement.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-ias-prep",
@@ -61,7 +61,7 @@
       "Confirm the client and the IAS period (or accept the current open month)",
       "Plugin pulls reconciliation, payroll, PAYG-W, super and outstanding XBerts via MCP",
       "Readiness checks run and produce a blocking-issues list with W1-W5 verification",
-      "A Word audit document is generated and the chat summarises the top items to action before lodgement"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

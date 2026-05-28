@@ -1,7 +1,7 @@
 {
   "name": "xbert-workflow-review",
   "displayName": "XBert Workflow Review",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Run a structural audit of your XBert workflow setup — template consolidation, budget accuracy, workload balance, and setup hygiene.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-workflow-review",
@@ -59,7 +59,7 @@
       "Type /workflow-review in any Claude chat",
       "Plugin pulls the workflow extract from your connected XBert tenant via MCP",
       "Six section analyses run deterministically — snapshot, usage, consolidation, budget, health, recommendations",
-      "A Word document is generated with named findings and a prioritised action list",
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path",
       "Ask follow-up questions about any finding directly in chat"
     ]
   }

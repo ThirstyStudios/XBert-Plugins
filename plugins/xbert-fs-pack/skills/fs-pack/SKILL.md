@@ -77,3 +77,24 @@ When the ledger does not produce a cashflow:
 - Comparative period is mandatory — if prior year is unavailable, state it on the cover page and proceed
 - Surface missing organisation settings before generating, not after
 - Word + PDF are both produced — Word for editing, PDF for circulation
+
+## Payload schema
+
+After running the analysis, structure the result as JSON conforming to the render skill payload schemas (`xbert-working-paper/skills/render-docx/SKILL.md` for narrative outputs; `xbert-working-paper/skills/render-xlsx/SKILL.md` for spreadsheet outputs). For this plugin you produce:
+
+- **fs-pack narrative**: consumed by `xbert-working-paper:render-docx` to produce the partner-editable Word pack; then passed to `xbert-working-paper:render-pdf` in docx-convert mode to produce the circulated PDF.
+
+Common fields across payloads: `plugin: "xbert-fs-pack"`, `check_reference_id`, `tenant_name`, `period`, `prepared_by`, `prepared_at`, `title`, `qms_block`. The xlsx payload also needs `sheets[]` with `name`, `columns`, `rows`, `column_widths`, `freeze_top_row`, `number_format`. Cells starting with `=` are Excel formulas — always prefer formulas to hard-coded calculated values.
+
+## Output handoff
+
+1. Save each payload to `outputs/<check_reference_id>/<payload-name>.json`.
+2. Invoke the matching render skill(s) in order:
+   a. Save the narrative payload to `outputs/<check_reference_id>/payload.json` and invoke `xbert-working-paper:render-docx`. Wait for `status == "ok"`.
+   b. Then invoke `xbert-working-paper:render-pdf` with `--from-docx` pointing at the just-written `working-paper.docx`. Wait for `status == "ok"` and `mode == "docx-convert"`.
+3. Each render skill emits a single JSON line on stdout with its own `status`/`path`/file-specific metadata.
+4. Pass the saved path(s) and a one-line summary back to the user.
+
+## Verification gate
+
+Do not report any deliverable as produced until its render skill's JSON shows `status == "ok"`. For render-xlsx, `recalc.py` must also have run and returned no error cells. If any gate fails, surface the JSON to the user verbatim and stop — do not retry silently and do not claim success.

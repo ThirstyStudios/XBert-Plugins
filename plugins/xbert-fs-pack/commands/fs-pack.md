@@ -22,9 +22,8 @@ Steps:
    - Statement of changes in equity
    - Notes to accounts shell — provisions, accruals, depreciation, related-party disclosures
    - Working papers tab — provisions and accruals schedule
-4. Generate deliverables:
-   - Word version for editing
-   - PDF version for circulation
-5. Surface anything that requires partner attention (missing organisation settings, FX revaluations not posted, related-party balances that need disclosure) and offer to draft a query list for the bookkeeper.
+4. Save the narrative payload to `outputs/<check_reference_id>/payload.json` and invoke `xbert-working-paper:render-docx` to produce the editable Word pack. Do not report success until the render skill's JSON shows `status == "ok"`.
+5. Invoke `xbert-working-paper:render-pdf` with `--from-docx` pointing at the just-written `working-paper.docx` to produce the circulated PDF. Do not report success until the render skill's JSON shows `status == "ok"` and `mode == "docx-convert"`.
+6. Surface anything that requires partner attention (missing organisation settings, FX revaluations not posted, related-party balances that need disclosure) and offer to draft a query list for the bookkeeper.
 
 Use the `fs-pack` skill for the SPFS / GPFS structure differences, cashflow derivation, and notes-shell content. Read-only on the ledger — the pack does not post anything. Always default to SPFS unless the user explicitly requests GPFS.

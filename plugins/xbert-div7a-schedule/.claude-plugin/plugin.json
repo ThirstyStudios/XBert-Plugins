@@ -1,7 +1,7 @@
 {
   "name": "xbert-div7a-schedule",
   "displayName": "XBert Div 7A Schedule",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Division 7A loan schedule with minimum repayment calc and benchmark-rate-ready output. v1 narrow: manual benchmark-rate entry until an ATO benchmark rate lookup ships.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-div7a-schedule",
@@ -61,7 +61,7 @@
       "Confirm the client, the income year, and enter the ATO benchmark rate (v1: manual)",
       "Plugin pulls balance sheet, journal master, and shareholder/related-party contacts",
       "Each loan is walked opening to closing with minimum repayment calc",
-      "Excel schedule per loan drops with a next-year benchmark-rate reminder"
+      "Render the deliverable(s) via xbert-working-paper:render-docx / render-xlsx / render-pdf as specified by the skill, and report the saved path(s)"
     ]
   }
 }

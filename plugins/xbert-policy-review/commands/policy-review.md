@@ -10,7 +10,9 @@ Steps:
 3. Pull the firings of each linked policy XBert across the period, plus the underlying Bill / BankTransaction / Invoice and any attached receipt.
 4. Bucket violations per the `policy-review` skill into the **supported categories only**: out-of-policy account, banned vendor, missing receipt, duplicate transaction, receipt forensic flag. Sub-group by vendor or account where it tightens the story — never by spender, cardholder or employee.
 5. For each firing, propose the next action (recode, request supporting doc, accept-as-correct, escalate). Do not draft a follow-up message — the user writes the communication.
-6. Produce an audit pack with cover page, category sections (firings + supporting evidence + recommended actions), source links to each XBert firing and captured receipt, and a QMS block with check reference ID, preparer, timestamp.
+6. Build the working-paper payload conforming to the schema in the `policy-review` skill (sections, blocking flags, tables, QMS block).
+7. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+8. Present the saved document path to the user with a chat-side summary of the top findings.
 
 ## Out of scope (do NOT attempt these — no backing data)
 

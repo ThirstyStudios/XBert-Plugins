@@ -1,7 +1,7 @@
 {
   "name": "xbert-client-fee-review",
   "displayName": "XBert Client Fee Review",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Evidence-based annual fee review across the whole client book, with per-client drill-down.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-client-fee-review",
@@ -61,7 +61,7 @@
       "Confirm scope: Connect tenant, cohort filter, review period (default = last 12 months)",
       "Plugin pulls timesheets, client config and ledger volume summaries via XBert MCP",
       "Per-client evidence is assembled, clients are categorised into increase / stable / decrease / insufficient-data",
-      "Word and Excel outputs are produced with portfolio summary and per-client drill-down"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

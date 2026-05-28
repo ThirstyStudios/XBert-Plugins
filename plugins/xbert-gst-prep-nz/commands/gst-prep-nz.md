@@ -17,13 +17,8 @@ Steps:
    - Outstanding XBerts for the period
    - Prior period GST for variance comparison
 3. Run the readiness checks per the `gst-prep-nz` skill — bank rec, GST data (boxes 5 through 15), P&L review, balance sheet, fixed assets, AP, AR, cash flow, outstanding XBerts, GST / PAYE / KiwiSaver liability balances. ALL outstanding XBerts block lodgement.
-4. Generate a Word document containing:
-   - Cover page with client name, IRD number, GST period, generation date
-   - First-page summary of readiness status and blocking issues
-   - Each readiness section with pass/fail and supporting evidence
-   - GST boxes 5-15 table with computed values
-   - Prior-period variance comparison with explanations
-   - QMS block: practice name, preparer, timestamp, unique check reference ID, compliance statement
-5. Present the document to the user with a chat-side summary of the top blocking issues to resolve before filing. Never auto-resolve XBerts.
+4. Build the working-paper payload conforming to the schema in the `gst-prep-nz` skill (sections, blocking flags, prior-period table, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved working-paper path to the user with a chat-side summary of the top blocking issues to resolve before lodgement.
 
 Use the `gst-prep-nz` skill for box definitions, period rules, special due dates (March / November exceptions), and the audit-document structure. Use New Zealand English (organisation, behaviour, colour), dd/MM/yyyy dates, $0.00 currency. Never use emojis.

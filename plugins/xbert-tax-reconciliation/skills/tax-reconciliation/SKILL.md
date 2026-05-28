@@ -89,3 +89,25 @@ Produce a tax-effect reconciliation from accounting profit to taxable income for
 - Source-tie every adjustment — orphan adjustments get the Needs review label and surface for partner attention
 - Be explicit about the entity type assumed — don't silently default
 - DGR status for donations is a check, not an assumption
+
+## Payload schema
+
+After running the analysis, structure the result as JSON conforming to the render skill payload schemas (`xbert-working-paper/skills/render-docx/SKILL.md` for narrative outputs; `xbert-working-paper/skills/render-xlsx/SKILL.md` for spreadsheet outputs). For this plugin you produce:
+
+- **reconciliation-sheet workbook**: consumed by `xbert-working-paper:render-xlsx` — one row per adjustment line with source reference and confidence label, structured per entity type (company / trust / partnership).
+- **working-paper narrative**: consumed by `xbert-working-paper:render-pdf` authored directly via reportlab (no .docx step) — partner-review PDF for the client file.
+
+Common fields across payloads: `plugin: "xbert-tax-reconciliation"`, `check_reference_id`, `tenant_name`, `period`, `prepared_by`, `prepared_at`, `title`, `qms_block`. The xlsx payload also needs `sheets[]` with `name`, `columns`, `rows`, `column_widths`, `freeze_top_row`, `number_format`. Cells starting with `=` are Excel formulas — always prefer formulas to hard-coded calculated values.
+
+## Output handoff
+
+1. Save each payload to `outputs/<check_reference_id>/<payload-name>.json`.
+2. Invoke the matching render skill(s) in order:
+   a. Save the reconciliation-sheet payload to `outputs/<check_reference_id>/schedule.json` and invoke `xbert-working-paper:render-xlsx`. Wait for `status == "ok"` and the `recalc.py` gate to pass with no error cells.
+   b. Save the narrative payload to `outputs/<check_reference_id>/payload.json` and invoke `xbert-working-paper:render-pdf` with `--payload` (reportlab path). Wait for `status == "ok"`.
+3. Each render skill emits a single JSON line on stdout with its own `status`/`path`/file-specific metadata.
+4. Pass the saved path(s) and a one-line summary back to the user.
+
+## Verification gate
+
+Do not report any deliverable as produced until its render skill's JSON shows `status == "ok"`. For render-xlsx, `recalc.py` must also have run and returned no error cells. If any gate fails, surface the JSON to the user verbatim and stop — do not retry silently and do not claim success.

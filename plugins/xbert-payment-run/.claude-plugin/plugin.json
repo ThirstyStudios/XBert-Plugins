@@ -1,7 +1,7 @@
 {
   "name": "xbert-payment-run",
   "displayName": "XBert Payment Run",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Weekly pay-run brief with remittance drafts ready for review. v1 produces the schedule + remittances; ABA payment file generation is v2.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-payment-run",
@@ -62,7 +62,7 @@
       "Confirm the client tenant, the pay window (default: due in next 7 days + all overdue), and the payment bank account",
       "Plugin pulls aged payables, applies inclusion/exclusion logic, and groups by supplier via the XBert MCP",
       "Pay schedule appears in chat with included/excluded bills, supplier groupings, and total amount",
-      "Approve remittance drafts per supplier; plugin generates the PDFs. You still post the run in the ledger (v1 does not generate the ABA file)"
+      "Render the deliverable(s) via xbert-working-paper:render-docx / render-xlsx / render-pdf as specified by the skill, and report the saved path(s). You still post the run in the ledger (v1 does not generate the ABA file)"
     ]
   }
 }

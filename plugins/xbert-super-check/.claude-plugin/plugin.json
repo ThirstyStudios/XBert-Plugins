@@ -1,7 +1,7 @@
 {
   "name": "xbert-super-check",
   "displayName": "XBert Super Check (AU)",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Quarterly Superannuation Guarantee check for Australian clients — verify SG calculated, posted, and paid through the clearing house by the 28th, with SGC-risk audit trail.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-super-check",
@@ -61,7 +61,7 @@
       "Confirm the client and the SG quarter (or accept the current quarter ending)",
       "Plugin pulls payroll, super liability, bank transactions and clearing house references via MCP",
       "SG calculation, posting and payment-status checks run and produce blocking issues plus SGC-risk notes",
-      "A Word working paper is generated and the chat summarises the top items to action before the 28th"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "xbert-config-audit",
   "displayName": "XBert Config Audit",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Is XBert configured consistently across your book? Spot inconsistencies, gaps, and drift in one pass.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-config-audit",
@@ -61,7 +61,7 @@
       "Confirm the Connect tenant and the client segmentation rule (default = by industry tag, fallback = whole book)",
       "Plugin pulls the Connect account review, configuration assignments and rule list via XBert MCP",
       "Per-segment fingerprints are computed, inconsistencies / gaps / drift are classified",
-      "Word document is produced with the audit findings and a named bulk-normalisation backlog"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

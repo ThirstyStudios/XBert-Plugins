@@ -1,7 +1,7 @@
 {
   "name": "xbert-gst-prep-nz",
   "displayName": "XBert GST Prep (NZ)",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Pre-lodgement GST readiness check for New Zealand clients — boxes 5-15 validated against bank rec, payroll and outstanding XBerts, audit document for IRD filing.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-gst-prep-nz",
@@ -61,7 +61,7 @@
       "Confirm the client and the GST period (or accept auto-detection of the most recent completed period)",
       "Plugin pulls reconciliation, GST boxes, payroll, KiwiSaver / PAYE liabilities, AP, AR and outstanding XBerts via MCP",
       "Readiness checks run and produce a blocking-issues list plus prior-period variance review",
-      "A Word audit document is generated and the chat summarises the top items to action before filing"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

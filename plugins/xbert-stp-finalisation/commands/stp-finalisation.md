@@ -18,13 +18,8 @@ Steps:
    - Employee STP classifications — income type, tax treatment code, country code
    - Outstanding XBerts touching payroll for the year
 3. Run the finalisation checks per the `stp-finalisation` skill — per-employee YTD reconciliation, income-type mapping, allowance disaggregation, RFB threshold check, termination payment classification, missing TFN flags, year-end leave balance sanity check.
-4. Generate a Word document containing:
-   - Cover page with client name, ABN, financial year, generation date
-   - First-page summary — total employees, items needing correction, FINAL status
-   - Per-employee YTD table — gross, PAYG-W, super, allowances by type, RFB, ETP / lump sums
-   - Phase 2 classification verification per employee
-   - Items requiring correction with the specific action needed before FINAL
-   - QMS block: practice name, preparer, timestamp, check reference ID
-5. Present the document to the user with a chat-side summary of any items needing correction before FINAL is sent. Never send the FINAL event from the plugin — the bookkeeper sends it from the ledger after the corrections are made.
+4. Build the working-paper payload conforming to the schema in the `stp-finalisation` skill (sections, blocking flags, prior-period table, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved working-paper path to the user with a chat-side summary of the top blocking issues to resolve before lodgement.
 
 Use the `stp-finalisation` skill for Phase 2 income types, allowance categories, RFB rules and termination treatment. Use Australian English, dd/MM/yyyy dates, $0.00 currency. Never use emojis.

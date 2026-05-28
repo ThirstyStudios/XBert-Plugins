@@ -73,3 +73,23 @@ If the run total exceeds 80% of available bank balance:
 - Always preserve the early-payment discount opportunity if it exists — surface it on the schedule
 - Note when a supplier has no email on file — remittance still drafted but flag for manual send method
 - Australian English in all remittance text (organisation, behaviour, programme, recognised)
+
+## Payload schema
+
+After running the analysis, structure the result as JSON conforming to the render skill payload schemas (`xbert-working-paper/skills/render-docx/SKILL.md` for narrative outputs; `xbert-working-paper/skills/render-xlsx/SKILL.md` for spreadsheet outputs). For this plugin you produce:
+
+- **per-supplier remittance**: one payload per supplier on the run, each consumed by `xbert-working-paper:render-pdf` authored directly via reportlab (no .docx step) — supplier name, payment date, bill references, line totals, grand total, payment method.
+
+Common fields across payloads: `plugin: "xbert-payment-run"`, `check_reference_id`, `tenant_name`, `period`, `prepared_by`, `prepared_at`, `title`, `qms_block`. The xlsx payload also needs `sheets[]` with `name`, `columns`, `rows`, `column_widths`, `freeze_top_row`, `number_format`. Cells starting with `=` are Excel formulas — always prefer formulas to hard-coded calculated values.
+
+## Output handoff
+
+1. Save each payload to `outputs/<check_reference_id>/<payload-name>.json`.
+2. Invoke the matching render skill(s) in order:
+   a. For each supplier on the schedule, save the remittance payload to `outputs/<check_reference_id>/remittance-<supplier-shortname>.json` and invoke `xbert-working-paper:render-pdf` with `--payload` (reportlab path — there is no .docx step for this plugin). Wait for `status == "ok"` on each invocation before moving to the next supplier.
+3. Each render skill emits a single JSON line on stdout with its own `status`/`path`/file-specific metadata.
+4. Pass the saved path(s) and a one-line summary back to the user.
+
+## Verification gate
+
+Do not report any deliverable as produced until its render skill's JSON shows `status == "ok"`. For render-xlsx, `recalc.py` must also have run and returned no error cells. If any gate fails, surface the JSON to the user verbatim and stop — do not retry silently and do not claim success.

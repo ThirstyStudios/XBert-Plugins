@@ -1,7 +1,7 @@
 {
   "name": "xbert-practice-metrics",
   "displayName": "XBert Practice Metrics",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Monthly partner-meeting one-pager — revenue, lockup, write-offs, service-line P&L, client risk segmentation.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-practice-metrics",
@@ -61,7 +61,7 @@
       "Confirm Connect tenant and reporting month (default = previous calendar month)",
       "Plugin pulls timesheets, invoices, aged receivables and client data via XBert MCP",
       "Metrics are computed, prior-month variance is calculated, RAG bands are assigned",
-      "Word one-pager plus Excel companion are produced"
+      "Render the deliverable(s) via xbert-working-paper:render-docx / render-xlsx / render-pdf as specified by the skill, and report the saved path(s)"
     ]
   }
 }

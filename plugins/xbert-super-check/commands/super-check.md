@@ -15,13 +15,8 @@ Steps:
    - Super liability account movement and bank transactions tied to clearing house payments
    - Outstanding XBerts touching super or payroll for the quarter
 3. Run the SG checks per the `super-check` skill — eligibility per employee, SG calculated at 12% on ordinary time earnings, super liability posted, clearing house lodgement reference exists, bank payment matches liability clearance, paid on or before the 28th. Quantify SGC exposure for any late or missed payment.
-4. Generate a Word document containing:
-   - Cover page with client name, ABN, SG quarter, generation date
-   - First-page summary of SG paid, deadline status, and any SGC exposure
-   - Per-employee contribution table — gross pay, OTE, SG calculated, SG paid, fund, clearing house reference
-   - Liability-to-bank trace — super liability movement matched to clearing house and bank payment
-   - SGC-risk section — any late employee, days late, estimated SGC, interest and admin fee
-   - QMS block: practice name, preparer, timestamp, check reference ID
-5. Present the document to the user with a chat-side summary of any blocking issues or late-payment risk. Never auto-pay super.
+4. Build the working-paper payload conforming to the schema in the `super-check` skill (sections, blocking flags, prior-period table, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved working-paper path to the user with a chat-side summary of the top blocking issues to resolve before lodgement.
 
 Use the `super-check` skill for SG rates, OTE definition, SGC calculation, and clearing-house reconciliation rules. Use Australian English, dd/MM/yyyy dates, $0.00 currency. Never use emojis.

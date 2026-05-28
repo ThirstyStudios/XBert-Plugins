@@ -15,14 +15,8 @@ Steps:
    - Profit & loss for the year
    - Prior year income totals for threshold determination
 3. Run the assessment per the `mtd-prep` skill — unmapped accounts (custom accounts not mapped to HMRC categories), split coding (expenses needing business / personal allocation), missing categories (expected HMRC categories with no transactions), income threshold (over £50K / £30K / £20K), simplified eligibility (under £90K for two-line reporting), property separation, residential vs commercial finance cost separation.
-4. Generate a Word document containing:
-   - Cover page with client name, UTR, income types covered, generation date
-   - Readiness status (MTD Ready / MTD Not Ready) and mandate date
-   - Income summary — self-employment and property separated, qualifying income totalled
-   - Chart-to-HMRC mapping audit — unmapped accounts with severity (High / Medium / Low) and recommended HMRC category
-   - Simplified vs full reporting determination
-   - Actions required per finding
-   - QMS block: practice name, preparer, timestamp, check reference ID
-5. Present the document to the user with a chat-side summary of the High-severity issues and the mandate date.
+4. Build the working-paper payload conforming to the schema in the `mtd-prep` skill (sections, blocking flags, prior-period table, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved working-paper path to the user with a chat-side summary of the top blocking issues to resolve before lodgement.
 
 Use the `mtd-prep` skill for HMRC SA103 / SA105 category lists, threshold timeline, qualifying income rules, and simplified reporting eligibility. Use British English (organisation, behaviour, colour), dd/MM/yyyy dates, £0.00 currency. Never use emojis.

@@ -1,0 +1,215 @@
+#!/usr/bin/env python3
+"""Render an XBert working paper as a .docx file.
+
+Reads a structured payload (see SKILL.md schema), writes a branded Word
+document, and emits a single line of JSON on stdout describing the result.
+
+Prefers a Jinja-tagged docx template at templates/<plugin>.docx via docxtpl
+when available; falls back to building the document from scratch with
+python-docx.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+
+def _emit(result: dict[str, Any], exit_code: int) -> None:
+    print(json.dumps(result), flush=True)
+    sys.exit(exit_code)
+
+
+def _load_payload(path: Path) -> dict[str, Any]:
+    with path.open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _render_with_docxtpl(template: Path, payload: dict, out_path: Path) -> None:
+    from docxtpl import DocxTemplate  # type: ignore
+
+    doc = DocxTemplate(str(template))
+    doc.render(payload)
+    doc.save(str(out_path))
+
+
+def _render_from_scratch(payload: dict, out_path: Path) -> None:
+    from docx import Document
+    from docx.shared import Pt, RGBColor, Cm
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+
+    doc = Document()
+
+    section = doc.sections[0]
+    section.top_margin = Cm(2.0)
+    section.bottom_margin = Cm(2.0)
+    section.left_margin = Cm(2.0)
+    section.right_margin = Cm(2.0)
+
+    style = doc.styles["Normal"]
+    style.font.name = "Calibri"
+    style.font.size = Pt(11)
+
+    title = doc.add_paragraph()
+    title.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    run = title.add_run(payload.get("title", "XBert Working Paper"))
+    run.bold = True
+    run.font.size = Pt(20)
+    run.font.color.rgb = RGBColor(0x1C, 0x1B, 0x41)
+
+    if payload.get("subtitle"):
+        sub = doc.add_paragraph()
+        sub_run = sub.add_run(payload["subtitle"])
+        sub_run.italic = True
+        sub_run.font.size = Pt(12)
+        sub_run.font.color.rgb = RGBColor(0x4E, 0x53, 0xBD)
+
+    meta_lines: list[str] = []
+    if payload.get("tenant_name"):
+        meta_lines.append(f"Tenant: {payload['tenant_name']}")
+    if payload.get("period"):
+        meta_lines.append(f"Period: {payload['period']}")
+    if payload.get("check_reference_id"):
+        meta_lines.append(f"Check reference: {payload['check_reference_id']}")
+    if payload.get("prepared_by"):
+        meta_lines.append(f"Prepared by: {payload['prepared_by']}")
+    if payload.get("prepared_at"):
+        meta_lines.append(f"Prepared at: {payload['prepared_at']}")
+    if meta_lines:
+        meta = doc.add_paragraph("\n".join(meta_lines))
+        for run in meta.runs:
+            run.font.size = Pt(9)
+            run.font.color.rgb = RGBColor(0x61, 0x6E, 0x91)
+
+    if payload.get("executive_summary"):
+        doc.add_heading("Executive summary", level=1)
+        doc.add_paragraph(payload["executive_summary"])
+
+    for section_data in payload.get("sections") or []:
+        heading_text = section_data.get("heading") or "Section"
+        if section_data.get("blocking"):
+            heading_text = f"⚠ {heading_text} (blocking)"
+        doc.add_heading(heading_text, level=1)
+
+        body = section_data.get("body")
+        if body:
+            for paragraph in str(body).split("\n\n"):
+                doc.add_paragraph(paragraph.strip())
+
+        table_data = section_data.get("table")
+        if table_data and table_data.get("columns") and table_data.get("rows") is not None:
+            columns = list(table_data["columns"])
+            rows = list(table_data["rows"])
+            t = doc.add_table(rows=1 + len(rows), cols=len(columns))
+            t.style = "Light Grid Accent 1"
+            hdr = t.rows[0].cells
+            for i, col in enumerate(columns):
+                hdr[i].text = str(col)
+                for run in hdr[i].paragraphs[0].runs:
+                    run.bold = True
+            for row_idx, row in enumerate(rows, start=1):
+                cells = t.rows[row_idx].cells
+                for i, val in enumerate(row[: len(columns)]):
+                    cells[i].text = "" if val is None else str(val)
+
+    qms = payload.get("qms_block") or {}
+    if qms:
+        doc.add_heading("Quality management", level=1)
+        qms_lines = []
+        if qms.get("firm_name"):
+            qms_lines.append(f"Firm: {qms['firm_name']}")
+        if qms.get("preparer"):
+            qms_lines.append(f"Preparer: {qms['preparer']}")
+        if qms.get("reviewer"):
+            qms_lines.append(f"Reviewer: {qms['reviewer']}")
+        if qms.get("certification"):
+            qms_lines.append(qms["certification"])
+        if qms_lines:
+            doc.add_paragraph("\n".join(qms_lines))
+
+    for appendix in payload.get("appendix") or []:
+        heading = appendix.get("heading")
+        body = appendix.get("body")
+        if heading:
+            doc.add_heading(heading, level=2)
+        if body:
+            doc.add_paragraph(str(body))
+
+    doc.save(str(out_path))
+
+
+def _validate(out_path: Path) -> dict[str, Any]:
+    result: dict[str, Any] = {
+        "path": str(out_path.resolve()),
+        "exists": out_path.exists(),
+        "size_bytes": 0,
+        "opens_cleanly": False,
+        "paragraph_count": 0,
+        "status": "errors_found",
+    }
+    if not out_path.exists():
+        return result
+    result["size_bytes"] = out_path.stat().st_size
+    try:
+        from docx import Document
+
+        doc = Document(str(out_path))
+        result["paragraph_count"] = len(doc.paragraphs)
+        result["opens_cleanly"] = True
+    except Exception as exc:  # noqa: BLE001
+        result["error"] = f"{type(exc).__name__}: {exc}"
+        return result
+    if result["size_bytes"] > 1024 and result["opens_cleanly"]:
+        result["status"] = "ok"
+    return result
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Render an XBert working paper as .docx")
+    parser.add_argument("--payload", required=True, type=Path, help="Path to payload JSON")
+    parser.add_argument("--out", required=True, type=Path, help="Path to write the .docx")
+    parser.add_argument(
+        "--templates-dir",
+        type=Path,
+        default=Path(__file__).resolve().parent.parent / "templates",
+        help="Directory containing optional docxtpl templates",
+    )
+    args = parser.parse_args()
+
+    if not args.payload.exists():
+        _emit({"status": "errors_found", "error": f"payload not found: {args.payload}"}, 2)
+
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    payload = _load_payload(args.payload)
+
+    plugin = payload.get("plugin") or "default"
+    template = args.templates_dir / f"{plugin}.docx"
+
+    try:
+        if template.exists():
+            _render_with_docxtpl(template, payload, args.out)
+        else:
+            _render_from_scratch(payload, args.out)
+    except ModuleNotFoundError as exc:
+        _emit(
+            {
+                "status": "errors_found",
+                "error": (
+                    f"missing dependency: {exc.name}. "
+                    "Install with: pip install python-docx docxtpl"
+                ),
+            },
+            3,
+        )
+    except Exception as exc:  # noqa: BLE001
+        _emit({"status": "errors_found", "error": f"{type(exc).__name__}: {exc}"}, 4)
+
+    result = _validate(args.out)
+    _emit(result, 0 if result["status"] == "ok" else 5)
+
+
+if __name__ == "__main__":
+    main()

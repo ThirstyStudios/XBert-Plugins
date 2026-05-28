@@ -78,3 +78,28 @@ If a linked XBert does not fit one of these five buckets, surface it under "Othe
 - If the linked-XBerts list is empty, stop and prompt the user — do not invent a fallback.
 - Recurrence by vendor or account is a deterministic fact (a count), not a pattern label.
 - Receipt forensic signals must be named specifically — copy-move, metadata, greyscale, image-of-image — not generic "looks suspicious".
+
+## Payload schema
+
+After running the analysis, structure the result as JSON conforming to the render-docx payload schema (defined in `xbert-working-paper/skills/render-docx/SKILL.md`). Required fields:
+
+- `plugin`: `"xbert-policy-review"`
+- `check_reference_id`: a unique ID for the run
+- `tenant_name`, `period`, `prepared_by`, `prepared_at`
+- `title`, `subtitle` (optional)
+- `executive_summary`: two sentences naming the headline finding
+- `sections[]`: one entry per major finding, each with `heading`, `body`, optional `blocking: true`, optional `table` with `columns` and `rows`
+- `qms_block`: `{ firm_name, preparer, reviewer, certification }`
+- `appendix[]` (optional)
+
+Section ordering and content must match the document structure described above.
+
+## Output handoff
+
+1. Save the payload to `outputs/<check_reference_id>/payload.json`.
+2. Invoke the `xbert-working-paper:render-docx` skill. It will write `outputs/<check_reference_id>/working-paper.docx` and emit a single JSON line on stdout with `status`, `path`, `exists`, `size_bytes`, `opens_cleanly`, `paragraph_count`.
+3. Pass the path and a one-line summary back to the user.
+
+## Verification gate
+
+Do not report the document as produced until the render skill's JSON has `status == "ok"` and `opens_cleanly == true`. If the gate fails, surface the JSON to the user verbatim and stop — do not retry silently and do not claim success.

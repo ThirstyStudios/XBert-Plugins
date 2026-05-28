@@ -24,9 +24,8 @@ Steps:
    - Compute cost-to-serve indicator (logged time × an assumed blended cost rate the user supplies, or leave time-only if they do not)
    - Categorise each client into Increase / Stable / Decrease / Insufficient data
    - Rank Increase and Decrease lists by indicated fee delta
-4. Generate outputs:
-   - Word document — portfolio summary, three lists, one-page evidence per client
-   - Excel workbook — full per-client matrix suitable as input to an external pricing tool
-5. Present the Word document with a chat-side summary: how many clients in each category, the top three candidates for increase and decrease, and the count flagged as insufficient data. Offer to drill into any client.
+4. Build the working-paper payload conforming to the schema in the `client-fee-review` skill (sections, blocking flags, tables, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved document path to the user with a chat-side summary of the top findings.
 
 Use the `client-fee-review` skill for the methodology and thresholds. Never set or apply prices — this is read-only evidence assembly.

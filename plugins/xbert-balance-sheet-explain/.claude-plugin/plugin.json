@@ -1,7 +1,7 @@
 {
   "name": "xbert-balance-sheet-explain",
   "displayName": "XBert Balance Sheet Explain",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Movement-by-movement balance sheet review with reconciliation status, manual journal trace, and FAR-to-GL accumulated depreciation check.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-balance-sheet-explain",
@@ -61,7 +61,7 @@
       "Confirm the client and the comparative period (quarter end or year-end)",
       "Plugin pulls balance sheet, reconciliation status, AR/AP ageing, and manual journals",
       "Each line is walked opening-to-closing, reconciliation status flagged, FAR-to-GL checked",
-      "Word narrative review is produced — read, edit, hand to partner"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

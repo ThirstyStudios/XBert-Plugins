@@ -1,7 +1,7 @@
 {
   "name": "xbert-stp-finalisation",
   "displayName": "XBert STP Finalisation (AU)",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Annual STP Phase 2 finalisation check for Australian clients — verify YTD wages, PAYG-W and super are accurate per employee before the 14 July ATO deadline.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-stp-finalisation",
@@ -61,7 +61,7 @@
       "Confirm the client and the financial year (defaults to year ending 30 June just past)",
       "Plugin pulls payrun history, employee classifications and STP submission references via MCP",
       "Per-employee YTD reconciliation runs against payroll reports; Phase 2 classification verified",
-      "A Word working paper is generated and the chat summarises any items needing correction before FINAL is sent"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

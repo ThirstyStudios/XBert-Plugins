@@ -16,12 +16,13 @@ Steps:
    - Calculate the minimum yearly repayment per loan (per Div 7A formula based on loan term and benchmark rate)
    - Compare actual repayments to minimum required — flag any shortfall
    - Note the assumption that a complying loan agreement is in place; if the user confirms it is not, flag the advance as a potential deemed dividend
-4. Generate the Excel schedule:
+4. Build the per-loan schedule workbook payload:
    - One worksheet per loan
    - Opening / advances / repayments / interest / closing rows
    - Minimum repayment calc with pass / shortfall badge
    - Working paper tab listing the benchmark rate used and the assumption set
    - Next-year reminder cell noting when the next income year's benchmark rate needs to be entered
-5. Present the top observations in chat — total advances, total minimum repayment shortfall (if any), any loans where the complying-loan-agreement assumption needs partner review. Offer to (a) email the shareholder with the minimum repayment required for the next year, or (b) flag any deemed-dividend risk for partner sign-off.
+5. Save the workbook payload to `outputs/<check_reference_id>/workbook.json` and invoke `xbert-working-paper:render-xlsx` to produce the schedule. Do not report success until the render skill's JSON shows `status == "ok"` and the `recalc.py` gate passes with no error cells.
+6. Present the top observations in chat — total advances, total minimum repayment shortfall (if any), any loans where the complying-loan-agreement assumption needs partner review. Offer to (a) email the shareholder with the minimum repayment required for the next year, or (b) flag any deemed-dividend risk for partner sign-off.
 
 Use the `div7a-schedule` skill for the loan identification rules, minimum repayment formula, and complying-loan-agreement handling. Read-only on the ledger — no journals posted. v1 explicitly relies on user-entered benchmark rate; this is documented as a capability gap.

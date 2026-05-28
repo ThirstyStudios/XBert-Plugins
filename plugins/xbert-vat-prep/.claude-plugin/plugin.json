@@ -1,7 +1,7 @@
 {
   "name": "xbert-vat-prep",
   "displayName": "XBert VAT Prep (UK)",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Pre-submission VAT readiness check for UK clients — boxes 1-9 validated, MTD compliance verified, partial exemption and reverse charge flagged, audit document for the file.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-vat-prep",
@@ -61,7 +61,7 @@
       "Confirm the client and the VAT period (or accept the current open quarter)",
       "Plugin pulls reconciliation, VAT boxes, VAT control accounts, payroll, AP, AR and outstanding XBerts via MCP",
       "Readiness checks run and produce a blocking-issues list plus prior-period variance review",
-      "A Word audit document is generated and the chat summarises the top items to action before submission"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "xbert-anomaly-review",
   "displayName": "XBert Anomaly Review",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Surface every anomaly XBert that fired across the period as a flat ranked list with per-firing recommended action. No invented pattern labels, no user attribution, no Journal data.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-anomaly-review",
@@ -62,7 +62,7 @@
       "Plugin resolves the linked anomaly XBerts for the period — if none are linked, the review stops and the user is prompted to configure linked XBerts first",
       "Every firing is presented as a row in a ranked list with the underlying transaction, the XBert reason, and a recommended next action",
       "Optional sub-grouping by vendor / account / period bucket if the list is long (deterministic facets, never invented pattern labels)",
-      "An evidence pack is produced with hyperlinks back to every source XBert firing"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

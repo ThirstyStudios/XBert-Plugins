@@ -19,12 +19,8 @@ Steps:
    - Outstanding XBerts for the period
    - Prior-period VAT for variance comparison
 3. Run the readiness checks per the `vat-prep` skill — data quality, lock dates, bank rec, VAT control accounts, VAT code accuracy, zero-rated vs exempt, credit notes, P&L review, balance sheet, payroll & PAYE, AP, AR, cash flow, outstanding XBerts, MTD compliance, reverse charge, partial exemption. ALL outstanding XBerts block submission.
-4. Generate a Word document containing:
-   - Cover page with client name, VAT number, VAT period, generation date
-   - First-page summary of readiness status and blocking issues
-   - Each readiness section with pass/fail and supporting evidence
-   - Prior-period variance comparison with explanations
-   - QMS block: practice name, preparer, timestamp, unique check reference ID, compliance statement
-5. Present the document to the user with a chat-side summary of the top blocking issues to resolve before submission. Never auto-resolve XBerts.
+4. Build the working-paper payload conforming to the schema in the `vat-prep` skill (sections, blocking flags, prior-period table, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved working-paper path to the user with a chat-side summary of the top blocking issues to resolve before lodgement.
 
 Use the `vat-prep` skill for box definitions, VAT rates, MTD rules, reverse charge and partial exemption guidance, and the audit-document structure. Use British English (organisation, behaviour, colour), dd/MM/yyyy dates, and £0.00 currency formatting. Never use emojis.

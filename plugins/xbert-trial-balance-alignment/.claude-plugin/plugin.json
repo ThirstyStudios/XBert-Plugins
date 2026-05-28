@@ -1,7 +1,7 @@
 {
   "name": "xbert-trial-balance-alignment",
   "displayName": "XBert Trial Balance Alignment",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Reconcile your trial balance against the accountant's financials with a journal-ready Excel workbook and Word audit document.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-trial-balance-alignment",
@@ -61,7 +61,7 @@
       "Confirm the client and upload the financial statements PDF",
       "Plugin pulls the trial balance from XBert and extracts the FS via semantic extraction",
       "The four-case matching engine runs and surfaces all unmatched lines with proposed actions",
-      "Approve the output to generate the Excel comparative workbook plus Word audit document"
+      "Render the deliverable(s) via xbert-working-paper:render-docx / render-xlsx / render-pdf as specified by the skill, and report the saved path(s)"
     ]
   }
 }

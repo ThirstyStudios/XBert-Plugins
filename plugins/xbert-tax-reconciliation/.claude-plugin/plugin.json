@@ -1,7 +1,7 @@
 {
   "name": "xbert-tax-reconciliation",
   "displayName": "XBert Tax Reconciliation",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Accounting-to-tax reconciliation worksheet — every adjustment from accounting profit to taxable income (tax-effect walk), per-entity worksheet, with working papers.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-tax-reconciliation",
@@ -61,7 +61,7 @@
       "Confirm the client, the entity type (company / trust / partnership), and the year-end date",
       "Plugin pulls financial statements, TB, P&L, BS, and journal master",
       "Reconciliation walks from accounting profit through adjustments to taxable income",
-      "Excel worksheet + PDF working paper drop for partner review"
+      "Render the deliverable(s) via xbert-working-paper:render-docx / render-xlsx / render-pdf as specified by the skill, and report the saved path(s)"
     ]
   }
 }

@@ -12,6 +12,8 @@ Steps:
 3. Pull the firings of each linked audit XBert across the period, the underlying transactions, the material accounts, captured source documents (receipts, supplier invoices, signed contracts, payroll records) and any prior-period audit pack context.
 4. Build the risk-weighted sample per the `audit-evidence-pack` skill — transactions with multiple XBerts firing escalate up the risk weighting. Coverage across material accounts is enforced so no account is under-sampled.
 5. Build lead schedules per material account — opening balance, period movement, closing balance, with the sample items listed underneath and hyperlinks down to each source document.
-6. Produce the bundled workpaper — cover page, partner sign-off page, risk-methodology note, lead schedules per account, sample sections with hyperlinks to every source XBert and source document, and a QMS block with check reference ID, preparer, timestamp.
+6. Build the working-paper payload conforming to the schema in the `audit-evidence-pack` skill (sections, blocking flags, tables, QMS block).
+7. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+8. Present the saved document path to the user with a chat-side summary of the top findings.
 
 Use the `audit-evidence-pack` skill for sample-weighting methodology, lead-schedule structure and the workpaper bundle format. Use Australian English (organisation, behaviour, colour). Never auto-resolve audit findings — the pack is for the external auditor to interrogate.

@@ -196,6 +196,81 @@ Use the `[skill-name]` skill for the methodology. Never [the thing you must not 
 
 ---
 
+## 4a. The render contract — for plugins whose deliverable is a file
+
+If your plugin's `description`, `tagline`, `longDescription`, `benefits[]` or `workflow[]` say the user gets a **Word document, Excel workbook, or PDF**, you must wire the render path. Marketing copy without a real rendering step is the failure mode the May 2026 plugin audit flagged across 30 of 38 plugins — don't reintroduce it.
+
+### The rule
+
+Every output promise must point at a tool that actually produces it. If you cannot name the tool in your command or skill, you cannot name the file format in user-facing copy. Use markdown phrasing instead ("structured markdown summary you can copy into Word") and only promise a file when the wiring is real.
+
+### The wiring
+
+Consumer plugins compose with the shared `xbert-working-paper` plugin's three skills:
+
+- **render-docx** — Word working papers
+- **render-xlsx** — formula-live Excel schedules
+- **render-pdf** — PDFs, either converted from `working-paper.docx` (preferred) or authored from scratch
+
+There is **no skill-to-skill API call**. Claude orchestrates the handoff. Your consumer plugin's SKILL.md must:
+
+1. Define a **Payload schema** section describing the structured JSON your skill will produce.
+2. Define an **Output handoff** section that tells Claude to save the payload to `outputs/<check_reference_id>/payload.json` and invoke the matching render skill.
+3. Define a **Verification gate** section that names the JSON status check the render skill returns.
+
+### Minimal addition to a consumer SKILL.md
+
+Append these three sections at the end:
+
+```markdown
+## Payload schema
+
+After running the readiness checks, structure the result as JSON conforming to
+the render-docx payload schema (see `xbert-working-paper/skills/render-docx/SKILL.md`).
+Fill `plugin: "xbert-<your-plugin>"`, `check_reference_id`, `tenant_name`,
+`period`, `title`, `executive_summary`, `sections[]` (one per major finding,
+with `blocking: true` flagged), `qms_block`, and any `appendix[]` items.
+
+## Output handoff
+
+1. Save the payload to `outputs/<check_reference_id>/payload.json`.
+2. Invoke the `xbert-working-paper:render-docx` skill (or `render-xlsx` /
+   `render-pdf` as appropriate for your deliverable).
+3. The render skill writes to `outputs/<check_reference_id>/working-paper.docx`
+   and emits a JSON line with `status`, `path`, `exists`, `size_bytes`,
+   `opens_cleanly`.
+
+## Verification gate
+
+Do not report the working paper as produced until the render skill's JSON has
+`status == "ok"` and `opens_cleanly == true`. If validation fails, surface the
+JSON to the user verbatim.
+```
+
+### Allowed marketing phrasing
+
+When the wiring is in place, "Outputs a Word working paper" is honest.
+
+When the wiring is **not** in place, use:
+
+- "Structures the findings as a markdown working paper — suitable for copy-paste into the firm's template."
+- "Returns a structured chat summary; render to .docx via `xbert-working-paper:render-docx` when the working paper is needed."
+- "Generates a ranked list in chat with supporting figures inline."
+
+### Reject wordlist
+
+These phrases require a tool wiring before they may appear in your plugin copy: *Word document, Excel workbook, .docx, .xlsx, .pdf, generate a [file], produce a [file], deliver a [document], audit-defensible, audit-ready, certification, filable, lodgement-ready, partner-ready*.
+
+### Contributor checklist (must pass before merge)
+
+- [ ] Every output claim points at an invokable tool or a render-skill handoff.
+- [ ] Third-person only — no "I'll", no "we produce".
+- [ ] If your benefits/workflow mentions a file format, the SKILL.md has Payload schema + Output handoff + Verification gate sections.
+- [ ] Marketplace-card scan: `description` + `tagline` + 3 `benefits[].description` read in sequence — each line passes the "where does that file come from?" test.
+- [ ] If you copy a sibling plugin's manifest copy near-verbatim, one of them is template drift — rewrite both.
+
+---
+
 ## 5. Skills — `skills/<slug>/SKILL.md`
 
 Skills hold the methodology, thresholds, and rules Claude follows when the plugin's command fires. The skill triggers automatically on relevant prompts.

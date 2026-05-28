@@ -1,7 +1,7 @@
 {
   "name": "xbert-audit-evidence-pack",
   "displayName": "XBert Audit Evidence Pack",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "External-auditor-ready evidence pack driven by which XBerts fired on each transaction — risk-weighted sample, hyperlinked workpapers.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-audit-evidence-pack",
@@ -62,7 +62,7 @@
       "Plugin resolves the linked audit XBerts for the period — if none are linked, the pack stops and the user is prompted to configure linked XBerts first",
       "A risk-weighted sample is selected based on the count and severity of XBert firings per transaction",
       "Lead schedules are produced per material account",
-      "Partner reviews and the bundled workpaper is exported for the auditor"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

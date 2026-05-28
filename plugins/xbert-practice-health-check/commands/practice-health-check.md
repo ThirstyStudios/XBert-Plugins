@@ -18,12 +18,8 @@ Steps:
    - Rank the worst N clients and generate per-client diagnostics — each finding paired with "what this means" and "what's likely causing it"
    - Produce prescriptive recommendations ranked by impact (hours-back, risk-reduction, revenue-at-risk)
    - Note clients where data is too thin for a confident assessment (graceful degradation)
-4. Generate a Word document containing:
-   - Cover page with practice name and generation date
-   - First-page executive summary (clients per band, deteriorating count, top three portfolio issues)
-   - Portfolio table with per-client band and headline issue
-   - Per-client drill-down for the worst N
-   - Coverage caveats for non-Xero clients
-5. Present the document to the user with a chat-side summary of the three highest-impact recommendations across the portfolio. Offer follow-up questions on any client or finding.
+4. Build the working-paper payload conforming to the schema in the `practice-health-check` skill (sections, blocking flags, tables, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved document path to the user with a chat-side summary of the top findings.
 
 Use the `practice-health-check` skill for the full methodology, bands, and tone. Never apply changes — this is a read-only diagnostic.

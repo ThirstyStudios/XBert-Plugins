@@ -18,14 +18,8 @@ Steps:
    - **Cashflow section**: opening cash → closing cash bridge, operating vs investing vs financing breakdown, vs forecast
    - **Budget adherence**: YTD revenue, YTD expense, YTD EBITDA against budget; surface major drivers of YTD variance
    - **KPI roll-up**: gross margin, net margin, current ratio, debtor days, creditor days, working capital — all calculated, plus prior-period comparison
-4. Generate the Word document (PDF fallback if Word unavailable) with these sections in this order:
-   - Cover page (client name, period, generation date)
-   - Executive summary (1-page roll-up of revenue, EBITDA, cash, top 3 variances)
-   - P&L with budget and prior-period comparisons + commentary scaffolding
-   - Balance sheet with movement walk + flagged accounts
-   - Cashflow with forecast comparison
-   - KPI dashboard table
-   - Appendix: balance sheet review findings, data-sparsity notes
-5. Present a chat summary: top 3 variances, top 3 BS movements, cash position, suggested partner-review focus areas. Offer to drop the file path.
+4. Build the working-paper payload conforming to the schema in the `month-end-pack` skill (sections, blocking flags, tables, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved document path to the user with a chat-side summary of the top findings.
 
 Use the `month-end-pack` skill for the methodology, materiality thresholds, and commentary scaffolding patterns. Never overwrite prior packs; output filename includes the period. Never make accounting judgment calls — commentary is scaffolded for the partner to complete.

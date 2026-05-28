@@ -17,12 +17,8 @@ Steps:
    - Outstanding XBerts for the period
    - Prior-period BAS for variance comparison
 3. Run the readiness checks per the `bas-prep` skill — bank rec, GST data, PAYG-W, payroll, super, P&L review, balance sheet review, fixed assets, AP, AR, cash flow, outstanding XBerts, liability balances. ALL outstanding XBerts block lodgement.
-4. Generate a Word document containing:
-   - Cover page with client name, ABN, BAS period, generation date
-   - First-page summary of readiness status and blocking issues
-   - Each readiness section with pass/fail and supporting evidence
-   - Prior-period variance comparison with explanations
-   - QMS block: practice name, preparer, timestamp, unique check reference ID, compliance statement
-5. Present the document to the user with a chat-side summary of the top blocking issues to resolve before lodgement. Never auto-resolve XBerts — surface them with resolution instructions only.
+4. Build the working-paper payload conforming to the schema in the `bas-prep` skill (sections, blocking flags, prior-period table, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved working-paper path to the user with a chat-side summary of the top blocking issues to resolve before lodgement.
 
 Use the `bas-prep` skill for thresholds, label definitions, and audit-document structure. Use Australian English (organisation, behaviour, colour), dd/MM/yyyy dates, and $0.00 currency formatting. Never use emojis.

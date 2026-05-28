@@ -1,7 +1,7 @@
 {
   "name": "xbert-practice-health-check",
   "displayName": "XBert Practice Health Check",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Portfolio-wide data-quality and financial-health snapshot with diagnostic recommendations per client.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-practice-health-check",
@@ -61,7 +61,7 @@
       "Confirm the Connect tenant, cohort scope and drill-down count (default 10 worst)",
       "Plugin pulls data-quality scores, notification summaries, client connections and Connect account review via XBert MCP",
       "Portfolio is banded, diagnostic and prescriptive recommendations are generated per client",
-      "Word document is produced with the portfolio snapshot, deterioration list and per-client drill-downs"
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }

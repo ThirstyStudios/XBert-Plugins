@@ -1,7 +1,7 @@
 {
   "name": "xbert-month-end-pack",
   "displayName": "XBert Month-End Pack",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Month-end financial pack the partner can hand to the client — P&L vs budget, BS movement walk, cashflow vs forecast, and KPI roll-up in a single Word document.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-month-end-pack",
@@ -60,7 +60,7 @@
       "Type /month-end-pack in any Claude chat",
       "Confirm the client tenant and the month being closed",
       "Plugin pulls P&L, BS, cashflow, budget adherence, and runs balance sheet review via the XBert MCP",
-      "Word document is generated with consistent sections, named variances, and commentary scaffolding",
+      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path",
       "Hand the pack up to the partner for review; commentary fields are placeholders the partner fills in"
     ]
   }

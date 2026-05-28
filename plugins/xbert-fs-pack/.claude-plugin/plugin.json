@@ -1,7 +1,7 @@
 {
   "name": "xbert-fs-pack",
   "displayName": "XBert FS Pack",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Year-end financial statement pack ready for partner review — SPFS structure with comparative period, notes shell, and GPFS variant for audit clients.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-fs-pack",
@@ -61,7 +61,7 @@
       "Confirm the client, the year-end date, and SPFS vs GPFS structure",
       "Plugin pulls BS, P&L, cashflow, TB, and organisation settings",
       "Document is composed with comparative columns and notes shell",
-      "Word + PDF deliverables drop for partner review"
+      "Render the deliverable(s) via xbert-working-paper:render-docx / render-xlsx / render-pdf as specified by the skill, and report the saved path(s)"
     ]
   }
 }

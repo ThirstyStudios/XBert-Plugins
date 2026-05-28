@@ -13,15 +13,8 @@ Steps:
    - Bank transactions for direct-pay contractors not run through accounts payable
    - Chart of accounts to identify TPAR-relevant expense accounts
 3. Run the TPAR preparation per the `tpar` skill — apply industry filter to identify reportable payments, group by contractor, validate ABNs, separate GST from gross, identify errors (employees in AP, missing ABNs, duplicate suppliers, sole traders without an ABN where withholding may apply).
-4. Generate:
-   - A TPAR-ready summary table — per contractor: name, ABN, address, total gross paid, total GST, total net, payment count
-   - A Word working paper containing:
-     - Cover page with client name, ABN, financial year, industry, generation date
-     - Summary — total contractors, total gross paid, total reportable
-     - Per-contractor table with the values above
-     - Error log — contractors with missing/invalid ABN, duplicates, employees in AP, withholding-required cases
-     - Industry filter rationale — why each account was included or excluded
-     - QMS block: practice name, preparer, timestamp, check reference ID
-5. Present the documents to the user with a chat-side summary of any items needing correction before lodgement. Never lodge TPAR from the plugin.
+4. Build the working-paper payload conforming to the schema in the `tpar` skill (sections, blocking flags, prior-period table, QMS block).
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+6. Present the saved working-paper path to the user with a chat-side summary of the top blocking issues to resolve before lodgement.
 
 Use the `tpar` skill for industry rules, ABN validation, GST separation, and the working paper structure. Use Australian English, dd/MM/yyyy dates, $0.00 currency. Never use emojis.

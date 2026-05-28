@@ -43,3 +43,28 @@ Segment minimum: 3 clients. Below 3, treat as ungrouped and report whole-book on
 - **Even splits need human input.** A rule split 50/50 in a segment is a policy question, not a fix.
 - **Read-only.** Suggest bulk moves; the user enacts them through XBert.
 - **Segmentation transparency.** State the segmentation rule used; caveat where it was approximate.
+
+## Payload schema
+
+After running the analysis, structure the result as JSON conforming to the render-docx payload schema (defined in `xbert-working-paper/skills/render-docx/SKILL.md`). Required fields:
+
+- `plugin`: `"xbert-config-audit"`
+- `check_reference_id`: a unique ID for the run
+- `tenant_name`, `period`, `prepared_by`, `prepared_at`
+- `title`, `subtitle` (optional)
+- `executive_summary`: two sentences naming the headline finding
+- `sections[]`: one entry per major finding, each with `heading`, `body`, optional `blocking: true`, optional `table` with `columns` and `rows`
+- `qms_block`: `{ firm_name, preparer, reviewer, certification }`
+- `appendix[]` (optional)
+
+Section ordering and content must match the document structure described above.
+
+## Output handoff
+
+1. Save the payload to `outputs/<check_reference_id>/payload.json`.
+2. Invoke the `xbert-working-paper:render-docx` skill. It will write `outputs/<check_reference_id>/working-paper.docx` and emit a single JSON line on stdout with `status`, `path`, `exists`, `size_bytes`, `opens_cleanly`, `paragraph_count`.
+3. Pass the path and a one-line summary back to the user.
+
+## Verification gate
+
+Do not report the document as produced until the render skill's JSON has `status == "ok"` and `opens_cleanly == true`. If the gate fails, surface the JSON to the user verbatim and stop — do not retry silently and do not claim success.

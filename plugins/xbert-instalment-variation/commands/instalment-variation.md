@@ -18,12 +18,13 @@ Steps:
    - Compare expected annual taxable income vs the ATO notice rate
    - Direction recommendation: vary up, vary down, or stay
    - Confidence label and GIC exposure note for any variation-down recommendation
-4. Generate a PDF audit-defence working paper containing:
+4. Build the audit-defence working-paper payload containing:
    - Client, quarter, instalment type, ATO notice rate
    - YTD figures with prior-year comparison
    - Cashflow snapshot
    - The recommendation with direction, confidence, and GIC exposure
    - The data inputs the recommendation was based on (so the working paper is reproducible)
-5. Present the recommendation in chat with the underlying numbers. Offer to (a) draft the variation submission text for the bookkeeper to enter into the ATO portal, or (b) re-run with a different prior-year baseline, or (c) flag the recommendation for partner sign-off if confidence is Needs review.
+5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke `xbert-working-paper:render-pdf` with `--payload` (reportlab path — there is no .docx step for this plugin). Do not report success until the render skill's JSON shows `status == "ok"`.
+6. Present the recommendation in chat with the underlying numbers. Offer to (a) draft the variation submission text for the bookkeeper to enter into the ATO portal, or (b) re-run with a different prior-year baseline, or (c) flag the recommendation for partner sign-off if confidence is Needs review.
 
 Use the `instalment-variation` skill for the trend-vs-noise rules, GIC exposure calculation, and confidence labels. Never submit the variation on behalf of the user — the plugin produces the recommendation and the working paper; the human enters the number into the portal. Be conservative on variation-down recommendations — the audit-defence story matters.
