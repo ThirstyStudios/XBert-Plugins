@@ -46,15 +46,15 @@ export function InstallSteps({
           active={mode === "claude"}
           onClick={() => setMode("claude")}
           icon={<Sparkles size={13} />}
-          label="Claude"
-          sublabel="claude.ai / Desktop"
+          label="Claude-Cowork"
+          sublabel="Desktop"
         />
         <TabButton
           active={mode === "claude-code"}
           onClick={() => setMode("claude-code")}
           icon={<Terminal size={13} />}
-          label="Claude Code"
-          sublabel="CLI / developers"
+          label="Claude-Cowork"
+          sublabel="CLI"
         />
       </div>
 
@@ -137,10 +137,10 @@ function DesktopPluginWalkthrough({ slugCount }: { slugCount: number }) {
   const steps = [
     {
       icon: <MousePointerClick size={14} />,
-      title: "Open Customize in Claude Desktop",
+      title: "Open Customize in Claude-Cowork",
       body: (
         <>
-          In Claude Desktop, open the{" "}
+          In Claude-Cowork, open the{" "}
           <span className="font-mono text-neutral-900 dark:text-neutral-100">Customize</span>{" "}
           panel. In the sidebar you&apos;ll see{" "}
           <span className="font-mono text-neutral-900 dark:text-neutral-100">Skills</span>,{" "}
@@ -268,7 +268,7 @@ function DesktopPluginWalkthrough({ slugCount }: { slugCount: number }) {
         <span className="text-neutral-900 dark:text-neutral-200 font-medium">
           Rolling out to a whole firm?
         </span>{" "}
-        Each user adds the marketplace once on their own Desktop. On{" "}
+        Each user adds the marketplace once on their own Claude-Cowork app. On{" "}
         <span className="text-neutral-900 dark:text-neutral-200">
           Claude Team or Enterprise
         </span>
@@ -296,7 +296,7 @@ function CliPanel({
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02]">
         <div className="flex items-center gap-2 text-xs text-neutral-700 dark:text-neutral-300 font-medium">
           <Terminal size={14} className="text-blue-500 dark:text-blue-400" />
-          <span>Run in Claude Code</span>
+          <span>Run in Claude-Cowork CLI</span>
         </div>
         <CopyButton text={snippet} />
       </div>
