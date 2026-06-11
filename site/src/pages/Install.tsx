@@ -56,7 +56,7 @@ export default function InstallPage() {
       >
         <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/5 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-300 mb-6">
           <Terminal size={12} className="text-blue-500 dark:text-blue-400" />
-          For Claude Code
+          For Claude-Cowork
         </div>
         <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
           Build a multi-plugin install snippet.
@@ -64,14 +64,14 @@ export default function InstallPage() {
         <p className="mt-3 text-neutral-700 dark:text-neutral-400 max-w-2xl">
           Tick the XBert plugins you want. The install snippet on the left
           updates live, and the URL stays in sync so you can share or bookmark a
-          bundle. Paste the result into Claude Code.
+          bundle. Paste the result into Claude-Cowork.
         </p>
 
         <div className="mt-6 flex items-start gap-3 rounded-xl border border-blue-400/20 bg-blue-400/[0.06] dark:border-blue-400/15 dark:bg-blue-400/[0.04] px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 max-w-2xl">
           <Info size={16} className="mt-0.5 text-blue-500 dark:text-blue-400 flex-shrink-0" />
           <div>
-            On <span className="font-medium text-neutral-900 dark:text-white">Claude (claude.ai or Desktop)</span>,
-            use the custom MCP connector instead of this CLI bundle.{" "}
+            On <span className="font-medium text-neutral-900 dark:text-white">Claude-Cowork (Desktop)</span>,
+            use the Customize panel instead of this CLI bundle.{" "}
             <Link to="/connect" className="text-blue-500 dark:text-blue-400 hover:underline">
               See connect steps →
             </Link>

@@ -41,10 +41,11 @@ export default function ConnectPage() {
           Install the XBert plugins.
         </h1>
         <p className="mt-4 text-lg text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed">
-          Add the XBert marketplace to Claude Desktop and you get the full set
+          Add the XBert marketplace to Claude-Cowork and you get the full set
           of slash commands — review, reconcile, workload, pulse, capacity —
-          ready to run. Each one wraps an XBert workflow into a single command
-          with an audit-friendly output.
+          ready to run. Plugins require Claude-Cowork (Desktop or CLI) — they
+          are not available on other Claude plans. Each one wraps an XBert
+          workflow into a single command with an audit-friendly output.
         </p>
       </motion.div>
 

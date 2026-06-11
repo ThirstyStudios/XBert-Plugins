@@ -204,7 +204,7 @@ export default function HomePage() {
             {
               n: "03",
               title: "Install plugins for preset workflows",
-              body: "Want slash commands and skills built on the MCP? Install the XBert plugins (works in Claude Code and Claude Desktop). Same data, packaged into preset workflows.",
+              body: "Want slash commands and skills built on the MCP? Install the XBert plugins — they require Claude-Cowork (Desktop or CLI). Same data, packaged into preset workflows.",
             },
           ].map((s, i) => (
             <motion.li

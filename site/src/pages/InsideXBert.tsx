@@ -51,7 +51,7 @@ export default function InsideXBertPage() {
           value:
             "ad-hoc requests, exploratory questions, batch tasks across many clients",
         },
-        { label: "Lives in", value: "Claude Desktop, Claude Code" },
+        { label: "Lives in", value: "Claude-Cowork (Desktop or CLI)" },
         { label: "Connects via", value: "Model Context Protocol" },
         {
           label: "What you get",
