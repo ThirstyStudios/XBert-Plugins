@@ -18,8 +18,8 @@
       "name": "xbert-anomaly-review",
       "displayName": "XBert Anomaly Review",
       "source": "./plugins/xbert-anomaly-review",
-      "description": "Surface every anomaly XBert that fired across the period as a flat ranked list with per-firing recommended action. No invented pattern labels, no user attribution, no Journal data.",
-      "version": "0.2.0"
+      "description": "Surface every anomaly XBert that fired across the period as a flat ranked list with per-firing verification and recommended action. Checks the Anomaly Review agent is configured with linked XBerts before reviewing. No invented pattern labels, no user attribution, no Journal data.",
+      "version": "0.3.0"
     },
     {
       "name": "xbert-ar-cadence",
@@ -186,8 +186,8 @@
       "name": "xbert-payroll-close",
       "displayName": "XBert Payroll Close",
       "source": "./plugins/xbert-payroll-close",
-      "description": "Pre-run sanity checks and post-run reconciliation for every pay cycle, including STP Phase 2 hygiene and bank-out reconciliation.",
-      "version": "0.1.2"
+      "description": "Pre-run sanity checks, post-run reconciliation, and full-period payroll reviews across every pay cycle — including draft pay-run detection, SG rate compliance, GL-vs-payroll reconciliation, STP Phase 2 hygiene and bank-out reconciliation.",
+      "version": "0.1.3"
     },
     {
       "name": "xbert-policy-review",
@@ -278,7 +278,7 @@
       "displayName": "XBert Working Paper",
       "source": "./plugins/xbert-working-paper",
       "description": "Shared rendering skills that turn a structured XBert plugin payload into a Word, Excel or PDF working paper saved to your project folder. Required by every compliance and close plugin that emits a file artefact.",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }

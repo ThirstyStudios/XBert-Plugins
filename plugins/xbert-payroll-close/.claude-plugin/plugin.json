@@ -1,15 +1,15 @@
 {
   "name": "xbert-payroll-close",
   "displayName": "XBert Payroll Close",
-  "version": "0.1.2",
-  "description": "Pre-run sanity checks and post-run reconciliation for every pay cycle, including STP Phase 2 hygiene and bank-out reconciliation.",
+  "version": "0.1.3",
+  "description": "Pre-run sanity checks, post-run reconciliation, and full-period payroll reviews across every pay cycle — including draft pay-run detection, SG rate compliance, GL-vs-payroll reconciliation, STP Phase 2 hygiene and bank-out reconciliation.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-payroll-close",
   "license": "MIT",
-  "keywords": ["payroll", "stp", "single-touch-payroll", "weekly", "reconciliation", "compliance"],
+  "keywords": ["payroll", "stp", "single-touch-payroll", "superannuation", "reconciliation", "compliance"],
   "x-xbert": {
     "displayName": "XBert Payroll Close",
-    "tagline": "Pre-run sanity checks and post-run reconciliation across every pay cycle.",
+    "tagline": "Pre-run sanity checks, post-run reconciliation, and period reviews across every pay cycle.",
     "audience": ["bookkeepers"],
     "categories": ["payroll", "weekly", "compliance"],
     "prerequisites": [
@@ -20,19 +20,19 @@
     "screenshots": [],
     "demoVideo": null,
     "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
-    "longDescription": "Payroll is the highest-stakes weekly task in a bookkeeping practice. New hires get missed, terminations get processed late, leave applications sit unapproved, super percentages drift after a salary change, and STP Phase 2 codes silently break compliance. The errors are mostly small individually but compound across pay cycles and become very expensive when they finally surface — usually via the employee, never via the bookkeeper.\n\nXBert Payroll Close runs as both a pre-run sanity check (before you post the pay) and a post-run reconciliation (after the pay is posted but before the bank file goes out). It checks every employee for the things that go wrong week after week — leave hits, super rates, STP P2 hygiene, new starters who weren't added in time, terminations that weren't processed — then reconciles the posted pay run against the prior pay's variance bands and the bank-out total against the sum of net pays. The bookkeeper still owns the pay run; the plugin owns the checking.",
+    "longDescription": "Payroll is the highest-stakes weekly task in a bookkeeping practice. New hires get missed, terminations get processed late, leave applications sit unapproved, super percentages drift after a salary change, draft pay runs sit forgotten, and STP Phase 2 codes silently break compliance. The errors are mostly small individually but compound across pay cycles and become very expensive when they finally surface — usually via the employee, never via the bookkeeper.\n\nXBert Payroll Close runs three ways: a pre-run sanity check (before you post the pay), a post-run reconciliation (after the pay is posted but before the bank file goes out), and a period review that walks every pay cycle in a month, quarter or financial year. Every mode starts with a census: every employee (so staff terminated in prior years are excluded from current findings) and every pay run in range regardless of status (so drafts, duplicates and missing cycles surface immediately). The period review judges each pay run's super guarantee rate against the statutory minimum effective on that run's payment date, reviews the payroll settings actually in use, and reconciles payroll activity to the general ledger — wages expense, PAYG withholding (the W1/W2 tie-in to the IAS), and super payable. Anything the connected data cannot verify is reported honestly under 'Not checked — verify in the ledger' rather than silently skipped. The bookkeeper still owns the pay run; the plugin owns the checking.",
     "useCases": [
       {
         "title": "Pre-run sanity check",
-        "description": "Before you process the weekly pay, get a list of every employee who needs attention: new starters not yet set up, leave applications unapproved, super rate changes, address changes affecting STP."
+        "description": "Before you process the pay, get a list of every employee who needs attention: new starters not yet set up, leave applications unapproved, super rate changes, address changes affecting STP."
       },
       {
         "title": "Post-run variance check",
         "description": "After posting the pay run, compare totals against the prior pay — net pay, super, PAYG. Anything outside the variance band gets surfaced before the bank file goes out."
       },
       {
-        "title": "STP Phase 2 hygiene",
-        "description": "Catch missing income type, country code, tax treatment, or category mappings that would cause a P2 submission to reject or misreport."
+        "title": "Period / FY payroll review",
+        "description": "Walk every pay cycle in a month, quarter or financial year: per-cycle variances, super guarantee rate compliance at each pay date, draft and duplicate pay runs, payroll settings, and a GL-vs-payroll reconciliation across wages, PAYG and super."
       },
       {
         "title": "Bank-out reconciliation",
@@ -43,24 +43,24 @@
       {
         "icon": "ShieldCheck",
         "title": "Catch errors before the bank file uploads",
-        "description": "Net-pay variance, super-rate drift, missing STP fields, and bank-out mismatches all surface in the same pre-flight check — before money moves and before submissions go to the ATO."
+        "description": "Net-pay variance, super-rate drift, draft pay runs, GL mismatches, and bank-out differences all surface in the same pre-flight check — before money moves and before submissions go to the ATO."
       },
       {
         "icon": "Clock",
-        "title": "Cuts the weekly pay-run check from 30 mins to 5",
-        "description": "Replace the spreadsheet-and-checklist routine with one chat command. Pre-run sanity and post-run reconciliation in a single workflow."
+        "title": "Cuts the pay-run check from 30 mins to 5",
+        "description": "Replace the spreadsheet-and-checklist routine with one chat command. Pre-run sanity, post-run reconciliation, and full-period reviews in a single workflow."
       },
       {
         "icon": "Scale",
-        "title": "STP Phase 2 compliance on autopilot",
-        "description": "Every pay run gets checked for the P2 fields the ATO has been making mandatory since 2022 — income type, country code, tax treatment, category mapping."
+        "title": "Statutory rates checked per pay date",
+        "description": "Every pay run is judged against the super guarantee minimum effective on its own payment date — 12% from 1 July 2025 — sourced from a pinned statutory table, never from model memory."
       }
     ],
     "workflow": [
       "Type /payroll-close in any Claude chat",
-      "Confirm the client, pay period, and whether this is a pre-run or post-run check",
-      "Plugin pulls pay-run, payslip, employee, leave, and settings data via the XBert MCP",
-      "Pre-run sanity report (or post-run variance + reconciliation report) is presented in chat with named employees and amounts",
+      "Confirm the client, the mode (pre-run, post-run, or period review), and the period",
+      "Plugin pulls the employee census, every pay run in range regardless of status, payslips, settings, leave, GL and bank-rec data via the XBert MCP",
+      "Structured report: coverage statement, blockers, warnings, clean counts, and an explicit 'Not checked — verify in the ledger' list",
       "You action each flagged item in the ledger; the plugin never posts the pay run for you"
     ]
   }

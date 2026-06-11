@@ -16,10 +16,13 @@ A consumer plugin (e.g. `xbert-bas-prep`) has just completed its readiness work 
 
 The consumer plugin gives you JSON conforming to this shape. If a field is missing, leave it empty; do not invent values.
 
+`plugin_version` is optional but should be supplied by every consumer plugin (read from its own `.claude-plugin/plugin.json`) — it is stamped on the cover page and in the Quality management block so any working paper can be traced back to the plugin version that produced it.
+
 ```json
 {
   "check_reference_id": "BAS-2026Q1-11752-001",
   "plugin": "xbert-bas-prep",
+  "plugin_version": "0.2.1",
   "tenant_name": "Acme Pty Ltd",
   "period": "Jan-Mar 2026",
   "prepared_by": "Junior Bookkeeper Name",

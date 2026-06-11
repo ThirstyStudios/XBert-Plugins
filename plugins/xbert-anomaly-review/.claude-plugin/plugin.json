@@ -1,8 +1,8 @@
 {
   "name": "xbert-anomaly-review",
   "displayName": "XBert Anomaly Review",
-  "version": "0.2.0",
-  "description": "Surface every anomaly XBert that fired across the period as a flat ranked list with per-firing recommended action. No invented pattern labels, no user attribution, no Journal data.",
+  "version": "0.3.0",
+  "description": "Surface every anomaly XBert that fired across the period as a flat ranked list with per-firing verification and recommended action. Checks the Anomaly Review agent is configured with linked XBerts before reviewing. No invented pattern labels, no user attribution, no Journal data.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-anomaly-review",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "screenshots": [],
     "demoVideo": null,
     "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
-    "longDescription": "Anomalies in the ledger are detected deterministically by Custom XBerts on the data XBert MCP exposes today — same vendor + amount + date duplicates on Bill or BankTransaction, period-over-period balance jumps, same vendor coded to a different account than its recurring pattern, round-number-recurring postings, volume spikes per vendor or account. The XBerts do the detection; this plugin does not.\n\nXBert Anomaly Review surfaces what the linked anomaly XBerts caught for the period as a flat ranked list. Per firing: posting date, doc number, vendor, amount, account, the XBert that fired and its detection reason, the count of prior firings on the same vendor or same account in the period (a deterministic fact, not a pattern label), and the recommended next action. Optional sub-grouping by deterministic facets (vendor, account, period bucket) keeps a long list scannable — never under invented pattern labels.\n\nWhat the plugin explicitly does NOT do (no backing data in MCP today): identify the posting user, detect after-hours patterns or time-of-day attribution, infer intent (round-tripping), name pattern clusters across firings, track cluster-level resolution status, or claim Journal data. Duplicate-journals, reversal-pair and round-tripping detection all need Journal data which is not exposed today. If the user wants those, the answer is the same in every case: it needs a deterministic Custom XBert sitting on a data surface MCP exposes, and that surface doesn't exist yet.",
+    "longDescription": "Anomalies in the ledger are detected deterministically by Custom XBerts on the data XBert MCP exposes today — same vendor + amount + date duplicates on Bill or BankTransaction, period-over-period balance jumps, same vendor coded to a different account than its recurring pattern, round-number-recurring postings, volume spikes per vendor or account. The XBerts do the detection; this plugin does not.\n\nBefore reviewing, the plugin verifies the Anomaly Review agent is set up in your Connect portal with linked Custom XBerts — if it isn't, the review stops and walks you through the setup instead of presenting generic worklist data as an anomaly review.\n\nXBert Anomaly Review surfaces what the linked anomaly XBerts caught for the period as a flat ranked list, verifying each firing against the underlying records before recommending an action (ABN/address comparison on duplicate-contact firings, current outstanding amount on overdue-invoice firings). Per firing: posting date, doc number, vendor, amount, account, the XBert that fired and its detection reason, the verification result, the count of prior firings on the same vendor or same account in the period (a deterministic fact, not a pattern label), and the recommended next action. XBerts whose firings contradict their intent are flagged with a suggested prompt refinement to apply in the XBert portal. Optional sub-grouping by deterministic facets (vendor, account, period bucket) keeps a long list scannable — never under invented pattern labels.\n\nWhat the plugin explicitly does NOT do (no backing data in MCP today): identify the posting user, detect after-hours patterns or time-of-day attribution, infer intent (round-tripping), name pattern clusters across firings, track cluster-level resolution status, or claim Journal data. Duplicate-journals, reversal-pair and round-tripping detection all need Journal data which is not exposed today. If the user wants those, the answer is the same in every case: it needs a deterministic Custom XBert sitting on a data surface MCP exposes, and that surface doesn't exist yet.",
     "useCases": [
       {
         "title": "Monthly anomaly review during close",
@@ -58,11 +58,13 @@
     ],
     "workflow": [
       "Type /anomaly-review in any Claude chat",
+      "Plugin checks the Anomaly Review agent is set up in your Connect portal with linked Custom XBerts — if not, it stops and walks you through the setup instead of reviewing generic worklist data",
       "Confirm the client and the review period",
-      "Plugin resolves the linked anomaly XBerts for the period — if none are linked, the review stops and the user is prompted to configure linked XBerts first",
-      "Every firing is presented as a row in a ranked list with the underlying transaction, the XBert reason, and a recommended next action",
+      "Plugin pulls the period's firings from the linked anomaly XBerts and verifies each one against the underlying records (e.g. ABN/address on duplicate contacts, current outstanding amount on overdue invoices)",
+      "Every firing is presented as a row in a ranked list with the underlying transaction, the XBert reason, the verification result, and a recommended next action",
+      "XBerts whose firings contradict their intent are flagged with a suggested prompt refinement to apply in the XBert portal",
       "Optional sub-grouping by vendor / account / period bucket if the list is long (deterministic facets, never invented pattern labels)",
-      "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path"
+      "Build the working-paper payload (stamped with the plugin version), render via xbert-working-paper:render-docx, and report the saved path"
     ]
   }
 }
