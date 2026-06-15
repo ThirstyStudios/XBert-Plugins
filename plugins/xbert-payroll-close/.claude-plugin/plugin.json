@@ -1,7 +1,7 @@
 {
   "name": "xbert-payroll-close",
   "displayName": "XBert Payroll Close",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Pre-run sanity checks, post-run reconciliation, and full-period payroll reviews across every pay cycle — including draft pay-run detection, SG rate compliance, GL-vs-payroll reconciliation, STP Phase 2 hygiene and bank-out reconciliation.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-payroll-close",
