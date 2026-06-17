@@ -1,17 +1,31 @@
 {
   "name": "xbert-client-onboard",
   "displayName": "XBert Client Onboard",
-  "version": "0.1.2",
   "description": "Structured new-client onboarding with checklist, practice-owner gate, and approval-gated rules baseline assignment with rollback. v1 orchestrates the workflow; COA + opening-balance steps are checklist items the bookkeeper completes in the ledger.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-client-onboard",
   "license": "MIT",
-  "keywords": ["onboarding", "new-client", "engagement", "checklist", "rules"],
+  "keywords": [
+    "onboarding",
+    "new-client",
+    "engagement",
+    "checklist",
+    "rules"
+  ],
   "x-xbert": {
     "displayName": "XBert Client Onboard",
     "tagline": "Structured new-client onboarding with checklist, scope gate, and an approval-gated rules baseline that records its own rollback.",
-    "audience": ["bookkeepers", "practice-managers"],
-    "categories": ["onboarding", "new-client"],
+    "audience": [
+      "bookkeepers",
+      "practice-managers"
+    ],
+    "categories": [
+      "onboarding",
+      "new-client"
+    ],
     "prerequisites": [
       "XBert account",
       "Practice with templates configured for new-client tasks (workflow templates, rule baselines)",
@@ -20,7 +34,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "New-client onboarding is the single biggest source of cleanup work downstream. Skip the engagement letter sign-off and you discover scope creep three months in. Skip the chart-of-accounts confirmation and the client's reports never reconcile to their old ones. Skip the rules baseline and every transaction needs manual coding. Each shortcut feels small at the moment; each one compounds into months of fix-up.\n\nXBert Client Onboard runs the four-phase onboarding lifecycle as a structured workflow — engagement, connection, configuration, go-live — with gate checks at each phase boundary that prevent skipping ahead. v1 orchestrates the checklist, creates the workflow tasks from your practice templates, and enforces the practice-owner gate. The COA-create and opening-balance-load steps remain checklist items the bookkeeper does manually in the ledger; v2 will automate those.\n\nThe rules baseline write (XBert rule pack the new client starts with) is **gated by an explicit approval prompt that names the resolved client and Connect tenants** — scope-confirm earlier in the flow is not authorisation to write. On approval, the plugin emits a rollback block recording every rule assigned and the previous state of any rule overwritten, so the configuration can be reverted in one paste-back.",
     "useCases": [
       {

@@ -1,17 +1,34 @@
 {
   "name": "xbert-close-packet",
   "displayName": "XBert Close Packet",
-  "version": "0.2.0",
   "description": "Month-end packet assembled — BS/P&L + variance commentary + journal narrative + outstanding XBerts — single Word/PDF deliverable for the client.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-close-packet",
   "license": "MIT",
-  "keywords": ["close", "month-end", "client-pack", "partner-pack", "variance", "journals", "deliverable"],
+  "keywords": [
+    "close",
+    "month-end",
+    "client-pack",
+    "partner-pack",
+    "variance",
+    "journals",
+    "deliverable"
+  ],
   "x-xbert": {
     "displayName": "XBert Close Packet",
     "tagline": "Month-end packet assembled — BS/P&L + variance commentary + journal narrative + outstanding XBerts — single Word/PDF deliverable for the client.",
-    "audience": ["accountants", "principals"],
-    "categories": ["close", "month-end", "client-pack"],
+    "audience": [
+      "accountants",
+      "principals"
+    ],
+    "categories": [
+      "close",
+      "month-end",
+      "client-pack"
+    ],
     "prerequisites": [
       "XBert account",
       "Client ledger with at least one closed accounting period",
@@ -19,7 +36,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Every month-end an accountant assembles a packet: balance sheet, P&L with variance commentary, narrative for material journals, KPI page, and a 'what changed and why' summary. Today this is copy-paste from the month-end pack + balance sheet explainer + manual narrative. Three surfaces, three formats, three rounds of reformatting before the partner can review.\n\nXBert Close Packet composes the three into a single client-ready deliverable. The outstanding-XBerts list lives inside the variance section so the risks and issues sit alongside the explanations they relate to — not buried in a separate report nobody opens. Material journals get narrative drafted from the journal description, the affected accounts, and the prior-period context, so the partner reviews a paragraph rather than recomposing one. Lodgement and signing stay manual — the partner reads, edits, and sends.",
     "useCases": [
       {

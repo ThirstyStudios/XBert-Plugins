@@ -21,7 +21,7 @@ export type XbertExt = {
 export type Plugin = {
   slug: string;
   name: string;
-  version: string;
+  version?: string;
   description: string;
   author: { name: string; email?: string };
   homepage?: string;

@@ -1,17 +1,31 @@
 {
   "name": "xbert-payment-run",
   "displayName": "XBert Payment Run",
-  "version": "0.2.0",
   "description": "Weekly pay-run brief with remittance drafts ready for review. v1 produces the schedule + remittances; ABA payment file generation is v2.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-payment-run",
   "license": "MIT",
-  "keywords": ["accounts-payable", "payments", "remittance", "weekly", "pay-run"],
+  "keywords": [
+    "accounts-payable",
+    "payments",
+    "remittance",
+    "weekly",
+    "pay-run"
+  ],
   "x-xbert": {
     "displayName": "XBert Payment Run",
     "tagline": "Weekly pay-run brief with remittance drafts ready for review.",
-    "audience": ["bookkeepers"],
-    "categories": ["accounts-payable", "weekly", "payments"],
+    "audience": [
+      "bookkeepers"
+    ],
+    "categories": [
+      "accounts-payable",
+      "weekly",
+      "payments"
+    ],
     "prerequisites": [
       "XBert account",
       "Client with AP ledger connected (Xero, MYOB, or QuickBooks Online)",
@@ -20,7 +34,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "The weekly payment run is mostly deciding what to pay this week, what to defer, and what to chase the supplier on — then drafting the remittance advice that goes out with each payment. The mechanical part (running the bank file) is straightforward; the cognitive part (which bills go on the run, in what order, with what message) is where the time goes.\n\nXBert Payment Run does the cognitive part: pulls aged payables, applies due-this-week and overdue inclusion logic, excludes anything on hold or in dispute, groups by supplier, and drafts a remittance advice per supplier ready for review. The bookkeeper reviews the pay schedule, approves the remittances, and posts the run in the ledger — v1 stops there. v2 will generate the ABA file directly; for v1, the bookkeeper still triggers the file generation in the ledger.",
     "useCases": [
       {

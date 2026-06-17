@@ -1,17 +1,38 @@
 {
   "name": "xbert-end-of-period-dashboard",
   "displayName": "XBert End-of-Period Dashboard",
-  "version": "0.1.2",
   "description": "Period-close readiness dashboard fusing workflow, data quality and lodgement obligations across every client.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-end-of-period-dashboard",
   "license": "MIT",
-  "keywords": ["period-close", "compliance", "lodgement", "month-end", "quarter-end", "year-end", "bas", "vat"],
+  "keywords": [
+    "period-close",
+    "compliance",
+    "lodgement",
+    "month-end",
+    "quarter-end",
+    "year-end",
+    "bas",
+    "vat"
+  ],
   "x-xbert": {
     "displayName": "XBert End-of-Period Dashboard",
     "tagline": "Period-close readiness dashboard fusing workflow, data quality and lodgement obligations across every client.",
-    "audience": ["accountants", "principals", "practice-managers"],
-    "categories": ["period-close", "compliance", "monthly", "quarterly", "annual"],
+    "audience": [
+      "accountants",
+      "principals",
+      "practice-managers"
+    ],
+    "categories": [
+      "period-close",
+      "compliance",
+      "monthly",
+      "quarterly",
+      "annual"
+    ],
     "prerequisites": [
       "XBert account with workflow configured",
       "Client ledgers connected (Xero, QuickBooks)",
@@ -19,7 +40,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Closing a period across a book of clients is a coordination problem. The lodgement calendar lives in one system, the workflow board lives in XBert, the data quality signals live in the ledger, and the practice manager holds it all together by intuition. That intuition is the gap this plugin fills (cowork brief #3).\n\nEnd-of-Period Dashboard fuses three streams — XBert work in flight, ledger data quality, and the upcoming lodgement calendar — into a single per-client readiness view. Pick the cadence (month, quarter or year), and the plugin loops every client and answers: are they ready, what is blocking them, and which deadlines are at risk. The first page tells you 'X of Y ready, Z lodgements due in the next N days, W items needing attention'. The rest of the document is the per-client detail your team needs to action.\n\nv1 is AU-first and runs one cadence at a time. Multi-jurisdiction support is on the v2 roadmap.",
     "useCases": [
       {

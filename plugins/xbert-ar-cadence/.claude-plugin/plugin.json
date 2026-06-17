@@ -1,17 +1,32 @@
 {
   "name": "xbert-ar-cadence",
   "displayName": "XBert AR Cadence",
-  "version": "0.1.2",
   "description": "Behaviour-driven AR cadence — per-debtor predicted-pay-date + tone-matched drafted reminder + ranked call list.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-ar-cadence",
   "license": "MIT",
-  "keywords": ["accounts-receivable", "cadence", "behaviour", "collections", "reminders", "debtor"],
+  "keywords": [
+    "accounts-receivable",
+    "cadence",
+    "behaviour",
+    "collections",
+    "reminders",
+    "debtor"
+  ],
   "x-xbert": {
     "displayName": "XBert AR Cadence",
     "tagline": "Behaviour-driven AR cadence — per-debtor predicted-pay-date + tone-matched drafted reminder + ranked call list.",
-    "audience": ["bookkeepers"],
-    "categories": ["accounts-receivable", "collections", "cadence"],
+    "audience": [
+      "bookkeepers"
+    ],
+    "categories": [
+      "accounts-receivable",
+      "collections",
+      "cadence"
+    ],
     "prerequisites": [
       "XBert account",
       "Client with sales/AR ledger connected (Xero, MYOB, or QuickBooks Online)",
@@ -19,7 +34,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Calendar-driven AR reminders — 'send at 7 days overdue, escalate at 14, formal letter at 30' — miss the fact that every debtor has a different payment latency. A reliable debtor who always pays at +14 days doesn't need chasing at +7. An unreliable debtor who averages +35 days needs an earlier nudge than the calendar suggests. Calendar cadence chases the reliable customers and leaves the unreliable ones to drift.\n\nXBert AR Cadence is behaviour-driven. For each debtor it predicts the actual pay-date based on historic latency vs. invoice due date, recommends the reminder window per debtor (earlier for chronic latency, later for reliable payers), and drafts the reminder text in the firm's tone. The output is a ranked call list the operator works through — predicted pay-date, recommended reminder window, drafted reminder per debtor. No auto-send — the operator approves each touch.",
     "useCases": [
       {

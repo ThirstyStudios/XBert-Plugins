@@ -1,17 +1,34 @@
 {
   "name": "xbert-config-audit",
   "displayName": "XBert Config Audit",
-  "version": "0.2.0",
   "description": "Is XBert configured consistently across your book? Spot inconsistencies, gaps, and drift in one pass.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-config-audit",
   "license": "MIT",
-  "keywords": ["practice-config", "xbert-config", "audit", "quarterly", "consistency", "drift"],
+  "keywords": [
+    "practice-config",
+    "xbert-config",
+    "audit",
+    "quarterly",
+    "consistency",
+    "drift"
+  ],
   "x-xbert": {
     "displayName": "XBert Config Audit",
     "tagline": "Is XBert configured consistently across your book? Spot inconsistencies, gaps, and drift in one pass.",
-    "audience": ["principals", "practice-managers"],
-    "categories": ["practice-config", "xbert-config", "audit", "quarterly"],
+    "audience": [
+      "principals",
+      "practice-managers"
+    ],
+    "categories": [
+      "practice-config",
+      "xbert-config",
+      "audit",
+      "quarterly"
+    ],
     "prerequisites": [
       "XBert account with multiple client tenants in a Connect",
       "Workflow and XBert configurations active on at least some clients",
@@ -19,7 +36,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Your XBert rule set should look the same across clients in the same segment. In practice it almost never does — different staff onboarded different clients, defaults drifted as the rule library grew, and 'always-on' rules ended up on most clients but not all. Config Audit is the quarterly pass that surfaces that drift before it costs you.\n\nThe plugin reads the per-client XBert configuration across your Connect, fingerprints each rule's enablement pattern, and reports three things: rules enabled inconsistently within a segment, rules that should be on everywhere but are missing on N clients, and rules that have been switched off (drift). Then it pairs each finding with a bulk-normalisation move so the cleanup is concrete, not abstract. This is distinct from XBert Workflow Review — that plugin looks at templates and schedules; this one looks at XBert rule configuration itself.",
     "useCases": [
       {

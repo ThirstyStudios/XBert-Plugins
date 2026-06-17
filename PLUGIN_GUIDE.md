@@ -18,7 +18,7 @@ A practical guide to building a new plugin in this repo, getting it into the mar
 3. Append the plugin to `.claude-plugin/marketplace.json` (use the relative source form).
 4. Run `cd site && npm run dev`. The pre-build script auto-regenerates `site/src/generated/catalog.json` and the storefront picks it up.
 5. Verify the detail page at `/plugins/xbert-foo`.
-6. Commit & push. Re-sync the marketplace in Claude Desktop (Customize → Personal plugins → XBert-Plugins → ⋯ → Resync).
+6. Commit & push. Users with "Sync automatically" enabled will receive the update on next session start (no version bump needed — sync is commit-SHA-based).
 
 The rest of this document explains why each piece exists, what fields render where, and where the CSS lives.
 
@@ -59,7 +59,7 @@ plugins/xbert-foo/
 
 The manifest is split into two halves:
 
-- **Standard Claude fields** (`name`, `version`, `description`, `author`, …) — consumed by Claude when the plugin is installed.
+- **Standard Claude fields** (`name`, `description`, `author`, …) — consumed by Claude when the plugin is installed.
 - **`x-xbert` namespace** — site-only fields that power the storefront's detail page. Claude ignores anything it doesn't know.
 
 ### Full template
@@ -67,7 +67,6 @@ The manifest is split into two halves:
 ```json
 {
   "name": "xbert-foo",
-  "version": "0.1.0",
   "description": "One-line description used in the marketplace card and Claude's plugin manager.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
   "homepage": "https://plugins.xbert.io/plugins/xbert-foo",
@@ -113,7 +112,6 @@ The manifest is split into two halves:
 | Field | Required | Used by | Notes |
 |---|---|---|---|
 | `name` | Yes | Claude + site | Must match folder name (`plugins/<name>/`). |
-| `version` | Yes | Claude + site | Semver. Must match `marketplace.json` entry. |
 | `description` | Yes | Claude + site | One sentence, shown in Claude Desktop's plugin marketplace card. |
 | `author` | Yes | Site | Shown on detail page meta line. |
 | `homepage` | Recommended | Site | Always `https://plugins.xbert.io/plugins/<name>`. |

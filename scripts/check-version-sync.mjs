@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // check-version-sync.mjs
 // CI gate: every plugin's .claude-plugin/plugin.json MUST match its
-// .claude-plugin/marketplace.json entry on both `version` and `description`.
+// .claude-plugin/marketplace.json entry on `name` and `description`.
 // Also verifies every plugin folder is registered, every registered plugin
 // folder exists, and every bundles.json plugin slug exists in marketplace.json.
 
@@ -75,9 +75,6 @@ for (const folder of pluginFolders) {
   if (!entry) continue;
   if (manifest.name !== entry.name) {
     fail(`plugins/${folder}: plugin.json.name '${manifest.name}' != marketplace.json.name '${entry.name}'`);
-  }
-  if (manifest.version !== entry.version) {
-    fail(`plugins/${folder}: version drift — plugin.json '${manifest.version}' vs marketplace.json '${entry.version}'. Bump both together.`);
   }
   if (manifest.description !== entry.description) {
     fail(`plugins/${folder}: description drift between plugin.json and marketplace.json. Update both together.\n  plugin.json:     ${manifest.description}\n  marketplace.json: ${entry.description}`);

@@ -1,17 +1,36 @@
 {
   "name": "xbert-ias-prep",
   "displayName": "XBert IAS Prep (AU)",
-  "version": "0.2.0",
   "description": "Pre-lodgement IAS readiness check for Australian clients — verify PAYG withholding and instalment data before lodging the Instalment Activity Statement.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-ias-prep",
   "license": "MIT",
-  "keywords": ["ias", "australian", "ato", "lodgement", "paygw", "instalment", "compliance", "monthly"],
+  "keywords": [
+    "ias",
+    "australian",
+    "ato",
+    "lodgement",
+    "paygw",
+    "instalment",
+    "compliance",
+    "monthly"
+  ],
   "x-xbert": {
     "displayName": "XBert IAS Prep (AU)",
     "tagline": "One command to verify an Australian client is ready to lodge their IAS — and produce the audit document that proves it.",
-    "audience": ["bookkeepers", "accountants"],
-    "categories": ["compliance", "ias", "lodgement", "australian"],
+    "audience": [
+      "bookkeepers",
+      "accountants"
+    ],
+    "categories": [
+      "compliance",
+      "ias",
+      "lodgement",
+      "australian"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to an Australian-domiciled ledger",
@@ -19,7 +38,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "IAS (Instalment Activity Statement) is the monthly form for businesses with PAYG withholding obligations but not GST registration, and for medium withholders who report monthly. It is smaller than a BAS but the discipline is the same — payroll posted, tax withheld balanced, super paid, every XBert resolved before lodgement.\n\nXBert IAS Prep runs the readiness sweep for an IAS lodgement. It pulls bank reconciliation, payroll data, W1-W5 PAYG withholding, T7 / T11 PAYG instalment data, and outstanding XBerts for the period. Every blocking issue is named with the specific account or transaction. The output is a Word audit document with the check reference ID, preparer details and firm-level QMS certification — filable straight to the client folder as the working paper.",
     "useCases": [
       {

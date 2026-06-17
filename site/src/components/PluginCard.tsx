@@ -54,8 +54,6 @@ export function PluginCard({ plugin, index = 0 }: Props) {
         </div>
 
         <div className="mt-5 flex items-center gap-3 text-[11px] text-neutral-500 font-mono">
-          <span>v{plugin.version}</span>
-          <span className="opacity-30">·</span>
           <span>
             {x.includes.skills} skill{x.includes.skills === 1 ? "" : "s"}
           </span>

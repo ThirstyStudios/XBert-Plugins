@@ -1,17 +1,32 @@
 {
   "name": "xbert-fs-pack",
   "displayName": "XBert FS Pack",
-  "version": "0.2.0",
   "description": "Year-end financial statement pack ready for partner review — SPFS structure with comparative period, notes shell, and GPFS variant for audit clients.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-fs-pack",
   "license": "MIT",
-  "keywords": ["year-end", "financial-statements", "spfs", "gpfs", "annual", "partner-review"],
+  "keywords": [
+    "year-end",
+    "financial-statements",
+    "spfs",
+    "gpfs",
+    "annual",
+    "partner-review"
+  ],
   "x-xbert": {
     "displayName": "XBert FS Pack",
     "tagline": "Year-end financial statement pack ready for partner review.",
-    "audience": ["accountants"],
-    "categories": ["year-end", "financial-statements", "annual"],
+    "audience": [
+      "accountants"
+    ],
+    "categories": [
+      "year-end",
+      "financial-statements",
+      "annual"
+    ],
     "prerequisites": [
       "XBert account",
       "Closed financial year with comparative period available",
@@ -19,7 +34,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Producing the year-end financial statement pack is a known sequence — pull the closing trial balance, format the balance sheet and profit and loss in the firm's preferred structure, derive cashflow from operations using the indirect method, add comparative-period columns, write the notes-to-accounts shell, attach the directors' declaration. Most firms still do this in Word templates that get copy-pasted between clients, with somebody manually updating the entity name and ABN on the cover page.\n\nXBert FS Pack composes the whole document. It pulls the balance sheet, profit and loss, cashflow, trial balance and organisation settings from XBert, builds an SPFS-structured pack (small proprietary company — the most common Australian shape) or a GPFS variant for audit clients, applies the comparative-period columns, populates the notes-to-accounts shell with the year-end provisions and accruals schedule, and produces both a Word version (for editing) and a PDF (for circulation). The document is partner-ready on the first pass.",
     "useCases": [
       {

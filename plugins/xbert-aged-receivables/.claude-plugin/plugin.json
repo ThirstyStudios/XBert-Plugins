@@ -1,17 +1,33 @@
 {
   "name": "xbert-aged-receivables",
   "displayName": "XBert Aged Receivables",
-  "version": "0.1.2",
   "description": "Prioritised debtor call-list ranked by working-capital impact — turn an aged receivables report into the week's chase plan.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-aged-receivables",
   "license": "MIT",
-  "keywords": ["accounts-receivable", "debtors", "cashflow", "collections", "weekly", "ageing"],
+  "keywords": [
+    "accounts-receivable",
+    "debtors",
+    "cashflow",
+    "collections",
+    "weekly",
+    "ageing"
+  ],
   "x-xbert": {
     "displayName": "XBert Aged Receivables",
     "tagline": "Prioritised debtor call-list ranked by working-capital impact.",
-    "audience": ["bookkeepers", "practice-managers"],
-    "categories": ["accounts-receivable", "weekly", "cashflow"],
+    "audience": [
+      "bookkeepers",
+      "practice-managers"
+    ],
+    "categories": [
+      "accounts-receivable",
+      "weekly",
+      "cashflow"
+    ],
     "prerequisites": [
       "XBert account",
       "Client with sales/AR ledger connected (Xero, MYOB, or QuickBooks Online)",
@@ -19,7 +35,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Aged receivables reports tell you the total overdue but not who to call first. The result is bookkeepers chasing the loudest debtor or the most recent invoice instead of the one that's costing the client the most working capital.\n\nXBert Aged Receivables turns the weekly chase into a structured plan. It pulls the aged report, scores each debtor by dollar amount × log(days overdue), then surfaces the top-N call list with the ageing-bucket breakdown, contact details, and outstanding invoices ready for the next call. Each debtor carries an attention flag (60+ days overdue, materiality, or large jump since prior run) so the bookkeeper knows which ones need looking at first. The bookkeeper writes the messages; the plugin does the prep.",
     "useCases": [
       {
