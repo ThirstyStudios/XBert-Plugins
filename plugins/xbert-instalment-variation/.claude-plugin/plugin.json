@@ -1,17 +1,34 @@
 {
   "name": "xbert-instalment-variation",
   "displayName": "XBert Instalment Variation",
-  "version": "0.2.0",
   "description": "PAYG-I and GST instalment variation recommendation with cashflow run-rate, YTD profit trend, and GIC-risk audit trail.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-instalment-variation",
   "license": "MIT",
-  "keywords": ["payg-instalment", "gst-instalment", "tax", "quarterly", "ato", "variation", "gic"],
+  "keywords": [
+    "payg-instalment",
+    "gst-instalment",
+    "tax",
+    "quarterly",
+    "ato",
+    "variation",
+    "gic"
+  ],
   "x-xbert": {
     "displayName": "XBert Instalment Variation",
     "tagline": "PAYG-I / GST instalment variation recommendation with GIC-risk audit trail.",
-    "audience": ["accountants"],
-    "categories": ["tax", "payg", "quarterly", "ato"],
+    "audience": [
+      "accountants"
+    ],
+    "categories": [
+      "tax",
+      "payg",
+      "quarterly",
+      "ato"
+    ],
     "prerequisites": [
       "XBert account",
       "Current-year P&L data on the ledger",
@@ -19,7 +36,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Every quarter the ATO issues PAYG and GST instalment notices that the client either pays at the headline rate or varies up or down based on the year's emerging performance. The decision is high-judgement: vary down too aggressively and the client gets hit with general interest charge when actual liability outpaces the variation; vary down too conservatively and cashflow gets crushed by overpayment that doesn't refund until the return is lodged. Most firms get dragged into this four times a year for half their book and most of it doesn't even count as a lodgement — it's just a phone call and a number on a notice.\n\nXBert Instalment Variation runs the analysis. It pulls YTD profit, prior-year comparison, cashflow run-rate, and budget adherence, then recommends a variation direction (up, down, or stay) with a confidence label and a GIC-risk note. The output is a PDF audit-defence note that lives in the client file — so when the variation is challenged in 18 months, the working paper says exactly what data the recommendation was based on. Triggered by the ATO notice arriving, not by a calendar date.",
     "useCases": [
       {

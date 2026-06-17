@@ -1,17 +1,33 @@
 {
   "name": "xbert-receipt-review",
   "displayName": "XBert Receipt Review",
-  "version": "0.1.2",
   "description": "Review the period's orphan-receipt and orphan-bank-line XBerts — batch-approve matches, draft spender follow-ups for true orphans.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-receipt-review",
   "license": "MIT",
-  "keywords": ["receipt", "review", "orphan", "matching", "capture", "xbert"],
+  "keywords": [
+    "receipt",
+    "review",
+    "orphan",
+    "matching",
+    "capture",
+    "xbert"
+  ],
   "x-xbert": {
     "displayName": "XBert Receipt Review",
     "tagline": "Review the period's orphan-receipt and orphan-bank-line XBerts — batch-approve matches, draft spender follow-ups for true orphans.",
-    "audience": ["bookkeepers"],
-    "categories": ["review", "receipts", "capture", "matching"],
+    "audience": [
+      "bookkeepers"
+    ],
+    "categories": [
+      "review",
+      "receipts",
+      "capture",
+      "matching"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to a ledger",
@@ -20,7 +36,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Receipt-to-ledger matching is detected deterministically by two Custom XBerts. The Receipt-without-ledger-match XBert fires when a captured receipt has no candidate transaction in the ledger. The Bank-line-without-receipt XBert fires when a bank line looks like it should have a receipt but none is attached. The XBerts do the detection; this plugin does not.\n\nXBert Receipt Review orchestrates the desktop-side review of what those two XBerts surfaced. High-confidence proposed matches are grouped for two-click batch approval; true orphans — both sides — are drafted into spender follow-ups for chase.\n\nReceipt Capture stays mobile-only (per CEO ruling 2026-05-05). This is the review-side desktop workflow that complements what Capture has already collected on phones.",
     "useCases": [
       {

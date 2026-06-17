@@ -1,17 +1,37 @@
 {
   "name": "xbert-super-check",
   "displayName": "XBert Super Check (AU)",
-  "version": "0.2.0",
   "description": "Quarterly Superannuation Guarantee check for Australian clients — verify SG calculated, posted, and paid through the clearing house by the 28th, with SGC-risk audit trail.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-super-check",
   "license": "MIT",
-  "keywords": ["superannuation", "sg", "australian", "ato", "payroll", "quarterly", "clearing-house", "sgc"],
+  "keywords": [
+    "superannuation",
+    "sg",
+    "australian",
+    "ato",
+    "payroll",
+    "quarterly",
+    "clearing-house",
+    "sgc"
+  ],
   "x-xbert": {
     "displayName": "XBert Super Check (AU)",
     "tagline": "Quarterly SG verification for Australian clients — calculated, posted, paid through the clearing house by the 28th, with SGC-risk audit trail.",
-    "audience": ["bookkeepers", "accountants"],
-    "categories": ["compliance", "superannuation", "payroll", "quarterly", "australian"],
+    "audience": [
+      "bookkeepers",
+      "accountants"
+    ],
+    "categories": [
+      "compliance",
+      "superannuation",
+      "payroll",
+      "quarterly",
+      "australian"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to an Australian-domiciled ledger",
@@ -19,7 +39,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Superannuation Guarantee in Australia has a single hard deadline — the 28th of the month after the quarter ends. Miss it by a day and the client owes Superannuation Guarantee Charge (SGC) plus interest plus admin fees, none of which is deductible. The risk is rarely calculation — it is the clearing-house gap, the casual employee whose ordinary time earnings were never updated when their hours grew, or the quarter's SG that posted to the liability account but never made it out the bank account.\n\nXBert Super Check runs the full SG check for the quarter. It verifies SG is calculated at the current 12% rate against ordinary time earnings, posted to the super liability account, and paid through the clearing house with the bank movement matching the liability clearance. Late-payment risk is quantified — if super clears the bank after the 28th, the SGC exposure is named. The output is a Word working paper with each employee's contribution, the clearing house lodgement reference, the bank payment date, and the SGC-risk note for the file.",
     "useCases": [
       {

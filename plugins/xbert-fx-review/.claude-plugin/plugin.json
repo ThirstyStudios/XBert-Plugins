@@ -1,17 +1,33 @@
 {
   "name": "xbert-fx-review",
   "displayName": "XBert FX Review",
-  "version": "0.1.2",
   "description": "Surface foreign-currency exposures the linked FX XBerts caught for the period and route the user to the ledger's native FX revaluation. The plugin does NOT compose the revaluation journal — the data primitives for that don't exist in MCP today.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-fx-review",
   "license": "MIT",
-  "keywords": ["fx", "foreign-exchange", "review", "multi-currency", "exposure", "xbert"],
+  "keywords": [
+    "fx",
+    "foreign-exchange",
+    "review",
+    "multi-currency",
+    "exposure",
+    "xbert"
+  ],
   "x-xbert": {
     "displayName": "XBert FX Review",
     "tagline": "Surface foreign-currency exposures the linked FX XBerts caught — route to the ledger's native revaluation.",
-    "audience": ["accountants"],
-    "categories": ["review", "fx", "multi-currency", "close"],
+    "audience": [
+      "accountants"
+    ],
+    "categories": [
+      "review",
+      "fx",
+      "multi-currency",
+      "close"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to a multi-currency ledger",
@@ -19,7 +35,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "FX exposure is detected deterministically by Custom XBerts on the data XBert MCP exposes today — a foreign-currency BankAccount with a non-zero balance, an outstanding receivable / payable in a foreign currency, a GL account carrying a foreign-currency balance. The XBerts do the detection; this plugin does not.\n\nXBert FX Review surfaces what the linked FX XBerts caught for the period and routes the user to the ledger's native period-end FX revaluation workflow (Xero, MYOB, QBO each ship one). The plugin does NOT compose the revaluation journal — the historical rates, booking rates, last-revalued dates and rate-source verification needed to do that are not exposed in MCP today, and the XBerts-as-heroes positioning means the plugin doesn't invent the data it cannot trace.\n\nWhat you get: a per-balance list of foreign-currency exposures the XBerts surfaced, with the current foreign-currency amount, the current base-currency value as held by the ledger, and a routing recommendation pointing the user to the right place to do the revaluation. What you don't get from this plugin (and shouldn't expect): the journal itself, gain / loss splits, intercompany reconciliation between separate entities, or hedging-note compliance.",
     "useCases": [
       {

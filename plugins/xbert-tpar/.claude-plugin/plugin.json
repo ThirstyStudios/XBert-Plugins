@@ -1,17 +1,38 @@
 {
   "name": "xbert-tpar",
   "displayName": "XBert TPAR (AU)",
-  "version": "0.2.0",
   "description": "Annual Taxable Payments Annual Report (TPAR) preparation for Australian clients in building, cleaning, courier, IT, road-freight and security industries — due 28 August.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-tpar",
   "license": "MIT",
-  "keywords": ["tpar", "taxable-payments", "australian", "ato", "contractors", "annual", "compliance", "building", "cleaning", "courier"],
+  "keywords": [
+    "tpar",
+    "taxable-payments",
+    "australian",
+    "ato",
+    "contractors",
+    "annual",
+    "compliance",
+    "building",
+    "cleaning",
+    "courier"
+  ],
   "x-xbert": {
     "displayName": "XBert TPAR (AU)",
     "tagline": "Annual Taxable Payments Annual Report prep for Australian clients in TPAR industries — every contractor identified, totalled, validated, ready for 28 August lodgement.",
-    "audience": ["bookkeepers", "accountants"],
-    "categories": ["compliance", "tpar", "annual", "australian"],
+    "audience": [
+      "bookkeepers",
+      "accountants"
+    ],
+    "categories": [
+      "compliance",
+      "tpar",
+      "annual",
+      "australian"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to an Australian-domiciled ledger",
@@ -19,7 +40,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "TPAR is the contractor-payments report that lives in its own ATO-deadline backwater every year. Building, cleaning, courier, IT, road-freight and security industries must report every contractor payment to the ATO by 28 August. The work is rarely thinking — it is identifying which suppliers are contractors (not employees, not landlords, not utilities), totalling their year, validating the ABN, and making sure GST is correctly stripped out of the gross.\n\nXBert TPAR runs the end-to-end report prep. It pulls every supplier payment for the financial year, applies the TPAR industry filter, validates ABNs against the supplier register, separates GST from the gross paid, identifies common errors (employees paid as contractors, missing ABNs, ABN format issues, duplicate suppliers), and produces the TPAR-ready summary plus a Word working paper for the file. Output is a contractor-by-contractor breakdown ready to be entered into the ledger's TPAR module or lodged directly via tax agent software.",
     "useCases": [
       {

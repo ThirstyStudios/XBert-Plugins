@@ -1,17 +1,36 @@
 {
   "name": "xbert-bas-prep",
   "displayName": "XBert BAS Prep (AU)",
-  "version": "0.2.0",
   "description": "Pre-lodgement BAS readiness check for Australian clients — bank rec, GST, PAYG-W, payroll, super, outstanding XBerts and prior-period comparison, with an audit document for the file.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-bas-prep",
   "license": "MIT",
-  "keywords": ["bas", "australian", "ato", "lodgement", "gst", "payg", "compliance", "quarterly"],
+  "keywords": [
+    "bas",
+    "australian",
+    "ato",
+    "lodgement",
+    "gst",
+    "payg",
+    "compliance",
+    "quarterly"
+  ],
   "x-xbert": {
     "displayName": "XBert BAS Prep (AU)",
     "tagline": "One command to verify an Australian client is ready to lodge their BAS — and produce the audit document that proves it.",
-    "audience": ["bookkeepers", "accountants"],
-    "categories": ["compliance", "bas", "lodgement", "australian"],
+    "audience": [
+      "bookkeepers",
+      "accountants"
+    ],
+    "categories": [
+      "compliance",
+      "bas",
+      "lodgement",
+      "australian"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to an Australian-domiciled ledger",
@@ -19,7 +38,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "BAS preparation is the same checklist every quarter — bank reconciled, GST labels tie back to sales and purchases, payroll posted, super paid, every XBert resolved, prior-period comparison sane. Done well it is a half-day per client. Done badly it surfaces a problem on lodgement morning that should have been caught a week earlier.\n\nXBert BAS Prep runs the full readiness sweep against the client's data in XBert. It pulls bank reconciliation status, GST labels (G1, G2, G3, G10, G11, 1A, 1B), PAYG withholding (W1-W5), payroll and super posting, fixed assets, AR/AP, outstanding XBerts, and a prior-period variance comparison. Every blocking issue is named with the specific account or transaction, not generic advice. The output is a Word document with a check reference ID, firm-level QMS certification, and the supporting evidence — circulatable to a reviewer or filed as the working paper.",
     "useCases": [
       {

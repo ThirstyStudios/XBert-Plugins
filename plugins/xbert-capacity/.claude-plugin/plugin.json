@@ -1,24 +1,43 @@
 {
   "name": "xbert-capacity",
   "displayName": "XBert Capacity & Utilisation",
-  "version": "0.1.2",
   "description": "Billable utilisation and WIP variance reporting at practice and client level, using XBert data.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-capacity",
   "license": "MIT",
-  "keywords": ["practice-management", "billable", "wip", "capacity", "monthly"],
+  "keywords": [
+    "practice-management",
+    "billable",
+    "wip",
+    "capacity",
+    "monthly"
+  ],
   "x-xbert": {
     "displayName": "XBert Capacity & Utilisation",
     "tagline": "Billable, non-billable, WIP variance — and a clean report for your internal accountant.",
-    "audience": ["principals", "practice-managers"],
-    "categories": ["capacity", "billing", "monthly"],
+    "audience": [
+      "principals",
+      "practice-managers"
+    ],
+    "categories": [
+      "capacity",
+      "billing",
+      "monthly"
+    ],
     "prerequisites": [
       "XBert account with time tracking and billable flags",
       "WIP plans (planned hours per engagement) entered in XBert"
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Every practice owner asks the same two questions on the last day of the month: how much of our time was billable, and how much did we run over budget on the jobs we said we'd do? The answers usually live across three reports nobody enjoys opening, and the numbers don't always agree.\n\nXBert Capacity & Utilisation answers both in one command. It surfaces the practice-level billable-vs-non-billable split, the WIP variance broken down by client, the engagements running materially over scope, and produces a clean markdown report ready to hand to your own internal accountant — or drop straight into the monthly principals' meeting.",
     "useCases": [
       {

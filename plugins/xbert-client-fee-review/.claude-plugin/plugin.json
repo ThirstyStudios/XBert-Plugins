@@ -1,17 +1,33 @@
 {
   "name": "xbert-client-fee-review",
   "displayName": "XBert Client Fee Review",
-  "version": "0.2.0",
   "description": "Evidence-based annual fee review across the whole client book, with per-client drill-down.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-client-fee-review",
   "license": "MIT",
-  "keywords": ["pricing", "fee-review", "annual", "advisory", "cost-to-serve"],
+  "keywords": [
+    "pricing",
+    "fee-review",
+    "annual",
+    "advisory",
+    "cost-to-serve"
+  ],
   "x-xbert": {
     "displayName": "XBert Client Fee Review",
     "tagline": "Evidence-based annual fee review across the whole client book, with per-client drill-down.",
-    "audience": ["principals", "practice-managers"],
-    "categories": ["pricing", "fee-review", "annual", "advisory"],
+    "audience": [
+      "principals",
+      "practice-managers"
+    ],
+    "categories": [
+      "pricing",
+      "fee-review",
+      "annual",
+      "advisory"
+    ],
     "prerequisites": [
       "XBert account",
       "XPM connected (for timesheet and client data) — or equivalent practice management source",
@@ -19,7 +35,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Annual fee review is the single most-deferred conversation in a practice. It is deferred because the evidence to support it lives in five systems and assembling it for every client by hand takes a week. That assembly job is what this plugin does (cowork brief #6 — the 'hell yes, would use immediately' response from the practice-owner workshops).\n\nClient Fee Review pulls per-client time logged, transaction-volume signals from the ledger (bank transactions, AP and AR documents, payroll runs, expense claims, manual journals) and the current fee position, then produces three first-class outputs: clients where the evidence supports an increase, clients where the current fee is appropriate, and clients where a decrease is the right call. Confirmed-healthy evidence is as valuable as the change list — it lets you walk into the partner meeting knowing where the book stands.\n\nv1 produces the evidence pack. Cost-base modelling and the price-setting calculus are an integration hand-off to a dedicated pricing tool (Cass Scott Strategic Pricing is a common pairing).",
     "useCases": [
       {

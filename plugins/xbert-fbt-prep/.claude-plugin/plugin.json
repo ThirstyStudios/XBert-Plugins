@@ -1,17 +1,35 @@
 {
   "name": "xbert-fbt-prep",
   "displayName": "XBert FBT Prep (AU)",
-  "version": "0.2.0",
   "description": "Annual FBT exposure review for Australian clients — scan motor vehicles, entertainment, employee benefits and salary packaging arrangements before the 21 May return deadline.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-fbt-prep",
   "license": "MIT",
-  "keywords": ["fbt", "australian", "ato", "fringe-benefits", "annual", "compliance", "vehicles", "entertainment"],
+  "keywords": [
+    "fbt",
+    "australian",
+    "ato",
+    "fringe-benefits",
+    "annual",
+    "compliance",
+    "vehicles",
+    "entertainment"
+  ],
   "x-xbert": {
     "displayName": "XBert FBT Prep (AU)",
     "tagline": "Annual FBT exposure scan for Australian clients — vehicles, entertainment, employee benefits — with estimated liability and audit working paper.",
-    "audience": ["accountants"],
-    "categories": ["compliance", "fbt", "annual", "australian"],
+    "audience": [
+      "accountants"
+    ],
+    "categories": [
+      "compliance",
+      "fbt",
+      "annual",
+      "australian"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to an Australian-domiciled ledger",
@@ -19,7 +37,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "FBT is the annual question nobody loves but every firm has to ask: does this client have a fringe benefit exposure, and is the return going to defend itself? Company cars used on weekends, the Christmas party invoices, the staff health-fund subsidy on the BAS account that everyone forgot about — each one is a potential FBT trigger and a potential adviser-failure risk.\n\nXBert FBT Prep runs the annual scan against the client's ledger. It scans expense accounts for FBT-trigger patterns (motor vehicles, entertainment and meals, staff amenities, employee benefits, low-interest loans), applies the Australian gross-up factors (Type 1 at 2.0802, Type 2 at 1.8868), estimates the FBT liability at the 47% top-marginal rate, and identifies which benefits qualify for the minor benefits exemption (<$300 infrequent and irregular). The output is a Word working paper that documents what was found, the estimated liability, the assumptions, and the recommended actions before the 21 May return deadline.",
     "useCases": [
       {

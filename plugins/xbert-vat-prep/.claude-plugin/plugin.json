@@ -1,17 +1,36 @@
 {
   "name": "xbert-vat-prep",
   "displayName": "XBert VAT Prep (UK)",
-  "version": "0.2.0",
   "description": "Pre-submission VAT readiness check for UK clients — boxes 1-9 validated, MTD compliance verified, partial exemption and reverse charge flagged, audit document for the file.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-vat-prep",
   "license": "MIT",
-  "keywords": ["vat", "uk", "hmrc", "mtd", "compliance", "quarterly", "submission", "boxes"],
+  "keywords": [
+    "vat",
+    "uk",
+    "hmrc",
+    "mtd",
+    "compliance",
+    "quarterly",
+    "submission",
+    "boxes"
+  ],
   "x-xbert": {
     "displayName": "XBert VAT Prep (UK)",
     "tagline": "One command to verify a UK client is ready to submit their VAT return — boxes 1-9 validated, MTD-compliant, audit document for the file.",
-    "audience": ["bookkeepers", "accountants"],
-    "categories": ["compliance", "vat", "submission", "uk"],
+    "audience": [
+      "bookkeepers",
+      "accountants"
+    ],
+    "categories": [
+      "compliance",
+      "vat",
+      "submission",
+      "uk"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to a UK-domiciled ledger",
@@ -19,7 +38,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "VAT submission for UK clients is the same checklist every quarter — bank reconciled, VAT control accounts cleared, partial exemption applied correctly, reverse charge transactions identified, every XBert resolved, prior-period comparison sane, and the digital filing path actually working under MTD. Done well it is a half-day per client. Done badly it surfaces a problem on submission morning that should have been caught a week earlier.\n\nXBert VAT Prep runs the full readiness sweep against the client's data. It pulls bank reconciliation, VAT boxes 1-9, VAT control accounts, code accuracy, zero-rated vs exempt classification, credit notes, PAYE/NI deductions, outstanding XBerts, and a prior-period variance comparison. Every blocking issue is named with the specific account or transaction. The output is a Word document with the check reference ID, preparer details and firm-level QMS certification — filable straight to the client folder as the working paper.",
     "useCases": [
       {

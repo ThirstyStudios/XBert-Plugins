@@ -1,17 +1,32 @@
 {
   "name": "xbert-payroll-close",
   "displayName": "XBert Payroll Close",
-  "version": "0.2.0",
   "description": "Pre-run sanity checks, post-run reconciliation, and full-period payroll reviews across every pay cycle — including draft pay-run detection, SG rate compliance, GL-vs-payroll reconciliation, STP Phase 2 hygiene and bank-out reconciliation.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-payroll-close",
   "license": "MIT",
-  "keywords": ["payroll", "stp", "single-touch-payroll", "superannuation", "reconciliation", "compliance"],
+  "keywords": [
+    "payroll",
+    "stp",
+    "single-touch-payroll",
+    "superannuation",
+    "reconciliation",
+    "compliance"
+  ],
   "x-xbert": {
     "displayName": "XBert Payroll Close",
     "tagline": "Pre-run sanity checks, post-run reconciliation, and period reviews across every pay cycle.",
-    "audience": ["bookkeepers"],
-    "categories": ["payroll", "weekly", "compliance"],
+    "audience": [
+      "bookkeepers"
+    ],
+    "categories": [
+      "payroll",
+      "weekly",
+      "compliance"
+    ],
     "prerequisites": [
       "XBert account",
       "Client with active payroll in the connected ledger (Xero / MYOB / QuickBooks Online)",
@@ -19,7 +34,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Payroll is the highest-stakes weekly task in a bookkeeping practice. New hires get missed, terminations get processed late, leave applications sit unapproved, super percentages drift after a salary change, draft pay runs sit forgotten, and STP Phase 2 codes silently break compliance. The errors are mostly small individually but compound across pay cycles and become very expensive when they finally surface — usually via the employee, never via the bookkeeper.\n\nXBert Payroll Close runs three ways: a pre-run sanity check (before you post the pay), a post-run reconciliation (after the pay is posted but before the bank file goes out), and a period review that walks every pay cycle in a month, quarter or financial year. Every mode starts with a census: every employee (so staff terminated in prior years are excluded from current findings) and every pay run in range regardless of status (so drafts, duplicates and missing cycles surface immediately). The period review judges each pay run's super guarantee rate against the statutory minimum effective on that run's payment date, reviews the payroll settings actually in use, and reconciles payroll activity to the general ledger — wages expense, PAYG withholding (the W1/W2 tie-in to the IAS), and super payable. Anything the connected data cannot verify is reported honestly under 'Not checked — verify in the ledger' rather than silently skipped. The bookkeeper still owns the pay run; the plugin owns the checking.",
     "useCases": [
       {

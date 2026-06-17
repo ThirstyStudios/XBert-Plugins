@@ -1,24 +1,45 @@
 {
   "name": "xbert-working-paper",
   "displayName": "XBert Working Paper",
-  "version": "0.1.1",
   "description": "Shared rendering skills that turn a structured XBert plugin payload into a Word, Excel or PDF working paper saved to your project folder. Required by every compliance and close plugin that emits a file artefact.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-working-paper",
   "license": "MIT",
-  "keywords": ["render", "working-paper", "docx", "xlsx", "pdf", "foundation", "shared"],
+  "keywords": [
+    "render",
+    "working-paper",
+    "docx",
+    "xlsx",
+    "pdf",
+    "foundation",
+    "shared"
+  ],
   "x-xbert": {
     "displayName": "XBert Working Paper",
     "tagline": "The render layer every XBert compliance and close plugin shares — structured payload in, branded working paper out.",
-    "audience": ["bookkeepers", "accountants", "principals"],
-    "categories": ["foundation", "rendering"],
+    "audience": [
+      "bookkeepers",
+      "accountants",
+      "principals"
+    ],
+    "categories": [
+      "foundation",
+      "rendering"
+    ],
     "prerequisites": [
       "Python 3.10+ available on PATH",
       "Pip-installable packages: python-docx, openpyxl, reportlab (the skill installs them on first run if missing)"
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 3, "commands": 0, "mcpTools": 0 },
+    "includes": {
+      "skills": 3,
+      "commands": 0,
+      "mcpTools": 0
+    },
     "longDescription": "XBert compliance and close plugins (BAS Prep, FBT Prep, STP Finalisation, Tax Reconciliation, Close Packet, Audit Evidence Pack, and the rest) describe accounting methodology. They produce a structured payload — sections, headings, supporting figures, blocking issues, QMS metadata. This plugin owns the layer underneath: bundled Python scripts that take that payload and write a real .docx, .xlsx or .pdf to your project folder, with a verification gate that fails loudly if the file didn't open cleanly.\n\nThe three skills follow May 2026 Anthropic skill conventions: each is invoked via its slash command (`/xbert-working-paper:render-docx`, `:render-xlsx`, `:render-pdf`) or auto-discovered when a consumer plugin emits a render request. Output paths are predictable (`outputs/<run-id>/`), validation is mandatory before reporting success, and the skill body stays under 500 lines. You do not need to read this plugin's SKILL files to use the consumer plugins — Claude picks the right renderer when a compliance plugin completes.",
     "useCases": [
       {

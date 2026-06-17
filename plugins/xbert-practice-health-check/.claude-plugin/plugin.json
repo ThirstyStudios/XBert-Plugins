@@ -1,17 +1,34 @@
 {
   "name": "xbert-practice-health-check",
   "displayName": "XBert Practice Health Check",
-  "version": "0.2.0",
   "description": "Portfolio-wide data-quality and financial-health snapshot with diagnostic recommendations per client.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-practice-health-check",
   "license": "MIT",
-  "keywords": ["practice-health", "data-quality", "diagnostic", "monthly", "portfolio"],
+  "keywords": [
+    "practice-health",
+    "data-quality",
+    "diagnostic",
+    "monthly",
+    "portfolio"
+  ],
   "x-xbert": {
     "displayName": "XBert Practice Health Check",
     "tagline": "Portfolio-wide data-quality and financial-health snapshot with diagnostic recommendations per client.",
-    "audience": ["principals", "practice-managers", "bookkeepers"],
-    "categories": ["practice-health", "data-quality", "monthly", "diagnostic"],
+    "audience": [
+      "principals",
+      "practice-managers",
+      "bookkeepers"
+    ],
+    "categories": [
+      "practice-health",
+      "data-quality",
+      "monthly",
+      "diagnostic"
+    ],
     "prerequisites": [
       "XBert account",
       "At least one connected client ledger (Xero, QuickBooks or XPM)",
@@ -19,7 +36,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Today's client-level health check inside XBert tells you the score — it stops short of telling you what to do about it. That diagnostic and prescriptive layer is the gap this plugin fills. Born out of the practice-owner cowork sessions (cowork brief #2), Practice Health Check rolls up data quality and financial-health signals across every client in your book, ranks them by deterioration risk, and translates each finding into 'what this means' and 'what's likely causing it'.\n\nThe output is a portfolio summary plus a drill-down on the worst-performing clients (default 10, configurable), each with prescriptive recommendations ranked by impact. It is built for established customers with at least three months of operating history, and it degrades gracefully where individual clients have thin data. Snapshot today; trend across runs is the v2 roadmap.",
     "useCases": [
       {

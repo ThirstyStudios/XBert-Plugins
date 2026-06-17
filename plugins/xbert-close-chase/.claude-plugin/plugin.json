@@ -1,24 +1,45 @@
 {
   "name": "xbert-close-chase",
   "displayName": "XBert Close Chase",
-  "version": "0.1.2",
   "description": "Own the close-period chase — outstanding XBerts become the ranked chase list with drafted reminders + delta-on-rerun.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-close-chase",
   "license": "MIT",
-  "keywords": ["close", "chase", "month-end", "reminders", "ledger", "xbert"],
+  "keywords": [
+    "close",
+    "chase",
+    "month-end",
+    "reminders",
+    "ledger",
+    "xbert"
+  ],
   "x-xbert": {
     "displayName": "XBert Close Chase",
     "tagline": "Own the close-period chase — outstanding XBerts become the ranked chase list with drafted reminders + delta-on-rerun.",
-    "audience": ["bookkeepers", "practice-managers"],
-    "categories": ["close", "chase", "reminders", "month-end"],
+    "audience": [
+      "bookkeepers",
+      "practice-managers"
+    ],
+    "categories": [
+      "close",
+      "chase",
+      "reminders",
+      "month-end"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to a ledger"
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Close-period chase is the same loop every month. Pull every outstanding issue the client needs to resolve before the period closes — every outstanding XBert — rank them by impact and age, draft reminder messages with the right tone for the channel, record what was chased, and on the next run produce a delta of what is still outstanding versus what has already been chased.\n\nXBert Close Chase orchestrates the loop. It operates on ALL outstanding XBerts for the client — not a curated subset — because the chase covers every issue the client needs to resolve, not a narrowly themed review. The chase list is ranked, the reminder text is drafted per item with email and Capture-chat tone variants, the chase record is kept in a small ChaseLedger store, and the delta-on-rerun shows the practice manager what has moved and what has not.\n\nRead-only and never auto-sent. The plugin drafts; the bookkeeper sends.",
     "useCases": [
       {
