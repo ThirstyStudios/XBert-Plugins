@@ -1,17 +1,37 @@
 {
   "name": "xbert-gst-prep-nz",
   "displayName": "XBert GST Prep (NZ)",
-  "version": "0.2.0",
   "description": "Pre-lodgement GST readiness check for New Zealand clients — boxes 5-15 validated against bank rec, payroll and outstanding XBerts, audit document for IRD filing.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-gst-prep-nz",
   "license": "MIT",
-  "keywords": ["gst", "new-zealand", "nz", "ird", "gst101a", "lodgement", "compliance", "two-monthly", "monthly"],
+  "keywords": [
+    "gst",
+    "new-zealand",
+    "nz",
+    "ird",
+    "gst101a",
+    "lodgement",
+    "compliance",
+    "two-monthly",
+    "monthly"
+  ],
   "x-xbert": {
     "displayName": "XBert GST Prep (NZ)",
     "tagline": "One command to verify a New Zealand client is ready to file their GST return with the IRD — boxes 5-15 validated, audit document for the file.",
-    "audience": ["bookkeepers", "accountants"],
-    "categories": ["compliance", "gst", "lodgement", "new-zealand"],
+    "audience": [
+      "bookkeepers",
+      "accountants"
+    ],
+    "categories": [
+      "compliance",
+      "gst",
+      "lodgement",
+      "new-zealand"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to a New Zealand-domiciled ledger",
@@ -19,7 +39,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "GST in New Zealand is the same checklist every two months for most clients, every month for the big ones, every six months for the small ones — bank reconciled, GST boxes computed from sales and purchases, KiwiSaver and PAYE liabilities sane, outstanding XBerts cleared, prior period comparison sane. The 28th of the month after the period is the standard deadline; March period due 7 May, November period due 15 January. Miss them and the IRD takes its interest plus its penalties.\n\nXBert GST Prep (NZ) runs the full readiness sweep against the client's data. It pulls bank reconciliation, GST boxes 5-15 (sales, zero-rated, taxable, GST collected, credit adjustments, purchases, GST on purchases, credit adjustments on purchases, net GST), KiwiSaver / PAYE liability balances, outstanding XBerts, and a prior-period variance comparison. Every blocking issue is named with the specific account or transaction. The output is a Word document with the check reference ID, preparer details and firm-level QMS certification — filable straight to the client folder.",
     "useCases": [
       {

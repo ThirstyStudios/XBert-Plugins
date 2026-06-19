@@ -1,17 +1,34 @@
 {
   "name": "xbert-practice-metrics",
   "displayName": "XBert Practice Metrics",
-  "version": "0.2.0",
   "description": "Monthly partner-meeting one-pager — revenue, lockup, write-offs, service-line P&L, client risk segmentation.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-practice-metrics",
   "license": "MIT",
-  "keywords": ["practice-metrics", "kpis", "partner-meeting", "monthly", "lockup", "wip", "write-offs"],
+  "keywords": [
+    "practice-metrics",
+    "kpis",
+    "partner-meeting",
+    "monthly",
+    "lockup",
+    "wip",
+    "write-offs"
+  ],
   "x-xbert": {
     "displayName": "XBert Practice Metrics",
     "tagline": "Monthly partner-meeting one-pager — revenue, lockup, write-offs, service-line P&L, client risk segmentation.",
-    "audience": ["principals"],
-    "categories": ["practice-metrics", "kpis", "monthly", "strategic"],
+    "audience": [
+      "principals"
+    ],
+    "categories": [
+      "practice-metrics",
+      "kpis",
+      "monthly",
+      "strategic"
+    ],
     "prerequisites": [
       "XBert account",
       "XPM connected (for timesheet, WIP and invoicing data)",
@@ -19,7 +36,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Most practices already have the data for a monthly partner-meeting one-pager — they just do not have time to assemble it the same way every month. Practice Metrics solves the consistency problem, not the data problem. One command, same format every month, same metrics in the same order, with commentary on what moved.\n\nThe one-pager covers the standard partner KPIs: revenue, WIP, debtors, lockup days, write-offs, service-line P&L (bookkeeping vs tax vs advisory), and a RAG-banded client risk view. Movers vs prior month are called out automatically, so the partners spend the meeting interpreting the changes rather than questioning the numbers.",
     "useCases": [
       {

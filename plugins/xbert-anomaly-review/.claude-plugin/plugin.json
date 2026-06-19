@@ -1,17 +1,32 @@
 {
   "name": "xbert-anomaly-review",
   "displayName": "XBert Anomaly Review",
-  "version": "0.3.0",
   "description": "Surface every anomaly XBert that fired across the period as a flat ranked list with per-firing verification and recommended action. Checks the Anomaly Review agent is configured with linked XBerts before reviewing. No invented pattern labels, no user attribution, no Journal data.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-anomaly-review",
   "license": "MIT",
-  "keywords": ["anomaly", "review", "audit", "evidence-pack", "xbert"],
+  "keywords": [
+    "anomaly",
+    "review",
+    "audit",
+    "evidence-pack",
+    "xbert"
+  ],
   "x-xbert": {
     "displayName": "XBert Anomaly Review",
     "tagline": "Every anomaly XBert that fired for the period — ranked, with the underlying transaction and a per-firing recommended action.",
-    "audience": ["accountants", "principals"],
-    "categories": ["review", "anomaly", "audit"],
+    "audience": [
+      "accountants",
+      "principals"
+    ],
+    "categories": [
+      "review",
+      "anomaly",
+      "audit"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to a ledger",
@@ -19,7 +34,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Anomalies in the ledger are detected deterministically by Custom XBerts on the data XBert MCP exposes today — same vendor + amount + date duplicates on Bill or BankTransaction, period-over-period balance jumps, same vendor coded to a different account than its recurring pattern, round-number-recurring postings, volume spikes per vendor or account. The XBerts do the detection; this plugin does not.\n\nBefore reviewing, the plugin verifies the Anomaly Review agent is set up in your Connect portal with linked Custom XBerts — if it isn't, the review stops and walks you through the setup instead of presenting generic worklist data as an anomaly review.\n\nXBert Anomaly Review surfaces what the linked anomaly XBerts caught for the period as a flat ranked list, verifying each firing against the underlying records before recommending an action (ABN/address comparison on duplicate-contact firings, current outstanding amount on overdue-invoice firings). Per firing: posting date, doc number, vendor, amount, account, the XBert that fired and its detection reason, the verification result, the count of prior firings on the same vendor or same account in the period (a deterministic fact, not a pattern label), and the recommended next action. XBerts whose firings contradict their intent are flagged with a suggested prompt refinement to apply in the XBert portal. Optional sub-grouping by deterministic facets (vendor, account, period bucket) keeps a long list scannable — never under invented pattern labels.\n\nWhat the plugin explicitly does NOT do (no backing data in MCP today): identify the posting user, detect after-hours patterns or time-of-day attribution, infer intent (round-tripping), name pattern clusters across firings, track cluster-level resolution status, or claim Journal data. Duplicate-journals, reversal-pair and round-tripping detection all need Journal data which is not exposed today. If the user wants those, the answer is the same in every case: it needs a deterministic Custom XBert sitting on a data surface MCP exposes, and that surface doesn't exist yet.",
     "useCases": [
       {

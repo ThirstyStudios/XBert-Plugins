@@ -105,7 +105,6 @@ export default function PluginDetailPage() {
             {x.tagline}
           </p>
           <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-neutral-600 dark:text-neutral-500 font-mono">
-            <span>v{p.version}</span>
             <span>
               {x.includes.skills} skill{x.includes.skills === 1 ? "" : "s"}
             </span>

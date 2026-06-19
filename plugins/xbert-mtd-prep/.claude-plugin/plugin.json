@@ -1,17 +1,37 @@
 {
   "name": "xbert-mtd-prep",
   "displayName": "XBert MTD Prep (UK)",
-  "version": "0.2.0",
   "description": "Making Tax Digital for Income Tax readiness assessment for UK clients — chart of accounts mapped to HMRC categories, income threshold, simplified vs full reporting eligibility, quarterly reporting readiness.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-mtd-prep",
   "license": "MIT",
-  "keywords": ["mtd", "uk", "hmrc", "itsa", "income-tax", "self-assessment", "self-employment", "property", "quarterly"],
+  "keywords": [
+    "mtd",
+    "uk",
+    "hmrc",
+    "itsa",
+    "income-tax",
+    "self-assessment",
+    "self-employment",
+    "property",
+    "quarterly"
+  ],
   "x-xbert": {
     "displayName": "XBert MTD Prep (UK)",
     "tagline": "Making Tax Digital for Income Tax readiness for UK clients — chart mapped to HMRC categories, threshold confirmed, quarterly reporting ready.",
-    "audience": ["bookkeepers", "accountants"],
-    "categories": ["compliance", "mtd", "itsa", "uk"],
+    "audience": [
+      "bookkeepers",
+      "accountants"
+    ],
+    "categories": [
+      "compliance",
+      "mtd",
+      "itsa",
+      "uk"
+    ],
     "prerequisites": [
       "XBert account",
       "Client connected to a UK-domiciled ledger",
@@ -19,7 +39,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "MTD for Income Tax Self Assessment lands in April 2026 for sole traders and landlords over £50,000 qualifying income, with the threshold dropping to £30,000 a year later and £20,000 proposed for 2028. The work to be ready is not the quarterly submission itself — it is mapping the client's chart of accounts to HMRC's self-employment (SA103) or property (SA105) expense categories, splitting business from personal where it sneaks in, and confirming the client falls under simplified two-line reporting (under £90,000) versus full disaggregated reporting.\n\nXBert MTD Prep runs the readiness assessment. It pulls the client's chart, income figures and prior-year tax position, then checks the chart-to-HMRC mapping is complete, splits self-employment from property income, separates residential from commercial mortgage costs, confirms the income threshold and applicable mandatory date, and identifies which custom accounts need mapping before the first quarterly submission. The output is a Word working paper documenting the readiness assessment, the gaps, and the actions needed to be ready for the next quarterly deadline.",
     "useCases": [
       {

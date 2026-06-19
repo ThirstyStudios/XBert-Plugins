@@ -1,17 +1,33 @@
 {
   "name": "xbert-cashflow-13week",
   "displayName": "XBert 13-Week Cashflow",
-  "version": "0.1.2",
   "description": "13-week rolling cash forecast — AR predicted-pay + AP due + payroll cadence + tax obligations + recurring bank-tx — with named risk weeks and recommended actions.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-cashflow-13week",
   "license": "MIT",
-  "keywords": ["cashflow", "forecast", "13-week", "working-capital", "treasury", "risk-week"],
+  "keywords": [
+    "cashflow",
+    "forecast",
+    "13-week",
+    "working-capital",
+    "treasury",
+    "risk-week"
+  ],
   "x-xbert": {
     "displayName": "XBert 13-Week Cashflow",
     "tagline": "13-week rolling cash forecast — AR predicted-pay + AP due + payroll cadence + tax obligations + recurring bank-tx — with named risk weeks and recommended actions.",
-    "audience": ["accountants", "principals"],
-    "categories": ["cashflow", "forecast", "treasury"],
+    "audience": [
+      "accountants",
+      "principals"
+    ],
+    "categories": [
+      "cashflow",
+      "forecast",
+      "treasury"
+    ],
     "prerequisites": [
       "XBert account",
       "Client ledger connected (Xero, MYOB, or QuickBooks Online)",
@@ -20,7 +36,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "A 13-week rolling cashflow forecast is the classic working-capital tool. The model is simple enough — take the actual bank balance today, layer expected inflows and outflows by week — but the assembly is what makes it useful. Treating every receivable as 'will pay on due date' produces a forecast that's always wrong by Friday. Treating every payable as 'will pay on due date' produces one that's always wrong by Wednesday.\n\nXBert 13-Week Cashflow combines actual bank balance with AR ageing weighted by predicted pay-date (per-debtor historic latency vs. invoice due date), AP due dates, recurring payroll/super/tax obligations, and recurring bank-tx patterns. The output is a weekly cash position chart, named risk weeks where the projected cash dips below the configured threshold, and the top three recommended actions per risk week — 'delay supplier X by 7 days', 'draw down on facility on week 4', 'chase the top three debtors above $20k'. Coverage today: /pulse is rolling-tempo backward-looking, /instalment-variation is tax-instalment-driven; neither produces a forward-looking cash forecast.",
     "useCases": [
       {

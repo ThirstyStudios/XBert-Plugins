@@ -1,17 +1,32 @@
 {
   "name": "xbert-div7a-schedule",
   "displayName": "XBert Div 7A Schedule",
-  "version": "0.2.0",
   "description": "Division 7A loan schedule with minimum repayment calc and benchmark-rate-ready output. v1 narrow: manual benchmark-rate entry until an ATO benchmark rate lookup ships.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-div7a-schedule",
   "license": "MIT",
-  "keywords": ["div7a", "shareholder-loans", "tax", "year-end", "ato"],
+  "keywords": [
+    "div7a",
+    "shareholder-loans",
+    "tax",
+    "year-end",
+    "ato"
+  ],
   "x-xbert": {
     "displayName": "XBert Div 7A Schedule",
     "tagline": "Division 7A loan schedule with minimum repayment calc and benchmark-rate-ready output.",
-    "audience": ["accountants"],
-    "categories": ["tax", "year-end", "div7a", "shareholder-loans"],
+    "audience": [
+      "accountants"
+    ],
+    "categories": [
+      "tax",
+      "year-end",
+      "div7a",
+      "shareholder-loans"
+    ],
     "prerequisites": [
       "XBert account",
       "Shareholder / related-party loan accounts identifiable in the chart of accounts",
@@ -19,7 +34,11 @@
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "Division 7A is a perennial accuracy trap. Every private company that has lent to a shareholder or associate needs an annual schedule that tracks opening balance, new advances, repayments, interest accrual at the benchmark rate, and the minimum yearly repayment required to keep the loan compliant. Get the calculation wrong and the unpaid balance is deemed an unfranked dividend in the shareholder's hands — a far more expensive outcome than the original drawing. Most firms build this in a spreadsheet per client per loan, with the benchmark rate copied from an ATO bulletin once a year.\n\nXBert Div 7A Schedule pulls the shareholder loan accounts from the balance sheet, identifies the related-party counterparts from contacts, walks each loan from opening balance through advances, repayments, and interest accrual, calculates the minimum yearly repayment per loan, and produces an Excel schedule per loan plus a next-year reminder.\n\nv1 scope (narrow): the ATO benchmark interest rate is entered manually. An ATO benchmark rate lookup capability is on the roadmap and will turn this into a zero-input workflow. v1 also assumes a compliant-loan-agreement is in place (the schedule notes this assumption explicitly rather than verifying the agreement document). The plugin ships now because the calculation + working paper are the bulk of the value, and the manual rate entry is a one-keystroke ask.",
     "useCases": [
       {

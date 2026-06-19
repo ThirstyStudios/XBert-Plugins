@@ -11,274 +11,235 @@
       "name": "xbert-aged-receivables",
       "displayName": "XBert Aged Receivables",
       "source": "./plugins/xbert-aged-receivables",
-      "description": "Prioritised debtor call-list ranked by working-capital impact — turn an aged receivables report into the week's chase plan.",
-      "version": "0.1.2"
+      "description": "Prioritised debtor call-list ranked by working-capital impact — turn an aged receivables report into the week's chase plan."
     },
     {
       "name": "xbert-anomaly-review",
       "displayName": "XBert Anomaly Review",
       "source": "./plugins/xbert-anomaly-review",
-      "description": "Surface every anomaly XBert that fired across the period as a flat ranked list with per-firing verification and recommended action. Checks the Anomaly Review agent is configured with linked XBerts before reviewing. No invented pattern labels, no user attribution, no Journal data.",
-      "version": "0.3.0"
+      "description": "Surface every anomaly XBert that fired across the period as a flat ranked list with per-firing verification and recommended action. Checks the Anomaly Review agent is configured with linked XBerts before reviewing. No invented pattern labels, no user attribution, no Journal data."
     },
     {
       "name": "xbert-ar-cadence",
       "displayName": "XBert AR Cadence",
       "source": "./plugins/xbert-ar-cadence",
-      "description": "Behaviour-driven AR cadence — per-debtor predicted-pay-date + tone-matched drafted reminder + ranked call list.",
-      "version": "0.1.2"
+      "description": "Behaviour-driven AR cadence — per-debtor predicted-pay-date + tone-matched drafted reminder + ranked call list."
     },
     {
       "name": "xbert-audit-evidence-pack",
       "displayName": "XBert Audit Evidence Pack",
       "source": "./plugins/xbert-audit-evidence-pack",
-      "description": "External-auditor-ready evidence pack driven by which XBerts fired on each transaction — risk-weighted sample, hyperlinked workpapers.",
-      "version": "0.2.0"
+      "description": "External-auditor-ready evidence pack driven by which XBerts fired on each transaction — risk-weighted sample, hyperlinked workpapers."
     },
     {
       "name": "xbert-balance-sheet-explain",
       "displayName": "XBert Balance Sheet Explain",
       "source": "./plugins/xbert-balance-sheet-explain",
-      "description": "Movement-by-movement balance sheet review with reconciliation status, manual journal trace, and FAR-to-GL accumulated depreciation check.",
-      "version": "0.2.0"
+      "description": "Movement-by-movement balance sheet review with reconciliation status, manual journal trace, and FAR-to-GL accumulated depreciation check."
     },
     {
       "name": "xbert-bas-prep",
       "displayName": "XBert BAS Prep (AU)",
       "source": "./plugins/xbert-bas-prep",
-      "description": "Pre-lodgement BAS readiness check for Australian clients — bank rec, GST, PAYG-W, payroll, super, outstanding XBerts and prior-period comparison, with an audit document for the file.",
-      "version": "0.2.0"
+      "description": "Pre-lodgement BAS readiness check for Australian clients — bank rec, GST, PAYG-W, payroll, super, outstanding XBerts and prior-period comparison, with an audit document for the file."
     },
     {
       "name": "xbert-capacity",
       "displayName": "XBert Capacity & Utilisation",
       "source": "./plugins/xbert-capacity",
-      "description": "Billable utilisation and WIP variance reporting at practice and client level, using XBert data.",
-      "version": "0.1.2"
+      "description": "Billable utilisation and WIP variance reporting at practice and client level, using XBert data."
     },
     {
       "name": "xbert-cashflow-13week",
       "displayName": "XBert 13-Week Cashflow",
       "source": "./plugins/xbert-cashflow-13week",
-      "description": "13-week rolling cash forecast — AR predicted-pay + AP due + payroll cadence + tax obligations + recurring bank-tx — with named risk weeks and recommended actions.",
-      "version": "0.1.2"
+      "description": "13-week rolling cash forecast — AR predicted-pay + AP due + payroll cadence + tax obligations + recurring bank-tx — with named risk weeks and recommended actions."
     },
     {
       "name": "xbert-client-fee-review",
       "displayName": "XBert Client Fee Review",
       "source": "./plugins/xbert-client-fee-review",
-      "description": "Evidence-based annual fee review across the whole client book, with per-client drill-down.",
-      "version": "0.2.0"
+      "description": "Evidence-based annual fee review across the whole client book, with per-client drill-down."
     },
     {
       "name": "xbert-client-onboard",
       "displayName": "XBert Client Onboard",
       "source": "./plugins/xbert-client-onboard",
-      "description": "Structured new-client onboarding with checklist, practice-owner gate, and approval-gated rules baseline assignment with rollback. v1 orchestrates the workflow; COA + opening-balance steps are checklist items the bookkeeper completes in the ledger.",
-      "version": "0.1.2"
+      "description": "Structured new-client onboarding with checklist, practice-owner gate, and approval-gated rules baseline assignment with rollback. v1 orchestrates the workflow; COA + opening-balance steps are checklist items the bookkeeper completes in the ledger."
     },
     {
       "name": "xbert-close-chase",
       "displayName": "XBert Close Chase",
       "source": "./plugins/xbert-close-chase",
-      "description": "Own the close-period chase — outstanding XBerts become the ranked chase list with drafted reminders + delta-on-rerun.",
-      "version": "0.1.2"
+      "description": "Own the close-period chase — outstanding XBerts become the ranked chase list with drafted reminders + delta-on-rerun."
     },
     {
       "name": "xbert-close-packet",
       "displayName": "XBert Close Packet",
       "source": "./plugins/xbert-close-packet",
-      "description": "Month-end packet assembled — BS/P&L + variance commentary + journal narrative + outstanding XBerts — single Word/PDF deliverable for the client.",
-      "version": "0.2.0"
+      "description": "Month-end packet assembled — BS/P&L + variance commentary + journal narrative + outstanding XBerts — single Word/PDF deliverable for the client."
     },
     {
       "name": "xbert-config-audit",
       "displayName": "XBert Config Audit",
       "source": "./plugins/xbert-config-audit",
-      "description": "Is XBert configured consistently across your book? Spot inconsistencies, gaps, and drift in one pass.",
-      "version": "0.2.0"
+      "description": "Is XBert configured consistently across your book? Spot inconsistencies, gaps, and drift in one pass."
     },
     {
       "name": "xbert-div7a-schedule",
       "displayName": "XBert Div 7A Schedule",
       "source": "./plugins/xbert-div7a-schedule",
-      "description": "Division 7A loan schedule with minimum repayment calc and benchmark-rate-ready output. v1 narrow: manual benchmark-rate entry until an ATO benchmark rate lookup ships.",
-      "version": "0.2.0"
+      "description": "Division 7A loan schedule with minimum repayment calc and benchmark-rate-ready output. v1 narrow: manual benchmark-rate entry until an ATO benchmark rate lookup ships."
     },
     {
       "name": "xbert-end-of-period-dashboard",
       "displayName": "XBert End-of-Period Dashboard",
       "source": "./plugins/xbert-end-of-period-dashboard",
-      "description": "Period-close readiness dashboard fusing workflow, data quality and lodgement obligations across every client.",
-      "version": "0.1.2"
+      "description": "Period-close readiness dashboard fusing workflow, data quality and lodgement obligations across every client."
     },
     {
       "name": "xbert-fbt-prep",
       "displayName": "XBert FBT Prep (AU)",
       "source": "./plugins/xbert-fbt-prep",
-      "description": "Annual FBT exposure review for Australian clients — scan motor vehicles, entertainment, employee benefits and salary packaging arrangements before the 21 May return deadline.",
-      "version": "0.2.0"
+      "description": "Annual FBT exposure review for Australian clients — scan motor vehicles, entertainment, employee benefits and salary packaging arrangements before the 21 May return deadline."
     },
     {
       "name": "xbert-firm-inbox-triage",
       "displayName": "XBert Firm Inbox Triage",
       "source": "./plugins/xbert-firm-inbox-triage",
-      "description": "Daily firm-inbox triage — categorise threads + priority-score + drafted tone-matched reply grounded in XBert client state.",
-      "version": "0.1.2"
+      "description": "Daily firm-inbox triage — categorise threads + priority-score + drafted tone-matched reply grounded in XBert client state."
     },
     {
       "name": "xbert-fs-pack",
       "displayName": "XBert FS Pack",
       "source": "./plugins/xbert-fs-pack",
-      "description": "Year-end financial statement pack ready for partner review — SPFS structure with comparative period, notes shell, and GPFS variant for audit clients.",
-      "version": "0.2.0"
+      "description": "Year-end financial statement pack ready for partner review — SPFS structure with comparative period, notes shell, and GPFS variant for audit clients."
     },
     {
       "name": "xbert-fx-review",
       "displayName": "XBert FX Review",
       "source": "./plugins/xbert-fx-review",
-      "description": "Surface foreign-currency exposures the linked FX XBerts caught for the period and route the user to the ledger's native FX revaluation. The plugin does NOT compose the revaluation journal — the data primitives for that don't exist in MCP today.",
-      "version": "0.1.2"
+      "description": "Surface foreign-currency exposures the linked FX XBerts caught for the period and route the user to the ledger's native FX revaluation. The plugin does NOT compose the revaluation journal — the data primitives for that don't exist in MCP today."
     },
     {
       "name": "xbert-gst-prep-nz",
       "displayName": "XBert GST Prep (NZ)",
       "source": "./plugins/xbert-gst-prep-nz",
-      "description": "Pre-lodgement GST readiness check for New Zealand clients — boxes 5-15 validated against bank rec, payroll and outstanding XBerts, audit document for IRD filing.",
-      "version": "0.2.0"
+      "description": "Pre-lodgement GST readiness check for New Zealand clients — boxes 5-15 validated against bank rec, payroll and outstanding XBerts, audit document for IRD filing."
     },
     {
       "name": "xbert-ias-prep",
       "displayName": "XBert IAS Prep (AU)",
       "source": "./plugins/xbert-ias-prep",
-      "description": "Pre-lodgement IAS readiness check for Australian clients — verify PAYG withholding and instalment data before lodging the Instalment Activity Statement.",
-      "version": "0.2.0"
+      "description": "Pre-lodgement IAS readiness check for Australian clients — verify PAYG withholding and instalment data before lodging the Instalment Activity Statement."
     },
     {
       "name": "xbert-instalment-variation",
       "displayName": "XBert Instalment Variation",
       "source": "./plugins/xbert-instalment-variation",
-      "description": "PAYG-I and GST instalment variation recommendation with cashflow run-rate, YTD profit trend, and GIC-risk audit trail.",
-      "version": "0.2.0"
+      "description": "PAYG-I and GST instalment variation recommendation with cashflow run-rate, YTD profit trend, and GIC-risk audit trail."
     },
     {
       "name": "xbert-month-end-pack",
       "displayName": "XBert Month-End Pack",
       "source": "./plugins/xbert-month-end-pack",
-      "description": "Month-end financial pack the partner can hand to the client — P&L vs budget, BS movement walk, cashflow vs forecast, and KPI roll-up in a single Word document.",
-      "version": "0.2.0"
+      "description": "Month-end financial pack the partner can hand to the client — P&L vs budget, BS movement walk, cashflow vs forecast, and KPI roll-up in a single Word document."
     },
     {
       "name": "xbert-mtd-prep",
       "displayName": "XBert MTD Prep (UK)",
       "source": "./plugins/xbert-mtd-prep",
-      "description": "Making Tax Digital for Income Tax readiness assessment for UK clients — chart of accounts mapped to HMRC categories, income threshold, simplified vs full reporting eligibility, quarterly reporting readiness.",
-      "version": "0.2.0"
+      "description": "Making Tax Digital for Income Tax readiness assessment for UK clients — chart of accounts mapped to HMRC categories, income threshold, simplified vs full reporting eligibility, quarterly reporting readiness."
     },
     {
       "name": "xbert-payment-run",
       "displayName": "XBert Payment Run",
       "source": "./plugins/xbert-payment-run",
-      "description": "Weekly pay-run brief with remittance drafts ready for review. v1 produces the schedule + remittances; ABA payment file generation is v2.",
-      "version": "0.2.0"
+      "description": "Weekly pay-run brief with remittance drafts ready for review. v1 produces the schedule + remittances; ABA payment file generation is v2."
     },
     {
       "name": "xbert-payroll-close",
       "displayName": "XBert Payroll Close",
       "source": "./plugins/xbert-payroll-close",
-      "description": "Pre-run sanity checks, post-run reconciliation, and full-period payroll reviews across every pay cycle — including draft pay-run detection, SG rate compliance, GL-vs-payroll reconciliation, STP Phase 2 hygiene and bank-out reconciliation.",
-      "version": "0.2.0"
+      "description": "Pre-run sanity checks, post-run reconciliation, and full-period payroll reviews across every pay cycle — including draft pay-run detection, SG rate compliance, GL-vs-payroll reconciliation, STP Phase 2 hygiene and bank-out reconciliation."
     },
     {
       "name": "xbert-policy-review",
       "displayName": "XBert Policy Review",
       "source": "./plugins/xbert-policy-review",
-      "description": "Weekly review of posted spend against policy XBerts on supported categories (out-of-policy account, banned vendor, missing receipt, duplicate transaction, receipt forensic flag).",
-      "version": "0.2.0"
+      "description": "Weekly review of posted spend against policy XBerts on supported categories (out-of-policy account, banned vendor, missing receipt, duplicate transaction, receipt forensic flag)."
     },
     {
       "name": "xbert-practice-health-check",
       "displayName": "XBert Practice Health Check",
       "source": "./plugins/xbert-practice-health-check",
-      "description": "Portfolio-wide data-quality and financial-health snapshot with diagnostic recommendations per client.",
-      "version": "0.2.0"
+      "description": "Portfolio-wide data-quality and financial-health snapshot with diagnostic recommendations per client."
     },
     {
       "name": "xbert-practice-metrics",
       "displayName": "XBert Practice Metrics",
       "source": "./plugins/xbert-practice-metrics",
-      "description": "Monthly partner-meeting one-pager — revenue, lockup, write-offs, service-line P&L, client risk segmentation.",
-      "version": "0.2.0"
+      "description": "Monthly partner-meeting one-pager — revenue, lockup, write-offs, service-line P&L, client risk segmentation."
     },
     {
       "name": "xbert-pulse",
       "displayName": "XBert Client Pulse",
       "source": "./plugins/xbert-pulse",
-      "description": "Detect material changes in client transactional tempo and propose actions using XBert.",
-      "version": "0.1.2"
+      "description": "Detect material changes in client transactional tempo and propose actions using XBert."
     },
     {
       "name": "xbert-receipt-review",
       "displayName": "XBert Receipt Review",
       "source": "./plugins/xbert-receipt-review",
-      "description": "Review the period's orphan-receipt and orphan-bank-line XBerts — batch-approve matches, draft spender follow-ups for true orphans.",
-      "version": "0.1.2"
+      "description": "Review the period's orphan-receipt and orphan-bank-line XBerts — batch-approve matches, draft spender follow-ups for true orphans."
     },
     {
       "name": "xbert-stp-finalisation",
       "displayName": "XBert STP Finalisation (AU)",
       "source": "./plugins/xbert-stp-finalisation",
-      "description": "Annual STP Phase 2 finalisation check for Australian clients — verify YTD wages, PAYG-W and super are accurate per employee before the 14 July ATO deadline.",
-      "version": "0.2.0"
+      "description": "Annual STP Phase 2 finalisation check for Australian clients — verify YTD wages, PAYG-W and super are accurate per employee before the 14 July ATO deadline."
     },
     {
       "name": "xbert-super-check",
       "displayName": "XBert Super Check (AU)",
       "source": "./plugins/xbert-super-check",
-      "description": "Quarterly Superannuation Guarantee check for Australian clients — verify SG calculated, posted, and paid through the clearing house by the 28th, with SGC-risk audit trail.",
-      "version": "0.2.0"
+      "description": "Quarterly Superannuation Guarantee check for Australian clients — verify SG calculated, posted, and paid through the clearing house by the 28th, with SGC-risk audit trail."
     },
     {
       "name": "xbert-tax-reconciliation",
       "displayName": "XBert Tax Reconciliation",
       "source": "./plugins/xbert-tax-reconciliation",
-      "description": "Accounting-to-tax reconciliation worksheet — every adjustment from accounting profit to taxable income (tax-effect walk), per-entity worksheet, with working papers.",
-      "version": "0.2.0"
+      "description": "Accounting-to-tax reconciliation worksheet — every adjustment from accounting profit to taxable income (tax-effect walk), per-entity worksheet, with working papers."
     },
     {
       "name": "xbert-tpar",
       "displayName": "XBert TPAR (AU)",
       "source": "./plugins/xbert-tpar",
-      "description": "Annual Taxable Payments Annual Report (TPAR) preparation for Australian clients in building, cleaning, courier, IT, road-freight and security industries — due 28 August.",
-      "version": "0.2.0"
+      "description": "Annual Taxable Payments Annual Report (TPAR) preparation for Australian clients in building, cleaning, courier, IT, road-freight and security industries — due 28 August."
     },
     {
       "name": "xbert-trial-balance-alignment",
       "displayName": "XBert Trial Balance Alignment",
       "source": "./plugins/xbert-trial-balance-alignment",
-      "description": "Reconcile your trial balance against the accountant's financials with a journal-ready Excel workbook and Word audit document.",
-      "version": "0.2.0"
+      "description": "Reconcile your trial balance against the accountant's financials with a journal-ready Excel workbook and Word audit document."
     },
     {
       "name": "xbert-vat-prep",
       "displayName": "XBert VAT Prep (UK)",
       "source": "./plugins/xbert-vat-prep",
-      "description": "Pre-submission VAT readiness check for UK clients — boxes 1-9 validated, MTD compliance verified, partial exemption and reverse charge flagged, audit document for the file.",
-      "version": "0.2.0"
+      "description": "Pre-submission VAT readiness check for UK clients — boxes 1-9 validated, MTD compliance verified, partial exemption and reverse charge flagged, audit document for the file."
     },
     {
       "name": "xbert-workflow-review",
       "displayName": "XBert Workflow Review",
       "source": "./plugins/xbert-workflow-review",
-      "description": "Run a structural audit of your XBert workflow setup — template consolidation, budget accuracy, workload balance, and setup hygiene.",
-      "version": "0.2.0"
+      "description": "Run a structural audit of your XBert workflow setup — template consolidation, budget accuracy, workload balance, and setup hygiene."
     },
     {
       "name": "xbert-working-paper",
       "displayName": "XBert Working Paper",
       "source": "./plugins/xbert-working-paper",
-      "description": "Shared rendering skills that turn a structured XBert plugin payload into a Word, Excel or PDF working paper saved to your project folder. Required by every compliance and close plugin that emits a file artefact.",
-      "version": "0.1.1"
+      "description": "Shared rendering skills that turn a structured XBert plugin payload into a Word, Excel or PDF working paper saved to your project folder. Required by every compliance and close plugin that emits a file artefact."
     }
   ]
 }

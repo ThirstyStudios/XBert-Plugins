@@ -1,24 +1,44 @@
 {
   "name": "xbert-pulse",
   "displayName": "XBert Client Pulse",
-  "version": "0.1.2",
   "description": "Detect material changes in client transactional tempo and propose actions using XBert.",
-  "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
+  "author": {
+    "name": "XBert Intelligence",
+    "email": "hello@xbert.io"
+  },
   "homepage": "https://plugins.xbert.io/plugins/xbert-pulse",
   "license": "MIT",
-  "keywords": ["practice-management", "clients", "churn", "growth", "commercial"],
+  "keywords": [
+    "practice-management",
+    "clients",
+    "churn",
+    "growth",
+    "commercial"
+  ],
   "x-xbert": {
     "displayName": "XBert Client Pulse",
     "tagline": "Spot clients trending up, down, or off — before you notice on the next invoice.",
-    "audience": ["principals", "practice-managers", "accountants"],
-    "categories": ["clients", "metrics", "commercial"],
+    "audience": [
+      "principals",
+      "practice-managers",
+      "accountants"
+    ],
+    "categories": [
+      "clients",
+      "metrics",
+      "commercial"
+    ],
     "prerequisites": [
       "XBert account with transactional volume tracking",
       "At least 3 months of historical data for a usable baseline"
     ],
     "screenshots": [],
     "demoVideo": null,
-    "includes": { "skills": 1, "commands": 1, "mcpTools": 0 },
+    "includes": {
+      "skills": 1,
+      "commands": 1,
+      "mcpTools": 0
+    },
     "longDescription": "The clients you most need to call are usually the ones you're least aware of. The ones whose volume quietly dropped 50% last month aren't ringing your bell — they're already half-gone. The ones whose volume tripled aren't telling you either — until you under-invoice them and the fixed-fee conversation gets ugly.\n\nXBert Client Pulse compares each client's rolling 1-month transactional volume against their 2-3 month baseline and surfaces material changes — both directions. Up means scaling, service-tier change, more billable work coming. Down means churn risk, seasonal dip, or trouble worth a phone call. Either way, you find out before your competitor does.",
     "useCases": [
       {
