@@ -7,14 +7,14 @@ You are running a configuration audit of XBert rule enablement across a Connect 
 Steps:
 1. Confirm scope with the user: Connect tenant and segmentation approach (default = group clients by industry tag if available, fall back to whole-book if not). Briefly confirm if the slash command was invoked without args.
 2. Pull from XBert via the connected MCP:
-   - All accessible clients in the Connect
+   - All accessible clients in the Connect — then **filter to connected clients only** using the client connection list (`Data_GetClientConnections`): drop any client that is not connected to a ledger (`IsConnectedToAccountingSoftware = false` / `IsDisconnected = true` / never synced). Record how many were excluded.
    - Practice-level Connect account review
    - The XBert rule / flow list
-   - Per-client configuration assignments
+   - Per-client configuration: call `Data_XBertConfigurations` **once per connected client, with that client's own tenant id**, and confirm each response carries `scope: client` (the tool returns that client's effective set — all-tenants OR per-client-assigned configs — via the `XBertConfigurationTenant` junction). Do not call once and reuse across clients.
    - Bulk-update capability metadata for the normalisation hand-off
-   - Client connection list for ledger-type segmentation context
+   - Client connection list for connection filtering and ledger-type / industry-tag segmentation context
 3. Analyse using the `config-audit` skill methodology:
-   - Build per-client enablement fingerprint for every rule
+   - Build a genuinely per-client enablement fingerprint (active-config count + Business Function / risk breakdowns + per-client custom-XBert set), connected clients only
    - Segment clients (default by industry tag, otherwise whole-book)
    - Identify three finding types:
      - **Inconsistencies** — rule enabled for some clients in a segment, disabled for others, no clear pattern
