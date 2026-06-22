@@ -43,6 +43,9 @@ export function Header() {
           <NavLink to="/plugins" className={linkClass}>
             Plugins
           </NavLink>
+          <NavLink to="/changelog" className={linkClass}>
+            Changelog
+          </NavLink>
           <a
             href="https://app.xbert.io"
             className="hidden sm:inline text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors"

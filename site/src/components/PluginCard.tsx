@@ -8,6 +8,18 @@ type Props = {
   index?: number;
 };
 
+function formatRelativeDate(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const days = Math.floor(diff / 86_400_000);
+  if (days < 1) return "today";
+  if (days === 1) return "1d ago";
+  if (days < 7) return `${days}d ago`;
+  if (days < 28) return `${Math.floor(days / 7)}w ago`;
+  const d = new Date(iso);
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  return `${months[d.getMonth()]} ${d.getDate()}`;
+}
+
 export function PluginCard({ plugin, index = 0 }: Props) {
   const x = plugin["x-xbert"];
   return (
@@ -54,6 +66,12 @@ export function PluginCard({ plugin, index = 0 }: Props) {
         </div>
 
         <div className="mt-5 flex items-center gap-3 text-[11px] text-neutral-500 font-mono">
+          {plugin.lastUpdated && (
+            <>
+              <span>{formatRelativeDate(plugin.lastUpdated)}</span>
+              <span className="opacity-30">·</span>
+            </>
+          )}
           <span>
             {x.includes.skills} skill{x.includes.skills === 1 ? "" : "s"}
           </span>

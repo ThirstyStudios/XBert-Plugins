@@ -5,6 +5,7 @@
 import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, mkdirSync } from "node:fs";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { execSync } from "node:child_process";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
@@ -30,7 +31,18 @@ const plugins = pluginSlugs.map((slug) => {
   const readmePath = join(pluginsDir, slug, "README.md");
   if (existsSync(readmePath)) readme = readFileSync(readmePath, "utf8");
 
-  return { ...manifest, slug, readme };
+  let lastUpdated = null;
+  try {
+    const date = execSync(`git log -1 --format=%aI -- plugins/${slug}`, {
+      cwd: repoRoot,
+      encoding: "utf8",
+    }).trim();
+    if (date) lastUpdated = date;
+  } catch {
+    // git not available or no commits — leave as null
+  }
+
+  return { ...manifest, slug, readme, lastUpdated };
 });
 
 let bundles = [];
@@ -45,6 +57,71 @@ if (existsSync(bundlesPath)) {
 const out = { plugins, bundles, generatedAt: new Date().toISOString() };
 writeFileSync(join(outDir, "catalog.json"), JSON.stringify(out, null, 2));
 
+// Generate changelog from git history
+let changelog = [];
+try {
+  const logOutput = execSync(
+    `git log --oneline --format="%H|%aI|%s" -100 -- plugins/`,
+    { cwd: repoRoot, encoding: "utf8" }
+  ).trim();
+
+  if (logOutput) {
+    const commits = logOutput.split("\n").map((line) => {
+      const [hash, date, ...msgParts] = line.split("|");
+      return { hash, date: date.slice(0, 10), message: msgParts.join("|") };
+    });
+
+    // For each commit, find which plugin folders were touched
+    const entries = commits.map((c) => {
+      let pluginSlugs = [];
+      try {
+        const files = execSync(
+          `git diff-tree --no-commit-id --name-only -r ${c.hash} -- plugins/`,
+          { cwd: repoRoot, encoding: "utf8" }
+        ).trim();
+        if (files) {
+          const slugs = new Set(
+            files
+              .split("\n")
+              .map((f) => f.split("/")[1])
+              .filter(Boolean)
+          );
+          pluginSlugs = Array.from(slugs);
+        }
+      } catch {
+        // skip
+      }
+      return { date: c.date, message: c.message, plugins: pluginSlugs };
+    });
+
+    // Group by date
+    const grouped = new Map();
+    for (const entry of entries) {
+      if (!grouped.has(entry.date)) {
+        grouped.set(entry.date, { date: entry.date, messages: [], plugins: new Set() });
+      }
+      const group = grouped.get(entry.date);
+      group.messages.push(entry.message);
+      entry.plugins.forEach((s) => group.plugins.add(s));
+    }
+
+    changelog = Array.from(grouped.values())
+      .map((g) => ({
+        date: g.date,
+        message: g.messages.join("; "),
+        plugins: Array.from(g.plugins),
+      }))
+      .sort((a, b) => b.date.localeCompare(a.date));
+  }
+} catch {
+  // git not available — empty changelog
+}
+
+writeFileSync(join(outDir, "changelog.json"), JSON.stringify(changelog, null, 2));
+
 console.log(
   `[catalog] wrote ${plugins.length} plugin(s), ${bundles.length} bundle(s) -> site/src/generated/catalog.json`
+);
+console.log(
+  `[catalog] wrote ${changelog.length} changelog entries -> site/src/generated/changelog.json`
 );

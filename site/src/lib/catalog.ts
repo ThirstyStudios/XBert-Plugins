@@ -1,4 +1,5 @@
 import data from "../generated/catalog.json";
+import changelogData from "../generated/changelog.json";
 
 export type UseCase = { title: string; description: string };
 export type Benefit = { icon: string; title: string; description: string };
@@ -28,6 +29,7 @@ export type Plugin = {
   license?: string;
   keywords?: string[];
   readme: string;
+  lastUpdated?: string;
   "x-xbert": XbertExt;
 };
 
@@ -46,6 +48,14 @@ export function getPlugin(slug: string | undefined): Plugin | undefined {
   if (!slug) return undefined;
   return plugins.find((p) => p.slug === slug);
 }
+
+export type ChangelogEntry = {
+  date: string;
+  message: string;
+  plugins: string[];
+};
+
+export const changelog: ChangelogEntry[] = changelogData as ChangelogEntry[];
 
 export function allCategories(): string[] {
   const set = new Set<string>();
