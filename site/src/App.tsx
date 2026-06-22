@@ -8,6 +8,7 @@ import PluginsPage from "./pages/Plugins";
 import PluginDetailPage from "./pages/PluginDetail";
 import InstallPage from "./pages/Install";
 import InsideXBertPage from "./pages/InsideXBert";
+import ChangelogPage from "./pages/Changelog";
 import NotFoundPage from "./pages/NotFound";
 
 function AnimatedRoutes() {
@@ -28,6 +29,7 @@ function AnimatedRoutes() {
           <Route path="/plugins/:slug" element={<PluginDetailPage />} />
           <Route path="/install" element={<InstallPage />} />
           <Route path="/inside-xbert" element={<InsideXBertPage />} />
+          <Route path="/changelog" element={<ChangelogPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </motion.div>
