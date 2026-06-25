@@ -43,6 +43,7 @@ export type Bundle = {
 
 export const plugins: Plugin[] = (data as { plugins: Plugin[] }).plugins;
 export const bundles: Bundle[] = (data as { bundles?: Bundle[] }).bundles ?? [];
+export const comingSoonCount: number = (data as { comingSoonCount?: number }).comingSoonCount ?? 0;
 
 export function getPlugin(slug: string | undefined): Plugin | undefined {
   if (!slug) return undefined;

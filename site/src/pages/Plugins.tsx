@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Search, X } from "lucide-react";
 import MiniSearch from "minisearch";
-import { plugins, allCategories } from "../lib/catalog";
+import { plugins, allCategories, comingSoonCount } from "../lib/catalog";
 import { PluginCard } from "../components/PluginCard";
 
 const ms = new MiniSearch({
@@ -294,6 +294,26 @@ export default function PluginsPage() {
           </div>
         )}
       </div>
+
+      {/* Coming soon teaser */}
+      {comingSoonCount > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.4 }}
+          className="mt-10 rounded-2xl border border-dashed border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] p-8 text-center"
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/5 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-300 mb-3">
+            Coming soon
+          </span>
+          <p className="text-neutral-700 dark:text-neutral-400 text-sm leading-relaxed max-w-lg mx-auto">
+            {comingSoonCount} more plugin{comingSoonCount === 1 ? "" : "s"} currently
+            in development — covering payroll, compliance and period-close
+            workflows. Stay tuned.
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 }
