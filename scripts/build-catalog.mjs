@@ -23,7 +23,7 @@ const pluginSlugs = readdirSync(pluginsDir).filter((name) => {
   }
 });
 
-const plugins = pluginSlugs.map((slug) => {
+const allPlugins = pluginSlugs.map((slug) => {
   const manifestPath = join(pluginsDir, slug, ".claude-plugin", "plugin.json");
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
 
@@ -45,6 +45,17 @@ const plugins = pluginSlugs.map((slug) => {
   return { ...manifest, slug, readme, lastUpdated };
 });
 
+// Tranche One — only these plugins are publicly listed.
+// Everything else is coming soon and excluded from the catalog.
+const TRANCHE_ONE = new Set([
+  "xbert-anomaly-review",
+  "xbert-config-audit",
+  "xbert-workflow-review",
+]);
+
+const plugins = allPlugins.filter((p) => TRANCHE_ONE.has(p.slug));
+const comingSoonCount = allPlugins.length - plugins.length;
+
 let bundles = [];
 if (existsSync(bundlesPath)) {
   try {
@@ -54,7 +65,7 @@ if (existsSync(bundlesPath)) {
   }
 }
 
-const out = { plugins, bundles, generatedAt: new Date().toISOString() };
+const out = { plugins, bundles, comingSoonCount, generatedAt: new Date().toISOString() };
 writeFileSync(join(outDir, "catalog.json"), JSON.stringify(out, null, 2));
 
 // Generate changelog from git history
@@ -120,7 +131,7 @@ try {
 writeFileSync(join(outDir, "changelog.json"), JSON.stringify(changelog, null, 2));
 
 console.log(
-  `[catalog] wrote ${plugins.length} plugin(s), ${bundles.length} bundle(s) -> site/src/generated/catalog.json`
+  `[catalog] wrote ${plugins.length} plugin(s), ${bundles.length} bundle(s), ${comingSoonCount} coming-soon -> site/src/generated/catalog.json`
 );
 console.log(
   `[catalog] wrote ${changelog.length} changelog entries -> site/src/generated/changelog.json`
