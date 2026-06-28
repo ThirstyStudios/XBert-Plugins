@@ -38,6 +38,27 @@ Segment minimum: 3 clients. Below 3, treat as ungrouped and report whole-book on
 7. **Surface segments with most drift** — top three for the executive summary.
 
 ## Always
+- **Write for the firm, not the API.** The reader is a bookkeeper, reviewer or practice owner. Never print internal identifiers (tenant IDs, `connectTenantId`, numeric tag IDs) or MCP field/tool names (`Data_XBertConfigurations`, `Data_GetClientConnections`, `analyticsGroup`, `tenantTagIds`, `isConnectedToAccountingSoftware`, `hasPayrollAccess`, `scope`, `autoComplete`, `MCP`, `MCP API`) in the executive summary, findings, observations, tables or QMS block. Refer to clients and the Connect by **name**. Refer to tags by **name** where the data provides one; if only numeric tag IDs are available, describe the group generically (e.g. "an industry-tag group of 4 clients") and place any numeric IDs only in a clearly-labelled **Technical Appendix** — never in the body. Your internal reasoning may use these identifiers freely; the document text must not.
+- **Use XBert terminology.** Apply the mapping below when writing document text. Internal analysis terms may still appear in your reasoning — only the output document is constrained.
+
+| Avoid (internal / analyst term) | Use instead (firm-facing) |
+|---|---|
+| (ID 79194), connectTenantId 79194, Tenant ID column | Connect / client name only; IDs → Technical Appendix if needed |
+| Tag ID column of numbers (42274…) | Tag names; else "industry-tag group of N clients" |
+| `Data_XBertConfigurations`, `XBert MCP API`, `MCP` | "XBert", "XBert configuration data" |
+| `isConnectedToAccountingSoftware = false` | "not connected to accounting software" |
+| `hasPayrollAccess = false` / `payroll = true, access = false` | "payroll access is not enabled in XBert" |
+| `analyticsGroup` | "Business Function" |
+| `scope: client` | _(omit — internal detail)_ |
+| `autoComplete` / `autoComplete-enabled` | "Auto-Complete" |
+| "configuration fingerprint" / "fingerprint" | "configuration profile" / "how the client is set up" |
+| "segment cohesion 100%" / "zero drift" | "all clients are set up the same way" / "no differences between clients" |
+| "drift" / "drift count 0" | "configuration differences" / "no inconsistencies" |
+| "always-on candidate" | "configuration to review" / "scope review" |
+| "per-rule enablement" / "per-rule fingerprint" | "which individual XBerts are switched on or off" |
+| "Risk High" / "Risk Med" | "High" / "Medium" (XBert risk levels: High, Medium, Low, Information) |
+| "aggregate active configuration counts" | "total active XBerts" |
+
 - **Distinct from workflow review.** Subject is XBert rule configuration. Do not stray into templates or schedules.
 - **Connected clients only.** Never audit, fingerprint, or report a client that is not connected to a ledger. Confirm connection from `Data_GetClientConnections` before including a client.
 - **Per-client data, not Connect-level repeated.** Every fingerprint must come from a `scope: client` call keyed to that client's tenant id. If all clients return the *identical* fingerprint, that is only a real "cohesion" finding when the configs are genuinely all-tenants-assigned — say so explicitly. Never present one Connect-level aggregate copied across clients as cohesion or "zero drift".
@@ -57,12 +78,24 @@ After running the analysis, structure the result as JSON conforming to the rende
 - `check_reference_id`: a unique ID for the run
 - `tenant_name`, `period`, `prepared_by`, `prepared_at`
 - `title`, `subtitle` (optional)
-- `executive_summary`: two sentences naming the headline finding
+- `executive_summary`: two sentences naming the headline finding, **followed by an overall risk profile statement** (1–2 sentences summarising the engagement's posture, e.g. "Overall risk: Low–Medium. Configuration is consistent across the book; the main exposure is payroll XBerts running on clients without payroll access.")
 - `sections[]`: one entry per major finding, each with `heading`, `body`, optional `blocking: true`, optional `table` with `columns` and `rows`
 - `qms_block`: `{ firm_name, preparer, reviewer, certification }`
-- `appendix[]` (optional)
+- `appendix[]` (optional) — use a "Technical Appendix" section here for any internal identifiers (tenant IDs, numeric tag IDs) needed for traceability
 
-Section ordering and content must match the document structure described above.
+### Findings Summary table shape
+
+The Findings Summary section must use a five-column table:
+
+| Ref | Finding | Risk | Recommended Action | If Not Actioned |
+|---|---|---|---|---|
+| F1 | Payroll custom XBerts running on clients without payroll access | Medium | Restrict these 4 custom XBerts to payroll-enabled clients, or confirm all-clients assignment is intended | These XBerts keep raising alerts that can never be meaningful — adding dashboard noise, eroding trust in alerts, and risking real issues being lost in the noise |
+
+- **Risk** uses XBert risk levels: High, Medium, Low, or Information.
+- **If Not Actioned** is one plain sentence describing the consequence of inaction — written for the partner or reviewer who needs to prioritise.
+- Every finding row must have all five columns populated.
+
+Section ordering and content must match the document structure described above. All prose in sections must follow the terminology and ID-suppression rules in the "Always" block.
 
 ## Output handoff
 
