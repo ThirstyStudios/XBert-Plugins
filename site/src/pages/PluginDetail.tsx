@@ -5,6 +5,7 @@ import {
   ArrowRight,
   Check,
   Clock,
+  Info,
   Search,
   ShieldCheck,
   Zap,
@@ -234,6 +235,15 @@ export default function PluginDetailPage() {
         {/* WORKFLOW */}
         {x.workflow && x.workflow.length > 0 && (
           <section className="mt-20">
+            <div className="flex items-start gap-3 rounded-xl border border-blue-400/20 bg-blue-400/[0.06] dark:border-blue-400/15 dark:bg-blue-400/[0.04] px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 max-w-2xl mb-6">
+              <Info size={16} className="mt-0.5 text-blue-500 dark:text-blue-400 flex-shrink-0" />
+              <div>
+                <span className="font-medium text-neutral-900 dark:text-white">First install this plugin</span>{" "}
+                (Claude Desktop or Code) — or add it as a Skill — see{" "}
+                <a href="#install" className="text-blue-500 dark:text-blue-400 hover:underline">Install</a> below.
+                The slash command &amp; skill load automatically once installed. Then:
+              </div>
+            </div>
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
               How it works
             </h2>

@@ -86,6 +86,25 @@ export function InstallSteps({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Skill-included callout */}
+      <div className="mx-6 mb-6 rounded-xl border border-emerald-400/20 bg-emerald-400/[0.06] dark:border-emerald-400/15 dark:bg-emerald-400/[0.04] p-4 text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+        <div className="flex items-start gap-2">
+          <span className="mt-0.5 text-emerald-500 dark:text-emerald-400 flex-shrink-0 font-semibold text-xs uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-400/15 dark:bg-emerald-400/10">New</span>
+          <div>
+            <span className="font-semibold text-neutral-900 dark:text-white">
+              Installing the plugin loads its skill too
+            </span>
+            <p className="mt-1">
+              The plugin auto-loads its slash command and its skill (<span className="font-mono text-neutral-900 dark:text-neutral-100">skills/{"{name}"}/SKILL.md</span>) — no
+              separate skill upload needed.
+            </p>
+            <p className="mt-2 text-xs text-neutral-600 dark:text-neutral-500">
+              Advanced: just want the skill? Upload its <span className="font-mono">SKILL.md</span> via Customize → Skills.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
