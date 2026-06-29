@@ -110,6 +110,16 @@ When the gate passes, tell the user where the file is and one line of what's in 
 
 Use the path verbatim. Do not paraphrase.
 
+## Recommended Findings Summary shape
+
+Consumer plugins that produce a Findings Summary section are encouraged to use this five-column table structure for consistency across working papers:
+
+| Ref | Finding | Risk | Recommended Action | If Not Actioned |
+|---|---|---|---|---|
+| F1 | Description of the finding | High / Medium / Low / Information | Concrete action to resolve | One sentence: what happens if the firm does nothing |
+
+This is a recommendation, not a hard requirement — the renderer handles any table shape. The `xbert-config-audit` plugin adopts this shape; other plugins may follow as they are updated.
+
 ## What this skill does not do
 
 - It does not file the working paper into a client folder for you — that step is manual.
