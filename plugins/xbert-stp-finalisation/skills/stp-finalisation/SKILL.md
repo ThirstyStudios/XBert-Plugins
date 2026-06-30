@@ -70,6 +70,11 @@ Generate a Word document containing:
 - Tables for per-employee YTD data
 - Never use emojis
 
+> **⛔ Currency-safety at the render step (this is where the docx is actually built).** Monetary amounts carry a `$` prefix, so they must NEVER be interpolated through a POSIX shell — a shell expands `$0` → `/bin/sh` (its own name) and `$1`–`$9` → empty *before* the value is written, silently mangling every figure (`$80,977.16` → `0,977.16`, `$8,834.71` → `,834.71`, `$0.00` → `/bin/sh.00`). This applies to **whichever tool renders the .docx** — the bundled `render-docx` (python-docx) **and** any code-execution document build (e.g. docx-js / the generic docx skill) you may fall back to:
+> - Author the build script and the `payload.json` with the **Write tool**, and pass every amount as **literal string data** to the document API (`new TextRun("$80,977.16")` / `paragraph.add_run("$80,977.16")`).
+> - NEVER echo, `cat >`, heredoc, `node -e "…"`, `python3 -c "…"`, or `subprocess(shell=True)` a string that contains a `$`-prefixed amount. If a shell is genuinely unavoidable, single-quote it (`<<'EOF'`, `'$80,977.16'`).
+> - After the file is written, open it and confirm no value reads `/bin/sh`, starts with a comma, or has a leading `0` before a thousands comma — those are the shell-corruption signature.
+
 ## Always
 
 - Never send the FINAL event from the plugin — the bookkeeper sends it from the ledger after reviewing corrections
@@ -95,7 +100,7 @@ Section ordering and content must match the audit-document structure described a
 
 ## Output handoff
 
-1. Save the payload to `outputs/<check_reference_id>/payload.json`.
+1. Save the payload to `outputs/<check_reference_id>/payload.json`. **Write it with the Write tool — never via a shell heredoc / `cat >` / `echo` / `sh -c`.** The payload's monetary strings carry a `$` prefix (see Output format), and a POSIX shell expands `$0` → `/bin/sh` and `$1`–`$9` → empty, silently mangling every figure (`$80,977.16` → `0,977.16`, `$0.00` → `/bin/sh.00`) before render-docx ever sees it. If a heredoc is unavoidable, single-quote the delimiter (`<<'EOF'`).
 2. Invoke the `xbert-working-paper:render-docx` skill. It will write `outputs/<check_reference_id>/working-paper.docx` and emit a single JSON line on stdout with `status`, `path`, `exists`, `size_bytes`, `opens_cleanly`, `paragraph_count`.
 3. Pass through to the user the path and the summary line the render skill prescribes (`Working paper saved to <path> — N sections, M blocking issues`).
 

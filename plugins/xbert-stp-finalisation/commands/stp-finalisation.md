@@ -19,7 +19,7 @@ Steps:
    - Outstanding XBerts touching payroll for the year
 3. Run the finalisation checks per the `stp-finalisation` skill — per-employee YTD reconciliation, income-type mapping, allowance disaggregation, RFB threshold check, termination payment classification, missing TFN flags, year-end leave balance sanity check.
 4. Build the working-paper payload conforming to the schema in the `stp-finalisation` skill (sections, blocking flags, prior-period table, QMS block).
-5. Save the payload to `outputs/<check_reference_id>/payload.json` and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
+5. Save the payload to `outputs/<check_reference_id>/payload.json` (write it with the Write tool — never a shell heredoc / `cat >` / `echo`, which corrupts the `$`-prefixed amounts via shell `$`-expansion) and invoke the `xbert-working-paper:render-docx` skill. Wait for its JSON response. Do not declare success until `status == "ok"` and `opens_cleanly == true`.
 6. Present the saved working-paper path to the user with a chat-side summary of the top blocking issues to resolve before lodgement.
 
 Use the `stp-finalisation` skill for Phase 2 income types, allowance categories, RFB rules and termination treatment. Use Australian English, dd/MM/yyyy dates, $0.00 currency. Never use emojis.

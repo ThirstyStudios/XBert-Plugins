@@ -70,6 +70,8 @@ The consumer plugin gives you JSON conforming to this shape. If a field is missi
 
 Save the payload to `outputs/<check_reference_id>/payload.json` so the run is reproducible.
 
+> **⛔ Write `payload.json` with the Write tool — never a shell heredoc, `cat >`, `echo`, or `python3 -c "…"` that embeds the JSON inline.** Monetary values carry a `$` prefix (e.g. `$80,977.16`, `$0.00`). A POSIX shell performs parameter expansion on `$`+digit *before* the file is written: `$0` → `/bin/sh` (the shell's own name) and `$1`–`$9` → empty. So an unquoted heredoc silently corrupts every amount — `$80,977.16` → `0,977.16`, `$8,834.71` → `,834.71`, `$0.00` → `/bin/sh.00` — and `render_docx.py` faithfully renders the mangled numbers. The Write tool bypasses the shell entirely. If a heredoc is genuinely unavoidable, single-quote the delimiter (`<<'EOF'`) to disable expansion.
+
 ## Render
 
 Run the bundled script:
