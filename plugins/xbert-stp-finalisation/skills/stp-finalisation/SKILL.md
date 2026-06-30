@@ -95,7 +95,7 @@ Section ordering and content must match the audit-document structure described a
 
 ## Output handoff
 
-1. Save the payload to `outputs/<check_reference_id>/payload.json`.
+1. Save the payload to `outputs/<check_reference_id>/payload.json`. **Write it with the Write tool — never via a shell heredoc / `cat >` / `echo` / `sh -c`.** The payload's monetary strings carry a `$` prefix (see Output format), and a POSIX shell expands `$0` → `/bin/sh` and `$1`–`$9` → empty, silently mangling every figure (`$80,977.16` → `0,977.16`, `$0.00` → `/bin/sh.00`) before render-docx ever sees it. If a heredoc is unavoidable, single-quote the delimiter (`<<'EOF'`).
 2. Invoke the `xbert-working-paper:render-docx` skill. It will write `outputs/<check_reference_id>/working-paper.docx` and emit a single JSON line on stdout with `status`, `path`, `exists`, `size_bytes`, `opens_cleanly`, `paragraph_count`.
 3. Pass through to the user the path and the summary line the render skill prescribes (`Working paper saved to <path> — N sections, M blocking issues`).
 
