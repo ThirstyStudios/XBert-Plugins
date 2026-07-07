@@ -31,7 +31,8 @@
     ],
     "prerequisites": [
       "XBert account with workflow configured",
-      "At least one active client with schedules"
+      "At least one active client with schedules",
+      "XBert Working Paper companion plugin installed (renders the Word document)"
     ],
     "screenshots": [],
     "demoVideo": null,

@@ -25,6 +25,7 @@ If a Custom XBert lands later that captures any of these signals deterministical
 - XBert account
 - Client connected to a ledger
 - Anomaly XBerts linked to the Anomaly Review agent in the Connect portal
+- XBert Working Paper companion plugin installed (renders the Word document)
 
 ## Usage
 After installing, type:

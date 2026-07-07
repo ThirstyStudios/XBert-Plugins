@@ -15,6 +15,7 @@ Distinct from XBert Workflow Review — that plugin looks at templates and sched
 - XBert account with multiple client tenants in a Connect
 - Workflow and XBert configurations active on at least some clients
 - Practice owner or manager-level access to the Connect
+- XBert Working Paper companion plugin installed (renders the Word document)
 
 ## Usage
 After installing, type:
