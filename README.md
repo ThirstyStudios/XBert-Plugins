@@ -54,3 +54,6 @@ Each `/plugin install` runs as a separate command — Claude Code doesn't batch.
 ## License
 
 MIT.
+
+<!-- marketplace re-index nudge: force the Claude plugin index to pick up main (stp-finalisation #9 currency-safety fix, PR #10 merged 2026-06-30). Safe to remove. -->
+

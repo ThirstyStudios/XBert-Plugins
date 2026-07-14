@@ -11,6 +11,7 @@ Run a structural audit of your XBert workflow setup with one command.
 ## Prerequisites
 - XBert account with workflow configured
 - At least one active client with schedules
+- XBert Working Paper companion plugin installed (renders the Word document)
 
 ## Usage
 After installing, type:

@@ -13,9 +13,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
 
 def _emit(result: dict[str, Any], exit_code: int) -> None:
@@ -26,6 +27,48 @@ def _emit(result: dict[str, Any], exit_code: int) -> None:
 def _load_payload(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
+
+
+# --- Currency-corruption guard (#9) -----------------------------------------
+# Monetary amounts in payloads carry a `$` prefix. If payload.json was authored
+# through a POSIX shell (unquoted heredoc / `cat >` / `sh -c` / `node -e`), the
+# shell expands `$`+digit BEFORE the value is written: `$0` -> `/bin/sh` (the
+# shell's own name) and `$1`-`$9` -> empty. That silently mangles amounts:
+#   $0.00       -> /bin/sh.00
+#   $80,977.16  -> 0,977.16   (leading $N digit eaten)
+#   $8,834.71   -> ,834.71    (leading comma)
+# We refuse to render such a payload (the lost digit is unrecoverable — the only
+# safe action is to fail and re-author from source, never silently "fix").
+_BIN_SH = "/bin/sh"
+# A money token whose first thousands group is malformed: a leading comma
+# (",834.71") or a first group starting with 0 ("0,977.16", "08,977.16").
+# A valid grouped amount ($80,977.16, $1,000.00, $10,854.00) never matches:
+# the lookbehind rejects any group preceded by a digit/dot.
+_CORRUPT_NUMBER = re.compile(r"(?<![\d.])(?:,\d{3}|0\d{0,2},\d{3})(?:\.\d{1,2})?")
+
+
+def _iter_strings(node: Any, path: str = "$") -> Iterator[tuple[str, str]]:
+    if isinstance(node, str):
+        yield path, node
+    elif isinstance(node, dict):
+        for key, value in node.items():
+            yield from _iter_strings(value, f"{path}.{key}")
+    elif isinstance(node, list):
+        for index, value in enumerate(node):
+            yield from _iter_strings(value, f"{path}[{index}]")
+
+
+def _detect_currency_corruption(payload: Any) -> list[dict[str, str]]:
+    """Return one entry per string leaf bearing the POSIX-shell corruption
+    signature. Empty list == clean. Conservative by design: a correctly
+    grouped amount never matches, so a non-empty result is a real defect."""
+    hits: list[dict[str, str]] = []
+    for path, value in _iter_strings(payload):
+        if _BIN_SH in value:
+            hits.append({"path": path, "value": value, "reason": "contains /bin/sh ($0 shell-expanded)"})
+        elif _CORRUPT_NUMBER.search(value):
+            hits.append({"path": path, "value": value, "reason": "malformed thousands group (leading $N digit eaten)"})
+    return hits
 
 
 def _render_with_docxtpl(template: Path, payload: dict, out_path: Path) -> None:
@@ -192,6 +235,23 @@ def main() -> None:
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     payload = _load_payload(args.payload)
+
+    corruption = _detect_currency_corruption(payload)
+    if corruption:
+        _emit(
+            {
+                "status": "corrupted_payload",
+                "error": (
+                    "currency values are shell-corrupted (POSIX $-expansion: "
+                    "$0->/bin/sh, $1-$9->empty). Re-author payload.json with the Write "
+                    "tool and pass amounts as literal data; never echo a $-prefixed "
+                    "amount through a shell, heredoc, or subprocess(shell=True)."
+                ),
+                "corrupted_count": len(corruption),
+                "first_offender": corruption[0],
+            },
+            6,
+        )
 
     plugin = payload.get("plugin") or "default"
     template = args.templates_dir / f"{plugin}.docx"
