@@ -24,7 +24,8 @@ If a Custom XBert lands later that captures any of these signals deterministical
 ## Prerequisites
 - XBert account
 - Client connected to a ledger
-- Anomaly XBerts linked to the Anomaly Review agent in the Connect portal
+- Anomaly Review agent added via **Automation → Agents → Browse Agents** in the Connect portal
+- Anomaly XBerts linked to the Anomaly Review agent (Agent → Linked XBerts)
 
 ## Usage
 After installing, type:
