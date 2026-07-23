@@ -29,11 +29,11 @@ const SETUP_GUIDE_URL =
 
 const ASK_PROMPTS = [
   "Who owes us the most right now, across every client?",
+  "Who's over capacity next week, and which jobs are running behind?",
   "What fired in XBert this week? Anything urgent?",
-  "Run last quarter's P&L for Bayside Cafe and compare it to budget.",
-  "What's on my worklist today?",
   "How much WIP is sitting on Fisher & Co, and how recoverable is it?",
-  "Draft a task for the GST fix and assign it to Priya — I'll review it first.",
+  "Run last quarter's P&L for Bayside Cafe and compare it to budget.",
+  "Draft a task for the tax coding fix and assign it to Priya — I'll review it first.",
 ];
 
 const TRUST_ROWS: { can: string; never: string }[] = [
@@ -64,18 +64,18 @@ const CLUSTERS = [
     icon: <Wallet size={18} aria-hidden className="text-xbert-indigo dark:text-xbert-cyan" />,
   },
   {
-    title: "People and payroll",
-    body: "Pay runs, payslips, leave and super. Jobs, timesheets, WIP and team capacity from Xero Practice Manager.",
+    title: "The firm's own numbers",
+    body: "Jobs, timesheets, WIP and recoverability. Team capacity against the time actually worked, so you can see who's stretched and who has room. From Xero Practice Manager, if that's where your practice runs.",
     icon: <Users size={18} aria-hidden className="text-xbert-indigo dark:text-xbert-cyan" />,
   },
   {
     title: "The books and the story",
-    body: "P&L, balance sheet, journals, budget vs actual, Activity Statement values — plus every XBert alert, explained with its fix.",
+    body: "P&L, balance sheet, journals and budget vs actual, plus tax and activity statement figures (BAS and IAS in Australia). Pay runs, payslips, leave and retirement contributions (super in Australia). And every XBert alert, explained with its fix.",
     icon: <BarChart3 size={18} aria-hidden className="text-xbert-indigo dark:text-xbert-cyan" />,
   },
   {
     title: "The doing",
-    body: "Worklists, tasks and schedules. Client notes and conversations. Write-back to the ledger with validation, duplicate checks and your sign-off.",
+    body: "Worklists, tasks and schedules across the whole portfolio. Client notes and conversations. Write-back to the ledger with validation, duplicate checks and your sign-off.",
     icon: <ListChecks size={18} aria-hidden className="text-xbert-indigo dark:text-xbert-cyan" />,
   },
 ];
@@ -169,7 +169,7 @@ export default function HomePage() {
                 transition={{ duration: 0.6, delay: 0.05 }}
                 className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.05]"
               >
-                {"Every client's books, "}
+                {"Every client, every job, "}
                 <span className="brand-gradient-text">one question away.</span>
               </motion.h1>
 
@@ -180,7 +180,7 @@ export default function HomePage() {
                 className="mt-7 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed"
               >
                 {
-                  "Put your AI assistant to work on the actual books. You already use Claude or ChatGPT for the words — the XBert MCP lets the same assistant work with your clients' live ledgers, alerts and workflow. You ask in plain English, it does the digging, and nothing changes without your say-so."
+                  "You already use Claude or ChatGPT for the words — the XBert MCP puts that same assistant to work on the actual books: your clients' live ledgers, alerts and workflow. And — if you run Xero Practice Manager — the jobs, WIP and capacity that show how your own practice is running. You ask in plain English, it does the digging, and nothing changes without your say-so."
                 }
               </motion.p>
 
@@ -246,7 +246,7 @@ export default function HomePage() {
           center
           title="What's an MCP? The two-sentence version."
           lead={
-            "MCP — the Model Context Protocol — is simply a secure, standard way for an AI assistant to connect to the software your practice already uses and work with it on your behalf. Think of it as the plumbing between your assistant and your clients' books: you never see it, you just ask a question and the answer comes back from the actual ledger — not from the assistant's imagination."
+            "MCP — the Model Context Protocol — is simply a secure, standard way for Claude, ChatGPT or whichever AI you use to connect to the software your practice already uses and work with it on your behalf. Think of it as the plumbing between your assistant and everything XBert already holds — your clients' books on one side, your practice's own worklists and tasks on the other — so you never see it: you just ask a question and the answer comes back from the live record, not from the assistant's imagination."
           }
         />
         <motion.p
@@ -284,7 +284,7 @@ export default function HomePage() {
             },
             {
               title: "Start asking",
-              body: "Type the question the way you'd ask a colleague. “Who owes us the most?” works better than anything technical ever will.",
+              body: "Type the question the way you'd ask a colleague. “Who owes us the most?” and “who's over capacity next week?” work better than anything technical ever will.",
             },
           ]}
         />
@@ -326,7 +326,7 @@ export default function HomePage() {
         <SectionHeading
           title="Ask it like you'd ask your best senior."
           lead={
-            "Start with the job, not the technology. Every practice has the same Tuesday-morning jobs — here's what they sound like once your assistant is connected."
+            "Start with the work, not the technology. Every practice has the same Tuesday-morning questions — some about a client's books, some about how the practice itself is tracking. Here's what they sound like once your assistant is connected."
           }
         />
         <div className="grid md:grid-cols-2 gap-3 mt-8">
@@ -450,7 +450,7 @@ export default function HomePage() {
 
       {/* §6 FEATURES PREVIEW */}
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
-        <SectionHeading title="200 tools, organised around your week." />
+        <SectionHeading title="200 tools: your clients' books, and the practice behind them." />
         <div className="grid md:grid-cols-2 gap-4 mt-8">
           {CLUSTERS.map((c, i) => (
             <CapabilityCard
@@ -578,7 +578,7 @@ export default function HomePage() {
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
         <CtaBand
           heading="Your assistant is ready when you are."
-          body="One address, one sign-in, and the books are a question away."
+          body="One address, one sign-in, and the whole practice is a question away."
           primary={{ label: "Connect your assistant", to: "/get-started" }}
           secondary={{ label: "Read the setup guide", href: SETUP_GUIDE_URL }}
           backgroundSrc="/illustrations/hero-network-b.svg"

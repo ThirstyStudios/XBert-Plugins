@@ -242,9 +242,10 @@ export default function InsideXBertPage() {
         </h2>
         <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 max-w-3xl leading-relaxed">
           XBert is built to surface the right information at the moment
-          you&apos;re doing the work. Your assistant — running the XBert
-          plugins — takes that further: arbitrary output formats, and
-          everything else in your stack pulled into a single thread.
+          you&apos;re doing the work. Claude takes that further: run the XBert
+          plugins in Claude Code or Claude Desktop and you get arbitrary output
+          formats, plus everything else in your stack pulled into a single
+          thread.
         </p>
         <div className="mt-10 grid md:grid-cols-2 gap-4">
           {[
