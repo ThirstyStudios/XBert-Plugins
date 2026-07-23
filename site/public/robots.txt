@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://plugins.xbert.io/sitemap.xml
+Sitemap: https://intelligence.xbert.io/sitemap.xml

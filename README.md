@@ -1,6 +1,6 @@
-# XBert Plugins
+# XBert MCP
 
-**XBert** is the MCP for accounting practices. This repo holds the public storefront at https://plugins.xbert.io and the Claude Code plugins built on top of the XBert MCP.
+**XBert** is the MCP for accounting practices. This repo holds the public site at https://intelligence.xbert.io and the Claude Code plugins built on top of the XBert MCP.
 
 - **Connect XBert to Claude (claude.ai / Desktop):** add a custom MCP connector pointing at `https://mcp-gateway.xbert.io/mcp` — full guide at https://support.xbert.io/en/articles/14492922-how-to-add-xbert-as-a-custom-mcp-connector-in-claude
 - **Add the plugin marketplace in Claude Code:** `/plugin marketplace add ThirstyStudios/XBert-Plugins`
@@ -49,7 +49,7 @@ In Claude Code:
 /plugin install xbert-bas-prep@xbert
 ```
 
-Each `/plugin install` runs as a separate command — Claude Code doesn't batch. Browse the full catalogue at https://plugins.xbert.io.
+Each `/plugin install` runs as a separate command — Claude Code doesn't batch. Browse the full catalogue at https://intelligence.xbert.io.
 
 ## License
 

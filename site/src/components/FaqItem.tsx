@@ -75,12 +75,12 @@ export function FaqJsonLd({ items }: { items: { question: string; answer: string
   const json = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": "https://plugins.xbert.io/#faq",
-    url: "https://plugins.xbert.io/",
+    "@id": "https://intelligence.xbert.io/#faq",
+    url: "https://intelligence.xbert.io/",
     name: "Questions people actually ask",
     inLanguage: "en-AU",
-    isPartOf: { "@id": "https://plugins.xbert.io/#website" },
-    about: { "@id": "https://plugins.xbert.io/#xbert-mcp" },
+    isPartOf: { "@id": "https://intelligence.xbert.io/#website" },
+    about: { "@id": "https://intelligence.xbert.io/#xbert-mcp" },
     mainEntity: items.map((i) => ({
       "@type": "Question",
       name: i.question,

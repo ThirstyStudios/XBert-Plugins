@@ -11,7 +11,7 @@ Run a structural audit of your XBert workflow setup with one command.
 ## Prerequisites
 - XBert account with workflow configured
 - At least one active client with schedules
-- [XBert Working Paper](https://plugins.xbert.io/plugins/xbert-working-paper) — the companion render plugin that writes the Word document. Install it from the same marketplace with `/plugin install xbert-working-paper@xbert` (needs Python 3.10+)
+- [XBert Working Paper](https://intelligence.xbert.io/plugins/xbert-working-paper) — the companion render plugin that writes the Word document. Install it from the same marketplace with `/plugin install xbert-working-paper@xbert` (needs Python 3.10+)
 
 ## Usage
 After installing, type:
