@@ -12,7 +12,7 @@ import { ThemeImage } from "../components/ThemeImage";
 import { usePageMeta } from "../lib/seo";
 import { ROUTE_META } from "../lib/route-meta";
 
-const INSTALL_SNIPPET = `/plugin marketplace add ThirstyStudios/XBert-Plugins
+const INSTALL_SNIPPET = `/plugin marketplace add XBertIntelligence/XBert-Plugins
 /plugin install <name>@xbert`;
 
 const ms = new MiniSearch({
