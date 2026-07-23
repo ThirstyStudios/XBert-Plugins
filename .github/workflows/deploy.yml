@@ -17,6 +17,10 @@ jobs:
         with:
           submodules: false
           lfs: false
+          # build-catalog.mjs derives the changelog from `git log -- plugins/`.
+          # The default shallow clone has no history, so the changelog built
+          # out empty in CI while looking fine locally.
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

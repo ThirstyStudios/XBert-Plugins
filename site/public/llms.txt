@@ -90,7 +90,7 @@ Managing access: https://plugins.xbert.io/get-started#manage-access
 
 Plugins package the MCP's tools into slash commands and skills for Claude Code and Claude Desktop — for example `/anomaly-review`, `/config-audit`, `/workflow-review` — each one a practice job with the steps and the output already decided. Same data, same permissions, same audit trail as asking directly. Plugins are optional: the MCP on its own answers everything the plugins do; plugins are the shortcut for jobs you repeat. They require Claude Code or Claude Desktop.
 
-The published catalogue currently contains the three plugins listed below; the slash command a plugin adds is its name without the `xbert-` prefix.
+The published catalogue currently contains the four plugins listed below. The slash command a plugin adds is its name without the `xbert-` prefix — except XBert Working Paper, which adds no command of its own: it is the shared render layer the other three hand their findings to.
 
 Install (in Claude Code or Claude Desktop):
 
@@ -101,6 +101,7 @@ Install (in Claude Code or Claude Desktop):
 - [XBert Anomaly Review](https://plugins.xbert.io/plugins/xbert-anomaly-review): every anomaly XBert that fired for the period — ranked, with the underlying transaction and a per-firing recommended action.
 - [XBert Config Audit](https://plugins.xbert.io/plugins/xbert-config-audit): is XBert configured consistently across your book? Spot inconsistencies, gaps and drift in one pass.
 - [XBert Workflow Review](https://plugins.xbert.io/plugins/xbert-workflow-review): one command to audit your entire workflow setup — template consolidation, budget accuracy and team workload.
+- [XBert Working Paper](https://plugins.xbert.io/plugins/xbert-working-paper): the shared render layer behind the other three — turns their findings into a Word, Excel or PDF working paper in your project folder. Install it alongside whichever review plugin you use; it needs Python 3.10+.
 
 More plugins are in development. They run on the same MCP, so there is nothing new to set up when they land.
 
