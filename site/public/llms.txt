@@ -96,7 +96,7 @@ The published catalogue currently contains the four plugins listed below. The sl
 
 Install (in Claude Code or Claude Desktop):
 
-    /plugin marketplace add ThirstyStudios/XBert-Plugins
+    /plugin marketplace add XBertIntelligence/XBert-Plugins
     /plugin install <name>@xbert
 
 - [Browse all plugins](https://intelligence.xbert.io/plugins): the full catalogue, filterable by country and tag.

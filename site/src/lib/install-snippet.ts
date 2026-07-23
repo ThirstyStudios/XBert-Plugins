@@ -1,5 +1,5 @@
 const MARKETPLACE_NAME = "xbert";
-const MARKETPLACE_REPO = "ThirstyStudios/XBert-Plugins";
+const MARKETPLACE_REPO = "XBertIntelligence/XBert-Plugins";
 
 export function installSnippet(slugs: string[], opts: { includeAdd?: boolean } = {}) {
   const includeAdd = opts.includeAdd ?? true;

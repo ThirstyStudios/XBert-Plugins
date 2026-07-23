@@ -679,9 +679,9 @@ When we adopt **changesets** (the recommended next step from the architecture re
 ## 16. Quick references
 
 - **Storefront**: https://intelligence.xbert.io
-- **GitHub repo**: https://github.com/ThirstyStudios/XBert-Plugins
-- **Add the marketplace in Claude Desktop**: Customize → Personal plugins → `+` → Create plugin → Add marketplace → `ThirstyStudios/XBert-Plugins`
-- **Add the marketplace in Claude Code**: `/plugin marketplace add ThirstyStudios/XBert-Plugins`
+- **GitHub repo**: https://github.com/XBertIntelligence/XBert-Plugins
+- **Add the marketplace in Claude Desktop**: Customize → Personal plugins → `+` → Create plugin → Add marketplace → `XBertIntelligence/XBert-Plugins`
+- **Add the marketplace in Claude Code**: `/plugin marketplace add XBertIntelligence/XBert-Plugins`
 - **Claude plugin docs**: https://code.claude.com/docs/en/plugin-marketplaces
 - **lucide-react icons**: https://lucide.dev/icons
 - **Tailwind v4 docs**: https://tailwindcss.com

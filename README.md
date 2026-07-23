@@ -3,7 +3,7 @@
 **XBert** is the MCP for accounting practices. This repo holds the public site at https://intelligence.xbert.io and the Claude Code plugins built on top of the XBert MCP.
 
 - **Connect XBert to Claude (claude.ai / Desktop):** add a custom MCP connector pointing at `https://mcp-gateway.xbert.io/mcp` — full guide at https://support.xbert.io/en/articles/14492922-how-to-add-xbert-as-a-custom-mcp-connector-in-claude
-- **Add the plugin marketplace in Claude Code:** `/plugin marketplace add ThirstyStudios/XBert-Plugins`
+- **Add the plugin marketplace in Claude Code:** `/plugin marketplace add XBertIntelligence/XBert-Plugins`
 
 ## What's inside
 
@@ -44,7 +44,7 @@ The `predev` script regenerates `site/src/generated/catalog.json` from the plugi
 In Claude Code:
 
 ```
-/plugin marketplace add ThirstyStudios/XBert-Plugins
+/plugin marketplace add XBertIntelligence/XBert-Plugins
 /plugin install xbert-workflow-review@xbert
 /plugin install xbert-bas-prep@xbert
 ```
