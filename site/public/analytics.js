@@ -1,29 +1,24 @@
-/* XBert web analytics bootstrap for plugins.xbert.io.
-   Mirrors the tracking stack on www.xbert.io: two GTM containers, the GA4
-   stream, Leadfeeder, and HubSpot (the HubSpot loader itself is a separate
-   tag in index.html). Self-hosted file so the CSP needs no 'unsafe-inline'.
+/* XBert web analytics bootstrap for intelligence.xbert.io.
+   Loads exactly three things: GA4, Leadfeeder, and HubSpot (whose loader is
+   a separate tag in index.html). Self-hosted so the CSP needs no
+   'unsafe-inline'.
 
-   Deliberately NOT carried over from www.xbert.io: AdRoll (retargeting),
-   LogRocket (session replay), Consent Pro (cookie banner) and Intercom.
-   If AdRoll or LogRocket are ever added — resolve the cookie-consent
-   question first — the CSP in staticwebapp.config.json also needs
-   script-src https://s.adroll.com https://cdn.lr-in-prod.com and
-   connect-src https://*.adroll.com https://*.lr-in-prod.com
-   https://*.logrocket.io, or they will be silently blocked. */
+   NO Google Tag Manager here, deliberately. www.xbert.io's two containers
+   (GTM-KB86WSP, GTM-MM4W3Q9B) carry its full ad stack — AdRoll, Google Ads
+   conversion tags, DoubleClick — plus inline custom-HTML tags. Mirroring
+   them onto this site pulled in retargeting nobody asked for and produced a
+   wall of CSP violations, since the strict policy blocked every one. GA4 is
+   configured directly below instead, so analytics is unaffected.
+
+   Also not here: LogRocket (session replay), Consent Pro (cookie banner),
+   Intercom. If retargeting is ever wanted on this domain, add it
+   deliberately AND resolve the cookie-consent question first — ad pixels
+   without a consent layer is a compliance problem for UK/EU visitors. */
 (function () {
   "use strict";
 
-  // ---- Google Tag Manager (same containers as www.xbert.io) ----
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-  ["GTM-KB86WSP", "GTM-MM4W3Q9B"].forEach(function (id) {
-    var s = document.createElement("script");
-    s.async = true;
-    s.src = "https://www.googletagmanager.com/gtm.js?id=" + id;
-    document.head.appendChild(s);
-  });
-
   // ---- GA4 (same measurement ID as www.xbert.io) ----
+  window.dataLayer = window.dataLayer || [];
   var GA4_ID = "G-7N96HFWN89";
   var g = document.createElement("script");
   g.async = true;
@@ -32,7 +27,15 @@
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = window.gtag || gtag;
   gtag("js", new Date());
-  gtag("config", GA4_ID);
+  // Measurement only. The GA4 property has a Google Ads account linked, so by
+  // default gtag also fires that account's remarketing and conversion tags —
+  // DoubleClick, googleads, google.com/rmkt. We do not run ads on this domain
+  // and there is no consent banner here, so those signals are turned off at
+  // the source rather than allowlisted in the CSP.
+  gtag("config", GA4_ID, {
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+  });
 
   // ---- Leadfeeder (same tracker as www.xbert.io) ----
   // B2B visitor identification. Loads its own tracker script, which then

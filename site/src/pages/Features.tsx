@@ -8,7 +8,6 @@ import { CountUp } from "../components/CountUp";
 import { SectionHeading } from "../components/SectionHeading";
 import { StepFlow } from "../components/StepFlow";
 import { CapabilityCard } from "../components/CapabilityCard";
-import { QuoteCard } from "../components/QuoteCard";
 import { CtaBand } from "../components/CtaBand";
 import { ThemeImage } from "../components/ThemeImage";
 
@@ -321,14 +320,6 @@ export default function FeaturesPage() {
             />
           ))}
 
-          {/* Pull quote — renders only here, between Area 05 and Area 06 */}
-          <QuoteCard
-            variant="pull"
-            quote="As the practice manager, the analytics have given me insights that I was previously unable to access."
-            name="Karen Hirst"
-            firm="KBas"
-            className="py-10"
-          />
 
           {AREAS.slice(5).map((a, i) => (
             <CapabilityCard
