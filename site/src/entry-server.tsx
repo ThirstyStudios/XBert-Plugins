@@ -26,4 +26,4 @@ export function render(url: string): string {
 }
 
 /** Re-exported so the prerenderer takes its route list from the same bundle. */
-export { prerenderRoutes, SITE_ORIGIN } from "./lib/route-meta";
+export { prerenderRoutes, SITE_ORIGIN, ROUTE_META } from "./lib/route-meta";
