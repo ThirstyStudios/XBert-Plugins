@@ -32,7 +32,7 @@
     "prerequisites": [
       "XBert account with workflow configured",
       "At least one active client with schedules",
-      "XBert Working Paper companion plugin installed (renders the Word document)"
+      "XBert Working Paper render plugin — install it from the same marketplace with /plugin install xbert-working-paper@xbert (writes the Word document; needs Python 3.10+)"
     ],
     "screenshots": [],
     "demoVideo": null,
@@ -41,7 +41,7 @@
       "commands": 1,
       "mcpTools": 0
     },
-    "longDescription": "As firms grow, their XBert workflow setup accumulates debt — duplicate templates created for slight budget variations, orphaned schedules assigned to staff who've left, zombie notifications that fire but never complete. The mess is invisible until someone audits it, and nobody has time to audit it manually.\n\nXBert Workflow Review runs the entire structural audit in under a minute. It pulls a point-in-time extract of your workflow configuration via MCP, runs six deterministic analyses (no LLM judgment in the numbers), and produces a Word document you can circulate inside the firm without editing. The document names specific templates, specific users, and specific processes — not generic advice.",
+    "longDescription": "As firms grow, their XBert workflow setup accumulates debt — duplicate templates created for slight budget variations, orphaned schedules assigned to staff who've left, zombie notifications that fire but never complete. The mess is invisible until someone audits it, and nobody has time to audit it manually.\n\nXBert Workflow Review runs the entire structural audit in one pass. It pulls a point-in-time extract of your workflow configuration via MCP, runs six deterministic analyses (no LLM judgment in the numbers), and produces a Word document you can circulate inside the firm without editing. The document names specific templates, specific users, and specific processes — not generic advice.",
     "useCases": [
       {
         "title": "Template library cleanup",
@@ -69,7 +69,7 @@
       {
         "icon": "FileText",
         "title": "Ready-to-circulate document",
-        "description": "Produces a Word document with cover page, first-page summary, and named findings — designed to be read by anyone from a workflow specialist to a practice owner."
+        "description": "Produces a Word document with a title block, executive summary and named findings — designed to be read by anyone from a workflow specialist to a practice owner."
       },
       {
         "icon": "ShieldCheck",
@@ -78,7 +78,7 @@
       }
     ],
     "workflow": [
-      "Type /workflow-review in any Claude chat",
+      "Type /workflow-review in Claude Code or Claude Desktop",
       "Plugin pulls the workflow extract from your connected XBert tenant via MCP",
       "Six section analyses run deterministically — snapshot, usage, consolidation, budget, health, recommendations",
       "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path",

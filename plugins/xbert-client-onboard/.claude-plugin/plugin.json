@@ -76,7 +76,7 @@
       }
     ],
     "workflow": [
-      "Type /client-onboard in any Claude chat",
+      "Type /client-onboard in Claude Code or Claude Desktop",
       "Confirm the new client name, the Connect tenant, and the engagement scope",
       "Plugin checks current phase via the XBert MCP and presents the gated checklist",
       "Walk through each phase's gate checks; the plugin creates workflow tasks from your practice templates as you progress",

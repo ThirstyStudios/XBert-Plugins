@@ -11,8 +11,8 @@ export function InstallBlock({ snippet, showSkipHint = true }: Props) {
     <div className="rounded-xl border border-black/10 bg-neutral-50 dark:border-white/10 dark:bg-black/50 overflow-hidden shadow-2xl shadow-black/10 dark:shadow-black/40">
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.03]">
         <div className="flex items-center gap-2 text-xs text-neutral-700 dark:text-neutral-300 font-medium">
-          <Terminal size={14} className="text-blue-500 dark:text-blue-400" />
-          <span>Run in Claude-Cowork CLI</span>
+          <Terminal size={14} aria-hidden className="text-xbert-indigo dark:text-xbert-cyan" />
+          <span>Run in Claude Code or Claude Desktop</span>
         </div>
         <CopyButton text={snippet} />
       </div>
@@ -29,8 +29,8 @@ export function InstallBlock({ snippet, showSkipHint = true }: Props) {
         </code>
       </pre>
       {showSkipHint && (
-        <div className="px-4 py-2.5 text-[11px] text-neutral-500 border-t border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02]">
-          Already added the XBert marketplace? Skip line 1. Each <span className="font-mono text-neutral-700 dark:text-neutral-400">/plugin install</span> line runs as a separate command in Claude-Cowork CLI.
+        <div className="px-4 py-2.5 text-[11px] text-neutral-500 dark:text-neutral-400 border-t border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02]">
+          Already added the XBert marketplace? Skip line 1. Each <span className="font-mono text-neutral-700 dark:text-neutral-400">/plugin install</span> line runs as a separate command in Claude Code or Claude Desktop.
         </div>
       )}
     </div>

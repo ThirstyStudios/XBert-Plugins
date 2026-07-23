@@ -1,9 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router";
 import { motion } from "motion/react";
 import { Search, X } from "lucide-react";
 import MiniSearch from "minisearch";
 import { plugins, allCategories, comingSoonCount } from "../lib/catalog";
 import { PluginCard } from "../components/PluginCard";
+import { Chip } from "../components/Chip";
+import { SectionHeading } from "../components/SectionHeading";
+import { InstallBlock } from "../components/InstallBlock";
+import { usePageMeta } from "../lib/seo";
+import { ROUTE_META } from "../lib/route-meta";
+
+const INSTALL_SNIPPET = `/plugin marketplace add ThirstyStudios/XBert-Plugins
+/plugin install <name>@xbert`;
 
 const ms = new MiniSearch({
   fields: ["displayName", "tagline", "description", "keywords"],
@@ -41,6 +50,8 @@ function pluginIsInCountry(
 }
 
 export default function PluginsPage() {
+  usePageMeta(ROUTE_META.plugins);
+
   const [text, setText] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
   const [country, setCountry] = useState<CountryFilter>("all");
@@ -147,22 +158,118 @@ export default function PluginsPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-16">
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-      >
-        <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
-          All plugins
-        </h1>
-        <p className="mt-2 text-neutral-700 dark:text-neutral-400">
-          {plugins.length} plugin{plugins.length === 1 ? "" : "s"} powered by the XBert MCP.
-        </p>
-      </motion.div>
+    <div className="max-w-6xl mx-auto px-6 pt-16 pb-14 md:pt-24 md:pb-20">
+      {/* HERO */}
+      <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+        <div>
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05]"
+          >
+            Ready-made workflows, built on the MCP.
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="mt-4 text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-2xl"
+          >
+            Everything on this page runs on the same XBert MCP — the same 200
+            tools, the same permissions, the same audit trail. A plugin simply
+            packages a job into a slash command (plus supporting skills) for
+            Claude Code or Claude Desktop: the prompts, the steps and the
+            output, already decided. Type{" "}
+            <span className="font-mono">/workflow-review</span> instead of
+            explaining a workflow audit from scratch.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="mt-5 text-sm font-mono text-neutral-600 dark:text-neutral-400"
+          >
+            {plugins.length} plugins · every one powered by the XBert MCP
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="mt-4"
+          >
+            <Chip>Requires Claude Code or Claude Desktop</Chip>
+          </motion.div>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="hidden lg:block"
+        >
+          <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-xbert-ink p-4 md:p-6 overflow-hidden">
+            <img
+              src="/illustrations/plugins-blocks.svg"
+              alt=""
+              aria-hidden
+              width={1216}
+              height={896}
+              className="block w-full h-auto rounded-xl"
+            />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* DO YOU NEED PLUGINS? */}
+      <section className="mt-28 md:mt-32 max-w-3xl">
+        <SectionHeading
+          title="Do you need plugins? No."
+          lead="The MCP on its own answers everything these plugins do — you just ask in your own words, in any chat. Plugins are the shortcut, not the starting line: they're for the jobs you repeat — the same prep, the same review, run the same way every time, by anyone on the team, from one command."
+        />
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4, delay: 0.05 }}
+          className="mt-4 text-sm text-neutral-600 dark:text-neutral-400"
+        >
+          New to all this?{" "}
+          <Link
+            to="/"
+            className="text-xbert-indigo dark:text-xbert-cyan hover:underline"
+          >
+            Start with the MCP overview →
+          </Link>{" "}
+          ·{" "}
+          <Link
+            to="/get-started"
+            className="text-xbert-indigo dark:text-xbert-cyan hover:underline"
+          >
+            Get connected →
+          </Link>
+        </motion.p>
+      </section>
+
+      {/* INSTALL STRIP */}
+      <section className="mt-28 md:mt-32 max-w-3xl">
+        <SectionHeading as="h2" title="Two commands and you're in." />
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4, delay: 0.05 }}
+          className="mt-6"
+        >
+          <InstallBlock snippet={INSTALL_SNIPPET} showSkipHint={false} />
+          <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+            Add the marketplace once, then install any plugin from it. The
+            exact install line is shown on every plugin page.
+          </p>
+        </motion.div>
+      </section>
 
       {/* Country filter */}
-      <div className="mt-8 flex flex-wrap gap-2">
+      <div className="mt-28 md:mt-32 flex flex-wrap gap-2">
         {(
           [
             { key: "all", label: "All countries" },
@@ -176,6 +283,7 @@ export default function PluginsPage() {
             <button
               key={opt.key}
               type="button"
+              aria-pressed={active}
               onClick={() => setCountry(opt.key)}
               disabled={opt.key !== "all" && count === 0}
               className={`text-xs uppercase tracking-wider px-3 py-1.5 rounded-full border transition inline-flex items-center gap-1.5 ${
@@ -189,7 +297,7 @@ export default function PluginsPage() {
                 className={`text-[10px] font-mono ${
                   active
                     ? "opacity-80"
-                    : "text-neutral-500 dark:text-neutral-500"
+                    : "text-neutral-500 dark:text-neutral-400"
                 }`}
               >
                 {count}
@@ -208,7 +316,8 @@ export default function PluginsPage() {
           >
             <Search
               size={16}
-              className="text-neutral-600 dark:text-neutral-500 shrink-0"
+              aria-hidden
+              className="text-neutral-600 dark:text-neutral-400 shrink-0"
             />
             {selected.map((c) => (
               <span
@@ -225,7 +334,7 @@ export default function PluginsPage() {
                   className="opacity-70 hover:opacity-100"
                   aria-label={`Remove ${c}`}
                 >
-                  <X size={12} />
+                  <X size={12} aria-hidden />
                 </button>
               </span>
             ))}
@@ -241,7 +350,15 @@ export default function PluginsPage() {
               placeholder={
                 selected.length ? "Add filter or search…" : "Search plugins or filter by tag…"
               }
-              className="flex-1 min-w-[8rem] bg-transparent text-sm placeholder:text-neutral-600 dark:placeholder:text-neutral-500 focus:outline-none py-0.5"
+              aria-label="Search plugins or filter by tag"
+              role="combobox"
+              aria-expanded={open && suggestions.length > 0}
+              aria-controls="plugin-tag-listbox"
+              aria-autocomplete="list"
+              aria-activedescendant={
+                open && suggestions[highlight] ? `tag-opt-${highlight}` : undefined
+              }
+              className="flex-1 min-w-[8rem] bg-transparent text-sm placeholder:text-neutral-600 dark:placeholder:text-neutral-400 py-0.5"
             />
             {(selected.length > 0 || text) && (
               <button
@@ -251,7 +368,7 @@ export default function PluginsPage() {
                   setText("");
                   inputRef.current?.focus();
                 }}
-                className="text-[11px] uppercase tracking-wider text-neutral-600 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200"
+                className="text-[11px] uppercase tracking-wider text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200"
               >
                 Clear
               </button>
@@ -259,13 +376,20 @@ export default function PluginsPage() {
           </div>
 
           {open && suggestions.length > 0 && (
-            <div className="absolute z-20 mt-1 w-full rounded-md border border-black/10 dark:border-white/10 bg-white dark:bg-neutral-950 shadow-lg overflow-hidden">
-              <div className="px-3 py-1.5 text-[10px] uppercase tracking-wider text-neutral-500 border-b border-black/5 dark:border-white/5">
+            <div
+              id="plugin-tag-listbox"
+              role="listbox"
+              className="absolute z-20 mt-1 w-full rounded-md border border-black/10 dark:border-white/10 bg-white dark:bg-neutral-950 shadow-lg overflow-hidden"
+            >
+              <div className="px-3 py-1.5 text-[10px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 border-b border-black/5 dark:border-white/5">
                 Filter by tag
               </div>
               {suggestions.map((c, i) => (
                 <button
                   key={c}
+                  id={`tag-opt-${i}`}
+                  role="option"
+                  aria-selected={i === highlight}
                   type="button"
                   onMouseEnter={() => setHighlight(i)}
                   onClick={() => addCategory(c)}
@@ -284,13 +408,16 @@ export default function PluginsPage() {
       </div>
 
       {/* Grid */}
+      <p className="sr-only" role="status" aria-live="polite">
+        {filtered.length} plugin{filtered.length === 1 ? "" : "s"} shown
+      </p>
       <div className="mt-10 grid md:grid-cols-2 gap-4">
         {filtered.map((p, i) => (
           <PluginCard key={p.slug} plugin={p} index={i} />
         ))}
         {filtered.length === 0 && (
           <div className="md:col-span-2 rounded-2xl border border-dashed border-black/10 dark:border-white/10 p-12 text-center text-neutral-700 dark:text-neutral-400">
-            No plugins match that filter.
+            No plugins match that filter. Clear it and try a plainer word.
           </div>
         )}
       </div>
@@ -304,13 +431,11 @@ export default function PluginsPage() {
           transition={{ duration: 0.4 }}
           className="mt-10 rounded-2xl border border-dashed border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] p-8 text-center"
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.04] dark:border-white/10 dark:bg-white/5 px-3 py-1 text-xs text-neutral-700 dark:text-neutral-300 mb-3">
-            Coming soon
-          </span>
+          <Chip className="mb-3">Coming soon</Chip>
           <p className="text-neutral-700 dark:text-neutral-400 text-sm leading-relaxed max-w-lg mx-auto">
-            {comingSoonCount} more plugin{comingSoonCount === 1 ? "" : "s"} currently
-            in development — covering payroll, compliance and period-close
-            workflows. Stay tuned.
+            {comingSoonCount} more plugins are in development. The MCP
+            underneath already does the work — each new plugin simply wraps
+            another job up, so there's nothing new to set up when they land.
           </p>
         </motion.div>
       )}

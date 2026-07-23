@@ -11,14 +11,14 @@ Run a structural audit of your XBert workflow setup with one command.
 ## Prerequisites
 - XBert account with workflow configured
 - At least one active client with schedules
-- XBert Working Paper companion plugin installed (renders the Word document)
+- XBert Working Paper render plugin — `/plugin install xbert-working-paper@xbert` from the same marketplace (writes the Word document; needs Python 3.10+)
 
 ## Usage
 After installing, type:
 
     /workflow-review
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## What the document covers
 1. **Snapshot** — client counts, template counts, coverage

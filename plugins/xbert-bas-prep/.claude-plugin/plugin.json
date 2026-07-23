@@ -80,7 +80,7 @@
       }
     ],
     "workflow": [
-      "Type /bas-prep in any Claude chat",
+      "Type /bas-prep in Claude Code or Claude Desktop",
       "Confirm the client and the BAS period (or accept the current open quarter)",
       "Plugin pulls reconciliation, GST, PAYG-W, payroll, super, fixed assets, AR/AP and outstanding XBerts via MCP",
       "Readiness checks run and produce a blocking-issues list plus prior-period variance review",

@@ -76,7 +76,7 @@
       }
     ],
     "workflow": [
-      "Type /fs-pack in any Claude chat",
+      "Type /fs-pack in Claude Code or Claude Desktop",
       "Confirm the client, the year-end date, and SPFS vs GPFS structure",
       "Plugin pulls BS, P&L, cashflow, TB, and organisation settings",
       "Document is composed with comparative columns and notes shell",

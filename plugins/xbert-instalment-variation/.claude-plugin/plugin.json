@@ -78,7 +78,7 @@
       }
     ],
     "workflow": [
-      "Type /instalment-variation in any Claude chat",
+      "Type /instalment-variation in Claude Code or Claude Desktop",
       "Confirm the client and which instalment (PAYG-I or GST instalment) and quarter",
       "Plugin pulls YTD P&L, balance sheet, cashflow, budget adherence, and tax rates",
       "Recommendation generated with direction, confidence, and GIC exposure note",

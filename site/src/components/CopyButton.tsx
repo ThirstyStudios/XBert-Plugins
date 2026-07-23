@@ -32,7 +32,7 @@ export function CopyButton({ text, label = "Copy" }: Props) {
             transition={{ duration: 0.15 }}
             className="inline-flex items-center gap-2"
           >
-            <Check size={14} className="text-emerald-400" />
+            <Check size={14} aria-hidden className="text-emerald-400" />
             Copied
           </motion.span>
         ) : (
@@ -44,7 +44,7 @@ export function CopyButton({ text, label = "Copy" }: Props) {
             transition={{ duration: 0.15 }}
             className="inline-flex items-center gap-2"
           >
-            <Copy size={14} />
+            <Copy size={14} aria-hidden />
             {label}
           </motion.span>
         )}

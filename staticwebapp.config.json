@@ -1,14 +1,24 @@
 {
+  "routes": [
+    { "route": "/connect", "redirect": "/get-started", "statusCode": 301 },
+    { "route": "/install", "redirect": "/get-started", "statusCode": 301 },
+    {
+      "route": "/assets/*",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" }
+    },
+    { "route": "/fonts/*", "headers": { "cache-control": "public, max-age=604800" } },
+    { "route": "/illustrations/*", "headers": { "cache-control": "public, max-age=604800" } }
+  ],
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/assets/*", "/screenshots/*", "/*.{png,jpg,svg,ico,webp}"]
+    "exclude": ["/assets/*", "/screenshots/*", "/fonts/*", "/*.{png,jpg,svg,ico,webp,txt,xml,js}"]
   },
   "globalHeaders": {
     "X-Frame-Options": "DENY",
     "X-Content-Type-Options": "nosniff",
     "Referrer-Policy": "strict-origin-when-cross-origin",
     "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
-    "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'"
+    "Content-Security-Policy": "default-src 'self'; script-src 'self' https://js.hs-scripts.com https://js.hs-analytics.net https://js.hs-banner.com https://js.hscollectedforms.net https://js.usemessages.com https://js.hubspot.com https://js.hsadspixel.net https://js.hsleadflows.net https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.hubspot.com https://*.hubapi.com https://*.hs-analytics.net https://*.hscollectedforms.net https://*.usemessages.com https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com; frame-src https://www.googletagmanager.com https://*.hubspot.com; frame-ancestors 'none'"
   },
   "mimeTypes": {
     ".json": "application/json"

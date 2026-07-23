@@ -78,7 +78,7 @@
       }
     ],
     "workflow": [
-      "Type /audit-evidence-pack in any Claude chat",
+      "Type /audit-evidence-pack in Claude Code or Claude Desktop",
       "Confirm the client and the audit period (default: current financial year)",
       "Plugin resolves the linked audit XBerts for the period — if none are linked, the pack stops and the user is prompted to configure linked XBerts first",
       "A risk-weighted sample is selected based on the count and severity of XBert firings per transaction",

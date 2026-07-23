@@ -79,7 +79,7 @@
       }
     ],
     "workflow": [
-      "Type /policy-review in any Claude chat",
+      "Type /policy-review in Claude Code or Claude Desktop",
       "Confirm the client and the review period (default: prior week)",
       "Plugin resolves the linked policy XBerts for the period — if none are linked, the review stops and the user is prompted to configure linked XBerts first",
       "Firings are grouped by supported category (with vendor or account sub-grouping where useful) and each firing carries a recommended next action",

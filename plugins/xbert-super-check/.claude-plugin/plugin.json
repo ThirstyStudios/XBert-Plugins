@@ -81,7 +81,7 @@
       }
     ],
     "workflow": [
-      "Type /super-check in any Claude chat",
+      "Type /super-check in Claude Code or Claude Desktop",
       "Confirm the client and the SG quarter (or accept the current quarter ending)",
       "Plugin pulls payroll, super liability, bank transactions and clearing house references via MCP",
       "SG calculation, posting and payment-status checks run and produce blocking issues plus SGC-risk notes",

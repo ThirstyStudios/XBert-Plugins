@@ -81,7 +81,7 @@
       }
     ],
     "workflow": [
-      "Type /mtd-prep in any Claude chat",
+      "Type /mtd-prep in Claude Code or Claude Desktop",
       "Confirm the client (sole trader or landlord) and whether self-employment, property or both",
       "Plugin pulls chart of accounts, income figures and prior-year position via MCP",
       "Mapping audit runs against HMRC categories; threshold and mandate date determined",

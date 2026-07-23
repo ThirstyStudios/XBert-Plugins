@@ -80,7 +80,7 @@
       }
     ],
     "workflow": [
-      "Type /vat-prep in any Claude chat",
+      "Type /vat-prep in Claude Code or Claude Desktop",
       "Confirm the client and the VAT period (or accept the current open quarter)",
       "Plugin pulls reconciliation, VAT boxes, VAT control accounts, payroll, AP, AR and outstanding XBerts via MCP",
       "Readiness checks run and produce a blocking-issues list plus prior-period variance review",

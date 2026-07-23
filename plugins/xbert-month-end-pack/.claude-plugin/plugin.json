@@ -76,7 +76,7 @@
       }
     ],
     "workflow": [
-      "Type /month-end-pack in any Claude chat",
+      "Type /month-end-pack in Claude Code or Claude Desktop",
       "Confirm the client tenant and the month being closed",
       "Plugin pulls P&L, BS, cashflow, budget adherence, and runs balance sheet review via the XBert MCP",
       "Build the working-paper payload, render via xbert-working-paper:render-docx, and report the saved path",

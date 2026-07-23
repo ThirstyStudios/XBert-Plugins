@@ -15,14 +15,14 @@ Distinct from XBert Workflow Review — that plugin looks at templates and sched
 - XBert account with multiple client tenants in a Connect
 - Workflow and XBert configurations active on at least some clients
 - Practice owner or manager-level access to the Connect
-- XBert Working Paper companion plugin installed (renders the Word document)
+- XBert Working Paper render plugin — `/plugin install xbert-working-paper@xbert` from the same marketplace (writes the Word document; needs Python 3.10+)
 
 ## Usage
 After installing, type:
 
     /config-audit
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## Support
 hello@xbert.io

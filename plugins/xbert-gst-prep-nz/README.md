@@ -19,7 +19,7 @@ After installing, type:
 
     /gst-prep-nz
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## Support
 hello@xbert.io

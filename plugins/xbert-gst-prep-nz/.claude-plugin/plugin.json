@@ -81,7 +81,7 @@
       }
     ],
     "workflow": [
-      "Type /gst-prep-nz in any Claude chat",
+      "Type /gst-prep-nz in Claude Code or Claude Desktop",
       "Confirm the client and the GST period (or accept auto-detection of the most recent completed period)",
       "Plugin pulls reconciliation, GST boxes, payroll, KiwiSaver / PAYE liabilities, AP, AR and outstanding XBerts via MCP",
       "Readiness checks run and produce a blocking-issues list plus prior-period variance review",

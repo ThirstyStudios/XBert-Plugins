@@ -24,6 +24,47 @@
 
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  --font-display: "Funnel Display", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Self-hosted brand fonts (Google Fonts CDN is blocked by our CSP).
+   Funnel Display is the xbert.io brand display face; Inter is the UI face. */
+@font-face {
+  font-family: "Funnel Display";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("/fonts/funnel-display-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Funnel Display";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("/fonts/funnel-display-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-latin-var.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Brand type: display face for headings, matching www.xbert.io. */
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
 }
 
 /* Default (dark) — used when no data-theme attribute is set */
@@ -36,6 +77,7 @@
   --hero-glow-2: rgba(2, 255, 255, 0.10);
   --hero-grid-line: rgba(255, 255, 255, 0.04);
   --selection-bg: rgba(78, 83, 189, 0.40);
+  --hero-media-opacity: 0.45;
 }
 
 [data-theme="light"] {
@@ -47,6 +89,9 @@
   --hero-glow-2: rgba(2, 255, 255, 0.07);
   --hero-grid-line: rgba(28, 27, 65, 0.06);
   --selection-bg: rgba(78, 83, 189, 0.25);
+  /* The ambient loop is deep navy; on the white canvas it needs to be a tint,
+     not a wash, or the whole hero turns mottled grey. */
+  --hero-media-opacity: 0.16;
 }
 
 html, body, #root { min-height: 100%; }
@@ -104,9 +149,12 @@ a { text-decoration: none; }
 
 /* XBert signature brand gradient for headings and emphasis text.
    Direction stays consistent across themes; the gradient itself is
-   colour-true so it reads on both dark and light backgrounds. */
+   colour-true so it reads on both dark and light backgrounds.
+   The light-theme terminal stop is a dark teal, not brand cyan: cyan on the
+   near-white canvas measures ~1.3:1, so the last words of the hero headline
+   disappeared. #0E8FA8 is 3.8:1 on white — passes AA for large text. */
 .brand-gradient-text {
-  background-image: linear-gradient(135deg, #1C1B41 0%, #4E53BD 60%, #02FFFF 100%);
+  background-image: linear-gradient(135deg, #1C1B41 0%, #4E53BD 55%, #0E8FA8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -118,4 +166,15 @@ a { text-decoration: none; }
    on-brand feel. */
 [data-theme="dark"] .brand-gradient-text {
   background-image: linear-gradient(135deg, #9CA3BA 0%, #4E53BD 50%, #02FFFF 100%);
+}
+
+/* Keyboard focus: a consistent, on-brand focus ring site-wide. Only shows for
+   keyboard navigation (:focus-visible), never on mouse click. Cyan reads on
+   the dark default; indigo on the light theme. */
+:focus-visible {
+  outline: 2px solid var(--color-xbert-cyan);
+  outline-offset: 2px;
+}
+[data-theme="light"] :focus-visible {
+  outline-color: var(--color-xbert-indigo);
 }

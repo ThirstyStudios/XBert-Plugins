@@ -78,7 +78,7 @@
       }
     ],
     "workflow": [
-      "Type /balance-sheet-explain in any Claude chat",
+      "Type /balance-sheet-explain in Claude Code or Claude Desktop",
       "Confirm the client and the comparative period (quarter end or year-end)",
       "Plugin pulls balance sheet, reconciliation status, AR/AP ageing, and manual journals",
       "Each line is walked opening-to-closing, reconciliation status flagged, FAR-to-GL checked",

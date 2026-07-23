@@ -80,7 +80,7 @@
       }
     ],
     "workflow": [
-      "Type /ias-prep in any Claude chat",
+      "Type /ias-prep in Claude Code or Claude Desktop",
       "Confirm the client and the IAS period (or accept the current open month)",
       "Plugin pulls reconciliation, payroll, PAYG-W, super and outstanding XBerts via MCP",
       "Readiness checks run and produce a blocking-issues list with W1-W5 verification",

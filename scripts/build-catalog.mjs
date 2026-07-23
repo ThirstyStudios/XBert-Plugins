@@ -130,6 +130,34 @@ try {
 
 writeFileSync(join(outDir, "changelog.json"), JSON.stringify(changelog, null, 2));
 
+// Emit sitemap.xml alongside the catalog so plugin detail URLs stay in sync.
+const SITE_ORIGIN = "https://plugins.xbert.io";
+const staticRoutes = [
+  "/",
+  "/get-started",
+  "/features",
+  "/plugins",
+  "/inside-xbert",
+  "/changelog",
+];
+const sitemapUrls = [
+  ...staticRoutes,
+  ...plugins.map((p) => `/plugins/${p.slug}`),
+];
+const today = new Date().toISOString().slice(0, 10);
+const sitemap =
+  `<?xml version="1.0" encoding="UTF-8"?>\n` +
+  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+  sitemapUrls
+    .map(
+      (path) =>
+        `  <url><loc>${SITE_ORIGIN}${path}</loc><lastmod>${today}</lastmod></url>`
+    )
+    .join("\n") +
+  `\n</urlset>\n`;
+writeFileSync(join(repoRoot, "site", "public", "sitemap.xml"), sitemap);
+console.log(`[catalog] wrote sitemap with ${sitemapUrls.length} urls -> site/public/sitemap.xml`);
+
 console.log(
   `[catalog] wrote ${plugins.length} plugin(s), ${bundles.length} bundle(s), ${comingSoonCount} coming-soon -> site/src/generated/catalog.json`
 );

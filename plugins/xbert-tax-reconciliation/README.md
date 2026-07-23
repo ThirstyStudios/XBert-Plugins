@@ -21,7 +21,7 @@ After installing, type:
 
     /tax-reconciliation
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## Scope notes
 - **Lodgement is out of scope** — this plugin produces the reconciliation worksheet only. Lodging the return belongs to your tax-agent platform.

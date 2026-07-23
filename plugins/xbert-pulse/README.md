@@ -17,7 +17,7 @@ After installing, type:
 
     /pulse
 
-in any Claude chat. Pass a client name for a deep dive:
+in Claude Code or Claude Desktop. Pass a client name for a deep dive:
 
     /pulse "Smith Trading"
 

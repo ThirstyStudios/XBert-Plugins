@@ -78,7 +78,7 @@
       }
     ],
     "workflow": [
-      "Type /close-packet in any Claude chat",
+      "Type /close-packet in Claude Code or Claude Desktop",
       "Confirm the client tenant, the period being closed, and the reporting shape (SPFS or GPFS)",
       "Plugin pulls BS, P&L, cashflow, trial balance, budget, outstanding XBerts, and material journals via the XBert MCP",
       "Variance commentary and journal narrative are drafted into the composed packet structure",

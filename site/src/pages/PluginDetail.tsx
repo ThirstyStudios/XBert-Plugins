@@ -2,7 +2,6 @@ import { useParams, Link } from "react-router";
 import { motion } from "motion/react";
 import {
   ArrowLeft,
-  ArrowRight,
   Check,
   Clock,
   Info,
@@ -23,6 +22,11 @@ import {
 } from "lucide-react";
 import { getPlugin, plugins } from "../lib/catalog";
 import { PluginCard } from "../components/PluginCard";
+import { Chip } from "../components/Chip";
+import { InstallBlock } from "../components/InstallBlock";
+import { installSnippet } from "../lib/install-snippet";
+import { usePageMeta } from "../lib/seo";
+import { pluginMeta } from "../lib/route-meta";
 
 // Map JSON icon strings -> lucide components so manifests stay declarative.
 const ICONS: Record<string, LucideIcon> = {
@@ -46,11 +50,13 @@ export default function PluginDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const p = getPlugin(slug);
 
+  usePageMeta(pluginMeta(slug));
+
   if (!p) {
     return (
       <div className="max-w-3xl mx-auto px-6 py-24">
         <p className="text-neutral-700 dark:text-neutral-300">Plugin not found.</p>
-        <Link to="/plugins" className="text-blue-500 dark:text-blue-400 hover:underline">
+        <Link to="/plugins" className="text-xbert-indigo dark:text-xbert-cyan hover:underline">
           ← Back to browse
         </Link>
       </div>
@@ -76,7 +82,7 @@ export default function PluginDetailPage() {
           to="/plugins"
           className="inline-flex items-center gap-1 text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition"
         >
-          <ArrowLeft size={14} /> All plugins
+          <ArrowLeft size={14} aria-hidden /> All plugins
         </Link>
 
         {/* HEADER */}
@@ -93,11 +99,13 @@ export default function PluginDetailPage() {
             {x.audience.map((a) => (
               <span
                 key={a}
-                className="text-[10.5px] uppercase tracking-wider px-2 py-1 rounded-full bg-blue-400/[0.10] text-blue-700 border border-blue-400/20 dark:bg-blue-400/[0.08] dark:text-blue-300 dark:border-blue-400/15"
+                className="text-[10.5px] uppercase tracking-wider px-2 py-1 rounded-full bg-xbert-indigo/[0.10] text-xbert-indigo border border-xbert-indigo/25 dark:bg-xbert-cyan/[0.08] dark:text-xbert-cyan dark:border-xbert-cyan/20"
               >
                 {a}
               </span>
             ))}
+            <Chip>Runs on the XBert MCP</Chip>
+            <Chip>Claude Code or Claude Desktop</Chip>
           </div>
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
             {x.displayName}
@@ -105,7 +113,7 @@ export default function PluginDetailPage() {
           <p className="mt-3 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl">
             {x.tagline}
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-neutral-600 dark:text-neutral-500 font-mono">
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-neutral-600 dark:text-neutral-400 font-mono">
             {p.lastUpdated && (
               <span>
                 Updated{" "}
@@ -145,6 +153,16 @@ export default function PluginDetailPage() {
               {para}
             </motion.p>
           ))}
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.4 }}
+            className="text-sm italic text-neutral-600 dark:text-neutral-400"
+          >
+            Output lands as a Word working paper in your project folder —
+            review it before anything goes to a client.
+          </motion.p>
         </section>
 
         {/* USE CASES */}
@@ -154,7 +172,7 @@ export default function PluginDetailPage() {
               <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
                 What you can do with it
               </h2>
-              <span className="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-500">
+              <span className="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
                 {x.useCases.length} use cases
               </span>
             </div>
@@ -217,7 +235,7 @@ export default function PluginDetailPage() {
                           "linear-gradient(135deg, rgba(59,130,246,0.16), rgba(6,182,212,0.10))",
                       }}
                     >
-                      <Icon size={18} className="text-blue-600 dark:text-blue-300" />
+                      <Icon size={18} aria-hidden className="text-xbert-indigo dark:text-xbert-cyan" />
                     </div>
                     <h3 className="text-base font-semibold text-neutral-900 dark:text-white">
                       {b.title}
@@ -235,13 +253,13 @@ export default function PluginDetailPage() {
         {/* WORKFLOW */}
         {x.workflow && x.workflow.length > 0 && (
           <section className="mt-20">
-            <div className="flex items-start gap-3 rounded-xl border border-blue-400/20 bg-blue-400/[0.06] dark:border-blue-400/15 dark:bg-blue-400/[0.04] px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 max-w-2xl mb-6">
-              <Info size={16} className="mt-0.5 text-blue-500 dark:text-blue-400 flex-shrink-0" />
+            <div className="flex items-start gap-3 rounded-xl border border-xbert-indigo/25 bg-xbert-indigo/[0.06] dark:border-xbert-cyan/20 dark:bg-xbert-cyan/[0.05] px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 max-w-2xl mb-6">
+              <Info size={16} aria-hidden className="mt-0.5 text-xbert-indigo dark:text-xbert-cyan flex-shrink-0" />
               <div>
                 <span className="font-medium text-neutral-900 dark:text-white">First install this plugin</span>{" "}
-                (Claude Desktop or Code) — or add it as a Skill — see{" "}
-                <a href="#install" className="text-blue-500 dark:text-blue-400 hover:underline">Install</a> below.
-                The slash command &amp; skill load automatically once installed. Then:
+                in Claude Code or Claude Desktop — see{" "}
+                <a href="#install" className="text-xbert-indigo dark:text-xbert-cyan hover:underline">Install</a> below.
+                The slash command &amp; its skills load automatically once installed. Then:
               </div>
             </div>
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
@@ -268,7 +286,7 @@ export default function PluginDetailPage() {
                 >
                   <span
                     aria-hidden
-                    className="absolute -left-12 top-0 inline-flex items-center justify-center size-9 rounded-full border border-black/15 bg-black/[0.04] text-blue-600 dark:border-white/15 dark:bg-white/[0.04] dark:text-blue-300 text-[11px] font-mono font-semibold"
+                    className="absolute -left-12 top-0 inline-flex items-center justify-center size-9 rounded-full border border-black/15 bg-black/[0.04] text-xbert-indigo dark:border-white/15 dark:bg-white/[0.04] dark:text-xbert-cyan text-[11px] font-mono font-semibold"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -299,6 +317,7 @@ export default function PluginDetailPage() {
                 >
                   <Check
                     size={16}
+                    aria-hidden
                     className="mt-1 text-emerald-500 dark:text-emerald-400 flex-shrink-0"
                   />
                   <span>{pr}</span>
@@ -308,36 +327,29 @@ export default function PluginDetailPage() {
           </section>
         )}
 
-        {/* COMPACT INSTALL CTA */}
-        <section className="mt-20 rounded-2xl border border-black/10 bg-gradient-to-br from-black/[0.03] to-black/[0.01] dark:border-white/10 dark:from-white/[0.04] dark:to-white/[0.01] p-8 md:p-10 max-w-3xl">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <div>
-              <h3 className="text-xl font-semibold tracking-tight">
-                Ready to install {x.displayName}?
-              </h3>
-              <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 max-w-md">
-                Add the XBert marketplace once, then install just this plugin
-                from the Personal tab.
-              </p>
-            </div>
-            <Link
-              to="/#install"
-              className="group inline-flex items-center gap-2 self-start md:self-auto rounded-md bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-5 py-2.5 text-sm font-semibold shadow-lg shadow-blue-500/10 ring-1 ring-black/10 dark:ring-white/40 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition flex-shrink-0"
-            >
-              See install steps
-              <ArrowRight
-                size={16}
-                strokeWidth={2.5}
-                className="transition-transform group-hover:translate-x-0.5"
-              />
-            </Link>
+        {/* INSTALL */}
+        <section id="install" className="mt-20 max-w-3xl scroll-mt-24">
+          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
+            Install this plugin
+          </h2>
+          <div className="mt-6">
+            <InstallBlock snippet={installSnippet([p.slug])} showSkipHint={false} />
           </div>
+          <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+            Add the marketplace once, then install any plugin from it.
+          </p>
         </section>
+
+        {/* FOOTER NOTE */}
+        <div className="mt-20 border-t border-black/10 dark:border-white/10 pt-6 text-xs text-neutral-600 dark:text-neutral-400">
+          Plugins add slash commands and skills on top of the XBert MCP — same
+          data, same permissions, same audit trail as asking directly.
+        </div>
 
         {/* RELATED */}
         {related.length > 0 && (
-          <section className="mt-24">
-            <h2 className="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-500 mb-4">
+          <section className="mt-12">
+            <h2 className="text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-400 mb-4">
               Other plugins
             </h2>
             <div className="grid md:grid-cols-2 gap-4">

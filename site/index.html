@@ -5,20 +5,146 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#1C1B41" />
-    <meta name="description" content="XBert is the MCP for accounting practices. Connect it to Claude and Claude Code for exception review, reconciliation, and BI on your books." />
-    <meta property="og:title" content="XBert MCP — bookkeeping AI for Claude and Claude Code" />
-    <meta property="og:description" content="XBert exposes 200+ accounting tools to Claude via the Model Context Protocol. Add it to Claude in a minute." />
+    <meta name="description" content="Connect Claude, ChatGPT or any MCP-aware assistant to XBert — 200 tools for real practice work. Ask in plain English; review before anything changes." />
+    <meta property="og:title" content="XBert MCP — every client's books, one question away" />
+    <meta property="og:description" content="Connect Claude, ChatGPT or any MCP-aware assistant to XBert — 200 tools for real practice work. Ask in plain English; review before anything changes." />
     <meta property="og:type" content="website" />
-    <title>XBert MCP — Plugins for Claude Desktop and Claude Code</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta property="og:site_name" content="XBert MCP" />
+    <meta property="og:locale" content="en_AU" />
+    <!-- No static og:url / canonical: this file is the template for every route.
+         scripts/prerender.mjs rewrites the title/description/og/twitter tags and
+         adds og:url + canonical per route at build time; seo.ts sets the same
+         tags at runtime as you navigate. -->
+    <meta property="og:image" content="https://plugins.xbert.io/og-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="XBert MCP — every client's books, one question away" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="XBert MCP — every client's books, one question away" />
+    <meta name="twitter:description" content="Connect Claude, ChatGPT or any MCP-aware assistant to XBert — 200 tools for real practice work. Ask in plain English; review before anything changes." />
+    <meta name="twitter:image" content="https://plugins.xbert.io/og-card.png" />
+    <title>XBert MCP — every client's books, one question away</title>
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="preload"
+      href="/fonts/funnel-display-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <script src="/theme-init.js"></script>
+    <script src="/analytics.js" defer></script>
+    <!-- HubSpot (same portal as www.xbert.io) -->
+    <script
+      type="text/javascript"
+      id="hs-script-loader"
+      async
+      defer
+      src="https://js.hs-scripts.com/6230812.js"
+    ></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.xbert.io/#organization",
+            "name": "XBert",
+            "legalName": "XBert Pty Ltd",
+            "url": "https://www.xbert.io",
+            "description": "AI Work Intelligence for Bookkeepers + Accountants. The intelligence layer you can trust and rely on in the agentic era.",
+            "logo": {
+              "@type": "ImageObject",
+              "@id": "https://www.xbert.io/#logo",
+              "url": "https://plugins.xbert.io/xbert-logo-landscape.svg",
+              "caption": "XBert"
+            },
+            "image": { "@id": "https://www.xbert.io/#logo" }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://plugins.xbert.io/#website",
+            "url": "https://plugins.xbert.io/",
+            "name": "XBert MCP",
+            "description": "Connect Claude, ChatGPT or any MCP-aware assistant to XBert — 200 tools for real practice work. Ask in plain English; review before anything changes.",
+            "inLanguage": "en-AU",
+            "publisher": { "@id": "https://www.xbert.io/#organization" },
+            "about": { "@id": "https://plugins.xbert.io/#xbert-mcp" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://plugins.xbert.io/#xbert-mcp",
+            "name": "XBert MCP",
+            "alternateName": "XBert Model Context Protocol server",
+            "applicationCategory": "BusinessApplication",
+            "applicationSubCategory": "MCP server",
+            "operatingSystem": "Web-based — remote MCP server over HTTP",
+            "url": "https://plugins.xbert.io/",
+            "installUrl": "https://plugins.xbert.io/get-started",
+            "inLanguage": "en-AU",
+            "description": "MCP — the Model Context Protocol — is a secure, standard way for an AI assistant to connect to the software your practice already uses and work with it on your behalf. The XBert MCP connects your assistant to XBert: live client ledger data, alerts, workflow and practice management, with 200 tools across 11 capability areas.",
+            "softwareRequirements": "An XBert account and an MCP-aware AI assistant: Claude on the web or Desktop, Claude Code, ChatGPT, or any assistant that supports MCP connectors.",
+            "softwareHelp": {
+              "@type": "CreativeWork",
+              "name": "How to add XBert as a custom MCP connector in Claude",
+              "url": "https://support.xbert.io/en/articles/14492922-how-to-add-xbert-as-a-custom-mcp-connector-in-claude"
+            },
+            "additionalProperty": [
+              { "@type": "PropertyValue", "name": "MCP address", "value": "https://mcp-gateway.xbert.io/mcp" },
+              { "@type": "PropertyValue", "name": "Transport", "value": "HTTP (streamable HTTP)" },
+              { "@type": "PropertyValue", "name": "Authentication", "value": "OAuth sign-in with an existing XBert account" },
+              { "@type": "PropertyValue", "name": "Tools", "value": "200" },
+              { "@type": "PropertyValue", "name": "Capability areas", "value": "11" }
+            ],
+            "featureList": [
+              "Invoices, quotes & receivables",
+              "Bills, POs & payables",
+              "Bank, cash & reconciliation",
+              "Payroll, employees & super",
+              "BI, ledger & financial reporting",
+              "Practice management (Xero Practice Manager)",
+              "Workflow, tasks & worklist",
+              "Client notes & communication",
+              "XBert alerts & exception review",
+              "Custom XBert automation",
+              "Accounting write-back"
+            ],
+            "audience": {
+              "@type": "Audience",
+              "audienceType": "Bookkeepers, accountants and practice managers"
+            },
+            "provider": { "@id": "https://www.xbert.io/#organization" },
+            "publisher": { "@id": "https://www.xbert.io/#organization" },
+            "isPartOf": { "@id": "https://plugins.xbert.io/#website" }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-KB86WSP"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MM4W3Q9B"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- No hand-written noscript fallback: scripts/prerender.mjs bakes the real,
+         route-specific markup into #root at build time, so non-JS clients and
+         crawlers get the actual page (nav included) rather than homepage copy. -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

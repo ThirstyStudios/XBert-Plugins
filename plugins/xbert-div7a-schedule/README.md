@@ -21,7 +21,7 @@ After installing, type:
 
     /div7a-schedule
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## Scope notes (v1 narrow)
 - **Benchmark rate is entered manually.** An ATO benchmark rate lookup capability is on the roadmap; until it ships, you enter the rate when prompted.
