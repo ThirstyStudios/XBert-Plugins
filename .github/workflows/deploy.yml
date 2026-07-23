@@ -6,6 +6,9 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches: [main]
+  # Manual re-deploy of the current main. GitHub occasionally drops the push
+  # event for a merge commit, which leaves main built but not deployed.
+  workflow_dispatch:
 
 jobs:
   build_and_deploy:
