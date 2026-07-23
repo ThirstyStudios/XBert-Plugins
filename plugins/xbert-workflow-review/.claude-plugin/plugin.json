@@ -32,7 +32,7 @@
     "prerequisites": [
       "XBert account with workflow configured",
       "At least one active client with schedules",
-      "XBert Working Paper render plugin — install it from the same marketplace with /plugin install xbert-working-paper@xbert (writes the Word document; needs Python 3.10+)"
+      "XBert Working Paper, the companion render plugin that writes the Word document — install it from this same catalogue (it needs Python 3.10+)"
     ],
     "screenshots": [],
     "demoVideo": null,

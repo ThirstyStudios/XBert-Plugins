@@ -25,7 +25,7 @@ If a Custom XBert lands later that captures any of these signals deterministical
 - XBert account
 - Client connected to a ledger
 - Anomaly XBerts linked to the Anomaly Review agent in the Connect portal
-- XBert Working Paper render plugin — `/plugin install xbert-working-paper@xbert` from the same marketplace (writes the Word document; needs Python 3.10+)
+- [XBert Working Paper](https://plugins.xbert.io/plugins/xbert-working-paper) — the companion render plugin that writes the Word document. Install it from the same marketplace with `/plugin install xbert-working-paper@xbert` (needs Python 3.10+)
 
 ## Usage
 After installing, type:

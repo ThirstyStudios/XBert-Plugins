@@ -72,7 +72,7 @@ export default function InsideXBertPage() {
         />
       ),
       title: "Open XBert. See the same workflows as first-class screens.",
-      body: "Every plugin maps to a feature inside the XBert app — Review module, Workflow, Capacity, Practice settings. Same data, same rules, persistent UI.",
+      body: "Every slash command maps to a feature inside the XBert app — Review module, Workflow, Capacity, Practice settings. Same data, same rules, persistent UI.",
       bullets: [
         {
           label: "Best for",
@@ -296,7 +296,7 @@ export default function InsideXBertPage() {
       {/* MAPPING TABLE */}
       <section className="mt-20">
         <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-          Every plugin maps to a feature in XBert
+          Every slash command maps to a feature in XBert
         </h2>
         <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 max-w-2xl">
           How each published slash command lines up with screens in the

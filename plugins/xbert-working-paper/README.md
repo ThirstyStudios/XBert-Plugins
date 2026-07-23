@@ -1,13 +1,13 @@
 # XBert Working Paper
 
-The shared render layer for XBert compliance and close plugins.
+The shared render layer behind the XBert review plugins.
 
 XBert plugins describe the methodology — what to check, what to compute, what's blocking. This plugin owns the layer underneath: bundled Python scripts that take a structured payload and write a real `.docx`, `.xlsx` or `.pdf` to your project folder, with a verification gate that fails loudly if the file didn't open cleanly.
 
 ## What it does
 
-- **render-docx** — turns a working-paper payload into a branded Word document. Uses `docxtpl` when a Jinja-tagged template exists for the plugin (`templates/<plugin>.docx`), otherwise builds the doc from scratch with `python-docx`.
-- **render-xlsx** — turns a schedule payload into a formula-live workbook with `openpyxl`. Includes the Anthropic-mandated recalc gate that fails on `#REF!` / `#DIV/0!` / `#VALUE!` / `#N/A` / `#NAME?`.
+- **render-docx** — turns a working-paper payload into a styled Word document. Uses `docxtpl` when a Jinja-tagged template exists for the plugin (`templates/<plugin>.docx`), otherwise builds the doc from scratch with `python-docx`.
+- **render-xlsx** — turns a schedule payload into a formula-live workbook with `openpyxl`. Includes the Anthropic-mandated recalc gate that scans for `#REF!` / `#DIV/0!` / `#VALUE!` / `#N/A` / `#NAME?` and fails the render if any are found.
 - **render-pdf** — converts a `.docx` produced by render-docx to PDF via LibreOffice headless, or authors a PDF from scratch with `reportlab` Platypus when the consumer plugin's output is PDF-only.
 
 Each skill emits a single JSON line on stdout after running so the verification gate can be checked deterministically — no "looks fine" outputs.
@@ -23,11 +23,11 @@ Each skill emits a single JSON line on stdout after running so the verification 
 
 ## Usage
 
-You do not normally invoke these skills directly. A consumer plugin (BAS Prep, FBT Prep, Tax Reconciliation, …) completes its analysis, emits a structured payload, and Claude picks the right render skill. Output lands in `outputs/<check-reference-id>/`.
+You do not normally invoke these skills directly, and this plugin adds no slash command of its own. A consumer plugin (XBert Anomaly Review, XBert Config Audit, XBert Workflow Review) completes its analysis, emits a structured payload, and Claude picks the right render skill. Output lands in `outputs/<check-reference-id>/`.
 
-To invoke a render skill manually:
+To run a renderer by hand, call the bundled script directly:
 
-    /xbert-working-paper:render-docx outputs/MY-RUN/payload.json outputs/MY-RUN/working-paper.docx
+    python3 skills/render-docx/scripts/render_docx.py --payload outputs/MY-RUN/payload.json --out outputs/MY-RUN/working-paper.docx
 
 Each skill's `SKILL.md` documents the payload schema in full.
 

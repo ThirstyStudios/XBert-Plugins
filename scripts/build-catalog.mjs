@@ -51,19 +51,17 @@ const TRANCHE_ONE = new Set([
   "xbert-anomaly-review",
   "xbert-config-audit",
   "xbert-workflow-review",
+  "xbert-working-paper",
 ]);
 
 const plugins = allPlugins.filter((p) => TRANCHE_ONE.has(p.slug));
 const comingSoonCount = allPlugins.length - plugins.length;
 
-let bundles = [];
-if (existsSync(bundlesPath)) {
-  try {
-    bundles = JSON.parse(readFileSync(bundlesPath, "utf8")).bundles ?? [];
-  } catch (e) {
-    console.warn(`[catalog] could not parse bundles.json: ${e.message}`);
-  }
-}
+// bundles.json is not emitted: no page renders bundles, and every bundle is
+// composed mostly of unpublished plugins, so shipping it only leaked their
+// names into the JS bundle. Re-enable here if a bundles UI is ever built —
+// filter to TRANCHE_ONE first.
+const bundles = [];
 
 const out = { plugins, bundles, comingSoonCount, generatedAt: new Date().toISOString() };
 writeFileSync(join(outDir, "catalog.json"), JSON.stringify(out, null, 2));
@@ -91,11 +89,13 @@ try {
           { cwd: repoRoot, encoding: "utf8" }
         ).trim();
         if (files) {
+          // Only published plugins are named in the changelog — an unpublished
+          // slug here would advertise work that has no page to link to.
           const slugs = new Set(
             files
               .split("\n")
               .map((f) => f.split("/")[1])
-              .filter(Boolean)
+              .filter((s) => s && TRANCHE_ONE.has(s))
           );
           pluginSlugs = Array.from(slugs);
         }

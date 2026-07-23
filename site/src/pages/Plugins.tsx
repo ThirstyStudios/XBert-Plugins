@@ -190,7 +190,7 @@ export default function PluginsPage() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="mt-5 text-sm font-mono text-neutral-600 dark:text-neutral-400"
           >
-            {plugins.length} plugins · every one powered by the XBert MCP
+            {plugins.length} plugins · powered by the XBert MCP
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 12 }}

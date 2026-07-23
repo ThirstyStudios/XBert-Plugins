@@ -65,6 +65,9 @@ export default function PluginDetailPage() {
 
   const x = p["x-xbert"];
   const related = plugins.filter((o) => o.slug !== p.slug).slice(0, 2);
+  // Plugins with no slash command are shared supporting layers — they render
+  // another plugin's output rather than calling the MCP themselves.
+  const runsOnMcp = x.includes.commands > 0;
 
   const paragraphs = (x.longDescription ?? p.description)
     .split(/\n\n+/)
@@ -104,7 +107,7 @@ export default function PluginDetailPage() {
                 {a}
               </span>
             ))}
-            <Chip>Runs on the XBert MCP</Chip>
+            <Chip>{runsOnMcp ? "Runs on the XBert MCP" : "Shared by the XBert plugins"}</Chip>
             <Chip>Claude Code or Claude Desktop</Chip>
           </div>
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
@@ -160,8 +163,8 @@ export default function PluginDetailPage() {
             transition={{ duration: 0.4 }}
             className="text-sm italic text-neutral-600 dark:text-neutral-400"
           >
-            Output lands as a Word working paper in your project folder —
-            review it before anything goes to a client.
+            Output lands as a working paper in your project folder — review it
+            before anything goes to a client.
           </motion.p>
         </section>
 
@@ -259,14 +262,16 @@ export default function PluginDetailPage() {
                 <span className="font-medium text-neutral-900 dark:text-white">First install this plugin</span>{" "}
                 in Claude Code or Claude Desktop — see{" "}
                 <a href="#install" className="text-xbert-indigo dark:text-xbert-cyan hover:underline">Install</a> below.
-                The slash command &amp; its skills load automatically once installed. Then:
+                {runsOnMcp
+                  ? " The slash command & its skills load automatically once installed. Then:"
+                  : " Its skills load automatically once installed. Then:"}
               </div>
             </div>
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
               How it works
             </h2>
             <p className="mt-2 text-neutral-700 dark:text-neutral-400">
-              The flow when you run the command — under your control at every
+              The flow from start to finish — under your control at every
               step.
             </p>
             <ol className="relative mt-10 space-y-5 pl-12 max-w-2xl">
