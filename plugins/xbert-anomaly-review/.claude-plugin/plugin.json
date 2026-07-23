@@ -30,7 +30,8 @@
     "prerequisites": [
       "XBert account",
       "Client connected to a ledger",
-      "Anomaly XBerts linked to the Anomaly Review agent in the Connect portal",
+      "Anomaly Review agent added via Automation → Agents → Browse Agents in the Connect portal",
+      "Anomaly XBerts linked to the Anomaly Review agent (Agent → Linked XBerts)",
       "XBert Working Paper, the companion render plugin that writes the Word document — install it from this same catalogue (it needs Python 3.10+)"
     ],
     "screenshots": [],
