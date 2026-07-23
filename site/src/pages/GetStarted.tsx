@@ -12,6 +12,7 @@ import { StepFlow } from "../components/StepFlow";
 import { CopyButton } from "../components/CopyButton";
 import { AskPrompt } from "../components/AskPrompt";
 import { CtaBand } from "../components/CtaBand";
+import { ThemeImage } from "../components/ThemeImage";
 
 const SETUP_GUIDE_URL =
   "https://support.xbert.io/en/articles/14492922-how-to-add-xbert-as-a-custom-mcp-connector-in-claude";
@@ -321,16 +322,16 @@ export default function GetStartedPage() {
               className="hidden lg:block"
             >
               {/* Deliberate dark accent panel: the SVG has an opaque near-black
-                  background, so on the white page it needs to read as a panel
-                  rather than a failed image. */}
-              <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-xbert-ink p-4 md:p-6 overflow-hidden">
-                <img
-                  src="/illustrations/get-started-path.svg"
-                  alt=""
-                  aria-hidden
+                  background; the light theme gets its own light-canvas
+                  variant rather than a dark slab on white. */}
+              <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-xbert-canvas dark:bg-xbert-ink p-4 md:p-6 overflow-hidden">
+                <ThemeImage
+                  lightSrc="/illustrations/get-started-path-light.svg"
+                  darkSrc="/illustrations/get-started-path.svg"
                   width={1216}
                   height={896}
-                  className="w-full h-auto block rounded-xl"
+                  loading="eager"
+                  className="w-full h-auto rounded-xl"
                 />
               </div>
             </motion.div>

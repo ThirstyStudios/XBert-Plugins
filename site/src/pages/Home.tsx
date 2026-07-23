@@ -22,6 +22,7 @@ import { FaqItem, FaqJsonLd } from "../components/FaqItem";
 import { CtaBand } from "../components/CtaBand";
 import { AddressChip, MCP_ADDRESS } from "../components/AddressChip";
 import { QuoteCard } from "../components/QuoteCard";
+import { ThemeImage } from "../components/ThemeImage";
 
 const SETUP_GUIDE_URL =
   "https://support.xbert.io/en/articles/14492922-how-to-add-xbert-as-a-custom-mcp-connector-in-claude";
@@ -226,13 +227,13 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="hidden lg:block rounded-2xl border border-black/10 dark:border-white/10 overflow-hidden"
             >
-              <img
-                src="/illustrations/hero-network-a.svg"
-                alt=""
-                aria-hidden
+              <ThemeImage
+                lightSrc="/illustrations/hero-network-a-light.svg"
+                darkSrc="/illustrations/hero-network-a.svg"
                 width={1344}
                 height={768}
-                className="w-full h-auto block"
+                loading="eager"
+                className="w-full h-auto"
               />
             </motion.div>
           </div>
@@ -522,17 +523,14 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.45 }}
-            className="rounded-2xl border border-black/10 dark:border-white/10 bg-xbert-ink p-4 md:p-6 overflow-hidden"
+            className="rounded-2xl border border-black/10 dark:border-white/10 bg-xbert-canvas dark:bg-xbert-ink p-4 md:p-6 overflow-hidden"
           >
-            <img
-              src="/illustrations/plugins-blocks.svg"
-              alt=""
-              aria-hidden
+            <ThemeImage
+              lightSrc="/illustrations/plugins-blocks-light.svg"
+              darkSrc="/illustrations/plugins-blocks.svg"
               width={1216}
               height={896}
-              loading="lazy"
-              decoding="async"
-              className="w-full h-auto block rounded-xl"
+              className="w-full h-auto rounded-xl"
             />
           </motion.div>
         </div>
