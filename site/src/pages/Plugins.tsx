@@ -8,6 +8,7 @@ import { PluginCard } from "../components/PluginCard";
 import { Chip } from "../components/Chip";
 import { SectionHeading } from "../components/SectionHeading";
 import { InstallBlock } from "../components/InstallBlock";
+import { ThemeImage } from "../components/ThemeImage";
 import { usePageMeta } from "../lib/seo";
 import { ROUTE_META } from "../lib/route-meta";
 
@@ -207,14 +208,13 @@ export default function PluginsPage() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="hidden lg:block"
         >
-          <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-xbert-ink p-4 md:p-6 overflow-hidden">
-            <img
-              src="/illustrations/plugins-blocks.svg"
-              alt=""
-              aria-hidden
+          <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-xbert-canvas dark:bg-xbert-ink p-4 md:p-6 overflow-hidden">
+            <ThemeImage
+              lightSrc="/illustrations/plugins-blocks-light.svg"
+              darkSrc="/illustrations/plugins-blocks.svg"
               width={1216}
               height={896}
-              className="block w-full h-auto rounded-xl"
+              className="w-full h-auto rounded-xl"
             />
           </div>
         </motion.div>

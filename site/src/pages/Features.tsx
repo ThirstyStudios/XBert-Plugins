@@ -10,6 +10,7 @@ import { StepFlow } from "../components/StepFlow";
 import { CapabilityCard } from "../components/CapabilityCard";
 import { QuoteCard } from "../components/QuoteCard";
 import { CtaBand } from "../components/CtaBand";
+import { ThemeImage } from "../components/ThemeImage";
 
 interface Area {
   id: string;
@@ -252,10 +253,12 @@ export default function FeaturesPage() {
             transition={{ duration: 0.6, delay: 0.35, ease: "easeOut" }}
             className="mt-14 rounded-2xl border border-black/10 dark:border-white/10 overflow-hidden aspect-[16/6]"
           >
-            <img
-              src="/illustrations/features-banner.svg"
-              alt=""
-              aria-hidden
+            <ThemeImage
+              lightSrc="/illustrations/features-banner-light.svg"
+              darkSrc="/illustrations/features-banner.svg"
+              width={1344}
+              height={756}
+              loading="eager"
               className="w-full h-full object-cover"
             />
           </motion.div>
