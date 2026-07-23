@@ -20,7 +20,7 @@ After installing, type:
 
     /instalment-variation
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## Scope notes
 - v1 capability gap: an ATO benchmark rate lookup capability is not yet available — the user supplies the GIC rate manually. The recommendation engine doesn't depend on this; only the GIC dollar projection does.

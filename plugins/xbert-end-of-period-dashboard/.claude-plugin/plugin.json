@@ -82,7 +82,7 @@
       }
     ],
     "workflow": [
-      "Type /end-of-period-dashboard in any Claude chat",
+      "Type /end-of-period-dashboard in Claude Code or Claude Desktop",
       "Choose the cadence (month, quarter or year) and the Connect tenant",
       "Plugin pulls clients, workflow status, data quality, lock-dates, reconciliation status and validation results via XBert MCP",
       "Per-client readiness is computed, deadlines are checked, blockers are named",

@@ -77,7 +77,7 @@
       }
     ],
     "workflow": [
-      "Type /firm-inbox-triage in any Claude chat",
+      "Type /firm-inbox-triage in Claude Code or Claude Desktop",
       "Connect Gmail or M365 via Claude Code connector if not already connected",
       "Plugin scans recent unread/unread-this-period threads, matches each sender to a client tenant where possible",
       "For each thread: category, priority score, current XBert state for the matched client",

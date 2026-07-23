@@ -76,7 +76,7 @@
       }
     ],
     "workflow": [
-      "Type /ar-cadence in any Claude chat",
+      "Type /ar-cadence in Claude Code or Claude Desktop",
       "Confirm the client tenant (and the firm's tone preference if not yet set)",
       "Plugin pulls aged AR and per-debtor payment history via the XBert MCP",
       "For each debtor: predicted pay-date is computed from historic latency; recommended reminder window is set; reminder text is drafted in the firm's tone",

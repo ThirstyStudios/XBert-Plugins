@@ -77,7 +77,7 @@
       }
     ],
     "workflow": [
-      "Type /trial-balance-alignment in any Claude chat",
+      "Type /trial-balance-alignment in Claude Code or Claude Desktop",
       "Confirm the client and upload the financial statements PDF",
       "Plugin pulls the trial balance from XBert and extracts the FS via semantic extraction",
       "The four-case matching engine runs and surfaces all unmatched lines with proposed actions",

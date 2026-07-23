@@ -81,7 +81,7 @@
       }
     ],
     "workflow": [
-      "Type /stp-finalisation in any Claude chat",
+      "Type /stp-finalisation in Claude Code or Claude Desktop",
       "Confirm the client and the financial year (defaults to year ending 30 June just past)",
       "Plugin pulls payrun history, employee classifications and STP submission references via MCP",
       "Per-employee YTD reconciliation runs against payroll reports; Phase 2 classification verified",

@@ -1,6 +1,9 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { changelog, getPlugin } from "../lib/catalog";
+import { changelog, getPlugin, plugins } from "../lib/catalog";
+import type { ChangelogEntry } from "../lib/catalog";
+import { usePageMeta } from "../lib/seo";
+import { ROUTE_META } from "../lib/route-meta";
 
 function formatDate(iso: string): string {
   const d = new Date(iso + "T00:00:00");
@@ -11,7 +14,35 @@ function formatDate(iso: string): string {
   });
 }
 
+const PUBLISHED = new Set(plugins.map((p) => p.slug));
+const HOUSEKEEPING = /^(chore|ci|build|docs|refactor|test|style)(\([^)]*\))?:/i;
+const CONVENTIONAL_PREFIX = /^[a-z]+(\([^)]*\))?:\s*/i;
+
+/**
+ * The generated feed is raw git commit subjects, so it has to be curated
+ * before it faces customers: keep the first subject only, strip the
+ * conventional-commit prefix, drop merges/housekeeping/one-word commits, and
+ * only ever name plugins that are actually published in the catalogue.
+ */
+function curate(entry: ChangelogEntry): ChangelogEntry | null {
+  const subject = entry.message.split(";")[0].trim();
+  if (!subject) return null;
+  if (/^merge /i.test(subject)) return null;
+  if (HOUSEKEEPING.test(subject)) return null;
+  const message = subject.replace(CONVENTIONAL_PREFIX, "").trim();
+  if (message.length < 12) return null;
+  const pluginSlugs = entry.plugins.filter((slug) => PUBLISHED.has(slug));
+  if (pluginSlugs.length === 0) return null;
+  return { ...entry, message, plugins: pluginSlugs };
+}
+
+const entries = changelog
+  .map(curate)
+  .filter((e): e is ChangelogEntry => e !== null);
+
 export default function ChangelogPage() {
+  usePageMeta(ROUTE_META.changelog);
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-16">
       <motion.div
@@ -23,12 +54,13 @@ export default function ChangelogPage() {
           Changelog
         </h1>
         <p className="mt-2 text-neutral-700 dark:text-neutral-400">
-          Recent updates to XBert plugins.
+          Every update to the XBert MCP, its tools and the plugins. Newest
+          first.
         </p>
       </motion.div>
 
       <div className="mt-12 space-y-10">
-        {changelog.map((entry, i) => (
+        {entries.map((entry, i) => (
           <motion.div
             key={entry.date}
             initial={{ opacity: 0, y: 10 }}
@@ -66,7 +98,7 @@ export default function ChangelogPage() {
             )}
           </motion.div>
         ))}
-        {changelog.length === 0 && (
+        {entries.length === 0 && (
           <div className="rounded-2xl border border-dashed border-black/10 dark:border-white/10 p-12 text-center text-neutral-700 dark:text-neutral-400">
             No changelog entries yet.
           </div>

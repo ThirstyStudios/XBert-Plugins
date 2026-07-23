@@ -78,7 +78,7 @@
       }
     ],
     "workflow": [
-      "Type /practice-health-check in any Claude chat",
+      "Type /practice-health-check in Claude Code or Claude Desktop",
       "Confirm the Connect tenant, cohort scope and drill-down count (default 10 worst)",
       "Plugin pulls data-quality scores, notification summaries, client connections and Connect account review via XBert MCP",
       "Portfolio is banded, diagnostic and prescriptive recommendations are generated per client",

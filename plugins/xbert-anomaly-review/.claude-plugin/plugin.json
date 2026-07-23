@@ -30,8 +30,9 @@
     "prerequisites": [
       "XBert account",
       "Client connected to a ledger",
-      "Anomaly XBerts linked to the Anomaly Review agent in the Connect portal",
-      "XBert Working Paper companion plugin installed (renders the Word document)"
+      "Anomaly Review agent added via Automation → Agents → Browse Agents in the Connect portal",
+      "Anomaly XBerts linked to the Anomaly Review agent (Agent → Linked XBerts)",
+      "XBert Working Paper, the companion render plugin that writes the Word document — install it from this same catalogue (it needs Python 3.10+)"
     ],
     "screenshots": [],
     "demoVideo": null,
@@ -73,11 +74,11 @@
       {
         "icon": "FileText",
         "title": "Audit-ready evidence pack",
-        "description": "Hyperlinked workpaper from each firing down to the source XBert and the underlying Bill / BankTransaction / Invoice — filable straight into the client folder."
+        "description": "Word working paper carrying every firing with its source XBert reference and the underlying Bill / BankTransaction / Invoice — filable straight into the client folder."
       }
     ],
     "workflow": [
-      "Type /anomaly-review in any Claude chat",
+      "Type /anomaly-review in Claude Code or Claude Desktop",
       "Plugin checks the Anomaly Review agent is set up in your Connect portal with linked Custom XBerts — if not, it stops and walks you through the setup instead of reviewing generic worklist data",
       "Confirm the client and the review period",
       "Plugin pulls the period's firings from the linked anomaly XBerts and verifies each one against the underlying records (e.g. ABN/address on duplicate contacts, current outstanding amount on overdue invoices)",

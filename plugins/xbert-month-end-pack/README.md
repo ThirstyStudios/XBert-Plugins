@@ -19,7 +19,7 @@ After installing, type:
 
     /month-end-pack
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## Support
 hello@xbert.io

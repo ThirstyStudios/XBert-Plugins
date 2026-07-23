@@ -20,7 +20,7 @@ After installing, type:
 
     /fs-pack
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## Scope notes
 - Default structure is **SPFS** (small proprietary company). Use the GPFS variant for audit-bound clients.

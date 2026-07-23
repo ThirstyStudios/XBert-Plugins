@@ -76,7 +76,7 @@
       }
     ],
     "workflow": [
-      "Type /payroll-close in any Claude chat",
+      "Type /payroll-close in Claude Code or Claude Desktop",
       "Confirm the client, the mode (pre-run, post-run, or period review), and the period",
       "Plugin pulls the employee census, every pay run in range regardless of status, payslips, settings, leave, GL and bank-rec data via the XBert MCP",
       "Structured report: coverage statement, blockers, warnings, clean counts, and an explicit 'Not checked — verify in the ledger' list",

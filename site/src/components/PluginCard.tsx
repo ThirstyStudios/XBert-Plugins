@@ -50,7 +50,8 @@ export function PluginCard({ plugin, index = 0 }: Props) {
           </div>
           <ArrowUpRight
             size={18}
-            className="mt-1 text-neutral-500 transition-all group-hover:text-neutral-900 dark:group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            aria-hidden
+            className="mt-1 text-neutral-500 dark:text-neutral-400 transition-all group-hover:text-neutral-900 dark:group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           />
         </div>
 
@@ -65,7 +66,7 @@ export function PluginCard({ plugin, index = 0 }: Props) {
           ))}
         </div>
 
-        <div className="mt-5 flex items-center gap-3 text-[11px] text-neutral-500 font-mono">
+        <div className="mt-5 flex items-center gap-3 text-[11px] text-neutral-500 dark:text-neutral-400 font-mono">
           {plugin.lastUpdated && (
             <>
               <span>{formatRelativeDate(plugin.lastUpdated)}</span>

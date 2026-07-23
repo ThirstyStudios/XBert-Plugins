@@ -76,7 +76,7 @@
       }
     ],
     "workflow": [
-      "Type /payment-run in any Claude chat",
+      "Type /payment-run in Claude Code or Claude Desktop",
       "Confirm the client tenant, the pay window (default: due in next 7 days + all overdue), and the payment bank account",
       "Plugin pulls aged payables, applies inclusion/exclusion logic, and groups by supplier via the XBert MCP",
       "Pay schedule appears in chat with included/excluded bills, supplier groupings, and total amount",

@@ -77,7 +77,7 @@
       }
     ],
     "workflow": [
-      "Type /client-fee-review in any Claude chat",
+      "Type /client-fee-review in Claude Code or Claude Desktop",
       "Confirm scope: Connect tenant, cohort filter, review period (default = last 12 months)",
       "Plugin pulls timesheets, client config and ledger volume summaries via XBert MCP",
       "Per-client evidence is assembled, clients are categorised into increase / stable / decrease / insufficient-data",

@@ -9,7 +9,7 @@ Surface every anomaly XBert that fired across the period as a flat ranked list, 
 - Presents them as a ranked list: posting date, doc number, vendor, amount, account, the XBert that fired and its reason, the verification result, the recurrence count by vendor or account, the recommended next action
 - Flags XBerts whose firings contradict their intent, with a suggested prompt refinement to apply in the XBert portal
 - Optionally sub-groups on deterministic facets (by vendor, by account, by period bucket) where the list is long
-- Produces an evidence pack with hyperlinks back to every source XBert firing, stamped with the plugin version that produced it
+- Produces a Word working paper carrying the source XBert reference for every firing, stamped with the plugin version that produced it
 
 ## What it explicitly does NOT do (no backing data in MCP today)
 - Identify the posting user / created-by-user (no user property on any data type)
@@ -26,14 +26,14 @@ If a Custom XBert lands later that captures any of these signals deterministical
 - Client connected to a ledger
 - Anomaly Review agent added via **Automation → Agents → Browse Agents** in the Connect portal
 - Anomaly XBerts linked to the Anomaly Review agent (Agent → Linked XBerts)
-- XBert Working Paper companion plugin installed (renders the Word document)
+- [XBert Working Paper](https://plugins.xbert.io/plugins/xbert-working-paper) — the companion render plugin that writes the Word document. Install it from the same marketplace with `/plugin install xbert-working-paper@xbert` (needs Python 3.10+)
 
 ## Usage
 After installing, type:
 
     /anomaly-review
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## Support
 hello@xbert.io

@@ -20,7 +20,7 @@ After installing, type:
 
     /trial-balance-alignment
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## Scope notes
 - v1 supports **Xero trial balance exports + PDF financial statements only**. Other ledgers are planned for v2.

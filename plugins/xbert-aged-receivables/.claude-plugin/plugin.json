@@ -77,7 +77,7 @@
       }
     ],
     "workflow": [
-      "Type /aged-receivables in any Claude chat",
+      "Type /aged-receivables in Claude Code or Claude Desktop",
       "Confirm the client tenant and the ageing focus (top 10, top 20, all > $5k, etc.)",
       "Plugin pulls the aged receivables report, contact records, and outstanding invoices via the XBert MCP",
       "Prioritised call list appears in chat with named debtors, amounts, ageing bucket, contact details, and attention flag",

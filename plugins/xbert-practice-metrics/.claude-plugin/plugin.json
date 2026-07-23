@@ -78,7 +78,7 @@
       }
     ],
     "workflow": [
-      "Type /practice-metrics in any Claude chat",
+      "Type /practice-metrics in Claude Code or Claude Desktop",
       "Confirm Connect tenant and reporting month (default = previous calendar month)",
       "Plugin pulls timesheets, invoices, aged receivables and client data via XBert MCP",
       "Metrics are computed, prior-month variance is calculated, RAG bands are assigned",

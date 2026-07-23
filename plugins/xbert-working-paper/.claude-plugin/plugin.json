@@ -1,7 +1,7 @@
 {
   "name": "xbert-working-paper",
   "displayName": "XBert Working Paper",
-  "description": "Shared rendering skills that turn a structured XBert plugin payload into a Word, Excel or PDF working paper saved to your project folder. Required by every compliance and close plugin that emits a file artefact.",
+  "description": "Shared rendering skills that turn a structured XBert plugin payload into a Word, Excel or PDF working paper saved to your project folder. Install it alongside the XBert review plugins — they hand their findings to it.",
   "author": {
     "name": "XBert Intelligence",
     "email": "hello@xbert.io"
@@ -19,7 +19,7 @@
   ],
   "x-xbert": {
     "displayName": "XBert Working Paper",
-    "tagline": "The render layer every XBert compliance and close plugin shares — structured payload in, branded working paper out.",
+    "tagline": "The shared render layer behind the XBert review plugins — structured payload in, a Word, Excel or PDF working paper out.",
     "audience": [
       "bookkeepers",
       "accountants",
@@ -30,8 +30,10 @@
       "rendering"
     ],
     "prerequisites": [
-      "Python 3.10+ available on PATH",
-      "Pip-installable packages: python-docx, openpyxl, reportlab (the skill installs them on first run if missing)"
+      "One of the XBert review plugins installed as well — this one renders their output and is not run on its own",
+      "Python 3.10 or newer, available on your PATH — the render scripts run on it",
+      "The Python packages python-docx, openpyxl and reportlab — the render skills install these for you the first time they are needed",
+      "LibreOffice is optional but recommended: it recalculates Excel formulas and converts a Word working paper to PDF. Without it, those two steps stop and tell you what to install rather than guessing."
     ],
     "screenshots": [],
     "demoVideo": null,
@@ -40,44 +42,48 @@
       "commands": 0,
       "mcpTools": 0
     },
-    "longDescription": "XBert compliance and close plugins (BAS Prep, FBT Prep, STP Finalisation, Tax Reconciliation, Close Packet, Audit Evidence Pack, and the rest) describe accounting methodology. They produce a structured payload — sections, headings, supporting figures, blocking issues, QMS metadata. This plugin owns the layer underneath: bundled Python scripts that take that payload and write a real .docx, .xlsx or .pdf to your project folder, with a verification gate that fails loudly if the file didn't open cleanly.\n\nThe three skills follow May 2026 Anthropic skill conventions: each is invoked via its slash command (`/xbert-working-paper:render-docx`, `:render-xlsx`, `:render-pdf`) or auto-discovered when a consumer plugin emits a render request. Output paths are predictable (`outputs/<run-id>/`), validation is mandatory before reporting success, and the skill body stays under 500 lines. You do not need to read this plugin's SKILL files to use the consumer plugins — Claude picks the right renderer when a compliance plugin completes.",
+    "longDescription": "XBert Anomaly Review, XBert Config Audit and XBert Workflow Review each work out what to check and what it means. None of them writes the file. This plugin owns that last step: three skills with bundled Python scripts that take the structured payload a review plugin produces — cover details, sections, tables, blocking flags, the quality-management block — and write a real .docx, .xlsx or .pdf into your project folder.\n\nEvery render finishes with a verification gate. The script re-opens the file it just wrote, checks it parses and is a sensible size, and emits a single line of JSON saying so. Claude is instructed not to report a working paper as produced until that JSON comes back ok, so \"the document is ready\" is a checked fact rather than an assumption. The spreadsheet renderer adds a recalculation pass and scans every cell for error values before it will pass.\n\nYou do not run these skills yourself and you do not need to read them. Install this plugin alongside whichever review plugin you are using; when that plugin finishes its analysis, Claude picks the right renderer, writes the file to outputs/<check reference>/ in your project folder, and reports the exact path back. Documents come out styled the same way every time — same fonts and colours, and the same cover block carrying client, period, check reference, preparer and the plugin version that produced it — so papers from different plugins file together.",
     "useCases": [
       {
-        "title": "Foundation for compliance plugins",
-        "description": "BAS, IAS, FBT, VAT, GST-NZ, STP, Super, TPAR, MTD all emit a working-paper payload and hand off to render-docx. One renderer, one branded template family, every compliance check produces a consistent file."
+        "title": "One Word format across every review",
+        "description": "Anomaly Review, Config Audit and Workflow Review all hand their findings to the same Word renderer, so a config audit and an anomaly review file side by side and read the same way."
       },
       {
-        "title": "Foundation for close plugins",
-        "description": "Close Packet, Month-End Pack, FS Pack, Trial Balance Alignment, Balance Sheet Explain all use render-docx for the narrative and render-xlsx for the schedules."
+        "title": "Schedules that stay live in Excel",
+        "description": "The Excel renderer writes formulas rather than pasted results, so a schedule can be re-footed or extended once it is open. Every cell is scanned for error values and the render is failed if any turn up."
       },
       {
-        "title": "Foundation for review plugins",
-        "description": "Audit Evidence Pack and Anomaly Review hand off to render-docx with hyperlinked sections that deep-link back to the source XBerts."
+        "title": "A fixed PDF copy to send out",
+        "description": "The PDF renderer converts a finished Word working paper via LibreOffice with its styling intact, so what you send out is a PDF rather than an editable Word file."
+      },
+      {
+        "title": "Your own document template",
+        "description": "Drop a Jinja-tagged .docx named after the consumer plugin into the render-docx templates folder and it is used instead of the built-in layout, so working papers come out on your firm's template."
       }
     ],
     "benefits": [
       {
         "icon": "FileText",
-        "title": "Real files on disk",
-        "description": "render-docx writes a .docx, render-xlsx writes a formula-live .xlsx, render-pdf writes a .pdf. Output path is reported back so you can open or attach immediately."
+        "title": "Real files, not chat output",
+        "description": "render-docx writes a .docx, render-xlsx a formula-live .xlsx, render-pdf a .pdf. Each lands in your project folder and the exact path is reported back, so you can open or attach it straight away."
       },
       {
         "icon": "ShieldCheck",
-        "title": "Verification gate is mandatory",
-        "description": "Every render ends with a structured check (file exists, round-trip open succeeds, no #REF!/#DIV/0! in spreadsheets). The skill does not report success until the check returns ok."
+        "title": "Nothing is called done until it opens",
+        "description": "Every render ends by re-opening the file and returning a structured result — exists, opens cleanly, sensible size, no error cells in a workbook. Claude is told not to claim success until that check returns ok."
       },
       {
         "icon": "GitBranch",
-        "title": "One layer, every plugin",
-        "description": "30+ XBert compliance and close plugins share these three skills. Branding, footers, QMS block, output folder convention — fixed once, inherited everywhere."
+        "title": "One layer, shared by every plugin",
+        "description": "Styling, the cover block, the quality-management section and the outputs/<check reference>/ folder convention are defined once here and inherited by every plugin that renders through it."
       }
     ],
     "workflow": [
-      "Install or update this plugin alongside the consumer plugins that need it",
-      "Run a compliance or close plugin (for example /bas-prep) — it completes its readiness work and emits a working-paper payload",
-      "Claude picks render-docx (or render-xlsx, render-pdf) and runs the bundled Python script with the payload",
-      "Output file is written to outputs/<check-reference-id>/ in your project folder and the path is reported back",
-      "Verification gate runs — round-trip open + structure check — and only then is the deliverable reported complete"
+      "Install this plugin alongside the review plugin you want to use — it adds no command of its own, its skills load automatically",
+      "Run the review plugin (for example /config-audit) — it completes its analysis and produces a working-paper payload",
+      "Claude saves the payload and picks the matching renderer: render-docx for the narrative, render-xlsx for schedules, render-pdf for a fixed copy",
+      "The bundled Python script writes the file to outputs/<check reference>/ in your project folder",
+      "The verification gate re-opens the file and returns a structured result — only then is the working paper reported complete, with its exact path"
     ]
   }
 }

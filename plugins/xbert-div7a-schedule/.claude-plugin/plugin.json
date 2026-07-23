@@ -76,7 +76,7 @@
       }
     ],
     "workflow": [
-      "Type /div7a-schedule in any Claude chat",
+      "Type /div7a-schedule in Claude Code or Claude Desktop",
       "Confirm the client, the income year, and enter the ATO benchmark rate (v1: manual)",
       "Plugin pulls balance sheet, journal master, and shareholder/related-party contacts",
       "Each loan is walked opening to closing with minimum repayment calc",

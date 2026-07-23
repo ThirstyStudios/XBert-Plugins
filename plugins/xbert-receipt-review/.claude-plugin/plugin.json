@@ -78,7 +78,7 @@
       }
     ],
     "workflow": [
-      "Type /receipt-review in any Claude chat",
+      "Type /receipt-review in Claude Code or Claude Desktop",
       "Confirm the client and the review period (default: prior week)",
       "Plugin resolves the linked receipt XBerts for the period — if none are linked, the review stops and the user is prompted to configure linked XBerts first",
       "High-confidence proposed matches are grouped for batch approval",

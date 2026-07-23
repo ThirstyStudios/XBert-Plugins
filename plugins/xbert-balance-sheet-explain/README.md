@@ -20,7 +20,7 @@ After installing, type:
 
     /balance-sheet-explain
 
-in any Claude chat (Desktop or Code).
+in Claude Code or Claude Desktop.
 
 ## Scope notes
 - Read-only. Every clean-up journal is **proposed** — nothing is auto-posted.

@@ -79,7 +79,7 @@
       }
     ],
     "workflow": [
-      "Type /fbt-prep in any Claude chat",
+      "Type /fbt-prep in Claude Code or Claude Desktop",
       "Confirm the client and the FBT year (1 April to 31 March, defaults to most recently completed)",
       "Plugin pulls P&L, balance sheet, fixed asset register and trial balance via MCP",
       "Trigger scan runs across expense accounts; liability estimated with gross-up applied",

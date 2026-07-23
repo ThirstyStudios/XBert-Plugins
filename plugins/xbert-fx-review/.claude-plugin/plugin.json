@@ -77,7 +77,7 @@
       }
     ],
     "workflow": [
-      "Type /fx-review in any Claude chat",
+      "Type /fx-review in Claude Code or Claude Desktop",
       "Confirm the client and the review period (default: current open period)",
       "Plugin resolves the linked FX XBerts for the period — if none are linked, the review stops and the user is prompted to configure linked XBerts first",
       "A per-balance list of surfaced foreign-currency exposures is presented with the current foreign-currency amount and current base-currency value",

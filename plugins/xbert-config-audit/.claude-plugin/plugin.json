@@ -33,7 +33,7 @@
       "XBert account with multiple client tenants in a Connect",
       "Workflow and XBert configurations active on at least some clients",
       "Practice owner or manager-level access to the Connect",
-      "XBert Working Paper companion plugin installed (renders the Word document)"
+      "XBert Working Paper, the companion render plugin that writes the Word document — install it from this same catalogue (it needs Python 3.10+)"
     ],
     "screenshots": [],
     "demoVideo": null,
@@ -79,7 +79,7 @@
       }
     ],
     "workflow": [
-      "Type /config-audit in any Claude chat",
+      "Type /config-audit in Claude Code or Claude Desktop",
       "Confirm the Connect tenant and the client segmentation rule (default = by industry tag, fallback = whole book)",
       "Plugin pulls the Connect account review, configuration assignments and rule list via XBert MCP",
       "Per-segment fingerprints are computed, inconsistencies / gaps / drift are classified",

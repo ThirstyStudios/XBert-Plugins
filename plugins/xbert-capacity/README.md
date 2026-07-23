@@ -17,7 +17,7 @@ After installing, type:
 
     /capacity
 
-in any Claude chat. Optional flags:
+in Claude Code or Claude Desktop. Optional flags:
 
     /capacity --client "Smith Trading"
     /capacity --export

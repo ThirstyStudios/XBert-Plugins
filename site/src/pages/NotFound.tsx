@@ -1,9 +1,15 @@
 import { Link } from "react-router";
+import { usePageMeta } from "../lib/seo";
+import { ROUTE_META } from "../lib/route-meta";
 
 export default function NotFoundPage() {
+  usePageMeta(ROUTE_META.notFound);
+
   return (
     <div className="max-w-3xl mx-auto px-6 py-32 text-center">
-      <div className="text-7xl font-semibold tracking-tight text-neutral-400 dark:text-neutral-700">404</div>
+      <h1 className="text-7xl font-semibold tracking-tight text-neutral-400 dark:text-neutral-700">
+        404
+      </h1>
       <p className="mt-4 text-neutral-600 dark:text-neutral-400">That page doesn't exist.</p>
       <Link
         to="/"

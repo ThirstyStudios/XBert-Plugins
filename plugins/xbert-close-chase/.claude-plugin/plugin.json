@@ -77,7 +77,7 @@
       }
     ],
     "workflow": [
-      "Type /close-chase in any Claude chat",
+      "Type /close-chase in Claude Code or Claude Desktop",
       "Confirm the client and the close period",
       "Plugin pulls ALL outstanding XBerts for the client (close-chase covers every issue, not a curated subset)",
       "The chase list is ranked by impact and age",

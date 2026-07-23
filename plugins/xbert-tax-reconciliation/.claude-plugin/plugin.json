@@ -76,7 +76,7 @@
       }
     ],
     "workflow": [
-      "Type /tax-reconciliation in any Claude chat",
+      "Type /tax-reconciliation in Claude Code or Claude Desktop",
       "Confirm the client, the entity type (company / trust / partnership), and the year-end date",
       "Plugin pulls financial statements, TB, P&L, BS, and journal master",
       "Reconciliation walks from accounting profit through adjustments to taxable income",

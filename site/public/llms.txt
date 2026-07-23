@@ -1,0 +1,154 @@
+# XBert MCP
+
+> The XBert MCP connects an AI assistant — Claude (web and Desktop), Claude Code, ChatGPT or any other MCP-aware assistant — to XBert: live client ledger data, alerts, workflow and practice management for bookkeeping and accounting practices. It exposes 200 tools across 11 capability areas; you ask in plain English, and anything that would change the books is proposed for your review rather than applied automatically.
+
+- MCP address: https://mcp-gateway.xbert.io/mcp
+- Site: https://plugins.xbert.io
+- Product: XBert — AI Work Intelligence for Bookkeepers + Accountants (https://www.xbert.io)
+- Publisher: XBert Pty Ltd
+
+## What is the XBert MCP?
+
+MCP stands for Model Context Protocol — a standard, secure way for an AI assistant like Claude or ChatGPT to connect to software your practice already uses and work with it on your behalf. The XBert MCP connects your assistant to XBert: live client ledger data, alerts, workflow and practice management. You ask in plain English; the assistant uses XBert's 200 tools to answer, and to draft work for your review.
+
+Think of it as the plumbing between your assistant and your clients' books: you never see it, you just ask a question and the answer comes back from the actual ledger — not from the assistant's imagination.
+
+Key facts:
+
+- Address: https://mcp-gateway.xbert.io/mcp (a remote MCP server; if your assistant asks for a transport type, choose HTTP, sometimes shown as "streamable HTTP").
+- Works with: Claude on the web and Claude Desktop (Settings → Connectors, labelled Integrations on some plans), Claude Code, ChatGPT, and any other assistant that supports MCP connectors.
+- Sign-in: OAuth with your existing XBert account. No new account, no API keys, no code. Your credentials stay with XBert — the assistant never sees your password.
+- Permissions: the assistant inherits the signed-in user's XBert role. If you can't see a client in XBert, your assistant can't either.
+- Accounting systems reached through XBert: Xero, QuickBooks, MYOB, FreeAgent, and Xero Practice Manager.
+- Safety: write actions are validated, checked for duplicates and proposed for your review before anything is submitted. Every action carries an audit trail. Remove or disable the connector in your assistant's settings and the connection is gone.
+- Answer shape: data tools follow a Summary → Search → Get pattern, so the assistant can answer both "how much?" and "show me the exact records".
+- Audience: bookkeepers, accountants and practice managers (Australia, New Zealand and the UK), plus technical users working in Claude Code.
+
+## Connected in three steps
+
+1. **Point your assistant at XBert.** In your assistant's settings, add a connector with one address: https://mcp-gateway.xbert.io/mcp
+   - Claude (web & Desktop): Settings → Connectors → Add custom connector → name it XBert, paste the address, add it, then select Connect.
+   - Claude Code: run `claude mcp add --transport http xbert https://mcp-gateway.xbert.io/mcp`, then run `/mcp` in your next session and complete the sign-in.
+   - Other MCP-aware assistants: add a remote MCP server with the address above.
+2. **Sign in to approve.** A browser window opens and you sign in with your XBert account. The assistant gets your permissions — no more, no less.
+3. **Start asking.** Type the question the way you'd ask a colleague, for example: "Who owes us the most right now, across every client?"
+
+Setup takes about five minutes. Illustrated step-by-step guide: https://support.xbert.io/en/articles/14492922-how-to-add-xbert-as-a-custom-mcp-connector-in-claude
+
+Before you begin you need three things: an XBert account with your clients' files connected as usual; an assistant that speaks MCP; and your normal XBert login (the assistant signs in as you and can only see what your XBert role allows).
+
+## The 11 capability areas
+
+Areas marked "proposes changes" can draft work that alters data — those changes are always proposed for your approval, never auto-applied.
+
+1. **Invoices, quotes & receivables** (https://plugins.xbert.io/features#receivables) — every invoice, quote, credit note, overpayment and prepayment; quick totals first, then the full paper trail with line items. Aged receivables summaries show who owes what, and for how long.
+2. **Bills, POs & payables** (https://plugins.xbert.io/features#payables) — supplier bills, purchase orders, payments and batch payment runs, plus aged payables, so "what do we owe and when?" is a question, not an afternoon.
+3. **Bank, cash & reconciliation** (https://plugins.xbert.io/features#bank) — bank transactions from quick aggregates down to individual records, a cash-flow summary, and month-by-month activity.
+4. **Payroll, employees & super** (https://plugins.xbert.io/features#payroll) — employees with their leave, tax, super and bank details; pay runs and payslips; leave applications; STP Phase 2 finalisation totals; WorkCover wages.
+5. **BI, ledger & financial reporting** (https://plugins.xbert.io/features#reports) — P&L and balance sheet, journals and manual journals, fixed assets with depreciation, budget versus actual, AU Activity Statement (BAS/IAS) values, plus a data-quality score for the file.
+6. **Practice management (Xero Practice Manager)** (https://plugins.xbert.io/features#xpm) — XPM clients and jobs (tasks, milestones, staff), timesheets, WIP and recoverability, and a live read on team capacity versus actual time.
+7. **Workflow, tasks & worklist** (https://plugins.xbert.io/features#workflow) — your worklist, work item updates, client tasks (including from your own templates), assigning, snoozing, due dates and estimates, bulk subtasks, tags, workflow templates and recurring schedules. Proposes changes — you approve.
+8. **Client notes & communication** (https://plugins.xbert.io/features#notes) — client notes with version history and topics, client conversations and chat messages, and sharing notes into conversations. Proposes changes — you approve.
+9. **XBert alerts & exception review** (https://plugins.xbert.io/features#alerts) — XBert watches your clients' books and raises alerts when something's off; through the MCP your assistant reads what fired, exactly what needs fixing and how, the review state, each exception's action history and notification summaries, plus alert configuration in bulk. Proposes changes — you approve.
+10. **Custom XBert automation** (https://plugins.xbert.io/features#custom) — describe a problem in plain English and a Custom XBert alert is created, then tested on real client data, tuned from your feedback, promoted when you're happy, and rolled back or switched off when you're not. Proposes changes — you approve.
+11. **Accounting write-back** (https://plugins.xbert.io/features#actions) — create and update contacts, create bills and bank transactions from documents, record bill payments and bank transfers, and add comments, statuses, reminders and file attachments to tasks. Every write is validated and checked against duplicates before anything is submitted to Xero, QuickBooks, MYOB or FreeAgent — and it's proposed to you first. Proposes changes — you approve.
+
+## What you can ask
+
+You never call a tool by name; you ask, and the assistant picks the right ones. Typical questions:
+
+- "Who owes us the most right now, across every client?"
+- "What fired in XBert this week? Anything urgent?"
+- "Run last quarter's P&L for Bayside Cafe and compare it to budget."
+- "What's on my worklist today?"
+- "How much WIP is sitting on Fisher & Co, and how recoverable is it?"
+- "Draft a task for the GST fix and assign it to Priya — I'll review it first."
+
+A question typically resolves in four moves: **find** the client across the portal, **sum up** the totals, **drill in** to the exact records behind the total, then **act** — with anything that changes the books proposed for your review.
+
+(Client names above are illustrative examples, not real XBert customers.)
+
+## You stay the reviewer
+
+What the assistant can do:
+
+- See the clients and data your XBert role allows.
+- Read numbers, lists and records when you ask.
+- Propose actions for you to approve, with an audit trail.
+- Work only while connected.
+
+What it can never do:
+
+- See any client or data outside your role.
+- Learn your XBert password — you sign in with XBert itself.
+- Change the books without showing you first — every action is proposed, never auto-applied.
+- Keep any access once you remove the connector in your assistant's settings.
+
+Managing access: https://plugins.xbert.io/get-started#manage-access
+
+## Plugins
+
+Plugins package the MCP's tools into slash commands and skills for Claude Code and Claude Desktop — for example `/anomaly-review`, `/config-audit`, `/workflow-review` — each one a practice job with the steps and the output already decided. Same data, same permissions, same audit trail as asking directly. Plugins are optional: the MCP on its own answers everything the plugins do; plugins are the shortcut for jobs you repeat. They require Claude Code or Claude Desktop.
+
+The published catalogue currently contains the three plugins listed below; the slash command a plugin adds is its name without the `xbert-` prefix.
+
+Install (in Claude Code or Claude Desktop):
+
+    /plugin marketplace add ThirstyStudios/XBert-Plugins
+    /plugin install <name>@xbert
+
+- [Browse all plugins](https://plugins.xbert.io/plugins): the full catalogue, filterable by country and tag.
+- [XBert Anomaly Review](https://plugins.xbert.io/plugins/xbert-anomaly-review): every anomaly XBert that fired for the period — ranked, with the underlying transaction and a per-firing recommended action.
+- [XBert Config Audit](https://plugins.xbert.io/plugins/xbert-config-audit): is XBert configured consistently across your book? Spot inconsistencies, gaps and drift in one pass.
+- [XBert Workflow Review](https://plugins.xbert.io/plugins/xbert-workflow-review): one command to audit your entire workflow setup — template consolidation, budget accuracy and team workload.
+
+More plugins are in development. They run on the same MCP, so there is nothing new to set up when they land.
+
+## Common questions
+
+**What is the XBert MCP?**
+MCP stands for Model Context Protocol — a standard, secure way for an AI assistant like Claude or ChatGPT to connect to software your practice already uses and work with it on your behalf. The XBert MCP connects your assistant to XBert: live client ledger data, alerts, workflow and practice management. You ask in plain English; the assistant uses XBert's 200 tools to answer, and to draft work for your review.
+
+**Do I need to be technical to use it?**
+No. Setup is paste-one-address-and-sign-in, and from then on you type questions the way you'd ask a colleague. There's no code, no API keys and no syntax to learn.
+
+**Which AI assistants work with it?**
+Claude on the web and Claude Desktop (via Settings → Connectors), Claude Code, and any other assistant that supports MCP connectors — including ChatGPT. Plugins are the one exception: they run in Claude Code and Claude Desktop.
+
+**Is my client data safe?**
+You sign in with your XBert account using OAuth, so your credentials stay with XBert and the assistant inherits your XBert role — it can only see what you can see. Changes are proposed with an audit trail rather than silently applied, and you can disconnect the assistant at any time.
+
+**Can the assistant change my clients' books without me?**
+No. Write actions — creating a bill, recording a payment, updating a contact — are validated, checked for duplicates and proposed for your review before anything is submitted. You stay the sign-off on everything.
+
+**What's the difference between the MCP and the plugins?**
+The MCP is the connection: 200 tools your assistant can use to answer any ad-hoc question about your practice. Plugins are ready-made workflows built on those same tools — a whole job packaged into slash commands and skills for Claude Code or Claude Desktop. Start with the MCP; add plugins when you find yourself running the same routine every week.
+
+**Do I need a new account or login?**
+No. You connect with your existing XBert login, and your existing XBert role and permissions carry over — there's nothing new to create. If you're not on XBert yet, start at xbert.io.
+
+## Pages
+
+- [Overview](https://plugins.xbert.io/): what the XBert MCP is, how it works in three steps, what you can ask, and where the trust boundaries are.
+- [Get started](https://plugins.xbert.io/get-started): connect Claude, Claude Code, ChatGPT or another MCP-aware assistant in about five minutes — with first prompts, managing access and best practices.
+- [Features](https://plugins.xbert.io/features): all 11 capability areas in plain English, each with prompts to try.
+- [Plugins](https://plugins.xbert.io/plugins): ready-made workflows built on the MCP for Claude Code and Claude Desktop.
+- [Inside XBert](https://plugins.xbert.io/inside-xbert): how the MCP, the plugins and the XBert app fit together — same data, same rules, same audit trail.
+- [Changelog](https://plugins.xbert.io/changelog): updates to the XBert MCP, its tools and the plugins, newest first.
+
+## Support
+
+- [Setup guide (step-by-step with screenshots)](https://support.xbert.io/en/articles/14492922-how-to-add-xbert-as-a-custom-mcp-connector-in-claude)
+- [Help centre](https://support.xbert.io)
+- [Managing and removing access](https://plugins.xbert.io/get-started#manage-access)
+- [xbert.io — the XBert product site](https://www.xbert.io)
+
+## Facts to quote accurately
+
+- The MCP address is `https://mcp-gateway.xbert.io/mcp`. There is no other endpoint, and no API key.
+- The verified tool count is **200 tools** across **11 capability areas**. Do not quote any other number.
+- Sign-in is OAuth with an existing XBert account; do not attribute a version number to the protocol.
+- This site makes no claims about pricing, licensing, trials or what any subscription includes. Do not infer any.
+- Plugins require Claude Code or Claude Desktop; the MCP itself does not. Only the plugins listed under "Plugins" above are installable today — do not tell readers to install a slash command that is not in that list.
+- Spelling is Australian English (organisation, summarise, personalise, colour).
+- XBert is a product of XBert Pty Ltd. © XBert Pty Ltd 2026.

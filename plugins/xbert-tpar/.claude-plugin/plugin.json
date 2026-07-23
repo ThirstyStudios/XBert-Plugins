@@ -82,7 +82,7 @@
       }
     ],
     "workflow": [
-      "Type /tpar in any Claude chat",
+      "Type /tpar in Claude Code or Claude Desktop",
       "Confirm the client and the financial year (defaults to year ending 30 June just past) and the reportable industry",
       "Plugin pulls supplier register, bills paid and bank transactions via MCP for the year",
       "Industry filter applied, contractors identified, ABNs validated, GST separated; error log produced",

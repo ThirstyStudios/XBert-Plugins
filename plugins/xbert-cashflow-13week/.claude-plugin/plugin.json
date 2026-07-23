@@ -78,7 +78,7 @@
       }
     ],
     "workflow": [
-      "Type /cashflow-13week in any Claude chat",
+      "Type /cashflow-13week in Claude Code or Claude Desktop",
       "Confirm the client tenant and the minimum cash threshold (e.g. $25,000 buffer)",
       "Plugin pulls bank balance, AR with per-debtor payment history, AP with due dates, payroll cadence, tax obligations, and recurring bank-tx via the XBert MCP",
       "Forecast is projected weekly for 13 weeks with predicted-pay weighting on AR and dated obligations on AP",
