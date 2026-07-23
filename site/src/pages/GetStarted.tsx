@@ -31,7 +31,8 @@ const CHECKLIST = [
     body: (
       <>
         With your clients' files connected as usual — Xero, QuickBooks, MYOB or FreeAgent,
-        plus Xero Practice Manager if you use it. The MCP works with what's already in
+        plus Xero Practice Manager if you use it: XPM is what powers the practice-side
+        questions about jobs, WIP and capacity. The MCP works with what's already in
         XBert. Not on XBert yet? Start at{" "}
         <a href="https://xbert.io" target="_blank" rel="noopener noreferrer" className={LINK}>
           xbert.io
@@ -42,11 +43,11 @@ const CHECKLIST = [
   },
   {
     n: "02",
-    title: "An assistant that speaks MCP",
+    title: "Claude, ChatGPT or another AI that speaks MCP",
     body: (
       <>
-        Claude on the web or Desktop, Claude Code in the terminal, ChatGPT, or any other
-        assistant that supports MCP connectors.
+        Claude on the web or Desktop, Claude Code in the terminal, or any other assistant
+        that supports MCP connectors.
       </>
     ),
   },
@@ -210,10 +211,10 @@ const CONNECT_TABS = [
 
 const FIRST_PROMPTS = [
   "What can you do with my XBert account?",
-  "List the clients I look after.",
+  "List the clients I look after, and who's assigned to each.",
   "Summarise this week's XBert alerts for [client].",
   "Show me aged receivables for [client] — who should I chase first?",
-  "What's on my worklist today?",
+  "What's on my worklist today, and which jobs are running behind?",
 ];
 
 const ACCESS_BLOCKS = [
@@ -289,9 +290,10 @@ export default function GetStartedPage() {
                 transition={{ duration: 0.6, delay: 0.15 }}
                 className="mt-6 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed"
               >
-                No code, no API keys, nothing to install on a server. You paste one address,
-                sign in with your XBert account, and start asking. Most people get their
-                first real answer before the kettle's boiled.
+                No code, no API keys, nothing to install on a server. You paste one address
+                into Claude, ChatGPT or whichever AI you use, sign in with your XBert account,
+                and start asking — about a client's books, or about how the practice itself is
+                tracking. Most people get their first real answer before the kettle's boiled.
               </motion.p>
 
               <motion.div
@@ -379,7 +381,7 @@ export default function GetStartedPage() {
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
         <SectionHeading
           title="Your first five prompts."
-          lead="Start read-only. Get a feel for how it answers before you ask it to do anything."
+          lead="Start read-only — a couple about a client's books, a couple about the practice itself. Get a feel for how it answers before you ask it to do anything."
         />
         <div className="mt-8 space-y-2 max-w-3xl">
           {FIRST_PROMPTS.map((text, i) => (
@@ -399,8 +401,8 @@ export default function GetStartedPage() {
             className="mt-0.5 text-xbert-indigo dark:text-xbert-cyan flex-shrink-0"
           />
           <p>
-            Name the client and the period. &ldquo;Bayside Cafe, last quarter&rdquo; beats
-            &ldquo;that cafe file&rdquo; every time.
+            Name the client and the period — or the person and the week. &ldquo;Bayside Cafe,
+            last quarter&rdquo; beats &ldquo;that cafe file&rdquo; every time.
           </p>
         </motion.div>
       </section>

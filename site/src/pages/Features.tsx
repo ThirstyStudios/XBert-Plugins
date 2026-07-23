@@ -61,35 +61,11 @@ const AREAS: Area[] = [
     ],
   },
   {
-    id: "payroll",
-    name: "Payroll, employees & super",
-    eyebrow: "Area 04 — Payroll, employees & super",
-    title: "Answer payroll questions in seconds.",
-    body: "Employees with their leave, tax, super and bank details; pay runs and payslips; leave applications; STP Phase 2 finalisation totals; WorkCover wages. The questions that used to mean opening four screens now take one sentence.",
-    prompts: [
-      "Summarise the last pay run for Coastal Care — totals and who was paid.",
-      "What leave applications are waiting, and what balances do those staff have?",
-      "Give me the STP finalisation totals for this financial year.",
-    ],
-  },
-  {
-    id: "reports",
-    name: "BI, ledger & financial reporting",
-    eyebrow: "Area 05 — BI, ledger & financial reporting",
-    title: "See the story behind the numbers.",
-    body: "P&L and balance sheet, journals and manual journals, fixed assets with depreciation, budget versus actual, AU Activity Statement (BAS/IAS) values — plus a data-quality score for the file, so you know how much to trust what you're reading.",
-    prompts: [
-      "Run last quarter's P&L against budget and call out the misses.",
-      "List the manual journals posted in June and what they touched.",
-      "What are the Activity Statement values for this period?",
-    ],
-  },
-  {
     id: "xpm",
     name: "Practice management (Xero Practice Manager)",
-    eyebrow: "Area 06 — Practice management (Xero Practice Manager)",
+    eyebrow: "Area 04 — Practice management (Xero Practice Manager)",
     title: "Run the firm like a business.",
-    body: "XPM clients and jobs — tasks, milestones, staff — plus timesheets, WIP and recoverability, and a live read on team capacity versus actual time. The partner questions, answered before the partner asks.",
+    body: "If your practice runs Xero Practice Manager, this is where the assistant looks at you rather than your clients: XPM clients and jobs — tasks, milestones, staff — plus timesheets, WIP and recoverability, and a live read on team capacity versus actual time. The partner questions, answered before the partner asks.",
     prompts: [
       "How much WIP is sitting on Fisher & Co, and how much will we recover?",
       "Who has capacity next week, and who's already over?",
@@ -99,15 +75,39 @@ const AREAS: Area[] = [
   {
     id: "workflow",
     name: "Workflow, tasks & worklist",
-    eyebrow: "Area 07 — Workflow, tasks & worklist",
-    title: "Keep every client moving.",
-    body: "Your worklist, work item updates, client tasks (including from your own templates), assigning, snoozing, due dates and estimates, bulk subtasks, tags, workflow templates and recurring schedules. Delegate to the assistant the way you'd delegate to a coordinator — and review the same way too.",
+    eyebrow: "Area 05 — Workflow, tasks & worklist",
+    title: "Keep every job moving.",
+    body: "The practice's own worklist: work item updates, client tasks (including from your own templates), assigning, snoozing, due dates and estimates, bulk subtasks, tags, workflow templates and recurring schedules. Delegate to the assistant the way you'd delegate to a coordinator — and review the same way too.",
     prompts: [
       "What's on my worklist today, across every client?",
       "Create a month-end task for Brightside Vet from our template and assign it to Priya.",
       "Snooze everything on Kelly's Auto until Monday.",
     ],
     approveChip: true,
+  },
+  {
+    id: "payroll",
+    name: "Payroll, employees & super",
+    eyebrow: "Area 06 — Payroll, employees & super",
+    title: "Answer payroll questions in seconds.",
+    body: "Employees with their leave, tax, bank and retirement-contribution details (superannuation in Australia), pay runs, payslips and leave applications. For Australian practices it goes further: payroll year-end finalisation totals (STP Phase 2) and workers-compensation wages (WorkCover). The questions that used to mean opening four screens now take one sentence.",
+    prompts: [
+      "Summarise the last pay run for Coastal Care — totals and who was paid.",
+      "What leave applications are waiting, and what balances do those staff have?",
+      "Give me this financial year's STP finalisation totals for our Australian clients.",
+    ],
+  },
+  {
+    id: "reports",
+    name: "BI, ledger & financial reporting",
+    eyebrow: "Area 07 — BI, ledger & financial reporting",
+    title: "See the story behind the numbers.",
+    body: "P&L and balance sheet, journals and manual journals, fixed assets with depreciation, budget versus actual, and — for Australian files — the tax and activity statement figures (BAS and IAS). Plus a data-quality score for the file, so you know how much to trust what you're reading.",
+    prompts: [
+      "Run last quarter's P&L against budget and call out the misses.",
+      "List the manual journals posted in June and what they touched.",
+      "What are the activity statement figures for this period — BAS and IAS?",
+    ],
   },
   {
     id: "notes",
@@ -117,7 +117,7 @@ const AREAS: Area[] = [
     body: "Client notes with version history and topics, client conversations and chat messages, and sharing notes into conversations. Three years of context, summarised before your 2pm.",
     prompts: [
       "Summarise every note we hold on Harbour Landscaping, newest first.",
-      "Find where we discussed the ute purchase with the client.",
+      "Find where we discussed the vehicle purchase with the client.",
       "Share the March pricing note into their conversation.",
     ],
     approveChip: true,
@@ -166,11 +166,11 @@ const AREAS: Area[] = [
 const COMPOSE_STEPS = [
   {
     title: "Find.",
-    body: "Name the client — the assistant locates the right file across your whole portal.",
+    body: "Name the client — or the staff member, or the job — and the assistant locates it across your whole portal.",
   },
   {
     title: "Sum up.",
-    body: "Totals first. “How much is overdue?”",
+    body: "Totals first. “How much is overdue?” “How much WIP are we carrying?”",
   },
   {
     title: "Drill in.",
@@ -219,10 +219,11 @@ export default function FeaturesPage() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="mt-7 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed"
           >
-            You'll never call a tool by name — you just ask, and your assistant picks the right
-            ones. Here's everything it can do with XBert, organised the way your week actually
-            runs. Each area below is a job your practice already does; the prompts are the words
-            that get it done.
+            You'll never call a tool by name — you just ask Claude, ChatGPT or whichever AI you
+            use, and it picks the right ones. The eleven areas below run across both halves of
+            the week: your clients' books, and how your own practice is tracking — jobs, WIP,
+            capacity and workload, for firms on Xero Practice Manager. Each area is a job you
+            already do; the prompts are the words that get it done.
           </motion.p>
 
           <motion.div
@@ -277,7 +278,7 @@ export default function FeaturesPage() {
           className="mt-10 max-w-3xl"
         >
           <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
-            {`Here's the shape in the wild: “Who owes us the most across the practice?” gets a summary. “Show me Harbour Landscaping's overdue invoices” gets the records. “Draft a chase task and assign it to Priya” gets a proposed action — which you approve, amend or bin. You'll fall into the rhythm without thinking about it.`}
+            {`Here's the shape in the wild: “Who owes us the most across the practice?” gets a summary. “Show me Harbour Landscaping's overdue invoices” gets the records. “Draft a chase task and assign it to Priya” gets a proposed action — which you approve, amend or bin. The same four moves answer “how much WIP are we carrying?” and “who's over next week?” just as readily. You'll fall into the rhythm without thinking about it.`}
           </p>
           <p className="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
             Numbers first. Detail second. Changes only with your OK.
@@ -367,7 +368,7 @@ export default function FeaturesPage() {
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
         <CtaBand
           heading="Stop reading. Start asking."
-          body="Pick one client and ask one question — that's genuinely the best way in. Connect your assistant, ask about aged receivables, and see what comes back."
+          body="Pick one client and ask one question — that's genuinely the best way in. Connect your assistant, ask about aged receivables or this week's WIP, and see what comes back."
           primary={{ label: "Get connected", to: "/get-started" }}
           secondary={{ label: "Start from a ready-made workflow", to: "/plugins" }}
         />

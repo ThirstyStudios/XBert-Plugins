@@ -21,13 +21,13 @@ function truncate(s: string, max: number): string {
  */
 export const ROUTE_META = {
   home: {
-    title: "XBert MCP — every client's books, one question away",
+    title: "XBert MCP — every client, every job, one question away",
     description:
-      "Connect Claude, ChatGPT or any MCP-aware assistant to XBert — 200 tools for real practice work. Ask in plain English; review before anything changes.",
+      "Connect Claude, ChatGPT or any MCP-aware assistant to XBert — 200 tools across your clients' books and your practice's own jobs, WIP and capacity.",
     path: "/",
   },
   getStarted: {
-    title: "Get started — connect your AI assistant to XBert",
+    title: "Get started — connect Claude or ChatGPT to XBert",
     description:
       "Connect Claude, Claude Code, ChatGPT or any MCP-aware assistant to the XBert MCP in about five minutes. Three steps, first prompts, and best practices.",
     path: "/get-started",
@@ -35,7 +35,7 @@ export const ROUTE_META = {
   features: {
     title: "XBert MCP features — 200 tools in plain English",
     description:
-      "Every XBert MCP capability area in plain English — receivables, payables, payroll, reporting, workflow, alerts, write-back — with real prompts to try.",
+      "What Claude, ChatGPT or your AI does with XBert — every capability area in plain English: receivables, payables, payroll, reporting, WIP, capacity, alerts.",
     path: "/features",
   },
   plugins: {
