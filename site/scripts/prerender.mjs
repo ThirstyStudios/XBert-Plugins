@@ -88,7 +88,7 @@ await build({
 });
 
 const entry = await import(pathToFileURL(path.join(ssrDir, "entry-server.js")).href);
-const { render, prerenderRoutes, SITE_ORIGIN } = entry;
+const { render, prerenderRoutes, SITE_ORIGIN, ROUTE_META } = entry;
 
 // Read the template once: the "/" route overwrites dist/index.html in the loop.
 const template = await readFile(path.join(distDir, "index.html"), "utf8");
@@ -112,5 +112,22 @@ for (const meta of prerenderRoutes()) {
   await writeFile(file, html, "utf8");
   console.log(
     `[prerender] ${meta.path.padEnd(32)} ${String(Buffer.byteLength(html)).padStart(7)} bytes  ${path.relative(siteRoot, file)}`
+  );
+}
+
+// Static Web Apps needs a dedicated file for its 404 responseOverride: pointing
+// the override at index.html makes it serve the homepage and reset the status
+// to 200, which is how unknown URLs became soft-404s.
+{
+  const meta = ROUTE_META.notFound;
+  const markup = render("/__not-found__");
+  const html = injectHead(template, meta, SITE_ORIGIN).replace(
+    '<div id="root"></div>',
+    `<div id="root">${markup}</div>`
+  );
+  const file = path.join(distDir, "404.html");
+  await writeFile(file, html, "utf8");
+  console.log(
+    `[prerender] ${"404".padEnd(32)} ${String(Buffer.byteLength(html)).padStart(7)} bytes  ${path.relative(siteRoot, file)}`
   );
 }

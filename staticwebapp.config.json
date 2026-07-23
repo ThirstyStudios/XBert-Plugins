@@ -1,21 +1,37 @@
 {
   "routes": [
-    { "route": "/connect", "redirect": "/get-started", "statusCode": 301 },
-    { "route": "/install", "redirect": "/get-started", "statusCode": 301 },
+    {
+      "route": "/connect",
+      "redirect": "/get-started",
+      "statusCode": 301
+    },
+    {
+      "route": "/install",
+      "redirect": "/get-started",
+      "statusCode": 301
+    },
     {
       "route": "/assets/*",
-      "headers": { "cache-control": "public, max-age=31536000, immutable" }
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      }
     },
-    { "route": "/fonts/*", "headers": { "cache-control": "public, max-age=604800" } },
-    { "route": "/illustrations/*", "headers": { "cache-control": "public, max-age=604800" } }
+    {
+      "route": "/fonts/*",
+      "headers": {
+        "cache-control": "public, max-age=604800"
+      }
+    },
+    {
+      "route": "/illustrations/*",
+      "headers": {
+        "cache-control": "public, max-age=604800"
+      }
+    }
   ],
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/assets/*", "/screenshots/*", "/fonts/*", "/*.{png,jpg,svg,ico,webp,txt,xml,js}"]
-  },
   "responseOverrides": {
     "404": {
-      "rewrite": "/index.html",
+      "rewrite": "/404.html",
       "statusCode": 404
     }
   },
