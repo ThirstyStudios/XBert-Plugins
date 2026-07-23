@@ -1,6 +1,6 @@
 import { getPlugin, plugins } from "./catalog";
 
-export const SITE_ORIGIN = "https://plugins.xbert.io";
+export const SITE_ORIGIN = "https://intelligence.xbert.io";
 
 export type RouteMeta = {
   title: string;

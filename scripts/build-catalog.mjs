@@ -131,7 +131,7 @@ try {
 writeFileSync(join(outDir, "changelog.json"), JSON.stringify(changelog, null, 2));
 
 // Emit sitemap.xml alongside the catalog so plugin detail URLs stay in sync.
-const SITE_ORIGIN = "https://plugins.xbert.io";
+const SITE_ORIGIN = "https://intelligence.xbert.io";
 const staticRoutes = [
   "/",
   "/get-started",

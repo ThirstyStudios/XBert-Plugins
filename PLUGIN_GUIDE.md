@@ -1,6 +1,6 @@
 # Adding a plugin — XBert Plugins
 
-A practical guide to building a new plugin in this repo, getting it into the marketplace.json, and rendering it on **plugins.xbert.io**. Everything from filesystem layout to the CSS classes the storefront uses.
+A practical guide to building a new plugin in this repo, getting it into the marketplace.json, and rendering it on **intelligence.xbert.io**. Everything from filesystem layout to the CSS classes the storefront uses.
 
 ---
 
@@ -69,7 +69,7 @@ The manifest is split into two halves:
   "name": "xbert-foo",
   "description": "One-line description used in the marketplace card and Claude's plugin manager.",
   "author": { "name": "XBert Intelligence", "email": "hello@xbert.io" },
-  "homepage": "https://plugins.xbert.io/plugins/xbert-foo",
+  "homepage": "https://intelligence.xbert.io/plugins/xbert-foo",
   "license": "MIT",
   "keywords": ["bookkeeping", "foo"],
   "x-xbert": {
@@ -114,7 +114,7 @@ The manifest is split into two halves:
 | `name` | Yes | Claude + site | Must match folder name (`plugins/<name>/`). |
 | `description` | Yes | Claude + site | One sentence, shown in Claude Desktop's plugin marketplace card. |
 | `author` | Yes | Site | Shown on detail page meta line. |
-| `homepage` | Recommended | Site | Always `https://plugins.xbert.io/plugins/<name>`. |
+| `homepage` | Recommended | Site | Always `https://intelligence.xbert.io/plugins/<name>`. |
 | `license` | Recommended | Site | We default to MIT. |
 | `keywords` | Recommended | Site | Indexed by MiniSearch. Boost discoverability. |
 | `x-xbert.displayName` | Yes | Site | The big headline (e.g. "XBert Foo"). |
@@ -678,7 +678,7 @@ When we adopt **changesets** (the recommended next step from the architecture re
 
 ## 16. Quick references
 
-- **Storefront**: https://plugins.xbert.io
+- **Storefront**: https://intelligence.xbert.io
 - **GitHub repo**: https://github.com/ThirstyStudios/XBert-Plugins
 - **Add the marketplace in Claude Desktop**: Customize → Personal plugins → `+` → Create plugin → Add marketplace → `ThirstyStudios/XBert-Plugins`
 - **Add the marketplace in Claude Code**: `/plugin marketplace add ThirstyStudios/XBert-Plugins`
