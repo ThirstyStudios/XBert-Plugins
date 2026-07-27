@@ -50,11 +50,6 @@ export const ROUTE_META = {
       "How the XBert MCP, the plugins and the XBert app fit together — same data, same rules, same audit trail.",
     path: "/inside-xbert",
   },
-  changelog: {
-    title: "Changelog — XBert MCP updates",
-    description: "What's new in the XBert MCP and plugins — updates listed newest first.",
-    path: "/changelog",
-  },
   notFound: {
     title: "Page not found — XBert MCP",
     description: "That page doesn't exist. Head back to the XBert MCP overview.",
@@ -83,7 +78,6 @@ export function prerenderRoutes(): RouteMeta[] {
     ROUTE_META.features,
     ROUTE_META.plugins,
     ROUTE_META.insideXBert,
-    ROUTE_META.changelog,
     ...plugins.map((p) => pluginMeta(p.slug)),
   ];
 }

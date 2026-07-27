@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://intelligence.xbert.io/</loc><lastmod>2026-07-23</lastmod></url>
-  <url><loc>https://intelligence.xbert.io/get-started</loc><lastmod>2026-07-23</lastmod></url>
-  <url><loc>https://intelligence.xbert.io/features</loc><lastmod>2026-07-23</lastmod></url>
-  <url><loc>https://intelligence.xbert.io/plugins</loc><lastmod>2026-07-23</lastmod></url>
-  <url><loc>https://intelligence.xbert.io/inside-xbert</loc><lastmod>2026-07-23</lastmod></url>
-  <url><loc>https://intelligence.xbert.io/changelog</loc><lastmod>2026-07-23</lastmod></url>
-  <url><loc>https://intelligence.xbert.io/plugins/xbert-anomaly-review</loc><lastmod>2026-07-23</lastmod></url>
-  <url><loc>https://intelligence.xbert.io/plugins/xbert-config-audit</loc><lastmod>2026-07-23</lastmod></url>
-  <url><loc>https://intelligence.xbert.io/plugins/xbert-workflow-review</loc><lastmod>2026-07-23</lastmod></url>
-  <url><loc>https://intelligence.xbert.io/plugins/xbert-working-paper</loc><lastmod>2026-07-23</lastmod></url>
+  <url><loc>https://intelligence.xbert.io/</loc><lastmod>2026-07-27</lastmod></url>
+  <url><loc>https://intelligence.xbert.io/get-started</loc><lastmod>2026-07-27</lastmod></url>
+  <url><loc>https://intelligence.xbert.io/features</loc><lastmod>2026-07-27</lastmod></url>
+  <url><loc>https://intelligence.xbert.io/plugins</loc><lastmod>2026-07-27</lastmod></url>
+  <url><loc>https://intelligence.xbert.io/inside-xbert</loc><lastmod>2026-07-27</lastmod></url>
+  <url><loc>https://intelligence.xbert.io/plugins/xbert-anomaly-review</loc><lastmod>2026-07-27</lastmod></url>
+  <url><loc>https://intelligence.xbert.io/plugins/xbert-config-audit</loc><lastmod>2026-07-27</lastmod></url>
+  <url><loc>https://intelligence.xbert.io/plugins/xbert-workflow-review</loc><lastmod>2026-07-27</lastmod></url>
+  <url><loc>https://intelligence.xbert.io/plugins/xbert-working-paper</loc><lastmod>2026-07-27</lastmod></url>
 </urlset>

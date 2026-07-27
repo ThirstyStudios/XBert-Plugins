@@ -8,7 +8,6 @@ const NAV_ITEMS = [
   { label: "Get started", to: "/get-started" },
   { label: "Features", to: "/features" },
   { label: "Plugins", to: "/plugins" },
-  { label: "Changelog", to: "/changelog" },
 ];
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
