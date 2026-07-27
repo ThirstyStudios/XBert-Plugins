@@ -137,7 +137,6 @@ No. You connect with your existing XBert login, and your existing XBert role and
 - [Features](https://intelligence.xbert.io/features): all 11 capability areas in plain English — your clients' books and your practice's own performance — each with prompts to try.
 - [Plugins](https://intelligence.xbert.io/plugins): ready-made workflows built on the MCP for Claude Code and Claude Desktop.
 - [Inside XBert](https://intelligence.xbert.io/inside-xbert): how the MCP, the plugins and the XBert app fit together — same data, same rules, same audit trail.
-- [Changelog](https://intelligence.xbert.io/changelog): updates to the XBert MCP, its tools and the plugins, newest first.
 
 ## Support
 

@@ -66,70 +66,6 @@ const bundles = [];
 const out = { plugins, bundles, comingSoonCount, generatedAt: new Date().toISOString() };
 writeFileSync(join(outDir, "catalog.json"), JSON.stringify(out, null, 2));
 
-// Generate changelog from git history
-let changelog = [];
-try {
-  const logOutput = execSync(
-    `git log --oneline --format="%H|%aI|%s" -100 -- plugins/`,
-    { cwd: repoRoot, encoding: "utf8" }
-  ).trim();
-
-  if (logOutput) {
-    const commits = logOutput.split("\n").map((line) => {
-      const [hash, date, ...msgParts] = line.split("|");
-      return { hash, date: date.slice(0, 10), message: msgParts.join("|") };
-    });
-
-    // For each commit, find which plugin folders were touched
-    const entries = commits.map((c) => {
-      let pluginSlugs = [];
-      try {
-        const files = execSync(
-          `git diff-tree --no-commit-id --name-only -r ${c.hash} -- plugins/`,
-          { cwd: repoRoot, encoding: "utf8" }
-        ).trim();
-        if (files) {
-          // Only published plugins are named in the changelog — an unpublished
-          // slug here would advertise work that has no page to link to.
-          const slugs = new Set(
-            files
-              .split("\n")
-              .map((f) => f.split("/")[1])
-              .filter((s) => s && TRANCHE_ONE.has(s))
-          );
-          pluginSlugs = Array.from(slugs);
-        }
-      } catch {
-        // skip
-      }
-      return { date: c.date, message: c.message, plugins: pluginSlugs };
-    });
-
-    // Group by date
-    const grouped = new Map();
-    for (const entry of entries) {
-      if (!grouped.has(entry.date)) {
-        grouped.set(entry.date, { date: entry.date, messages: [], plugins: new Set() });
-      }
-      const group = grouped.get(entry.date);
-      group.messages.push(entry.message);
-      entry.plugins.forEach((s) => group.plugins.add(s));
-    }
-
-    changelog = Array.from(grouped.values())
-      .map((g) => ({
-        date: g.date,
-        message: g.messages.join("; "),
-        plugins: Array.from(g.plugins),
-      }))
-      .sort((a, b) => b.date.localeCompare(a.date));
-  }
-} catch {
-  // git not available — empty changelog
-}
-
-writeFileSync(join(outDir, "changelog.json"), JSON.stringify(changelog, null, 2));
-
 // Emit sitemap.xml alongside the catalog so plugin detail URLs stay in sync.
 const SITE_ORIGIN = "https://intelligence.xbert.io";
 const staticRoutes = [
@@ -138,7 +74,6 @@ const staticRoutes = [
   "/features",
   "/plugins",
   "/inside-xbert",
-  "/changelog",
 ];
 const sitemapUrls = [
   ...staticRoutes,
@@ -160,7 +95,4 @@ console.log(`[catalog] wrote sitemap with ${sitemapUrls.length} urls -> site/pub
 
 console.log(
   `[catalog] wrote ${plugins.length} plugin(s), ${bundles.length} bundle(s), ${comingSoonCount} coming-soon -> site/src/generated/catalog.json`
-);
-console.log(
-  `[catalog] wrote ${changelog.length} changelog entries -> site/src/generated/changelog.json`
 );

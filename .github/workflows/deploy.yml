@@ -20,9 +20,10 @@ jobs:
         with:
           submodules: false
           lfs: false
-          # build-catalog.mjs derives the changelog from `git log -- plugins/`.
-          # The default shallow clone has no history, so the changelog built
-          # out empty in CI while looking fine locally.
+          # build-catalog.mjs reads each plugin's last-updated date from
+          # `git log -- plugins/<slug>`. The default shallow clone has no
+          # history, so those dates come out empty in CI while looking fine
+          # locally.
           fetch-depth: 0
 
       - name: Setup Node.js

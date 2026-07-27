@@ -59,11 +59,6 @@ export function Footer() {
                   Inside XBert
                 </Link>
               </li>
-              <li>
-                <Link to="/changelog" className={footerLinkClass}>
-                  Changelog
-                </Link>
-              </li>
             </ul>
           </nav>
 
