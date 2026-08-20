@@ -195,7 +195,7 @@ export default function FeaturesPage() {
             transition={{ duration: 0.6, delay: 0.05 }}
             className="text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05] max-w-3xl"
           >
-            Two hundred tools. Eleven jobs. Plain English.
+            Every job of the week. Plain English.
           </motion.h1>
 
           <motion.p
@@ -205,7 +205,7 @@ export default function FeaturesPage() {
             className="mt-7 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed"
           >
             You'll never call a tool by name — you just ask Claude, ChatGPT or whichever AI you
-            use, and it picks the right ones. The eleven areas below run across both halves of
+            use, and it picks the right ones. The areas below run across both halves of
             the week: your clients' books, and how your own practice is tracking — jobs, WIP,
             capacity and workload, for firms on Xero Practice Manager. Each area is a job you
             already do; the prompts are the words that get it done.
@@ -271,9 +271,9 @@ export default function FeaturesPage() {
         </motion.div>
       </section>
 
-      {/* §3–13 THE 11 CAPABILITY AREAS */}
+      {/* §3–13 THE CAPABILITY AREAS */}
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
-        {/* Owning heading for the eleven areas — without it every area h3 is
+        {/* Owning heading for the capability areas — without it every area h3 is
             attributed to the preceding "One question, four moves." h2. */}
         <h2 className="sr-only">Capability areas</h2>
         {/* Area index — jump row */}
