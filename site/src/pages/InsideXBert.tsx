@@ -54,7 +54,7 @@ export default function InsideXBertPage() {
         { label: "Connects via", value: "MCP" },
         {
           label: "What you get",
-          value: "the full XBert tool catalogue (200 tools)",
+          value: "the full XBert tool catalogue",
         },
       ],
     },

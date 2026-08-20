@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 import { usePageMeta } from "../lib/seo";
 import { ROUTE_META } from "../lib/route-meta";
 import { Chip } from "../components/Chip";
-import { CountUp } from "../components/CountUp";
 import { SectionHeading } from "../components/SectionHeading";
 import { StepFlow } from "../components/StepFlow";
 import { CapabilityCard } from "../components/CapabilityCard";
@@ -190,19 +189,6 @@ export default function FeaturesPage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 hero-grid pointer-events-none" aria-hidden />
         <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-14 md:pt-32 md:pb-28">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8"
-          >
-            <Chip>
-              <span>
-                <CountUp to={200} suffix=" tools" className="font-mono" /> · 11 capability areas
-              </span>
-            </Chip>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -289,7 +275,7 @@ export default function FeaturesPage() {
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
         {/* Owning heading for the eleven areas — without it every area h3 is
             attributed to the preceding "One question, four moves." h2. */}
-        <h2 className="sr-only">The 11 capability areas</h2>
+        <h2 className="sr-only">Capability areas</h2>
         {/* Area index — jump row */}
         <nav aria-label="Capability areas">
           <ul className="flex flex-wrap gap-2 pb-2 list-none">
