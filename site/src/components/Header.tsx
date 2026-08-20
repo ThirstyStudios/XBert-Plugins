@@ -7,7 +7,6 @@ import { useTheme } from "../lib/theme";
 const NAV_ITEMS = [
   { label: "Get started", to: "/get-started" },
   { label: "Features", to: "/features" },
-  { label: "Plugins", to: "/plugins" },
 ];
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>

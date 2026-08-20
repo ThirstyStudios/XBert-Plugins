@@ -4,7 +4,7 @@ export interface ChipProps {
   children: ReactNode;
   /**
    * "default" — neutral pill (badges, chip rows).
-   * "accent"  — brand-tinted pill (e.g. `Proposes changes — you approve`).
+   * "accent"  — brand-tinted pill (e.g. `Makes changes — flagged for approval`).
    */
   variant?: "default" | "accent";
   /** Optional leading icon (lucide, size 12). */
@@ -15,8 +15,8 @@ export interface ChipProps {
 /**
  * Small pill chip, matching the existing badge idiom.
  *
- *   <Chip icon={<Sparkles size={12} />}>200 tools · Works with Claude, ChatGPT &amp; Claude Code</Chip>
- *   <Chip variant="accent">Proposes changes — you approve</Chip>
+ *   <Chip icon={<Sparkles size={12} />}>200 tools · Works with Claude and Claude Code · ChatGPT with extra setup</Chip>
+ *   <Chip variant="accent">Makes changes — flagged for approval</Chip>
  */
 export function Chip({ children, variant = "default", icon, className = "" }: ChipProps) {
   const styles =

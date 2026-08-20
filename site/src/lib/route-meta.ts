@@ -1,5 +1,3 @@
-import { getPlugin, plugins } from "./catalog";
-
 export const SITE_ORIGIN = "https://intelligence.xbert.io";
 
 export type RouteMeta = {
@@ -8,10 +6,6 @@ export type RouteMeta = {
   /** Route path used for the canonical URL, e.g. "/features". */
   path: string;
 };
-
-function truncate(s: string, max: number): string {
-  return s.length <= max ? s : s.slice(0, max - 1).trimEnd() + "…";
-}
 
 /**
  * Per-route title / description / canonical path, in ONE place: the pages read
@@ -23,31 +17,25 @@ export const ROUTE_META = {
   home: {
     title: "XBert MCP — every client, every job, one question away",
     description:
-      "Connect Claude, ChatGPT or any MCP-aware assistant to XBert — 200 tools across your clients' books and your practice's own jobs, WIP and capacity.",
+      "Connect Claude, Claude Code or any MCP-aware assistant to XBert — 200 tools across your clients' books and your practice's own jobs, WIP and capacity. ChatGPT with extra setup.",
     path: "/",
   },
   getStarted: {
-    title: "Get started — connect Claude or ChatGPT to XBert",
+    title: "Get started — connect Claude to XBert",
     description:
-      "Connect Claude, Claude Code, ChatGPT or any MCP-aware assistant to the XBert MCP in about five minutes. Three steps, first prompts, and best practices.",
+      "Connect Claude, Claude Code or another MCP-aware assistant to the XBert MCP — about five minutes on Claude, longer on ChatGPT. Three steps, first prompts, and best practices.",
     path: "/get-started",
   },
   features: {
     title: "XBert MCP features — 200 tools in plain English",
     description:
-      "What Claude, ChatGPT or your AI does with XBert — every capability area in plain English: receivables, payables, payroll, reporting, WIP, capacity, alerts.",
+      "What Claude, Claude Code or your AI does with XBert — every capability area in plain English: receivables, payables, payroll, reporting, WIP, capacity, alerts.",
     path: "/features",
-  },
-  plugins: {
-    title: "XBert plugins — ready-made workflows on the MCP",
-    description:
-      "Plugins package XBert MCP workflows into slash commands for Claude Code and Claude Desktop. Browse by country and tag; install with two commands.",
-    path: "/plugins",
   },
   insideXBert: {
     title: "Inside XBert — one product, two surfaces",
     description:
-      "How the XBert MCP, the plugins and the XBert app fit together — same data, same rules, same audit trail.",
+      "How the XBert MCP and the XBert app fit together — same data, same rules, same audit trail.",
     path: "/inside-xbert",
   },
   notFound: {
@@ -57,27 +45,15 @@ export const ROUTE_META = {
   },
 } satisfies Record<string, RouteMeta>;
 
-/** Plugin-detail metadata, derived from the catalogue entry for `slug`. */
-export function pluginMeta(slug: string | undefined): RouteMeta {
-  const p = getPlugin(slug);
-  return {
-    title: p ? truncate(`${p["x-xbert"].displayName} — XBert plugin`, 60) : "XBert plugin",
-    description: p ? truncate(p["x-xbert"].tagline, 155) : "Plugin not found.",
-    path: `/plugins/${slug ?? ""}`,
-  };
-}
-
 /**
- * Every route the build prerenders to static HTML: the six public pages plus
- * one page per published plugin. Consumed by scripts/prerender.mjs.
+ * Every route the build prerenders to static HTML: the four public pages.
+ * Consumed by scripts/prerender.mjs.
  */
 export function prerenderRoutes(): RouteMeta[] {
   return [
     ROUTE_META.home,
     ROUTE_META.getStarted,
     ROUTE_META.features,
-    ROUTE_META.plugins,
     ROUTE_META.insideXBert,
-    ...plugins.map((p) => pluginMeta(p.slug)),
   ];
 }

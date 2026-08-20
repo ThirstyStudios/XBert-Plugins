@@ -50,11 +50,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/plugins" className={footerLinkClass}>
-                  Plugins
-                </Link>
-              </li>
-              <li>
                 <Link to="/inside-xbert" className={footerLinkClass}>
                   Inside XBert
                 </Link>
@@ -132,7 +127,8 @@ export function Footer() {
 
         <div className="border-t border-black/[0.06] dark:border-white/[0.06] mt-10 pt-6 space-y-2">
           <p className="text-xs text-neutral-500 dark:text-neutral-400">
-            XBert connects to Xero, QuickBooks, MYOB, FreeAgent and Xero Practice Manager.
+            XBert connects to Xero, QuickBooks, MYOB and FreeAgent — plus Xero Practice Manager, if
+            your practice runs it, for jobs, WIP and capacity.
           </p>
           <div className="flex flex-wrap items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
             <span>MCP endpoint:</span>
@@ -140,8 +136,8 @@ export function Footer() {
             <CopyButton text={MCP_ADDRESS} />
           </div>
           <p className="text-xs text-neutral-500 dark:text-neutral-400">
-            Your assistant inherits your XBert permissions. Actions are proposed, with an audit
-            trail.
+            Your assistant inherits your XBert permissions. Write actions are marked for your
+            assistant to confirm, and every action is written to the XBert audit log.
           </p>
           <p className="text-xs text-neutral-500 dark:text-neutral-400">
             © XBert Pty Ltd 2026. All rights reserved.

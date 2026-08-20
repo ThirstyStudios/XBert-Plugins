@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { motion } from "motion/react";
 import {
   GitFork,
@@ -11,7 +10,6 @@ import {
   FileText,
   Network,
 } from "lucide-react";
-import { plugins } from "../lib/catalog";
 import { usePageMeta } from "../lib/seo";
 import { ROUTE_META } from "../lib/route-meta";
 
@@ -25,12 +23,6 @@ type DualityCard = {
   bullets: DualityBullet[];
 };
 
-type MappingRow = {
-  plugin: string;
-  chat: string;
-  product: string;
-};
-
 type RationaleCard = {
   icon: React.ReactNode;
   title: string;
@@ -42,23 +34,27 @@ export default function InsideXBertPage() {
 
   const dualityCards: DualityCard[] = [
     {
-      eyebrow: "Plugins surface",
+      eyebrow: "Chat surface",
       eyebrowIcon: (
         <MessageSquare size={12} aria-hidden className="text-xbert-indigo dark:text-xbert-cyan" />
       ),
-      title: "Install once. Slash-command everything.",
-      body: "Add the XBert MCP and the plugins. Slash commands like /anomaly-review, /config-audit and /workflow-review run the same workflow XBert runs internally, with audit-ready output dropping into your file system or back into the chat.",
+      title: "Connect once. Ask in plain English.",
+      body: "Add the XBert MCP to your assistant. Ask for a review, an audit or a workflow check and it works the same XBert data under the same rules, with the output dropping into your file system or back into the chat.",
       bullets: [
         {
           label: "Best for",
           value:
             "ad-hoc requests, exploratory questions, batch tasks across many clients",
         },
-        { label: "Lives in", value: "Claude Code or Claude Desktop" },
+        {
+          label: "Lives in",
+          value:
+            "Claude on the web or Desktop, Claude Code — or ChatGPT, with extra setup",
+        },
         { label: "Connects via", value: "MCP" },
         {
           label: "What you get",
-          value: `the full XBert tool catalogue (200 tools) + ${plugins.length} calibrated plugins`,
+          value: "the full XBert tool catalogue (200 tools)",
         },
       ],
     },
@@ -72,7 +68,7 @@ export default function InsideXBertPage() {
         />
       ),
       title: "Open XBert. See the same workflows as first-class screens.",
-      body: "Every slash command maps to a feature inside the XBert app — Review module, Workflow, Capacity, Practice settings. Same data, same rules, persistent UI.",
+      body: "The tools your assistant calls map to features inside the XBert app — Review module, Workflow, Capacity, Practice settings. Same data, same rules, persistent UI.",
       bullets: [
         {
           label: "Best for",
@@ -86,7 +82,7 @@ export default function InsideXBertPage() {
         {
           label: "Connects via",
           value:
-            "native integration with Xero, MYOB, QuickBooks Online, Xero Practice Manager",
+            "native integration with Xero, QuickBooks, MYOB and FreeAgent, plus Xero Practice Manager",
         },
         {
           label: "What you get",
@@ -94,24 +90,6 @@ export default function InsideXBertPage() {
             "workflow templates, schedules, notifications, the Review module, audit history, role-based assignment",
         },
       ],
-    },
-  ];
-
-  const mappingRows: MappingRow[] = [
-    {
-      plugin: "/anomaly-review",
-      chat: "Ranked list of every anomaly XBert firing, verified (Word doc)",
-      product: "Review module → Exception items",
-    },
-    {
-      plugin: "/config-audit",
-      chat: "XBert rule consistency across the book (Word doc)",
-      product: "Connect → XBert configuration",
-    },
-    {
-      plugin: "/workflow-review",
-      chat: "Structural workflow audit (Word doc)",
-      product: "Practice → Workflow review report",
     },
   ];
 
@@ -130,7 +108,7 @@ export default function InsideXBertPage() {
         />
       ),
       title: "Same audit trail, two entry points",
-      body: "Both surfaces write back to the same XBert audit log. A plugin run from chat is indistinguishable from an in-app run after the fact — same approvals, same artefacts, same compliance.",
+      body: "Both surfaces write back to the same XBert audit log. A run from chat is indistinguishable from an in-app run after the fact — same permissions, same artefacts, same compliance.",
     },
   ];
 
@@ -154,7 +132,7 @@ export default function InsideXBertPage() {
         transition={{ duration: 0.6, delay: 0.05 }}
         className="text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05] max-w-4xl"
       >
-        These plugins are part of XBert.
+        The MCP is part of XBert.
       </motion.h1>
 
       <motion.p
@@ -163,8 +141,8 @@ export default function InsideXBertPage() {
         transition={{ duration: 0.6, delay: 0.15 }}
         className="mt-6 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-3xl leading-relaxed"
       >
-        Every workflow here also lives as a screen inside the XBert app. Same
-        data, same rules, same audit trail — two ways in.
+        Every workflow your assistant runs also lives as a screen inside the
+        XBert app. Same data, same rules, same audit trail — two ways in.
       </motion.p>
 
       <motion.div
@@ -182,12 +160,6 @@ export default function InsideXBertPage() {
           Open xbert.io
           <ExternalLink size={14} strokeWidth={2.5} aria-hidden />
         </a>
-        <Link
-          to="/plugins"
-          className="inline-flex items-center gap-2 rounded-md border border-black/15 bg-black/[0.03] text-neutral-900 hover:bg-black/[0.06] dark:border-white/15 dark:bg-white/[0.04] dark:text-white dark:hover:bg-white/[0.08] dark:hover:border-white/25 px-5 py-2.5 text-sm font-medium transition"
-        >
-          Browse plugins
-        </Link>
       </motion.div>
 
       {/* DUALITY: side-by-side */}
@@ -242,10 +214,9 @@ export default function InsideXBertPage() {
         </h2>
         <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 max-w-3xl leading-relaxed">
           XBert is built to surface the right information at the moment
-          you&apos;re doing the work. Claude takes that further: run the XBert
-          plugins in Claude Code or Claude Desktop and you get arbitrary output
-          formats, plus everything else in your stack pulled into a single
-          thread.
+          you&apos;re doing the work. Claude takes that further: connect the
+          XBert MCP and you get arbitrary output formats, plus everything else
+          in your stack pulled into a single thread.
         </p>
         <div className="mt-10 grid md:grid-cols-2 gap-4">
           {[
@@ -294,67 +265,6 @@ export default function InsideXBertPage() {
         </div>
       </section>
 
-      {/* MAPPING TABLE */}
-      <section className="mt-20">
-        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-          Every slash command maps to a feature in XBert
-        </h2>
-        <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 max-w-2xl">
-          How each published slash command lines up with screens in the
-          product. The data, rules, and audit trail are the same either way.
-        </p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.45 }}
-          className="mt-8 rounded-2xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] overflow-hidden"
-        >
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
-                  <th scope="col" className="text-left px-5 py-3 text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-400 font-medium">
-                    Plugin
-                  </th>
-                  <th scope="col" className="text-left px-5 py-3 text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-400 font-medium">
-                    What it does in chat
-                  </th>
-                  <th scope="col" className="text-left px-5 py-3 text-xs uppercase tracking-wider text-neutral-600 dark:text-neutral-400 font-medium">
-                    Where it lives in XBert
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {mappingRows.map((row, i) => (
-                  <tr
-                    key={row.plugin}
-                    className={
-                      i === mappingRows.length - 1
-                        ? ""
-                        : "border-b border-black/5 dark:border-white/5"
-                    }
-                  >
-                    <td className="px-5 py-4 align-top">
-                      <span className="font-mono text-sm text-neutral-900 dark:text-neutral-100">
-                        {row.plugin}
-                      </span>
-                    </td>
-                    <td className="px-5 py-4 align-top text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                      {row.chat}
-                    </td>
-                    <td className="px-5 py-4 align-top text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                      {row.product}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </motion.div>
-      </section>
-
       {/* WHY BOTH SURFACES */}
       <section className="mt-20">
         <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
@@ -396,7 +306,7 @@ export default function InsideXBertPage() {
               Open xbert.io to see the product
             </h3>
             <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400 leading-relaxed">
-              See the same workflows as the plugins, organised as a full
+              See the same workflows your assistant runs, organised as a full
               practice product — with workflow templates, schedules, role-based
               assignment, and a persistent audit trail.
             </p>
@@ -416,12 +326,6 @@ export default function InsideXBertPage() {
                 className="transition-transform group-hover:translate-x-0.5"
               />
             </a>
-            <Link
-              to="/plugins"
-              className="inline-flex items-center gap-2 rounded-md border border-black/15 bg-black/[0.03] text-neutral-900 hover:bg-black/[0.06] dark:border-white/15 dark:bg-white/[0.04] dark:text-white dark:hover:bg-white/[0.08] dark:hover:border-white/25 px-5 py-2.5 text-sm font-medium transition"
-            >
-              Or install a plugin
-            </Link>
           </div>
         </motion.div>
       </section>
