@@ -15,7 +15,7 @@ export interface ChipProps {
 /**
  * Small pill chip, matching the existing badge idiom.
  *
- *   <Chip icon={<Sparkles size={12} />}>200 tools · Works with Claude and Claude Code · ChatGPT with extra setup</Chip>
+ *   <Chip icon={<Sparkles size={12} />}>Works with Claude and Claude Code · ChatGPT with extra setup</Chip>
  *   <Chip variant="accent">Makes changes — flagged for approval</Chip>
  */
 export function Chip({ children, variant = "default", icon, className = "" }: ChipProps) {

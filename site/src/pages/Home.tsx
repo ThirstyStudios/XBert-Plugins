@@ -104,7 +104,7 @@ const FAQS = [
   {
     question: "What is the XBert MCP?",
     answer:
-      "MCP stands for Model Context Protocol — a standard, secure way for an AI assistant like Claude or ChatGPT to connect to software your practice already uses and work with it on your behalf. The XBert MCP connects your assistant to XBert: live client ledger data, alerts, workflow and practice management. You ask in plain English; the assistant uses XBert's 200 tools to answer, and to draft work for your review.",
+      "MCP stands for Model Context Protocol — a standard, secure way for an AI assistant like Claude or ChatGPT to connect to software your practice already uses and work with it on your behalf. The XBert MCP connects your assistant to XBert: live client ledger data, alerts, workflow and practice management. You ask in plain English; the assistant uses XBert's tools to answer, and to draft work for your review.",
   },
   {
     question: "Do I need to be technical to use it?",
@@ -159,7 +159,7 @@ export default function HomePage() {
                 className="mb-8"
               >
                 <Chip icon={<Sparkles size={12} aria-hidden className="text-xbert-indigo dark:text-xbert-cyan" />}>
-                  {"200 tools · Works with Claude and Claude Code · ChatGPT with extra setup"}
+                  {"Works with Claude and Claude Code · ChatGPT with extra setup"}
                 </Chip>
               </motion.div>
 
@@ -348,7 +348,7 @@ export default function HomePage() {
             to="/features"
             className="group inline-flex items-center gap-1 text-sm text-xbert-indigo dark:text-xbert-cyan hover:underline flex-shrink-0"
           >
-            See all 11 capability areas
+            See everything it can do
             <ArrowRight
               size={14}
               aria-hidden
@@ -450,7 +450,7 @@ export default function HomePage() {
 
       {/* §6 FEATURES PREVIEW */}
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
-        <SectionHeading title="200 tools: your clients' books, and the practice behind them." />
+        <SectionHeading title="Your clients' books, and the practice behind them." />
         <div className="grid md:grid-cols-2 gap-4 mt-8">
           {CLUSTERS.map((c, i) => (
             <CapabilityCard

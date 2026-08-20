@@ -17,7 +17,7 @@ export const ROUTE_META = {
   home: {
     title: "XBert MCP — every client, every job, one question away",
     description:
-      "Connect Claude, Claude Code or any MCP-aware assistant to XBert — 200 tools across your clients' books and your practice's own jobs, WIP and capacity. ChatGPT with extra setup.",
+      "Connect Claude, Claude Code or any MCP-aware assistant to XBert — your clients' books and your practice's own jobs, WIP and capacity, all in plain English. ChatGPT with extra setup.",
     path: "/",
   },
   getStarted: {
@@ -27,7 +27,7 @@ export const ROUTE_META = {
     path: "/get-started",
   },
   features: {
-    title: "XBert MCP features — 200 tools in plain English",
+    title: "XBert MCP features — what your assistant can do",
     description:
       "What Claude, Claude Code or your AI does with XBert — every capability area in plain English: receivables, payables, payroll, reporting, WIP, capacity, alerts.",
     path: "/features",
