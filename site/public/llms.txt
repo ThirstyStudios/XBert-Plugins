@@ -40,7 +40,7 @@ Before you begin you need three things: an XBert account with your clients' file
 
 ## Capability areas
 
-The eleven areas run across both halves of the week — your clients' books, and how your own practice is tracking — and are listed here in the same order, and under the same anchors, as https://intelligence.xbert.io/features. Areas marked "makes changes" can draft work that alters data. Those writes are validated, duplicate-checked and marked as changes to confirm, so the assistant asks before submitting; the audit log records every action either way.
+The areas run across both halves of the week — your clients' books, and how your own practice is tracking — and are listed here in the same order, and under the same anchors, as https://intelligence.xbert.io/features. Areas marked "makes changes" can draft work that alters data. Those writes are validated, duplicate-checked and marked as changes to confirm, so the assistant asks before submitting; the audit log records every action either way.
 
 1. **Invoices, quotes & receivables** (https://intelligence.xbert.io/features#receivables) — every invoice, quote, credit note, overpayment and prepayment; quick totals first, then the full paper trail with line items. Aged receivables summaries show who owes what, and for how long.
 2. **Bills, POs & payables** (https://intelligence.xbert.io/features#payables) — supplier bills, purchase orders, payments and batch payment runs, plus aged payables, so "what do we owe and when?" is a question, not an afternoon.
