@@ -31,7 +31,7 @@ const ASK_PROMPTS = [
   "Who owes us the most right now, across every client?",
   "Who's over capacity next week, and which jobs are running behind?",
   "What fired in XBert this week? Anything urgent?",
-  "How much WIP is sitting on Fisher & Co, and how recoverable is it?",
+  "How many WIP hours are sitting on Fisher & Co, and how recoverable are they?",
   "Run last quarter's P&L for Bayside Cafe and compare it to budget.",
   "Draft a task for the tax coding fix and assign it to Priya — I'll review it first.",
 ];
@@ -46,9 +46,9 @@ const TRUST_ROWS: { can: string; never: string }[] = [
     never: "Learn your XBert password — you sign in with XBert itself",
   },
   {
-    can: "Propose actions for you to approve, with an audit trail",
+    can: "Draft changes for your approval, with an audit trail on every action",
     never:
-      "Change the books without showing you first — every action is proposed, never auto-applied",
+      "Act outside your XBert permissions, or make a change that isn't written to the audit log",
   },
   {
     can: "Work only while connected",
@@ -65,7 +65,7 @@ const CLUSTERS = [
   },
   {
     title: "The firm's own numbers",
-    body: "Jobs, timesheets, WIP and recoverability. Team capacity against the time actually worked, so you can see who's stretched and who has room. From Xero Practice Manager, if that's where your practice runs.",
+    body: "Jobs, timesheets, WIP and recoverability. WIP comes through as time — hours, not dollars. Team capacity against the time actually worked, so you can see who's stretched and who has room. From Xero Practice Manager, if that's where your practice runs.",
     icon: <Users size={18} aria-hidden className="text-xbert-indigo dark:text-xbert-cyan" />,
   },
   {
@@ -114,22 +114,22 @@ const FAQS = [
   {
     question: "Which AI assistants work with it?",
     answer:
-      "Claude on the web and Claude Desktop (via Settings → Connectors), Claude Code, and any other assistant that supports MCP connectors — including ChatGPT. Plugins are the one exception: they run in Claude Code and Claude Desktop.",
+      "Claude on the web and Claude Desktop (via Settings → Connectors), Claude Code, and any other assistant that supports MCP connectors. ChatGPT works too, with more setting up — see Get started for what your plan and your workspace admin need to allow.",
   },
   {
     question: "Is my client data safe?",
     answer:
-      "You sign in with your XBert account using OAuth, so your credentials stay with XBert and the assistant inherits your XBert role — it can only see what you can see. Changes are proposed with an audit trail rather than silently applied, and you can disconnect the assistant at any time.",
+      "You sign in with your XBert account using OAuth, so your credentials stay with XBert and the assistant inherits your XBert role — it can only see what you can see. Write actions are marked for your assistant to confirm, and every action is written to the XBert audit log. You can disconnect the assistant at any time.",
   },
   {
     question: "Can the assistant change my clients' books without me?",
     answer:
-      "No. Write actions — creating a bill, recording a payment, updating a contact — are validated, checked for duplicates and proposed for your review before anything is submitted. You stay the sign-off on everything.",
+      "Not without it being put to you first. Write actions — creating a bill, recording a payment, updating a contact — are validated, checked for duplicates and marked as changes to confirm, which is what makes Claude and other MCP clients stop and ask you before submitting. The approval step runs in your assistant; the permission check, the validation and the audit-log entry are XBert's.",
   },
   {
-    question: "What's the difference between the MCP and the plugins?",
+    question: "Which clients can my assistant work with?",
     answer:
-      "The MCP is the connection: 200 tools your assistant can use to answer any ad-hoc question about your practice. Plugins are ready-made workflows built on those same tools — a whole job packaged into slash commands and skills for Claude Code or Claude Desktop. Start with the MCP; add plugins when you find yourself running the same routine every week.",
+      "Two things decide what your assistant can reach: your XBert role, and the client's plan. Role is the one most people think of — if you can't see a client in XBert, your assistant can't either. The second is the plan: the data and reporting tools only run for clients on an AI-enabled plan, so a client on another plan will answer for tasks, templates and notes, but not for its books. That isn't a fault when it happens; it's the plan.",
   },
   {
     question: "Do I need a new account or login?",
@@ -159,7 +159,7 @@ export default function HomePage() {
                 className="mb-8"
               >
                 <Chip icon={<Sparkles size={12} aria-hidden className="text-xbert-indigo dark:text-xbert-cyan" />}>
-                  {"200 tools · Works with Claude, ChatGPT & Claude Code"}
+                  {"200 tools · Works with Claude and Claude Code · ChatGPT with extra setup"}
                 </Chip>
               </motion.div>
 
@@ -180,7 +180,7 @@ export default function HomePage() {
                 className="mt-7 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed"
               >
                 {
-                  "You already use Claude or ChatGPT for the words — the XBert MCP puts that same assistant to work on the actual books: your clients' live ledgers, alerts and workflow. And — if you run Xero Practice Manager — the jobs, WIP and capacity that show how your own practice is running. You ask in plain English, it does the digging, and nothing changes without your say-so."
+                  "You already use Claude or ChatGPT for the words — the XBert MCP puts that same assistant to work on the actual books: your clients' live ledgers, alerts and workflow. And — if you run Xero Practice Manager — the jobs, WIP and capacity that show how your own practice is running. You ask in plain English, it does the digging, and anything that changes the books is flagged for your approval first."
                 }
               </motion.p>
 
@@ -274,7 +274,7 @@ export default function HomePage() {
                   <span className="font-mono text-neutral-900 dark:text-neutral-100 break-words">
                     {MCP_ADDRESS}
                   </span>
-                  {". That's the whole technical bit, done."}
+                  {". That's the whole technical bit on Claude, done."}
                 </>
               ),
             },
@@ -299,7 +299,7 @@ export default function HomePage() {
             to="/get-started"
             className="group inline-flex items-center gap-2 self-start rounded-md bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-5 py-2.5 text-sm font-semibold shadow-lg shadow-xbert-indigo/20 ring-1 ring-black/10 dark:ring-white/40 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition"
           >
-            {"Get connected — about five minutes"}
+            {"Get connected — about five minutes on Claude"}
             <ArrowRight
               size={16}
               strokeWidth={2.5}
@@ -342,7 +342,7 @@ export default function HomePage() {
           className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
         >
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            {"Every answer comes from live XBert data, under your own login — not the assistant's memory."}
+            {"Every answer comes from live XBert data, under your own login — not the assistant's memory. Data questions need the client on an AI-enabled plan."}
           </p>
           <Link
             to="/features"
@@ -363,7 +363,7 @@ export default function HomePage() {
         <SectionHeading
           title="You stay the reviewer."
           lead={
-            "Think of it as giving a very capable new team member a supervised login. Letting an assistant near the books is a big step — here is exactly where the lines are."
+            "Think of it as giving a very capable new team member a supervised login. Letting an assistant near the books is a big step — here is exactly where the lines are. Every write is validated and checked for duplicates first, and each one is marked as a change to confirm, so your assistant stops and asks before it submits. That approval prompt belongs to the assistant rather than to XBert — what XBert guarantees is your permissions, the validation and an audit-log entry on every action."
           }
         />
         <motion.div
@@ -436,7 +436,7 @@ export default function HomePage() {
         >
           <div className="flex flex-wrap items-center gap-2">
             <Chip>Your role, exactly</Chip>
-            <Chip>Proposed, not posted</Chip>
+            <Chip>Flagged for your approval</Chip>
             <Chip>Audit trail on every action</Chip>
           </div>
           <Link
@@ -483,62 +483,9 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* §7 PLUGINS AS A FEATURE */}
-      <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
-        <div className="rounded-2xl border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.02] p-6 md:p-8 grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <SectionHeading
-              as="h2"
-              title="Ready-made workflows, when you don't want to start from scratch."
-              lead={
-                <>
-                  {"Plugins package the MCP's tools into slash commands and skills for Claude Code and Claude Desktop — "}
-                  <span className="font-mono text-neutral-900 dark:text-neutral-100 whitespace-nowrap">
-                    /anomaly-review
-                  </span>
-                  {", "}
-                  <span className="font-mono text-neutral-900 dark:text-neutral-100 whitespace-nowrap">
-                    /config-audit
-                  </span>
-                  {", "}
-                  <span className="font-mono text-neutral-900 dark:text-neutral-100 whitespace-nowrap">
-                    /workflow-review
-                  </span>
-                  {" — each one a practice job with the steps and the output already decided. Same data, same permissions, same audit trail. Just less typing."}
-                </>
-              }
-            />
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Link
-                to="/plugins"
-                className="inline-flex items-center gap-2 rounded-md border border-black/15 bg-black/[0.03] text-neutral-900 hover:bg-black/[0.06] dark:border-white/15 dark:bg-white/[0.04] dark:text-white dark:hover:bg-white/[0.08] dark:hover:border-white/25 px-5 py-2.5 text-sm font-medium transition"
-              >
-                Browse the plugins
-              </Link>
-              <Chip>Requires Claude Code or Claude Desktop</Chip>
-            </div>
-          </div>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.45 }}
-            className="rounded-2xl border border-black/10 dark:border-white/10 bg-xbert-canvas dark:bg-xbert-ink p-4 md:p-6 overflow-hidden"
-          >
-            <ThemeImage
-              lightSrc="/illustrations/plugins-blocks-light.svg"
-              darkSrc="/illustrations/plugins-blocks.svg"
-              width={1216}
-              height={896}
-              className="w-full h-auto rounded-xl"
-            />
-          </motion.div>
-        </div>
-      </section>
-
       {/* §8 SOCIAL PROOF */}
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
-        <SectionHeading title={"Firms call XBert “like an additional team member”. Now it works inside your AI."} />
+        <SectionHeading title={"These firms are talking about XBert itself. The MCP is the same work, in the chat window."} />
         <div className="grid md:grid-cols-3 gap-4 mt-8">
           {QUOTES.map((q, i) => (
             <QuoteCard
@@ -557,7 +504,7 @@ export default function HomePage() {
           transition={{ duration: 0.4 }}
           className="mt-6 text-sm text-neutral-500 dark:text-neutral-400"
         >
-          From xbert.io customer stories.
+          From xbert.io customer stories. These are about the XBert platform, not the MCP.
         </motion.p>
       </section>
 

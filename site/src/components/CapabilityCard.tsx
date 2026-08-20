@@ -14,7 +14,7 @@ export interface CapabilityCardProps {
   body: string;
   /** Optional "Ask it" prompts (verbatim, no surrounding quotes). */
   prompts?: string[];
-  /** Render the `Proposes changes — you approve` chip. */
+  /** Render the `Makes changes — flagged for approval` chip. */
   approveChip?: boolean;
   /** Optional lucide icon (size 18) for cluster cards on Home. */
   icon?: ReactNode;
@@ -70,7 +70,7 @@ export function CapabilityCard({
             {eyebrow}
           </div>
         )}
-        {approveChip && <Chip variant="accent">Proposes changes — you approve</Chip>}
+        {approveChip && <Chip variant="accent">Makes changes — flagged for approval</Chip>}
       </div>
       <h3 className="mt-2 text-xl md:text-2xl font-semibold tracking-tight">{title}</h3>
       <p className="mt-3 text-sm md:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed max-w-3xl">

@@ -64,9 +64,9 @@ const AREAS: Area[] = [
     name: "Practice management (Xero Practice Manager)",
     eyebrow: "Area 04 — Practice management (Xero Practice Manager)",
     title: "Run the firm like a business.",
-    body: "If your practice runs Xero Practice Manager, this is where the assistant looks at you rather than your clients: XPM clients and jobs — tasks, milestones, staff — plus timesheets, WIP and recoverability, and a live read on team capacity versus actual time. The partner questions, answered before the partner asks.",
+    body: "If your practice runs Xero Practice Manager, this is where the assistant looks at you rather than your clients: XPM clients and jobs — tasks, milestones, staff — plus timesheets, WIP and recoverability, and a live read on team capacity versus actual time. WIP comes through as time — hours, not dollars. The partner questions, answered before the partner asks.",
     prompts: [
-      "How much WIP is sitting on Fisher & Co, and how much will we recover?",
+      "How many WIP hours are sitting on Fisher & Co, and how recoverable are they?",
       "Who has capacity next week, and who's already over?",
       "Show me the milestones and staff on Glenview Homes' year-end job.",
     ],
@@ -152,9 +152,9 @@ const AREAS: Area[] = [
     name: "Accounting write-back",
     eyebrow: "Area 11 — Accounting write-back",
     title: "Stop re-keying.",
-    body: "Create and update contacts, create bills and bank transactions from documents, record bill payments and bank transfers, and add comments, statuses, reminders and file attachments to tasks. Every write is validated and checked against duplicates before anything is submitted to Xero, QuickBooks, MYOB or FreeAgent — and it's proposed to you first. The assistant does the entry; you do the approving.",
+    body: "Create and update contacts, create bills and bank transactions from documents, record bill payments and bank transfers, and add comments, statuses, reminders and file attachments to tasks. Every write is validated and checked against duplicates before anything is submitted to Xero, QuickBooks, MYOB or FreeAgent — and each one is marked as a change to confirm, so your assistant stops and asks before it submits. The assistant does the entry; you do the approving.",
     prompts: [
-      "Create this supplier bill from the invoice details — check it's not a duplicate first.",
+      "Process the invoice that just landed on this task — create the supplier bill, and check it's not a duplicate first.",
       "Set up the new supplier as a contact and put a reminder on the task.",
       "Record the transfer between the trading and savings accounts.",
     ],
@@ -169,7 +169,7 @@ const COMPOSE_STEPS = [
   },
   {
     title: "Sum up.",
-    body: "Totals first. “How much is overdue?” “How much WIP are we carrying?”",
+    body: "Totals first. “How much is overdue?” “How many WIP hours are we carrying?”",
   },
   {
     title: "Drill in.",
@@ -177,7 +177,7 @@ const COMPOSE_STEPS = [
   },
   {
     title: "Act — with your review.",
-    body: "Anything that changes the books is proposed first. You approve, amend or bin it.",
+    body: "Anything that changes the books is flagged for your approval first. You approve, amend or bin it.",
   },
 ];
 
@@ -277,10 +277,10 @@ export default function FeaturesPage() {
           className="mt-10 max-w-3xl"
         >
           <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
-            {`Here's the shape in the wild: “Who owes us the most across the practice?” gets a summary. “Show me Harbour Landscaping's overdue invoices” gets the records. “Draft a chase task and assign it to Priya” gets a proposed action — which you approve, amend or bin. The same four moves answer “how much WIP are we carrying?” and “who's over next week?” just as readily. You'll fall into the rhythm without thinking about it.`}
+            {`Here's the shape in the wild: “Who owes us the most across the practice?” gets a summary. “Show me Harbour Landscaping's overdue invoices” gets the records. “Draft a chase task and assign it to Priya” gets an action flagged for your approval — which you approve, amend or bin. The same four moves answer “how many WIP hours are we carrying?” and “who's over next week?” just as readily. You'll fall into the rhythm without thinking about it.`}
           </p>
           <p className="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
-            Numbers first. Detail second. Changes only with your OK.
+            Numbers first. Detail second. Changes flagged for your approval.
           </p>
         </motion.div>
       </section>
@@ -340,7 +340,7 @@ export default function FeaturesPage() {
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
         <SectionHeading
           title="The rules don't change as you go deeper."
-          lead="Every area above runs under the same three rules: the assistant only sees what your XBert role allows; anything that changes the books is validated, duplicate-checked and proposed for your review; and everything is recorded with an audit trail. Depth of capability, not depth of risk."
+          lead="Every area above runs under the same three rules: the assistant only sees what your XBert role allows; every write is validated, checked for duplicates and marked as a change to confirm, so your assistant stops and asks before it submits; and every action is written to the audit log. That approval prompt belongs to the assistant rather than to XBert. One thing worth checking: the data and reporting tools only run for clients on an AI-enabled plan. A client on any other plan still works for the workflow side — tasks, templates and notes — but ask about its books and the assistant will come back and say the plan doesn't allow it. Depth of capability, not depth of risk."
         />
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -350,7 +350,7 @@ export default function FeaturesPage() {
           className="mt-6 flex flex-wrap gap-2"
         >
           <Chip>Your role, exactly</Chip>
-          <Chip>Proposed, not posted</Chip>
+          <Chip>Flagged for your approval</Chip>
           <Chip>Audit trail on every action</Chip>
         </motion.div>
       </section>
@@ -359,9 +359,8 @@ export default function FeaturesPage() {
       <section className="max-w-6xl mx-auto px-6 py-14 md:py-20">
         <CtaBand
           heading="Stop reading. Start asking."
-          body="Pick one client and ask one question — that's genuinely the best way in. Connect your assistant, ask about aged receivables or this week's WIP, and see what comes back."
+          body="Pick one client and ask one question — that's genuinely the best way in. Connect your assistant, ask about aged receivables or this week's WIP hours, and see what comes back."
           primary={{ label: "Get connected", to: "/get-started" }}
-          secondary={{ label: "Start from a ready-made workflow", to: "/plugins" }}
         />
       </section>
     </div>

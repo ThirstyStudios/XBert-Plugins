@@ -10,7 +10,8 @@
  *   2. renders every route in lib/route-meta's prerenderRoutes() to a string,
  *   3. injects that markup into dist/index.html at <div id="root"></div> and
  *      rewrites the head tags for that route,
- *   4. writes dist/<route>/index.html.
+ *   4. writes dist/<route>/index.html,
+ *   5. writes dist/sitemap.xml from the same route list.
  *
  * Azure Static Web Apps matches a request against the uploaded static files
  * first and only falls through to navigationFallback when nothing matches, so
@@ -113,6 +114,26 @@ for (const meta of prerenderRoutes()) {
   console.log(
     `[prerender] ${meta.path.padEnd(32)} ${String(Buffer.byteLength(html)).padStart(7)} bytes  ${path.relative(siteRoot, file)}`
   );
+}
+
+// sitemap.xml is written from the same prerenderRoutes() list rather than kept
+// by hand in public/, so a route can never be added or removed without it.
+{
+  const today = new Date().toISOString().slice(0, 10);
+  const routes = prerenderRoutes();
+  const urls = routes.map(
+    (meta) =>
+      `  <url><loc>${SITE_ORIGIN}${meta.path}</loc><lastmod>${today}</lastmod></url>`
+  );
+  const xml = [
+    `<?xml version="1.0" encoding="UTF-8"?>`,
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
+    ...urls,
+    `</urlset>`,
+    ``,
+  ].join("\n");
+  await writeFile(path.join(distDir, "sitemap.xml"), xml, "utf8");
+  console.log(`[prerender] ${"sitemap.xml".padEnd(32)} ${routes.length} urls`);
 }
 
 // Static Web Apps needs a dedicated file for its 404 responseOverride: pointing

@@ -4,15 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "predev": "node ../scripts/build-catalog.mjs",
     "dev": "vite",
-    "prebuild": "node ../scripts/build-catalog.mjs",
     "build": "tsc -b && vite build && node scripts/prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
     "lucide-react": "^0.469.0",
-    "minisearch": "^7.1.0",
     "motion": "^11.15.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

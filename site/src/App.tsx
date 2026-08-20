@@ -6,8 +6,6 @@ import { Footer } from "./components/Footer";
 import HomePage from "./pages/Home";
 import GetStartedPage from "./pages/GetStarted";
 import FeaturesPage from "./pages/Features";
-import PluginsPage from "./pages/Plugins";
-import PluginDetailPage from "./pages/PluginDetail";
 import InsideXBertPage from "./pages/InsideXBert";
 import NotFoundPage from "./pages/NotFound";
 
@@ -48,8 +46,6 @@ function AnimatedRoutes() {
           <Route path="/" element={<HomePage />} />
           <Route path="/get-started" element={<GetStartedPage />} />
           <Route path="/features" element={<FeaturesPage />} />
-          <Route path="/plugins" element={<PluginsPage />} />
-          <Route path="/plugins/:slug" element={<PluginDetailPage />} />
           <Route path="/inside-xbert" element={<InsideXBertPage />} />
           <Route path="/connect" element={<Navigate to="/get-started" replace />} />
           <Route path="/install" element={<Navigate to="/get-started" replace />} />

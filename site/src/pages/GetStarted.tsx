@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { motion } from "motion/react";
 import { Check, Info } from "lucide-react";
 import { usePageMeta } from "../lib/seo";
@@ -33,7 +32,10 @@ const CHECKLIST = [
         With your clients' files connected as usual — Xero, QuickBooks, MYOB or FreeAgent,
         plus Xero Practice Manager if you use it: XPM is what powers the practice-side
         questions about jobs, WIP and capacity. The MCP works with what's already in
-        XBert. Not on XBert yet? Start at{" "}
+        XBert. One thing worth checking: the data and reporting tools only run for clients
+        on an AI-enabled plan. A client on any other plan still works for the workflow
+        side — tasks, templates and notes — but ask about its books and the assistant will
+        come back and say the plan doesn't allow it. Not on XBert yet? Start at{" "}
         <a href="https://xbert.io" target="_blank" rel="noopener noreferrer" className={LINK}>
           xbert.io
         </a>
@@ -43,11 +45,17 @@ const CHECKLIST = [
   },
   {
     n: "02",
-    title: "Claude, ChatGPT or another AI that speaks MCP",
+    title: "Claude, or another AI that speaks MCP",
     body: (
       <>
-        Claude on the web or Desktop, Claude Code in the terminal, or any other assistant
-        that supports MCP connectors.
+        Claude is the straightforward path — web, Desktop or Claude Code, and you paste one
+        address. ChatGPT takes more setting up. Custom MCP connectors sit behind developer
+        mode, which is web only and lives under Apps (labelled Plugins on some accounts) in
+        settings; on a Business, Enterprise or Edu workspace an admin has to switch it on
+        and publish the connector before anyone else can use it. Those workspace plans are
+        also the only place OpenAI has released write actions, and they are still in beta.
+        On Plus or Pro, treat XBert as read-only: OpenAI's help centre says Pro can connect
+        an MCP with read and fetch permissions only, and doesn't list Plus at all.
       </>
     ),
   },
@@ -58,8 +66,10 @@ const CHECKLIST = [
       <>
         That's the security model in one line: the assistant signs in as you and can only
         see what your XBert role allows. If you can't see a client in XBert, your
-        assistant can't either. If connector settings are locked in your workspace, ask
-        your admin to switch them on.
+        assistant can't either. Role isn't the only gate, though — the client's plan
+        decides whether the data tools answer at all. On a workspace plan, connector
+        settings are usually an admin's to switch on — ChatGPT in particular needs one to
+        enable developer mode before you can add anything.
       </>
     ),
   },
@@ -158,17 +168,13 @@ const CONNECT_TABS = [
             },
             {
               title: "",
-              body: <>Ask in plain English — or add plugins for slash-command workflows.</>,
+              body: <>Ask in plain English.</>,
             },
           ]}
         />
         <p className="mt-6 text-sm text-neutral-600 dark:text-neutral-400">
           On an older Claude Code? Run <span className={MONO}>claude mcp add --help</span>{" "}
-          to check the syntax. Plugins live at{" "}
-          <Link to="/plugins" className={`font-mono ${LINK}`}>
-            /plugins
-          </Link>
-          .
+          to check the syntax.
         </p>
       </div>
     ),
@@ -202,7 +208,10 @@ const CONNECT_TABS = [
         />
         <p className="mt-6 text-sm text-neutral-600 dark:text-neutral-400">
           If your assistant asks for a transport type, choose HTTP (sometimes shown as
-          &ldquo;streamable HTTP&rdquo;). If it speaks MCP, it speaks XBert.
+          &ldquo;streamable HTTP&rdquo;). ChatGPT is the one that needs more than an
+          address: developer mode has to be switched on first, and on Plus or Pro you
+          should treat XBert as read-only. The conditions are set out in full under
+          &ldquo;What you need&rdquo; above.
         </p>
       </div>
     ),
@@ -228,7 +237,7 @@ const ACCESS_BLOCKS = [
   },
   {
     title: "Everything leaves a trail.",
-    body: "Actions are proposed and recorded with an audit trail, so you can always see what was asked and what was done.",
+    body: "Every write is validated and checked for duplicates first, and each one is marked as a change to confirm, so your assistant stops and asks before it submits. That approval prompt belongs to the assistant rather than to XBert — what XBert guarantees is your permissions, the validation and an audit-log entry on every action.",
   },
 ];
 
@@ -272,7 +281,7 @@ export default function GetStartedPage() {
                 transition={{ duration: 0.5 }}
                 className="mb-8"
               >
-                <Chip>Works with Claude · Claude Code · ChatGPT &amp; other MCP-aware assistants</Chip>
+                <Chip>Works with Claude · Claude Code · ChatGPT with extra setup</Chip>
               </motion.div>
 
               <motion.h1
@@ -281,7 +290,7 @@ export default function GetStartedPage() {
                 transition={{ duration: 0.6, delay: 0.05 }}
                 className="text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05]"
               >
-                Connected in about five minutes.
+                Connected to Claude in about five minutes.
               </motion.h1>
 
               <motion.p
@@ -291,9 +300,11 @@ export default function GetStartedPage() {
                 className="mt-6 text-lg md:text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed"
               >
                 No code, no API keys, nothing to install on a server. You paste one address
-                into Claude, ChatGPT or whichever AI you use, sign in with your XBert account,
-                and start asking — about a client's books, or about how the practice itself is
-                tracking. Most people get their first real answer before the kettle's boiled.
+                into Claude, sign in with your XBert account, and start asking — about a
+                client's books, or about how the practice itself is tracking. ChatGPT takes
+                more setting up — what your plan and your workspace admin have to allow is
+                below. On Claude, most people get their first real answer before the
+                kettle's boiled.
               </motion.p>
 
               <motion.div
@@ -469,7 +480,6 @@ export default function GetStartedPage() {
         <CtaBand
           heading="Connected? Here's where it gets fun."
           primary={{ label: "See everything you can ask", to: "/features" }}
-          secondary={{ label: "Browse ready-made workflows", to: "/plugins" }}
         />
       </section>
     </div>
